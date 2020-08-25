@@ -1,0 +1,104 @@
+<extend name="Public/bases" />
+<block name="body">
+	<link href="__CSS__/game.css" type="text/css" rel="stylesheet">
+
+	<!--游戏中心-->
+	<div class="contbg game-center-list">
+		<div class="g-main game_center">
+			<div class="type-menu">
+			</div>
+			<div class="js-type-content show">
+				<div class="game-select-box fix">
+					<if condition='I("get.ish5") neq 1'>
+						<div class="game-type">
+							<span>平台:</span>
+							<a href="{:U('Game/index',array('ish5'=>$ish5,'game_type'=>$gt,'theme'=>$t))}" class="<if condition='I("get.sdk_version") eq ""'>active </if>">不限</a>
+							<a href="{:U('Game/index',array('ish5'=>$ish5,'game_type'=>$gt,'theme'=>$t,'sdk_version'=>1))}" class="<if condition='I("get.sdk_version") eq 1'>active </if>">Android</a>
+							<a href="{:U('Game/index',array('ish5'=>$ish5,'game_type'=>$gt,'theme'=>$t,'sdk_version'=>2))}" class="<if condition='I("get.sdk_version") eq 2'>active </if>">IOS</a>
+						</div>
+					</if>
+					<div class="game-type ">
+						<span>分类:</span>
+						<a href="{:U('Game/index',array('ish5'=>$ish5,'game_attribute'=>$sys,'theme'=>$t))}" class="<if condition='I("game_type") eq 0'>active</if>">不限</a>
+						<div class="fl" style="width: 90%;">
+						<volist name=':get_game_type_all()' id='vo' key='k'>
+							<a href="{:U('Game/index',array('ish5'=>$ish5,'game_attribute'=>$sys,'game_type'=>$vo['id'],'theme'=>$t))}" class="<if condition='I("game_type") eq $vo["id"]'> active </if>">{$vo.type_name}</a>
+						</volist>
+						</div>
+					</div>
+
+					<div class="game-theme">
+						<span>字母:</span>
+						<a href="{:U('Game/index',array('ish5'=>$ish5,'game_attribute'=>$sys,'game_type'=>$gt))}" class="<if condition='I("theme") eq ""'> active </if>">不限</a>
+						<div style="float: left; margin-left: 15px;">
+						<volist name=":zimu26()" id="zimu">
+							<a href="{:U('Game/index',array('ish5'=>$ish5,'game_attribute'=>$sys,'game_type'=>$gt,'theme'=>$zimu['value']))}" class="game-theme-item <if condition='I("theme") eq $zimu["value"]'> active </if>">{$zimu['value']}</a>
+						</volist>
+						</div>
+					</div>
+				</div>
+				<div class="game-content-box">
+					<ul class="game-list fix">
+						<empty name="list_data">
+							<div style="text-align: center;">没找到您搜索的内容。。。</div>
+							<else/>
+							<volist name="list_data" id="data">
+								<li class="laybox">
+									<a href="{$data.play_detail_url}" target="_self" class="img">
+										<span class="img-font"><span class="img-font-cell"><div class="img-font-text">{:C('SET_POSITION_IMG')}</div></span></span>
+										<img src="{$data.icon}" class="img-img" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null">
+									</a>
+									<div class="info">
+										<a href="{$data.play_detail_url}" target="_self" class="name">{$data.game_name}</a>
+										<div class="game-info">
+											<if condition="$data.sdk_version neq 3">
+												<span>
+													<if condition="$data.isannios eq 2">
+														<i class="pf-android" title="安卓版本"></i>
+														<i class="pf-ios" title="iso版本"></i>
+													<elseif condition="$data.sdk_version eq 1" />
+														<i class="pf-android" title="安卓版本"></i>
+													<else/>
+														<i class="pf-ios" title="ios版本"></i>
+													</if>
+												</span>
+												<em></em>
+											</if>
+											<span>{$data['real_game_score']}分</span>
+											<em></em>
+											<span>{$data.game_type_name}</span>
+											<em></em>
+											<if condition="$data.sdk_version neq 3">
+												<span><i>{$data.play_num}</i>下载</span>
+											<else/>
+												<span><i>{$data.play_num}</i>在玩</span>
+											</if>
+										</div>
+										<p class="intro"> 简介：{$data.features} </p>
+											<if condition='I("get.ish5") neq 1'>
+												<div class="opt">
+													<a href="{:$data['play_detail_url']}" class="g-btn download" target="_blank">下载游戏</a>
+												</div>
+											<else/>
+												<div class="opt h5opt">
+													<a href="{$data.play_url}" class="g-btn download" target="_blank">开始游戏</a>
+													<a href="{$data.play_detail_url}" target="_blank" class="g-btn enterhome">进入官网</a>
+												</div>
+											</if>
+									</div>
+								</li>
+							</volist>
+						</empty>
+					</ul>
+
+					<div class="clear"></div>
+					<div class="pagenation clearfix">
+						{$_page|default=''}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--游戏中心结束-->
+	
+</block>

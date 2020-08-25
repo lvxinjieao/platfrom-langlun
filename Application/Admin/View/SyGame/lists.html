@@ -1,0 +1,433 @@
+<extend name="Public/base"/>
+
+<block name="body">
+<style>
+    /*.navtab_list{ width:100%; border-bottom:1px solid #ddd; margin: 15px 0px; height: 65px;}*/
+    .navtab_list {
+            height: 36px;
+            border-bottom: solid 1px #d0dee5;
+            position: relative;
+            border-left: solid 1px #d3dbde;
+            margin: 15px 0px;
+        }
+        .navtab_list a {
+            float: left;
+            height: 37px;
+            line-height: 37px;
+            background: url(__IMG__/itabbg.png) repeat-x;
+            border-right: solid 1px #d3dbde;
+            font-size: 14px;
+            color: #000;
+            padding-left: 25px;
+            padding-right: 25px;
+            text-decoration: none;
+        }
+        .navtab_list a:hover {
+            border-bottom: 0;
+        }
+        .navtab_list a.tabchose {
+            text-decoration: none;
+            border-bottom: none;
+            color: #000;
+            height: 37px;
+            display: block;
+            background: url(__IMG__/itabbg1.png) repeat-x;
+            font-weight: bold;
+        }
+    .navtab_list_cs{ margin-top:20px;margin-left: 20px;}
+    .navtab_list_cs img{ margin:0px 8px;}
+    .data_list table td {
+        min-width: 50px;
+    }
+    .navtab_listbd {
+        height: 40px;
+        line-height: 50px;
+        float: left;
+    }
+    .navtab_listbd a{color: #404040;}
+    .navtab_listbd a:hover{border-bottom: 0;}
+    .djtable{ width: 100%; margin: 0 auto;}
+    .djtable tr{ height: 40px; line-height: 40px; border-bottom: 1px solid #ccc;}
+    .djtable tr td{ padding-left: 40px;}
+     .djtable tr td:first-child{ border-right: 1px solid #ccc;}
+  </style>
+<link rel="stylesheet" href="__CSS__/select2.min.css" type="text/css" />
+<script type="text/javascript" src="__JS__/bootstrap.min.js"></script>
+<script type="text/javascript" src="__JS__/select2.min.js"></script>
+    <!-- 标题栏 -->
+    <div class="main-place">
+        <span class="main-placetitle"></span>
+        <ul class="main-placeul">
+            <li><a href="{:U('SyGame/lists')}">游戏</a></li>
+            <li><a href="{:U('SyGame/lists')}">游戏管理</a></li>
+            <li><a href="#">{$meta_title}</a></li>
+        </ul>
+        <p class="description_text" style="height: 40px;line-height: 40px;">通过对接的自运营游戏为官方游戏，可进行cps渠道推广。</p>
+    </div>
+    <div class="cf top_nav_list navtab_list"> 
+        <a <if condition="CONTROLLER_NAME eq  'SyGame'"> class="tabchose" </if> href="{:U('SyGame/lists')}">手游</a>
+        <a <if condition="CONTROLLER_NAME eq  'Game'"> class="tabchose" </if> href="{:U('Game/lists')}">H5游戏</a>
+        <p class="description_text"></p>
+    </div>
+    <div class="cf top_nav_list">
+        <div class="fl button_list">
+        <empty name="model.extend">
+            <div class="tools">
+                <a class="" href="{:U('add?model='.$model['id'])}"><span class="button_icon button_icon1"></span>新 增</a>
+                <a class="ajax-post confirm change_btn" target-form="ids" url="{:U('del?model='.$model['id'])}"><span class="button_icon button_icon2"></span>删 除</a>
+                <label class="checked" style="margin-top: 10px;float: left;line-height: 20px;">
+                    <if condition="$GAME_AUTO_GUANLIAN eq 0">
+                        <input style="float: left;margin-right: 5px;" class="tabok AUTO_AUDIT" data-val="{$GAME_AUTO_GUANLIAN}" type="checkbox" value="" name="">
+                        <else/>
+                        <input style="float: left;margin-right: 5px;" class="tabok AUTO_AUDIT" data-val="{$GAME_AUTO_GUANLIAN}" type="checkbox" checked value="" name="">
+                    </if>
+                    <i class="check_icon"></i>
+                    <span>自动关联</span>
+                </label>
+            </div>
+        </empty>
+        </div>
+
+        <div class="jssearch fr cf search_list" style="margin-bottom:-15px;">
+            <!--游戏类型搜索END-->
+            <div class="input-list input-list-game search_label_rehab">
+                <label>游戏名称：</label>
+                <select id="game_id" name="game_name" class="select_gallery" >
+                    <option value="">请选择游戏</option>
+                    <volist name=":get_all_sygame()" id="vo">
+                        <option game-id="{$vo.id}" value="{$vo.game_name}">{$vo.game_name}</option>
+                    </volist>
+                </select>   
+            </div>
+            <div class="input-list input-list-platform search_label_rehab">
+                <select id="sdk_version" name="sdk_version" class="select_gallery">
+                    <option value="">运营平台</option>
+                    <option value="1">安卓</option>
+                    <option value="2">IOS</option>
+                </select>  
+            </div>
+            <div class="input-list input-list-game search_label_rehab">
+                <label>推荐状态：</label>
+                <select id="recommend_status" name="recommend_status" class="select_gallery" >
+                    <option value="">请选择推荐状态</option>
+                    <option value="0">不推荐</option>
+                    <option value="1">推荐</option>
+                    <option value="2">热门</option>
+                    <option value="3">最新</option>
+                    
+                </select>   
+            </div>
+
+            <div class="input-list input-list-game search_label_rehab">
+                <label>显示状态：</label>
+                <select id="game_status" name="game_status" class="select_gallery" >
+                    <option value="">请选择显示状态</option>
+                    <option value="1">显示</option>
+                    <option value="0">不显示</option>
+                </select>   
+            </div>
+            <input type="hidden" name="" value="" class="sortBy">
+            <div class="input-list">
+                <a class="sch-btn" href="javascript:;" id="search" url="{:U('SyGame/lists','model='.$model['name'],false)}">搜索</a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 数据列表 -->
+    <div class="data_list data_game_list">
+        <div class="">
+            <table>
+                <!-- 表头 -->
+                <thead>
+                    <tr>
+                        <th>
+                            <label class="checked">
+                                <input class="check-all" type="checkbox">
+                                <i class="check_icon"></i>
+                            </label>
+                        </th>
+                        <th>游戏ID</th>
+                        <th>游戏名称</th>
+                        <th>运营平台</th>
+                        <th>游戏类型</th>
+                        <th>游戏Appid</th>
+                        <th>推荐状态</th>
+                        <th>显示状态</th>
+                        <th ><a class="paixu" data-order='dow_num'><if condition="$userarpu_order eq 4 and  $userarpu_order_type eq 'dow_num'">下载次数▲<elseif condition="$userarpu_order eq 3 and $userarpu_order_type eq 'dow_num'"/>下载次数▼<else />下载次数 <img src="__IMG__/up-down.png" width="13px"></if></a></th>
+                        <th ><a class="paixu" data-order='sort'><if condition="$userarpu_order eq 4 and  $userarpu_order_type eq 'sort'">排序▲<elseif condition="$userarpu_order eq 3 and $userarpu_order_type eq 'sort'"/>排序▼<else />排序 <img src="__IMG__/up-down.png" width="13px"></if></a></th>
+                        <th>添加关联</th>
+                        <th style="width:10%;min-width:150px;">操作</th>
+                    </tr>
+                </thead>
+
+                <!-- 列表 -->
+                <tbody>
+                <empty name ="list_data">
+                <td colspan="14" class="text-center">aOh! 暂时还没有内容!</td>
+                <else />
+                    <volist name="list_data" id="data">
+                            <tr>
+                            <td>
+                                <label class="checked">
+                                    <input class="ids" type="checkbox" value="{$data['id']}" name="ids[]">
+                                    <i class="check_icon"></i>
+                                </label>
+                            </td>
+                            <td>{$data.id}</td>
+                            <td>{$data.game_name}</td>
+                            <td class="">{:get_systems_name($data['sdk_version'])}</td>
+                            
+                            <td>{:get_game_type_name($data['game_type_id'])}</td>
+                            <td>{$data.game_appid}</td>
+                            <td>{:get_recommend_type($data['recommend_status'],1)}</td> 
+                            <td>
+                                <div class="display_status">
+                                <span class="display_butnbox">
+                                    <empty name='data["game_status"]'>
+                                        <a href="{:U('SyGame/changeStatus',array('field'=>'game_status','value'=>1,'ids'=>$data['id']))}" class="ajax-get " style="color:#ff0000">
+                                            已关闭<!--关闭-->
+                                        </a> 
+                                    <else/> 
+                                        <a href="{:U('SyGame/changeStatus',array('field'=>'game_status','value'=>0,'ids'=>$data['id']))}" class="ajax-get ">
+                                            已开启<!--开启-->
+                                        </a>  
+                                    </empty>
+                                    
+                                </span>
+                                </div>
+                            </td>
+                            <td ><input class="chgculumn chgculumngame" data-url="{:U('Game/chgculumn',array('column'=>'dow_num','game_id'=>$data['id']))}"  type="text" oldval="{$data.dow_num}" value="{$data.dow_num}"> <span style="color: #5897fb;"></span></td>
+
+                            <td><input class="chgculumn chgculumngame" data-url="{:U('Game/chgculumn',array('column'=>'sort','game_id'=>$data['id']))}"  type="text" oldval="{$data.sort}" value="{$data.sort}"><span style="color: #5897fb;"></span></td>
+
+                            <td>
+                                <if condition="get_relation_game($data['id'],$data['relation_game_id']) eq false">
+                                    <div class="relation_add">
+                                        <span class="relation_butnbox yes">
+                                            <a style="color:#0099FF" href="{:U('relation',array('id'=>$data['id']))}">未关联</a>
+                                        </span>
+                                    </div>
+                                    
+                                <elseif condition="get_relation_game($data['id'],$data['relation_game_id']) eq true" />
+                                    <div class="relation_add">
+                                        <span class="relation_butnbox yes">
+                                            已关联
+                                        </span>
+                                    </div>
+                                <else/>
+                                    <span class="relation_add_error">该游戏关联数据错误</span>
+                                </if>
+                            </td>
+                            <td>
+                                <a href="{:U('SyGame/edit?id='.$data['id'].'&type=1&p='.I('p',1))}">编辑</a>
+                                <a href="{:U('SyGame/del?ids='.$data['id'])}" class="confirm ajax-get">删除</a>
+                                <a href="javascript:void(0);" data-game_id="{$data.id}" data-game_name="{$data.game_name}"  data-game_appid="{$data.game_appid}"  class="duij">对接参数</a>
+                            </td>
+                        </tr>
+                    </volist>
+                    </empty>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="page">
+        {$_page|default=''}
+    </div>
+    {:W('index/comset',['title'=>$meta_title,'url'=>'Game/lists'])}
+
+</block>
+
+<block name="script">
+<script src="__STATIC__/layer/layer.js"></script>
+<script>
+<volist name=":I('get.')" id="vo">
+    Think.setValue('{$key}',"{$vo}");
+</volist>
+$(".select_gallery").select2();
+</script>
+<script type="text/javascript">
+//导航高亮
+highlight_subnav('{:U('SyGame/lists')}');
+change_class();
+$(function(){
+    //搜索功能
+    $("#search").click(function(){
+        var url = $(this).attr('url');
+        var query  = $('.jssearch').find('input').serialize();
+        query  += "&"+$('.jssearch').find('select').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+        window.location.href = url;
+    });
+
+    //回车自动提交
+    $('.jssearch').find('input').keyup(function(event){
+        if(event.keyCode===13){
+            $("#search").click();
+        }
+    });
+    $(".paixu").click(function(){
+        var that=$(this);
+        $data_order=that.attr('data-order');
+        $order_type='{$userarpu_order}';
+        if($order_type==''||$order_type=='4'){
+            $(".sortBy").attr('name','data_order');
+            val='3,'+$data_order;
+            $(".sortBy").attr('value',val);
+            $("#search").click();
+        }else if($order_type=='3'){
+            $(".sortBy").attr('name','data_order');
+            val='4,'+$data_order;
+            $(".sortBy").attr('value',val);
+            $("#search").click();
+        }
+    });
+    //点击排序
+    $('.list_sort').click(function(){
+        var url = $(this).attr('url');
+        var ids = $('.ids:checked');
+        var param = '';
+        if(ids.length > 0){
+            var str = new Array();
+            ids.each(function(){
+                str.push($(this).val());
+            });
+            param = str.join(',');
+        }
+
+        if(url != undefined && url != ''){
+            
+            window.location.href = url.replace(".html","") + '/ids/' + param;
+        }
+    });
+    //修改字段
+    $('.chg_status').click(function(){
+        that = $(this); 
+        $.get(that.attr('data-url'),function(data,status){
+            if(data.status==1){
+                location.reload();
+            }else{
+                layer.msg(data.msg);
+            }
+        });
+    });
+    $(".chgculumn").blur(function(){
+        that = $(this);
+        that.val(parseInt(that.val()));
+        $.get(that.attr('data-url'),{newval:parseInt(that.val())},function(data,status){
+            if(data.status==1){
+                layer.tips('编辑成功！', that, {
+                  tips: [4, '#3595CC'],
+                  time: 1000
+                });
+            }else{
+                layer.msg(data.msg);
+            }
+        });
+    });
+    $(".duij").click(function() {
+        var game_id   =$(this).data("game_id");
+        var game_name =$(this).data("game_name");
+        var game_appid=$(this).data("game_appid");
+        var domain = document.domain;
+        $.ajax({
+            url: "{:U('get_game_set')}",
+            type:"POST",
+            dataType: 'json',
+            data: {game_id:game_id},
+            success:function(data){
+                console.log(data);
+                if(data.status==1){
+                    if(data.data.game_key==""||data.data.access_key==""){
+                         layer.msg("游戏key未设置或者访问秘钥未设置", {icon: 2,})
+                    }else{
+                        layer.open({
+                          title:'对接参数',
+                          type: 1,
+                          skin: 'layui-layer-demo', //样式类名
+                          closeBtn: 0, //不显示关闭按钮
+                          anim: 2,
+                          area: ['620px', 'auto'], //宽高
+                          shadeClose: true, //开启遮罩关闭
+                          content: "<table class='djtable'><tr><td>游戏ID</td><td>"+game_id+"</td></tr><tr><td>"+"游戏名称</td><td>"+game_name+"</td></tr><tr><td>"+"游戏Appid</td><td>"+game_appid+"</td></tr><tr><td>渠道ID</td><td>0</td></tr><tr><td>渠道名称</td><td>自然注册</td></tr><tr><td>server_key</td><td>"+data.data.game_key+"</td></tr><tr><td>"+"client_key</td><td>"+data.data.mdaccess_key+"</td></tr><tr><td>"+"SDK地址</td><td>http://"+domain+"/sdk.php/</td></tr></table>"
+                        });
+                        
+                    }
+                }
+            },
+            error:function(){
+              layer.msg("服务器错误", {icon: 2,})
+            }
+        })
+
+    });
+
+    /* 状态搜索子菜单 */
+    $(".AUTO_AUDIT").click(function() {
+        that = $(this);
+        $AUDIT = that.attr('data-val');
+        if($AUDIT>0){
+            tip = '选择关闭后，需手动关联生成同一游戏的另一版本';
+        }else{
+            tip = '选择开启后，新增某游戏时自动关联该游戏的另一版本，如新增游戏A的ios版，自动关联生成游戏A的Android版';
+        }
+        layer.msg(tip, {
+            time: 0 //不自动关闭
+            ,
+            btn: ['好的', '再想想'],
+            yes: function(index) {
+                layer.closeAll();
+                $.ajax({
+                    url: "{:U('change_auto_game')}",
+                    type: 'post',
+                    data: { value: $AUDIT },
+                    async: false,
+                    success: function(data) {
+                        if($AUDIT == 1) {
+                            that.addClass('tabok').removeClass('tabno').attr('data-val', 0).text('开启自动审核');
+                        } else {
+                            that.addClass('tabno').removeClass('tabok').attr('data-val', 1).text('关闭自动审核');
+                        }
+                    },
+                    error: function() {
+                        alert('服务器错误，请稍后再试');
+                    }
+                })
+            }
+            ,btn2: function(index, layero){
+                if(that.prop('checked')){
+                    that.removeAttr('checked')
+                }else{
+                    that.prop('checked',true)
+                }
+            }
+        });
+    });
+
+})
+</script>
+<script type="text/javascript">
+    $('.jsrelation').click(function(){
+        layer.load();
+        url = "{:U('relationAll')}";
+        $.ajax({
+            url:url,
+            type:'post',
+            success:function(data){
+                console.log(data);
+                layer.msg(data.msg);
+                layer.closeAll('loading');
+            },error:function(error){
+                layer.closeAll('loading');
+                layer.msg('服务器错误');
+            }
+        })
+    });
+</script>
+</block>

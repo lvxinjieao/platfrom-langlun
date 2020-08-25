@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+		<script type="text/javascript" src="__JS__/jquery-1.11.1.min.js"></script>
+		<link href="{:get_cover(C('CH_SET_ICO'),'path')}" type="image/x-icon" rel="shortcut icon">
+		<title>推广注册</title>
+		<!--<script type="text/javascript" src="/static/js/jquery-1.4.2.min.js"></script>-->
+		<link rel="stylesheet" href="__CSS__/20180207/pc_app.css">
+	</head>
+
+	<body class="main_bg">
+		<div class="container">
+			<notempty name="data['back_img']">
+				<img class="bg_img" src="{$data['back_img']|get_cover='path'}">
+			</notempty>
+			<div class="down-box">
+
+				<img src="{$data['icon']|get_cover='path'}" alt="{$data['app_name']}" class="down-box-img" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null" />
+
+				<div class="down-box-title ">{$data['app_name']}</div>
+				<p class="down-box-version">（版本号：{$data.version}）</p>
+				<div class="down-box-btn">
+					<switch name="data['app_version']">
+						<case value="0">
+							<if condition="$data['dow_url'] eq '' ">
+								<a href="javascript:;" class="down-box-btn-link disabled">IOS下载</a>
+								<else/>
+								<a download href="{$data.url}" class="down-box-btn-link iso_down">IOS下载</a>
+							</if>
+							<p class="down-box-btn-size">大小：{$data.file_size}</p>
+						</case>
+						<case value="1">
+							<if condition="$data['dow_url'] eq '' ">
+								<a href="javascript:;" class="down-box-btn-link disabled">安卓下载</a>
+								</a>
+								<else/>
+								<a download href="{$data.url}" class="down-box-btn-link and_down">安卓下载</a>
+								</a>
+							</if>
+							<p class="down-box-btn-size">大小：{$data.file_size}</p>
+						</case>
+					</switch>
+				</div>
+			</div>
+		</div>
+		<script src="__STATIC__/layer/layer.js"></script>
+		<script type="text/javascript">
+			//没有包提示
+			$(function() {
+
+				$(".down-box-btn-link").click(function() {
+					var en = $(this).attr('href');
+					if(en == '') {
+						$(this).attr('href', '#');
+						layer.msg('暂无下载', {
+							icon: 7,
+							time: 2000 //2秒关闭（如果不配置，默认是3秒）
+						});
+					}
+				});
+				$(".and_down").click(function() {
+					if(is_weixin() || is_ios()) {
+						layer.msg('请使用安卓浏览器下载', {
+							<!-- icon: 7, -->
+							time: 2000 //2秒关闭（如果不配置，默认是3秒）
+						});
+						return false;
+					}
+
+				});
+				$(".iso_down").click(function() {
+					if(!is_ios()) {
+						layer.msg('请使用苹果浏览器下载', {
+							<!-- icon: 7, -->
+							time: 2000 //2秒关闭（如果不配置，默认是3秒）
+						});
+						return false;
+					}
+
+				});
+				tishi();
+			})
+
+			function tishi() {
+				if(is_weixin() && !is_ios()) {
+					layer.msg('请使用外部浏览器打开下载');
+					return false;
+				}
+			}
+
+			function is_weixin() {
+				var ua = navigator.userAgent.toLowerCase();
+				if(ua.match(/MicroMessenger/i) == "micromessenger") {
+					return true;
+				} else {
+					return false;
+				}
+			}
+
+			function is_ios() {
+				var u = navigator.userAgent;
+				var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+				var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+				if(isiOS) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		</script>
+	</body>
+
+</html>

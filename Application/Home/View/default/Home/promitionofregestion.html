@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta itemprop="name" content="{$data['game_name']}">
+    <notempty name="data['icon']">
+        <meta itemprop="image" content="http://{$_SERVER['HTTP_HOST']}{$data['icon']|get_cover='path'}">
+    </notempty>
+    <meta itemprop="description" content="{$data['game_name']}">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+     <script type="text/javascript" src="__JS__/jquery-1.11.1.min.js"></script>
+     <link href="{:get_cover(C('CH_SET_ICO'),'path')}" type="image/x-icon" rel="shortcut icon">
+	<title>推广注册</title>
+<!--<script type="text/javascript" src="/static/js/jquery-1.4.2.min.js"></script>-->
+  <link rel="stylesheet" href="__CSS__/20180207/promition.css">
+  <link rel="stylesheet" href="__CSS__/20180207/game.css">
+</head>
+
+<body class="main_bg" style="background: url() ">
+  <div class="h_wrap p_t_30 p_lr_10">
+    <div class="h_t_box ta_c">
+
+		<a href="javascript:;" class="bg_st icon_box">
+            <span class="img_table" style="border-radius:22px;">
+                <notempty name="data['icon']">
+                    <img src="{$data.icon|get_cover='path'}">
+                </notempty>
+
+            </span>
+
+        </a>
+
+        <p class="l_h_33 f_size_18 main_color">{$data['game_name']}</p>
+    </div>
+
+      <div class="h_title_box ta_c p_t_15">
+
+    <div class="load_wrap">
+    	<div class="box">
+           <a href="http://{$_SERVER['HTTP_HOST']}{$data['register_url']}" class="star_game">开始游戏</a>
+    	</div>
+    </div>
+    <!-- 精彩游戏截图 -->
+    <div class="h_ganmes_list p_t_15">
+        <p class="jt_jincai">精彩游戏截图</p>
+        <ul class="clearfix p_t_15">
+
+
+            <volist name=":explode(',',$data['screenshot'])" id='pid'>
+
+                 <li><img src="{$pid|get_cover='path'}" alt="{$data.game_name}截图"  onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null" > </li>
+
+            </volist>
+
+
+
+
+        </ul>
+    </div>
+  </div>
+      </div>
+  </div>
+  <script src="__STATIC__/layer/layer.js"></script>
+  <script type="text/javascript">
+//没有包提示
+$(".js_b").click(function(){
+
+        layer.msg('暂无下载', {
+          icon: 7,
+          time: 2000 //2秒关闭（如果不配置，默认是3秒）
+        });
+
+});
+$(".js_en").click(function(){
+    var en=$(this).attr('enable_status');
+    if(en!='1'){
+        $(this).attr('href','#');
+        layer.msg('暂无下载', {
+          icon: 7,
+          time: 2000 //2秒关闭（如果不配置，默认是3秒）
+        });
+    }
+
+
+});
+$(".and_down").click(function(){
+    if(is_weixin()|| is_ios()){
+        layer.msg('请使用安卓浏览器下载', {
+          icon: 7,
+          time: 2000 //2秒关闭（如果不配置，默认是3秒）
+        });
+
+    }
+
+});
+$(".websites").click(function(){
+    if(is_weixin() || is_mobile()){
+        window.location.href = $('.websites').attr("date-url");
+    }else{
+        window.location.href = $('.websites').attr("date-url");
+    }
+})
+ function is_weixin(){
+        var ua = navigator.userAgent.toLowerCase();
+        if(ua.match(/MicroMessenger/i)=="micromessenger") {
+          return true;
+        } else {
+          return false;
+        }
+      }
+  function is_ios(){
+        var u = navigator.userAgent;
+      var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+      if(isiOS){
+        return true;
+      }else{
+        return false;
+      }
+}
+function is_mobile(){
+    if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+  </script>
+</body></html>

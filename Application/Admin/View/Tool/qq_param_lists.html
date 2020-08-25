@@ -1,0 +1,188 @@
+<extend name="Public/base"/>
+
+<block name="body">
+<link rel="stylesheet" href="__CSS__/select2.min.css" type="text/css" />
+
+    <script type="text/javascript" src="__JS__/select2.min.js"></script>
+
+    <script type="text/javascript" src="__JS__/bootstrap.min.js"></script>
+    	<style>
+		.navtab_list {
+			height: 36px;
+			border-bottom: solid 1px #d0dee5;
+			position: relative;
+			border-left: solid 1px #d3dbde;
+			margin: 15px 0 0;
+		}
+		
+		.navtab_list a {
+			float: left;
+			height: 37px;
+			line-height: 37px;
+			background: url(__IMG__/itabbg.png) repeat-x;
+			border-right: solid 1px #d3dbde;
+			font-size: 14px;
+			color: #000;
+			padding-left: 25px;
+			padding-right: 25px;
+			text-decoration: none;
+		}
+	</style>
+    <div class="cf main-place tabnav1711_last top_nav_list">
+
+        <ul class="tabnav1711 fr jstabnav">
+			<li data-tab="tab1" class="current"><a href="{:U('qq_thirdparty')}" >QQ登录</a></li>
+            <li data-tab="tab2"><a href="{:U('wx_thirdparty')}" >微信登录</a></li>
+		</ul>
+        <h3 class="page_title">{$meta_title}</h3>
+        <p class="description_text">用于配置相关第三方登录所用参数的功能</p>
+    </div>
+    
+	<div class="tab-wrap">
+        <div class="infomation information1711">
+          <div class="informationitem tab-pane tab1 in">
+            <p>QQ第三方登录在本系统有两处需使用，PC官网和手游SDK；PC官网需申请网页应用，手游SDK需申请移动应用。</p>
+            <p>网页应用申请地址：<a href="http://open.qq.com/" target="_blank">http://open.qq.com/ （QQ互联）</a></p>
+            <p>移动应用申请地址：<a href="https://connect.qq.com/" target="_blank">https://connect.qq.com/（腾讯开放平台）</a></p>
+          </div>
+        </div>
+
+		<div class="tab-content tabcon1711 tabcon17112">
+    		<div id="tab1" class="tab-pane in tab1">
+                <div class="tab-content-subtab navtab_list jssubtab clearfix" style="margin-bottom: 20px">
+                  <a href="{:U('qq_thirdparty')}" class="tabcon-subtab tcst1 " style="margin-left: 0;">PC官网</a>
+                  <a href="{:U('qq_param_lists')}" class="tabcon-subtab tcst2 current">SDK</a>
+                </div>
+                    <div class="tab-content-subpan jssubpan clearfix current">
+                <div class="cf top_nav_list">
+        <empty name="extend">
+        <div class="fl button_list" style="margin-bottom: 10px">
+            <div class="tools">
+                <a class="" href="{:U('add_thirdparty',['type'=>1])}"><span class="button_icon button_icon1"></span>新增</a>
+                <a class="ajax-post confirm" target-form="ids" url="{:U('del?model='.$model['id'])}"><span class="button_icon button_icon2"></span>删除</a>
+            </div>
+        </div>
+            </empty>
+            <!-- 高级搜索 -->
+            <div class="jssearch fr cf search_list" style="margin-bottom: 10px">
+          <div class="input-list search-title-box">
+                </div>
+                <div class="input-list input-list-game search_label_rehab">
+                    <select id="game_id" name="game_id" class="select_gallery" >
+                        <option value="">游戏名称</option>
+                        <volist name=":get_game_list()" id="vo">
+                            <option game-id="{$vo.id}" value="{$vo.id}">{$vo.game_name}</option>
+                        </volist>
+                    </select>   
+                </div>
+                <div class="input-list">
+                    <a class="sch-btn" href="javascript:;" id="search" url="{:U('qq_param_lists','model='.$model['name'],false)}">搜索</a>
+                </div>
+            </div>
+     <div class="data_list">
+        <div class="">
+            <table>
+                <!-- 表头 -->
+                <thead>
+                <tr>
+                    <th>
+                      <input class="check-all" type="checkbox">
+                    </th>
+                    <th>游戏id</th>
+                    <th>游戏名称</th>
+                    <th>openid</th>
+                    <th>启用状态</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <!-- 列表 -->
+                <tbody>
+                <empty name="list_data">
+                    <td colspan="15" class="text-center">aOh! 暂时还没有内容!</td>
+                    <else/>
+                    <volist name="list_data" id="data">
+                        <tr>
+                        <td><input class="ids" type="checkbox" value="{$data['id']}" name="ids[]"></td>
+                            <td>{$data.game_id}</td>
+                            <td>
+                            <if condition="$data['game_id'] eq 0">
+                                <span style="color: red">全部游戏</span>
+                                <else/>
+                                {:get_game_name($data['game_id'])}
+                            </if>
+                            </td>
+                            <td>{$data.openid}</td>
+                            <td>
+                             <div class="discount_status">
+                                <span class="discount_butnbox">
+                                    <empty name='data["status"]'>
+                                        <a href="{:U('changeStatus',array('field'=>'status','value'=>1,'id'=>$data['id']))}" class="ajax-get ">
+                                            已{:get_info_status($data['status'])}<!--关闭-->
+                                        </a> 
+                                    <else/> 
+                                        <a href="{:U('changeStatus',array('field'=>'status','value'=>0,'id'=>$data['id']))}" class="ajax-get ">
+                                            已{:get_info_status($data['status'])}<!--开启-->
+                                        </a>  
+                                    </empty>
+                                    
+                                </span>
+                            </div>
+                            </td>
+                            <td>
+                             <a  title="编辑" href="{:U('edit_thirdparty',['id'=>$data['id'],'type'=>1])}">编辑</a>
+                            <a class="confirm ajax-get" title="删除" href="{:U('del?ids='.$data['id'])}">删除</a>
+                            </td>
+                        </tr>
+                    </volist>
+                </empty>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="page">
+        {$_page|default=''}
+    </div>
+        </div>
+
+                </div>
+               
+    		</div>
+		</div>
+
+		
+
+	</div>
+</block>
+
+<block name="script">
+<script type="text/javascript">
+	//导航高亮
+	highlight_subnav('{:U('Tool/qq_thirdparty')}');
+	$(function(){
+$(".select_gallery").select2();
+            //搜索功能
+    $("#search").click(function(){
+        var url = $(this).attr('url');
+        var query  = $('.jssearch').find('input').serialize();
+        query  += "&"+$('.jssearch').find('select').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+        window.location.href = url;
+    });
+		//支持tab
+		showTab();
+    
+    $('.jssubtab a').click(function() {
+      var that=$(this),index = that.index(),pan = that.closest('.jssubtab').siblings('.jssubpan');
+      that.siblings().removeClass('current');
+      that.addClass('current');
+      pan.removeClass('current').eq(index).addClass('current');
+    });
+	})
+</script>
+</block>

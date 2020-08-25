@@ -1,0 +1,19 @@
+<extend name="Public/notopfootbase" />
+<block name="body">
+<link href="__CSS__/user.css" type="text/css" rel="stylesheet">
+<link href="__CSS__/login.css" type="text/css" rel="stylesheet">
+<!-- 主体内容 -->
+
+<div class="loginbg">
+    <div class="cont-box centert">
+    
+    <div class="log_reset">
+    <img src="__IMG__/resetsuc.png">
+    <h3>新密码设置成功</h3>
+    <a class="nowbtn" href="{:U('subscriber/login')}"> 立即登录</a>
+    <span>暂不登录，<a class="blue" href="{:U('Index/index')}">返回首页</a></span>
+    </div>
+    </div>
+</div>
+<include file='foot' />
+</block>

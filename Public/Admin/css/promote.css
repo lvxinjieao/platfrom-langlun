@@ -1,0 +1,77 @@
+/*推广体现审核通过弹窗*/
+.promote-layer{
+	display: none;
+}
+li {
+	list-style: none;
+}
+
+.layui-layer-title {
+	background: #ffffff;
+}
+
+.promote-name {
+	display: block;
+	float: left;
+	color: #333333;
+	font-size: 14px;
+	width: 100px;
+	padding-left: 20px;
+}
+
+.promote-con {
+	margin: 20px 0 0 0;
+	padding: 0;
+}
+#ajaxForm{
+	text-align:left;
+}
+.promote-con-con {
+	display: none;
+}
+
+.promote-show {
+	display: block;
+}
+
+.mb20 {
+	margin-bottom: 20px;
+	line-height: 15px;
+}
+.pr60{
+	padding-right: 60px;
+}
+.pr43{
+
+    padding-right: 43px;
+
+}
+.promote-btn {
+	width: 106px;
+	line-height: 30px;
+	margin: 30px auto 0;
+	color: #ffffff;
+	border-radius: 5px;
+	background: #199ED8;
+	text-align: center;
+}
+#promote_btn{
+	margin-top: 20px;
+	display: block;
+	border: 1px solid transparent;
+}
+.promote-verification{
+	line-height: 27px;
+	border: 1px solid #D3D8DE;
+	border-radius: 3px;
+}
+.sendvcode{
+	color: #ffffff;
+	border-radius: 5px;
+	background: #199ED8;
+	text-align: center;
+	padding: 5px 10px;
+}
+.sendvcode:hover{
+	color:#fff;
+}

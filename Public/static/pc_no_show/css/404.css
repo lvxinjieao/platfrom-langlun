@@ -1,0 +1,42 @@
+/*
+* @description: 404样式
+ *@author:王奉
+* @update: name(xxxx-xx-xx xx:xx)
+ */
+	body,html{
+	width:100%;
+	background: #fff;
+}
+a{
+	text-decoration: none;
+}
+.con{
+	display: block;
+	width: 540px;
+	margin: 10% auto 0;
+}
+.con_img {
+	width: 100%;
+}
+.tip{
+	font-size: 20px;
+	text-align: center;
+	color: #444;
+	margin: 10% auto 0;
+}
+.link{
+	
+	font-size: 16px;
+	text-align: center;
+	height: 40px;
+	line-height: 40px;
+	cursor: pointer;
+}
+.link_img{
+	width: 20px;
+	vertical-align: middle;
+}
+.link_text{
+	padding-left: 10px;
+	color: #24bdf6;
+}

@@ -1,0 +1,91 @@
+<extend name="Public/bases" />
+
+
+
+<block name="body">
+<link href="__CSS__/shop.css" rel="stylesheet" >
+<link href="__CSS__/iconfont.css" rel="stylesheet" >
+  <body class="shop">
+    <header class="header index-header">
+      <div class="">
+        <a href="{:U('PointShop/mall')}" class="hbtn back"><i class="iconfont icon-drop-left"></i></a>
+        <h1 class="caption">兑换平台币</h1>
+      </div>
+    </header>
+    <div class="occupy"></div>
+    <section class="trunker">
+      <section class="container">
+
+        <div class="ex-coin-form">
+          <form id="form" action="" method="post">
+            <ul class="inputbox">
+              <li><span class="mark">兑换比例</span><span class="text"><input type="text" name="" id="rate" data-value="100" value="100:1" readonly></span></li>
+              <li>
+                <span class="mark">兑换数量</span><span class="text"><input type="text" name="num" id="num" data-total="{$point}" placeholder="请输入需要兑换的平台币数量"></span>
+              </li>
+              <li><span class="mark">消耗积分数</span><span class="text"><input type="text" id="integral" name="integral" readonly></span></li>
+            </ul>
+            <div class="btnbox">
+              <input type="button" class="submit" value="立即兑换" >
+            </div>
+          </form>
+        </div>
+      </section>
+    </section>
+    <div class="pop pop-dialog"></div>
+    <script src="__JS__/pop.lwx.min.js"></script>
+    <script>
+      $(function() {
+        var rate = $('#rate').val().split(':');
+        var pop = $('.pop').pop();
+        $('#num').keyup(function(evel) {
+          var that = $(this),val=$.trim(that.val());
+          var integral =$('#integral');
+          var tatol = that.attr('data-total');
+          if(val =="" ){integral.val('');return true;}
+          if(evel.keywords == 67){return true;}
+          if (val && val>0 && /^(0|[1-9][0-9]*)$/.test(val)) {
+            var sum = val*rate[0]/rate[1];
+            if (sum<=tatol) {
+              integral.val(sum);
+            }else {
+              layer.msg('可用积分不足，请重新输入');
+              return false;
+
+            }
+          } else {
+              layer.msg('请输入非零开头的正整数');
+              that.val('');integral.val('');
+              return false;
+          }
+          return false;
+        });
+
+        $(".submit").click(function(){
+          if($.trim($("#num").val()) == '' || $.trim($("#num").val()) == 0){
+              layer.msg('请输入非零开头的正整数');
+            return false;
+          }
+          $.ajax({
+            url:"{:U('PointShop/exchangecoin')}",
+            type:"post",
+            dataType:"json",
+            data:$("form").serialize(),
+            success:function(result){
+              pop.msg(result.msg);
+                if(result.status == 1){
+                  setTimeout(function () {
+                      window.location.href = "{:U('PointShop/mall')}";
+                  }, 1000);
+                }
+            },
+            error:function(){
+              alert('服务器异常');
+            }
+          })
+        })
+      });
+    </script>
+  </body>
+</block>
+<block name="footer"></block>

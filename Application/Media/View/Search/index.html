@@ -1,0 +1,120 @@
+<extend name="Public/bases" />
+<block name="body">
+<link href="__CSS__/search.css" rel="stylesheet" type="text/css">
+<div id="fix_nav" class="fix_nav"> 
+	<table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+		<tr height="3" id="nav_line" class="nav_line">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td class="active"></td>
+		</tr>
+		<tr class="fn2">
+			<td onclick="window.location=&#39;{:U('Index/index')}&#39;">
+				<span id="menu_1_label">推荐</span></td>
+			<td onclick="window.location=&#39;{:U('Game/index')}&#39;">
+				<span id="menu_1_label">新游</span></td>
+			<td onclick="window.location=&#39;{:U('Gift/index')}&#39;">
+				<span id="menu_1_label">礼包</span></td>
+			<td onclick="window.location=&#39;{:U('Search/index')}&#39;">
+				<span id="menu_1_label" class="active">分类</span></td>
+		</tr>
+	</table>
+</div>
+<div id="nav_end" style="height:50px;"></div>
+<div id="wrapper">
+  <table border="0" cellspacing="2" cellpadding="5" width="100%">
+    <tbody>
+      <tr>
+        <td>
+        <table border="0" cellspacing="0" cellpadding="0" bgcolor="#ffffff" width="100%" align="center" style="-webkit-border-radius:5px; -moz-border-radius: 5px; border-radius:5px;">
+            <tbody>
+              <tr>
+                <td width="2%"></td>
+                <td><img src="__IMG__/icon_searchgame2.png" width="15" height="15"></td>
+                <td height="30">
+                	<input type="text" style="border:0;font-size:12px;width:200; text-align:left" placeholder="输入游戏类型" name="keyword" id="keyword">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+        <td align="center" style="font-size:12px;color:#e62b13" onclick="doSearch($(&#39;#keyword&#39;).val())">搜索</td>
+      </tr>
+    </tbody>
+  </table>
+  <div id="scroller">
+    <ul id="list_box" class="classlist cf">
+		<empty name="keyword">
+			<volist name="game_type" id="vo">
+			<dl>
+				<dt>{$vo.game_count}款</dt>
+				<dd>
+					<span style="display:none"></span>
+					<a onclick="doSearch(&#39;{:get_game_type($vo['id'])}&#39;)">
+						<img src="{$vo.icon|get_cover='path'}">{:get_game_type($vo['id'])}
+					
+				</dd>
+			</dl>
+			</volist>
+		<else />
+		</empty>
+    </ul>
+  </div>
+  <script language="javascript">
+	$("#list_box").after('<div class="waiting"></div>');
+	function doSearch(keyword){
+		$("#keyword").val(keyword);
+		$("#list_box").hide();
+		$('.waiting').html("<p align=center style='font-size:12px'><br><br>正在搜索[ <span style='color:red'>"+keyword+"</span> ]相关游戏，请稍等..</p>");
+		var surl="";
+		if(!keyword){
+			keyword=$("#keyword").val();
+		}
+		if(keyword=="") {
+			setTimeout(function(){
+				$(".waiting").html("<p align=center style='font-size:12px'><br><br>请输入关键字-_-</p>");
+				setTimeout(function(){
+					$(".waiting").empty();
+					$("#list_box").show();			
+				},1200);
+			},400);
+			return;
+		}
+		$.ajax({ 
+			url: '__CONTROLLER__/search',
+			data:{'keyword':keyword,'key':$('#key').val()},
+			dataType:'json',
+			type:'post',
+			success: function(result) { 
+				var html="",data = result.data;
+				if(data ==null||data.length==0){
+					$("#list_box").hide();
+					$(".waiting").show().html("<p align=center style='font-size:12px'>没有找到与 [ <span style='color:red'>"+keyword+"</span> ] 相关游戏-_-</p>");
+				}else{
+					for (var i=0; i<data.length; i++) {
+					var item = data[i];
+					html+= "<table width=100% bgcolor=#ffffff border=0 cellspacing=2 cellpadding=2><tr><td width=10%>";
+					html+= "<img src='"+item.picurl+"' class=gameicon onclick=\"window.location='__MODULE__/Game/detail/id/"+item.id+"'\"></td>";
+					html+="<td width=75% onclick=\"window.location='__MODULE__/Game/detail/id/"+item.id+"'\"><span style='font-size:14px;color:#000000;'>"+item.game_name+"</span>";
+					html+="<br><span style='font-size:12px;color:#999999'>"+item.game_type_name+"</span>";
+					if (item.features) {
+						html += "<br/><span style='font-size:12px;color:#999999'>"+item.features+"</span>";
+					}
+					html+="</td>";
+					html+="<td width=15% align=right><a href='__MODULE__/Game/open_game/game_id/"+item.id+"' class='play-btn'>打开</a></td>";
+					html+="</tr></table>";
+					html+="<table width=100% bgcolor=#eeeeee height=1 border=0 cellspacing=0 cellpadding=0><tr><td></td></tr></table>";
+				}
+				$(".waiting").empty();
+				$("#list_box").show().html(html);
+				}
+
+
+				window.scrollTo(0,0);
+			} 
+		}); 
+	}
+</script> 
+</div>
+</block>

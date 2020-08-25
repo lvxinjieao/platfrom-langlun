@@ -1,0 +1,55 @@
+<extend name="Public/bases" />
+<block name="body">
+<link href="__CSS__/about.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+<!--下拉菜单--><script type="text/javascript" src="__JS__/ddsmoothmenu.js"></script>
+<script type="text/javascript">
+ddsmoothmenu.init({
+  mainmenuid: "smoothmenu1", //menu DIV id  
+  orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"  
+  classname: 'moregame'
+});
+</script>
+<!--用户注册协议开始-->
+<div class="about">
+	<div class="about_con wid_1206">
+		<div class="about_left fl">
+			<ul>
+				<a href="{:U('article/news/type/huoban')}"><li class="tab_head"><i <if condition="I('type') eq huoban">style="display: block;"</if>></i><span>合作伙伴</span></li></a>
+				<a href="{:U('article/news/type/aboutus')}"><li class="tab_head"><i <if condition="I('type') eq aboutus">style="display: block;"</if>></i><span>关于我们</span></li></a>
+				<a href="{:U('article/news/type/sw')}"><li class="tab_head"><i <if condition="I('type') eq sw">style="display: block;"</if>></i><span>商务合作</span></li></a>
+				<a href="{:U('article/news/type/rc')}"><li class="tab_head"><i <if condition="I('type') eq rc">style="display: block;"</if>></i><span>人才招聘</span></li></a>
+				<a href="{:U('article/news/type/contact')}"><li class="tab_head"><i <if condition="I('type') eq contact">style="display: block;"</if>></i><span>联系我们</span></li></a>
+				<a href="{:U('article/news/type/mem')}"><li class="tab_head"><i <if condition="I('type') eq mem">style="display: block;"</if>></i><span>家长监护</span></li></a>
+				<a href="{:U('article/news/type/ur')}"><li class="tab_head"><i <if condition="I('type') eq ur">style="display: block;"</if>></i><span>用户协议</span></li></a>
+			</ul>
+		</div>
+		<div class="about_right fr">
+			<div class="tab_list" style="display: block;">
+				<div class="right_tit"><h2 class="middle-title">{$data.title}</h2></div>
+				<div class="right_det">
+					{$data.content}					
+				</div>
+			</div>
+		</div>
+		<div class="return_regist">
+			<a href="{:U('Subscriber/registerf')}">返回注册</a>
+		</div>
+	</div>
+	
+</div>
+<!--用户注册协议结束-->
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.tab_head').click(function(){
+			var that = $(this);
+			sib = that.closest('.about_left').siblings('.about_right');
+			that.siblings().find('i').hide();
+			var index = that.find('i').show().closest('.tab_head').index();
+			sib.find('.tab_list').hide().eq(index).show();
+		});
+		
+	});
+</script>
+</block>

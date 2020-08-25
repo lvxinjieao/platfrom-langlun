@@ -1,0 +1,309 @@
+<extend name="Public/bases" />
+<block name="body">
+	<link href="__CSS__/game.css" type="text/css" rel="stylesheet">
+	<link href="__CSS__/news.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+	<!--下拉菜单-->
+	<script type="text/javascript" src="__JS__/ddsmoothmenu.js"></script>
+	<script type="text/javascript">
+		ddsmoothmenu.init({
+			mainmenuid: "smoothmenu1", //menu DIV id  
+			orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"  
+			classname: 'moregame'
+		});
+	</script>
+	<style type="text/css">
+		.p_th .span3, .kaifu_ul li .span3 {
+		    /*width: 70px;*/
+		    text-align: center;
+		    padding-right: 0
+		}
+		/*.p_th .span2, .kaifu_ul li .span2{ width: 70px }*/
+	</style>
+	<!--下拉菜单结束-->
+	<!--游戏详情-->
+	<div class="contbg game-news-art padb_0">
+		<div class="g-main">
+			<div class="game-center-location">
+				<a class="local_home" href="{:U('/index','',true,'',true)}">首页</a><span>&gt;</span>
+				<a href="{:U('Article/index',array('category'=>'media_zx'))}">资讯</a><span>&gt;</span> <em class="blue">{$info.title}</em> </div>
+			<div class="h5_left">
+				<div class="news_detail border_de">
+					<div class="news_detail_article pad_29">
+						<div class="title ztitle">
+							<h3 class="arttitle">{$info.title}</h3>
+							<h6 class="artvoic"><span class="arctime"><i>{:set_show_time($info['update_time'])}</i></span></h6>
+						</div>
+						<div class="content padb_83">
+							{$info.content}
+						</div>
+						<div class="share_get">
+							<div class="share_get_a">
+								<a href="javascript:;" id="copyurl">复制链接</a>
+								<a href="javascript:;" id="jsfavorites">添加至收藏夹</a>
+							</div>
+							<div class="bdsharebuttonbox newshare" data-tag="share_1">
+							<a class="bds_qzone" data-cmd="qzone" href="#"></a>
+							<a class="bds_tsina" data-cmd="tsina"></a>
+							<a class="bds_sqq" data-cmd="sqq"></a>
+							<a class="bds_weixin" data-cmd="weixin"></a>
+						</div>
+						</div>
+						<script>
+							var url = window.location.href;
+							window._bd_share_config = {
+								common: {
+									bdText: '{$info.title}',
+									bdDesc: '{$info.title}',
+									bdUrl: url,
+									bdPic: "http://{$_SERVER['HTTP_HOST']}{:get_cover($info['cover_id'],'path')}"
+								},
+								share: [{
+									"bdSize": 16
+								}],
+								slide: [{
+									bdImg: 0,
+									bdPos: "right",
+									bdTop: 100
+								}],
+								image: [{
+									viewType: 'list',
+									viewPos: 'top',
+									viewColor: 'black',
+									viewSize: '16',
+									viewList: ['qzone', 'tsina', 'sqq', 'weixin']
+								}],
+								selectShare: [{
+									"bdselectMiniList": ['qzone', 'tsina', 'sqq', 'weixin']
+								}]
+							}
+							with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion=' + ~(-new Date() / 36e5)];
+						</script>
+						<div class="bottom">
+							<span>上一篇：
+							<empty name="prev">
+							<a href="javascript:;">无</a>
+							<else/>
+							<a href="{:U('Article/detail',array('id'=>$prev['id']))}">{$prev.title}</a>
+							</empty>
+						</span>
+							<span>下一篇：
+								<empty name="next">
+								<a href="javascript:;">无</a>
+								<else/>
+								<a href="{:U('Article/detail',array('id'=>$next['id']))}">{$next.title}</a>
+								</empty>
+						</span>
+						</div>
+
+						<div class="relevant_articles padt_58">
+							<div class="relevant_articles_title">
+								<span>相关文章</span>
+							</div>
+							<ul class="clearfix padt_36">
+								<volist name="alike" id="vo">
+									<li><i>&#8226;</i>
+										<a href="{:U('Article/detail',array('id'=>$vo['id']))}">{$vo.title}</a>
+									</li>
+								</volist>
+							</ul>
+						</div>
+
+					</div>
+
+				</div>
+
+				<a href="javascript:history.go(-1);" class="backreturn"><i>&lsaquo;</i>返回</a>
+			</div>
+
+			<!--右边-->
+			<div class="h5_right" style="margin-top: -30px;">
+				<div class="download_box">
+					<notempty name="adv">
+						<a class="img-box" target="{$adv.target}" href="{$adv.url}">
+							<span class="img-box-font"><span class="img-box-cell"><div class="img-box-text">{:C('SET_POSITION_IMG')}</div></span></span>
+							<img class="img-box-img" src="{$adv.data}" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null">
+						</a>
+					</notempty>
+				</div>
+
+				<!--礼包领取-->
+				<div class="hot-list">
+					<div class="boxtop mt20">
+						<h3><i></i>热门礼包</h3>
+					</div>
+					<notempty name="giftlist">
+						<div class="bdr_de">
+							<ul>
+								<volist name="giftlist" id="gl" offset="0" length='10'>
+									<li>
+										<a href="{$gl.gift_detail_url}" class="img-box">
+											<span class="img-box-font"><span class="img-box-cell"><div class="img-box-text">{:C('SET_POSITION_IMG')}</div></span></span>
+											<img class="img-box-img" src="{$gl['icon']}" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null">
+										</a>
+										<div class="btn-box">
+											<span class="table"><span class="table-cell"><a href="{$gl.gift_detail_url}" class="btn">领取</a></span></span>
+										</div>
+										<div class="txt-box">
+											<h4><a href="{$gl.gift_detail_url}">{$gl.relation_game_name}：{$gl.giftbag_name}</a></h4>
+											<p>剩余<span>{$gl.novice_surplus}个</span>
+												<if condition="$gl.sdk_version eq 2">
+													<i class="pf-ios"></i>
+												<elseif condition="$gl.sdk_version eq 1"/>
+													<i class="pf-android"></i>
+												<else/>
+													<i class="pf-h5"></i>
+												</if>
+											</p>
+										</div>
+									</li>
+								</volist>
+							</ul>
+						</div>
+					</notempty>
+				</div>
+
+				<div class="openserver-list">
+					<div class="boxtop mt20">
+						<h3><i></i>开服表<a class="more" target="_blank" href="{:U('game/kaifu')}" title="更多+">更多+</a></h3>
+					</div>
+					<div class="osl-content">
+						<p class="p_th">
+							<span class="span2">游戏名称</span>
+							<span class="span4">版本</span>
+							<span class="span3">服务器</span>
+							<span class="span1">时间</span>
+						</p>
+						<notempty name="server">
+							<ul class="kaifu_ul">
+								<volist name="server" id="ser">
+									<li>
+										<span class="span2"><a href="{$ser.play_detail_url}" target="_blank">{$ser.game_name}</a></span>
+										<span class="span4">
+											<if condition="$ser.sdk_version eq 2">
+												<i class="pf-ios"></i>
+											<elseif condition="$ser.sdk_version eq 1"/>
+												<i class="pf-android"></i>
+											<else/>
+												<i class="pf-h5"></i>
+											</if>
+										</span>
+										<span class="span3"><i>{$ser.server_name}</i></span>
+										<span class="span1">{:date('m-d',$ser['start_time'])}</span>
+									</li>
+								</volist>
+							</ul>
+						</notempty>
+					</div>
+				</div>
+				<script>
+					$(function() {
+						$(".kaifu_ul li").hover(function() {
+							$(".kaifu_ul li").removeClass("hover");
+							$(this).addClass("hover");
+						})
+						<!-- 右边是否有广告图 -->
+						if($(".download_box").has("a").length > 0) {
+
+							$(".hot-list").css("margin-top", "0px");
+						} else {
+
+							$(".hot-list").css("margin-top", "-25px");
+
+						}
+						//无开服信息时，开服表板块不显示，热门游戏板块上移 
+						if($(".openserver-list .kaifu_ul").has("li").length > 0) {
+							$(".openserver-list").css("display", "block");
+
+						} else {
+
+							$(".openserver-list").css("display", "none");
+
+						}
+					})
+				</script>
+				<!--热门游戏 -->
+				<div class="hot-game subject_h_g ">
+					<div class="boxtop mt20">
+						<h3><i></i>热门游戏<a class="more" target="_blank" href="{:U('game/index')}" title="更多+">更多+</a></h3>
+					</div>
+					<div class="gifthot_tab">
+						<a class="gifthot_sy active" id="syhot">手游</a>
+						<a class="gifthot_h5" id="h5hot">H5游戏</a>
+					</div>
+					<div class="xg_hotgame syhot">
+						<ul>
+							<volist name="syhot" id="syh">
+								<li class="xg_litop <if condition=" $i eq 1 ">hover </if>">
+									<div class="p1">
+										<a title="{$syh.game_name}" href="{$syh.play_detail_url}"><img src="{$syh['icon']}" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null"></a>
+									</div>
+									<div class="p2">
+										<p class="xg_zwm">
+											<a title="{$syh.game_name}" href="{$syh.play_detail_url}">{$syh.game_name}</a>
+										</p>
+										<span><a >{$syh.game_type_name}</a></span> <em>人气：<i>{$syh.play_num}</i></em> </div>
+									<div class="p3">
+										<a href="{$syh.play_detail_url}" class="gifthot_link" target="_blank">下载游戏</a>
+									</div>
+								</li>
+							</volist>
+						</ul>
+					</div>
+					<div class="xg_hotgame h5hot hidden">
+						<ul>
+							<volist name="h5hot" id="h5h">
+								<li class="xg_litop <if condition=" $i eq 1 ">hover </if>">
+									<div class="p1">
+										<a title="{$h5h.game_name}" href="{$h5h.play_detail_url}"><img src="{$h5h['icon']}"></a>
+									</div>
+									<div class="p2">
+										<p class="xg_zwm">
+											<a title="{$h5h.game_name}" href="{$h5h.play_detail_url}">{$h5h.game_name}</a>
+										</p>
+										<span><a >{$h5h.game_type_name}</a></span> <em>人气：<i>{$h5h.play_num}</i></em> </div>
+									<div class="p3">
+										<a href="{$h5h.play_url}" class="gifthot_link" target="_blank">开始游戏</a>
+									</div>
+								</li>
+							</volist>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<script>
+				$(".gifthot_tab a").click(function() {
+					$(".gifthot_tab a").removeClass("active");
+					$(this).addClass("active");
+					$class = $(this).attr('id');
+					$('.'+$class).removeClass('hidden').siblings('.xg_hotgame').addClass('hidden');
+				})
+				$(function() {
+					$(".xg_hotgame li").hover(function() {
+						$(".xg_hotgame li").removeClass("hover");
+						$(this).addClass("hover");
+					})
+					$('#copyurl').click(function() {
+						var str = location.href;
+						var save = function(e){
+			                e.clipboardData.setData('text/plain', str);
+			                e.preventDefault();
+			            }
+			            document.addEventListener('copy', save);
+			            document.execCommand('copy');
+			            document.removeEventListener('copy',save);
+			            layer.msg('复制成功');
+					})
+					$("#jsfavorites").click(function(){
+						$(".favorites").click();
+					});
+				})
+			</script>
+			<!--右边结束-->
+			<div class="clear"></div>
+		</div>
+	</div>
+	<!--游戏详情结束-->
+	<script type="text/javascript" charset="utf-8" src="__STATIC__/jsshare/buttonLite.js#style=-1&amp;uuid=&amp;pophcol=2&amp;lang=zh"></script>
+	<script type="text/javascript" charset="utf-8" src="__STATIC__/jsshare/bshareC0.js"></script>
+</block>

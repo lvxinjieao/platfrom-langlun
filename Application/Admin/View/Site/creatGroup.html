@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link href="__CSS__/create_group.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		
+		<div class="group-layer">
+			<div class="group-layer-con">
+				<div class="group-layer-text">1、打开<a href="http://qun.qq.com/index.html" class="group-layer-a" target="_blank">http://qun.qq.com/index.html</a>，登录交流群账号</div>
+				<div class="group-layer-text">2、选择<span class="group-layer-a">[Android代码]</span>，复制群key</div>
+				<div class="group-layer-img"><img src="__IMG__/group_step.png" alt=""></div>
+				<!--<div class="group-layer-text">3、打开<a href="http://jiema.wwei.cn" class="group-layer-a" target="_blank">http://jiema.wwei.cn</a>，上传二维码图片，生成交流群地址</div>-->
+				<!--<div class="group-layer-codeimg"><img src="__IMG__/group_step3.png" alt=""></div>-->
+				<div  class="group-layer-btn">知道了</div>
+			</div>
+		</div>
+        <script type="text/javascript" src="__STATIC__/jquery-2.0.3.min.js"></script>
+        <script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+		<script>
+//			知道了点击
+			$(".group-layer-btn").click(function(){
+				var index = parent.layer.getFrameIndex(window.name);  
+				parent.layer.close(index);
+			})
+		</script>
+		<script>
+			//打开交流群弹窗
+			$("").click(function() {
+				layer.open({
+					type: 2,
+					title: '生成交流群地址',
+					shadeClose: true,
+					shade: 0.8,
+					area: ['840px', '613px'],
+					content: ['create_group.html'], //iframe的url，no代表不显示滚动条
+				});
+			});
+		</script>
+	</body>
+
+</html>

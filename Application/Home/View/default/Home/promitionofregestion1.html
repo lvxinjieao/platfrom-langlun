@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+     <script type="text/javascript" src="__JS__/jquery-1.11.1.min.js"></script>
+     <link href="{:get_cover(C('CH_SET_ICO'),'path')}" type="image/x-icon" rel="shortcut icon">
+	<title>推广注册</title>
+<!--<script type="text/javascript" src="/static/js/jquery-1.4.2.min.js"></script>-->
+  <link rel="stylesheet" href="__CSS__/20180207/promition.css">
+  <link rel="stylesheet" href="__CSS__/20180207/game.css">
+  <style>
+
+    .weixin{
+          position: absolute;
+          top: -80px;
+          right: 0;
+          width: 17rem;
+        height: 30rem;
+        margin-top:2px;
+          background: url(__IMG__/img_sign.png) left top no-repeat;
+          background-size: 100% 100%;
+          z-index: 99;
+    }
+
+  </style>
+</head>
+
+<body class="main_bg">
+
+      <if condition="is_weixin() and (get_devices_type() eq 1)">
+      <div class="lay" style="
+        background: rgba(0,0,0,.4);
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        z-index: 9;
+    "></div>
+    </if>
+    <div style=" display:none;"><img src=""></div>
+    <div style=" display:none;"></div>
+    <if condition="is_weixin() and (get_devices_type() eq 1)">
+      <div class="weixin"></div>
+      
+    </if>
+
+  
+
+  <div class="h_wrap p_t_30 p_lr_10">
+    <div class="h_t_box ta_c">
+	
+		<a href="javascript:;" class="bg_st icon_box">
+            <span class="img_table" style="border-radius:22px;">
+                <notempty name="data[0]['icon']">
+                    <img src="__ROOT__{$data[0]['icon']|get_cover='path'}">
+                </notempty>
+            </span>
+                    
+        </a>
+		
+        <p class="l_h_33 f_size_18 main_color">{$data[0]['relation_game_name']}</p>
+    </div>
+    <div class="load_wrap">
+    	<div class="box">
+        <if condition="$data[0]['sdk_version'] eq 2 ">
+            <if condition="(get_apply_dow_url($data[0]['id'],$_GET['pid']) eq 'http://'.$_SERVER['HTTP_HOST'] ) or ($data[0]['game_status'] neq 1) or ($data[0]['dow_status'] neq 1)">
+                <a href="#" class="load_btn ios_btn js_b">
+    				<img src="__IMG__/20180207/ios (1).png">IOS下载
+    			</a>  
+            <else/>
+                <a href="{:U('Down/down_file',array('game_id'=>$data[0]['id'],'promote_id'=>$data[0]['promote_id']))}" class="load_btn ios_btn js_en iso_down" enable_status="{$data[0]['enable_status']}">
+                    <img src="__IMG__/20180207/ios (1).png">IOS下载
+                </a>  
+            </if>
+        </if> 	
+
+        <if condition="$data[1]['sdk_version'] eq 2">
+            <if condition="(get_apply_dow_url($data[1]['id'],$_GET['pid']) eq 'http://'.$_SERVER['HTTP_HOST'] ) or ($data[1]['game_status'] neq 1) or ($data[1]['dow_status'] neq 1)">
+                <a href="#" class="load_btn ios_btn js_b">
+                    <img src="__IMG__/20180207/ios (1).png">IOS下载
+                </a>  
+            <else/>
+                <a href="{:U('Down/down_file',array('game_id'=>$data[1]['id'],'promote_id'=>$data[1]['promote_id']))}" class="load_btn ios_btn js_en iso_down" enable_status="{$data[1]['enable_status']}">
+                   <img src="__IMG__/20180207/ios (1).png">IOS下载
+                </a>  
+            </if>
+        </if> 
+
+        <if condition="$data[0]['sdk_version'] eq 1">	
+             <if condition="(get_apply_dow_url($data[0]['id'],$_GET['pid']) eq 'http://'.$_SERVER['HTTP_HOST'] ) or ($data[0]['game_status'] neq 1) or ($data[0]['dow_status'] neq 1)">
+                <a href="#" class="load_btn android_btn js_b">
+                    <img src="__IMG__/20180207/android.png">安卓下载</a>
+                </a>  
+            <else/>
+                <a href="{:U('Down/down_file',array('game_id'=>$data[0]['id'],'promote_id'=>$data[0]['promote_id']))}" class="load_btn android_btn js_en and_down" enable_status="{$data[0]['enable_status']}">
+                    <img src="__IMG__/20180207/android.png">安卓下载</a>
+                </a>  
+            </if>
+			
+        </if>
+
+        <if condition="$data[1]['sdk_version'] eq 1">   
+            <if condition="(get_apply_dow_url($data[1]['id'],$_GET['pid']) eq 'http://'.$_SERVER['HTTP_HOST'] ) or ($data[1]['game_status'] neq 1) or ($data[1]['dow_status'] neq 1)">
+                <a href="#" class="load_btn android_btn js_b">
+                    <img src="__IMG__/20180207/android.png">安卓下载</a>
+                </a>  
+            <else/>
+                <a href="{:U('Down/down_file',array('game_id'=>$data[1]['id'],'promote_id'=>$data[1]['promote_id']))}" class="load_btn android_btn js_en and_down" enable_status="{$data[1]['enable_status']}">
+                    <img src="__IMG__/20180207/android.png">安卓下载</a>
+                </a>  
+            </if>
+        </if>
+    	</div>
+    </div>
+    <!-- 精彩游戏截图 -->
+    <div class="h_ganmes_list p_t_15">
+        <h3 class="jt_jincai">
+			游戏截图
+		</h3>
+        <ul class="clearfix p_t_15">
+           
+
+            <volist name=":explode(',',$data[0]['screenshot'])" id='pid'>
+            <if condition='!empty($pid)'>
+                 <li><img src="{$pid|get_cover='path'}" alt="{$data.game_name}截图"> </li>
+            </if>
+            </volist>
+
+
+
+
+        </ul>
+    </div>
+  </div>
+  <script src="__STATIC__/layer/layer.js"></script>
+  <script type="text/javascript">
+//没有包提示
+$(".js_b").click(function(){
+    
+        layer.msg('暂无下载', {
+          icon: 7,
+          time: 2000 //2秒关闭（如果不配置，默认是3秒）
+        });
+        
+});
+$(".js_en").click(function(){
+    var en=$(this).attr('enable_status');
+    if(en!='1'){
+        $(this).attr('href','#');
+        layer.msg('暂无下载', {
+          icon: 7,
+          time: 2000 //2秒关闭（如果不配置，默认是3秒）
+        });
+    }
+        
+        
+});
+$(".and_down").click(function(){
+    if(is_weixin()|| is_ios()){
+        layer.msg('请使用安卓浏览器下载', {
+          <!-- icon: 7, -->
+          time: 2000 //2秒关闭（如果不配置，默认是3秒）
+        });
+        return false;
+    }
+        
+});
+
+ function is_weixin(){
+        var ua = navigator.userAgent.toLowerCase();
+        if(ua.match(/MicroMessenger/i)=="micromessenger") {
+          return true;
+        } else {
+          return false;
+        }
+      }
+  function is_ios(){
+        var u = navigator.userAgent;
+      var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+      if(isiOS){
+        return true;
+      }else{
+        return false;
+      }
+}
+  </script>
+</body></html>

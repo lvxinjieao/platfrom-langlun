@@ -1,0 +1,758 @@
+<extend name="Public/bases" />
+
+<block name="body" >
+
+<link href="__CSS__/open.css" rel="stylesheet" >
+<link href="__CSS__/iconfont.css" rel="stylesheet" >
+<link href="__CSS__/select2.min.css" rel="stylesheet" >
+
+<body>
+
+    <header class="header">
+
+      <div class="">
+
+        <a <if condition='$_SERVER["HTTP_REFERER"]'>href="{:$_SERVER["HTTP_REFERER"]}"<else/> href="{:U('Subscriber/user')}"</if> class="hbtn back"><i class="iconfont icon-drop-left"></i></a>
+
+        <h1 class="caption">账户充值</h1>
+
+      </div>
+
+    </header>
+
+    <div class="occupy"></div>
+
+    <section class="trunker">
+
+      <section class="container">
+
+        <ul class="t-tab jstab recharge-tab clearfix">
+
+          <li><a href="" class="btn active">平台币充值</a></li>
+
+          <li><a href="" class="btn">折扣充值</a></li>
+
+        </ul>
+
+        <div class="t-table recharge-table jslist">
+
+          <div class="t-tabpan active">
+
+            <form class="platform" id="form1" action="{:U('Subscriber/recharge')}" method="post">
+
+              <div class="recharge-part">
+
+              <ul class="table info jsinfo">
+
+                <li class="table-row">
+
+                  <span class="table-cell">充值账户</span>
+
+                  <span class="table-cell">
+
+                    <input type="text" class="txt" name="account" value="{:session('user_auth.account')}" readonly="readonly" placeholder="请输入充值账户">
+
+                  </span>
+
+                </li>
+
+                <li class="table-row">
+
+                  <span class="table-cell">充值金额</span>
+
+                  <span class="table-cell">
+
+                    <input type="text" class="txt rcmoney" name="pay_amount" value="" placeholder="最低充值金额1元">
+
+                  </span>
+
+                </li>
+
+                <li class="table-row">
+
+                  <span class="table-cell">获得平台币</span><span class="table-cell">
+
+                    <input type="text" class="txt rcplatform" name="balance" readonly placeholder="">
+
+                  </span>
+
+                </li>
+
+              </ul>
+
+              </div>
+
+              <div class="recharge-part">
+
+              <ul class="table way">
+
+                <li class="table-caption">
+
+                  <span class="table">
+
+                    <span class="tcell">
+
+                      <span class="way-font">请选择支付方式</span>
+
+                    </span>
+
+                  </span>
+
+                </li>
+                <if condition="get_tool_status('alipay') eq 1">
+                <li class="table-row">
+
+                  <span class="table-cell">
+
+                    <i class="iconfont icon-alipay"></i>
+
+                    <span class="text">
+
+                      <span>支付宝</span>
+
+                      <span>支付宝安全支付</span>
+
+                    </span>
+
+                  </span>
+
+                  <span class="table-cell">
+
+                    <label class="input-radio">
+
+                      <input type="radio" class="radio on jssbtn" name="way" checked value="1">
+
+                      <i class="iconfont icon-yes"></i>
+
+                    </label>
+
+                  </span>
+
+                </li>
+                </if>
+                <if condition="get_tool_status('wei_xin') eq 1">
+                <li class="table-row" id="weixin">
+
+                  <span class="table-cell">
+
+                    <i class="iconfont icon-weixin"></i>
+
+                    <span class="text">
+
+                      <span>微信支付</span>
+
+                      <span>支持微信4.2以上版本支付</span>
+
+                    </span>
+
+                  </span>
+
+                  <span class="table-cell">
+
+                    <label class="input-radio">
+
+                      <input type="radio" class="radio jssbtn" name="way" value="2">
+
+                      <i class="iconfont icon-yes"></i>
+
+                    </label>
+
+                  </span>
+
+                </li>
+                </if>
+                <if condition="get_tool_status('goldpig') eq 1">
+
+                  <li class="table-row">
+
+                    <span class="table-cell">
+
+                      <i class="iconfont goldpig"></i>
+
+                      <span class="text">
+
+                        <span>金猪支付</span>
+
+                        <span>支持多种支付</span>
+
+                      </span>
+
+                    </span>
+
+                    <span class="table-cell">
+
+                      <label class="input-radio">
+
+                        <input type="radio" class="radio jssbtn" name="way" value="8">
+
+                        <i class="iconfont icon-yes"></i>
+
+                      </label>
+
+                    </span>
+
+                  </li>
+
+                </if>
+
+              </ul>
+
+              </div>
+
+              <div class="btnbox recharge-part recharge-table-btnbox">
+
+                <input type="submit" class="btn jssubmit" value="确认支付">
+
+              </div>
+
+              <input type="hidden" name="spendType" value="1">
+
+            </form>
+
+          </div>
+
+          <div class="t-tabpan">
+
+            <form id="form2" class="abatement" action="{:U('Subscriber/recharge')}" method="post">
+
+              <div class="recharge-part">
+
+              <ul class="table info jsinfo">
+
+                <li class="table-row">
+
+                  <span class="table-cell">充值账户</span>
+
+                  <span class="table-cell">
+
+                    <input type="text" class="txt" id="account" name="account" placeholder="请输入充值账户" readonly="readonly" value="{:session('user_auth.account')}">
+
+                  </span>
+
+                </li>
+
+                <li class="table-row">
+
+                  <span class="table-cell">选择游戏</span>
+
+                  <span class="table-cell">
+
+                    <div class="input-select">
+
+                      <select id="game_id" name="game_id" class="txt select" style="width:100%;">
+                      <empty name="gameList">
+                         <option value="">未玩过任何游戏</option>
+                      <else/>
+                         <option value="">请选择充值游戏</option>
+                      </empty>
+
+                        <volist name="gameList" id="vo">
+
+                          <option <if condition="$game_id eq $vo['id']">selected</if> value="{$vo.id}" data-radio="{$vo.bind_recharge_discount}">{$vo.game_name}</option>
+
+                        </volist>
+
+                      </select>
+
+                    </div>
+
+                  </span>
+
+                </li>
+
+                <li class="table-row">
+
+                  <span class="table-cell">充值金额</span>
+
+                  <span class="table-cell">
+
+                    <input type="text" class="txt rcmoney" id="pay_amount" name="pay_amount" placeholder="最低充值金额1元">
+
+                  </span>
+
+                </li>
+
+                <li class="table-row">
+
+                  <span class="table-cell">折扣比例</span>
+
+                  <span class="table-cell">
+
+                    <input type="text" class="txt" value="" readonly>
+
+                    <input class="rcratio" name="ratio" type="hidden" value="">
+
+                  </span>
+
+                </li>
+
+                <li class="table-row">
+
+                  <span class="table-cell">实付金额</span>
+
+                  <span class="table-cell">
+
+                    <input type="text" class="txt realmoney" name="realmoney" readonly >
+
+                  </span>
+
+                </li>
+
+                <li class="table-row">
+
+                  <span class="table-cell">获得绑币</span>
+
+                  <span class="table-cell">
+
+                    <input type="text" class="txt rcplatform" name="rcplatform" readonly >
+
+                  </span>
+
+                </li>
+
+              </ul>
+
+              </div>
+
+              <div class="recharge-part">
+
+              <ul class="table way">
+
+                <li class="table-caption">
+
+                  <span class="table">
+
+                    <span class="tcell">
+
+                      <span class="way-font">请选择支付方式</span>
+
+                    </span>
+
+                  </span>
+
+                </li>
+
+                <li class="table-row">
+
+                  <span class="table-cell">
+
+                    <i class="iconfont icon-alipay"></i>
+
+                    <span class="text">
+
+                      <span>支付宝</span>
+
+                      <span>支付宝安全支付</span>
+
+                    </span>
+
+                  </span>
+
+                  <span class="table-cell">
+
+                    <label class="input-radio">
+
+                      <input type="radio" class="radio on jssbtn" name="way" value="1" checked ><i class="iconfont icon-yes"></i>
+
+                    </label>
+
+                  </span>
+
+                </li>
+
+                <li class="table-row">
+
+                  <span class="table-cell">
+
+                    <i class="iconfont icon-weixin"></i>
+
+                    <span class="text">
+
+                      <span>微信支付</span>
+
+                      <span>支持微信4.2以上版本支付</span>
+
+                    </span>
+
+                  </span>
+
+                  <span class="table-cell">
+
+                    <label class="input-radio">
+
+                      <input type="radio" class="radio jssbtn" name="way" value="2"><i class="iconfont icon-yes"></i>
+
+                    </label>
+
+                  </span>
+
+                </li>
+
+                <if condition="get_tool_status('goldpig') eq 1">
+
+                  <li class="table-row">
+
+                    <span class="table-cell">
+
+                      <i class="iconfont goldpig"></i>
+
+                      <span class="text">
+
+                        <span>金猪支付</span>
+
+                        <span>支持多种支付</span>
+
+                      </span>
+
+                    </span>
+
+                    <span class="table-cell">
+
+                      <label class="input-radio">
+
+                        <input type="radio" class="radio jssbtn" name="way" value="8"><i class="iconfont icon-yes"></i>
+
+                      </label>
+
+                    </span>
+
+                  </li>
+
+                </if>
+
+              </ul>
+
+              </div>
+
+              <div class="btnbox recharge-part recharge-table-btnbox">
+
+                <input type="button" class="btn jssubmit" value="确认支付">
+
+              </div>
+
+              <input type="hidden" name="spendType" value="2">
+
+            </form>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </section>
+
+    <div class="popmsg pop-dialog"></div>
+
+    <script src="__JS__/pop.lwx.min.js"></script>
+
+    <script src="__JS__/select2.min.js"></script>
+
+    <script>
+
+      $(function() {
+
+        if (isWeiXin()) {
+           $('#weixin').hide();
+          
+        }
+
+        var popmsg = $('.popmsg').pop();
+
+        $('.jstab .btn').click(function() {
+
+          var that = $(this),parent = that.closest('.jstab'),sib=parent.siblings('.jslist');
+
+          parent.find('.btn').removeClass('active');
+
+          var index = that.addClass('active').closest('li').index();
+
+          sib.find('.t-tabpan').eq(index).addClass('active').siblings().removeClass('active'); 
+
+
+
+          return false;
+
+        });
+
+        
+
+        $('.jssbtn').click(function() {
+
+          var that = $(this);
+
+          if (that.hasClass('on')) {
+
+            that.removeClass('on');
+
+          } else {
+
+            that.closest('.table').find('.jssbtn').removeClass('on');
+
+            that.addClass('on');
+
+          }
+
+        });
+
+        $('#game_id').select2().change(function() {
+          var that    = $(this),cur = that.find('option:selected');
+
+          var ratio   = cur.attr('data-radio');
+
+          var parent  = that.closest('.jsinfo');
+
+          var rr      = parent.find('.rcratio');
+
+          var sib     = rr.siblings('input');
+
+          var rm      = parent.find('.realmoney');
+
+          var rc      = parent.find('.rcmoney').val();
+
+          rr.val('');sib.val('');
+
+
+
+          if (ratio !='0.00' && ratio != '') {
+
+            rr.val(ratio);
+
+            sib.val(ratio+'折');
+
+            if (rc) {
+
+              var rmnum = Math.floor(ratio*100 * rc/10)/100;
+
+              rm.val(rmnum);
+
+            }
+
+          } else {
+
+            sib.val(10+'折');
+
+            rr.val(10);
+
+            rm.val(rc);
+
+          }
+
+        });
+
+        
+
+        $('.rcmoney').keyup(function() {
+
+          var that = $(this),val = $.trim(that.val()),parent=that.closest('.jsinfo'),pf=parent.find('.rcplatform');
+
+          var rm = parent.find('.realmoney');
+
+          if(val == ""){return true;}
+
+          if (val) {
+
+            if (val>0 && /^(0|[1-9][0-9]*)$/.test(val)) {
+
+              pf.val(val);
+
+              if (rm) {
+
+                var ratio = $.trim(parent.find('.rcratio').val()) || 10;
+
+                var rmnum = Math.floor(ratio*100 * val/10)/100;
+
+                rm.val(rmnum);
+
+              }
+
+            } else {
+
+              popmsg.msg('请输入非零开头的正整数');that.val('').focus();
+
+              pf.val('');if(rm) {rm.val('');}
+
+            }
+
+          } else {
+
+            popmsg.msg('请输入充值金额');that.val('').focus();
+
+            pf.val('');if(rm) {rm.val('');}
+
+          }
+
+        });
+
+        function isWeiXin(){
+          var ua = window.navigator.userAgent.toLowerCase();
+          if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+              return true;
+          }else{
+              return false;
+          }
+        }
+
+        function validation(obj){
+
+          var account = obj.find('input[name="account"]').val();
+
+          var game_id = obj.find('select option:selected').val();
+
+          var pay_amount = obj.find('input[name="pay_amount"]').val();
+
+
+
+          if($.trim(account) == ''){
+
+            popmsg.msg('请输入充值账号');
+
+            return false;
+
+          }
+
+
+
+          if(obj.attr('id') == 'form2' && $.trim(game_id) == ''){
+
+            popmsg.msg('请选择充值游戏');
+
+            return false;
+
+          }
+
+
+
+          if($.trim(pay_amount) == ''){
+
+            popmsg.msg('请输入充值金额');
+
+            return false;
+
+          }
+
+          return true;
+
+        }
+
+
+
+        $('.jssubmit').click(function(){
+
+          var than = $(this),form = than.closest('form');
+
+          if(than.hasClass('disabled')) {
+
+            return false;
+
+          }
+
+          than.addClass('disabled');
+
+
+
+          if($("#form1 .on").val()==8){
+
+             $("#form1").attr("action","{:U('pay/goldpig')}");
+
+             if(validation($("#form1"))){
+
+               $("#form1").submit();
+
+             }else{
+
+              than.removeClass('disabled');
+
+            }
+
+              return false;
+
+
+
+          }
+
+
+
+          if($("#form2 .on").val()==8){
+
+             $("#form2").attr("action","{:U('pay/goldpig')}");
+
+             if(validation($("#form2"))){
+
+               $("#form2").submit();
+
+             }else{
+
+              than.removeClass('disabled');
+
+            }
+
+                return false;
+
+
+
+          }
+
+          
+
+          if(validation(form)){
+
+            $.ajax({
+
+              url:form.attr('active'),
+
+              type:"post",
+
+              dataType:"json",
+
+              data:form.serialize(),
+
+              success:function(result){
+
+                than.removeClass('disabled');
+
+                if(result.status == 1){
+
+                  window.location.href = result.url;
+
+                }else{
+
+                  popmsg.msg(result.info);
+
+                }
+
+                
+
+              },
+
+              error:function(){
+
+                alert("服务端异常");
+
+              }
+
+            })
+
+          }else{
+
+            than.removeClass('disabled');
+
+          }
+
+          
+
+          return false;
+
+        })
+
+        
+
+      });
+
+    </script>
+
+  </body>
+
+</block>
+
+<block name="footer"></block>

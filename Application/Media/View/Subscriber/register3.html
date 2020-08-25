@@ -1,0 +1,164 @@
+<extend name="Public/notopfootbase" />
+<block name="body">
+<link href="__CSS__/user.css" type="text/css" rel="stylesheet">
+<link href="__CSS__/login.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="__JS__/jquery-1.7.2.min.js"></script>
+<script src="__JS__/jquery.cookie.js" charset="utf-8"></script>
+<!-- 主体内容 -->
+<div class="loginbg">
+    <div class="cont-box regcont">
+
+        <div class="box login-box regbox">
+              
+              <!--其他方式注册-->  
+                <div class="ad-box">
+                <div class="dsf">
+                <h3>也可使用以下账号<br>简单注册快人一步</h3>
+                <ul>
+                <eq name="qq_login" value="1"><li><a onclick="login('qq')" class="ds_qq"><i></i><font>QQ号登录</font></a></li></eq>
+                <eq name="wx_pc_login" value="1"><li><a onclick="login('weixin')" class="ds_wx"><i></i><font>微信号登录</font></a></li></eq>
+                </ul>
+                <a class="dsflog" href="{:U('Subscriber/login')}">登录</a>
+                </div>
+                </div><!--其他方式注册结束--> 
+                
+            <form class="f-login" id="form1" method="post">
+                <input type="hidden" name="account" value="{$data.account}">
+                <input type="hidden" name="phone" value="{$data.phone}">
+                <input type="hidden" name="password" value="{$data.password}">
+                <input type="hidden" name="type" value="{$data.type}">
+                <input type="hidden" name="registerverify" class="registerverify" value="{$data.registerverify}">
+                <div class="loginbk">
+                <div class="login_tit">
+                        <span>真实用户信息</span>
+                    </div>
+                    
+                    <div class="regwarn">为保障您顺畅享受游戏，根据相关法律法规，以下信息为防沉迷系统必填项。 </div>
+                    
+                    
+                     <div class="ipt-box">
+                        <i class="login_name"></i>
+                        <input type="text" class="real_name" name="real_name" placeholder="请输入您的真实姓名">
+                    </div>
+                    
+                      <div class="ipt-box mgn_24">
+                        <i class="login_num"></i>
+                        <input type="text" class="idcard" name="idcard" placeholder="请输入您的身份证号">
+                    </div>
+                       
+
+                    <input id="login-btn" type="button" class="phbut" value="完成">
+                      <span class="custom-label rember">
+					  <input class="form_control pckb" type="checkbox" checked>
+					  <i class="label_icon"></i>
+					  <a onclick="agreement()" class="label_text">
+					  我已接受并同意《用户注册协议》
+					  </a>
+					  </span>
+
+                    
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+   
+</div>
+   
+
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript" src="__STATIC__/layer/extend/layer.ext.js"></script>
+<script>
+function agreement(content){
+    //页面层-自定义
+        layer.open({
+          type: 2,
+          title: '用户注册协议',
+          shadeClose: false,
+          shade: 0.5,
+          maxmin: false, //开启最大化最小化按钮
+          area: ['50%', '70%'],
+          content: ["{:U('agreement')}"]
+        });
+}
+
+function login(obj) {
+    var url = '{:U("thirdlogin",array("gid"=>$_REQUEST["gid"],"pid"=>$_REQUEST["pid"]))}';
+    url = url.replace(".html","")+"/type/"+obj;
+    window.location=url;
+}
+
+var f=function(msg,obj) {
+    layer.tips(msg, obj, {
+        tips: [1, 'red'],
+      tipsMore: true
+    });
+};
+
+
+$('.phbut').click(function(){
+    var real_name = $.trim($('.real_name').val());
+    if (real_name == '') {f('请输入真实姓名','.real_name');return;}
+    $.ajax({
+        type:'post',
+        async:false,
+        url:"{:U('isChineseName')}",
+        data:{name:real_name},
+        success:function(data){
+            if(!data.status){
+              f('真实姓名不正确','.real_name');$('.phbut').addClass('error');
+            }else{
+              $('.phbut').removeClass('error')
+            }
+        },error:function(){
+            alert('服务器故障，请稍后再试');
+        }
+    });
+    if($('.phbut').hasClass('error')){
+      return false;
+    }
+    var idcard = $.trim($('.idcard').val());
+    if (idcard == '') {f('请输入身份证号码，字母需小写','.idcard');return;}
+    $.ajax({
+        type:'post',
+        async:false,
+        url:"{:U('isidcard')}",
+        data:{idcard:idcard,name:real_name},
+        success:function(data){
+          console.log(data);
+             if(data.status!=1){
+               f(data.msg,'.idcard');$('.phbut').addClass('error');
+             }else{
+               $('.phbut').removeClass('error')
+             }
+        },error:function(){
+            alert('服务器故障，请稍后再试');
+        }
+    });
+    if($('.phbut').hasClass('error')){
+      return false;
+    }
+    if (!$(".pckb").prop("checked")){
+        f('请阅读用户注册协议','.pckb');return false;
+    }
+    pdata = $('#form1').serialize();
+    $.ajax({
+        type:'post',
+        url:"{:U('register')}",
+        data:pdata,
+        success:function(data){
+            if(data.status){
+                layer.msg(data.msg);
+                window.location.href = data.url;
+            }else{
+                layer.msg(data.msg);
+            }
+        },error:function(){
+            alert('服务器故障，请稍后再试');
+        }
+    });
+});
+</script>
+<include file='foot' />
+</block>

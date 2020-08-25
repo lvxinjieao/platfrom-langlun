@@ -1,0 +1,479 @@
+<extend name="Public/base" />
+<block name="body">
+	<link rel="stylesheet" type="text/css" href="/Addons/UploadImages/style/UploadImages.css" >
+    <link rel="stylesheet" href="__CSS__/watermark.css" type="text/css" />
+    <link rel="stylesheet" href="__CSS__/jquery.minicolors.css" type="text/css">
+    <link rel="stylesheet" href="__CSS__/nouislider.min.css" type="text/css">
+    <script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+    <style>
+    	#upload_picture_icon-button.uploadify-button{ margin-top: 90px;}
+    </style>
+    <div class="main-place">
+        <span class="main-placetitle"></span>
+        <ul class="main-placeul">
+            <li><a href="{:U('Model/index')}">系统</a></li>
+            <li><a href="{:U('Route/lists')}">扩展工具</a></li>
+            <li><a href="#">{$meta_title}</a></li>
+        </ul>
+        <p class="description_text" style="height: 40px;line-height: 40px;">说明：针对图片上水印的显示进行基本配置</p>
+    </div>
+
+    <div class="tab-wrap">
+        <div class="position_tip">
+            <div class="tip_rows"><span></span><span></span><span></span></div>
+            <div class="tip_rows"><span></span><span class="current"><eq name="watermark.types" value="1"><i style="font-family:{:str_replace('.','',"'".$watermark['font']."'")};font-size:{$watermark.font_size}px;color:{$watermark.font_color};-webkit-filter:blur({-$watermark['quality']*5/100+5}px);-moz-filter:blur({-$watermark['quality']*5/100+5}px);-ms-filter:blur({-$watermark['quality']*5/100+5}px);filter:blur({-$watermark['quality']*5/100+5}px);progid:DXImageTransform.Microsoft.Blur(PixelRadius={-$watermark['quality']*5/100+5},MakeShadow=false)">{$watermark.font_text|default='溪谷手游'}</i><else /><img src="<notempty name='watermark.icon'>{:get_cover($watermark['icon'],'path',0,false)}<else />__IMG__/icon_normal_picture.png</notempty>" height="70" width="90" style="opacity:{$watermark['transparency']/100};-webkit-filter:blur({-$watermark['quality']*5/100+5}px);-moz-filter:blur({-$watermark['quality']*5/100+5}px);-ms-filter:blur({-$watermark['quality']*5/100+5}px);filter:blur({-$watermark['quality']*5/100+5}px);progid:DXImageTransform.Microsoft.Blur(PixelRadius={-$watermark['quality']*5/100+5},MakeShadow=false)"></eq></span><span></span></div>
+            <div class="tip_rows"><span></span><span></span><span></span></div>
+        </div>
+        <div class="tab-content tabcon1711 tabcon17112">
+            <div id="tab1" class="tab-pane in tab1">
+                <form action="{:U('saveTool')}" method="post" class="form-horizontal watermarkform form_info_ml">
+                    <table border="0" cellspacing="0" cellpadding="0">
+                        <tbody>
+                        <tr>
+                            <td class="l noticeinfo">水印设置</td>
+                            <td class="r table_radio">
+                                <div class="position_water">
+                                    <div class="position_rows"><span>左上</span><span>中上</span><span>右上</span></div>
+                                    <div class="position_rows"><span>左中</span><span class="current">居中</span><span>右中</span></div>
+                                    <div class="position_rows"><span>左下</span><span>中下</span><span>右下</span></div>
+                                </div>
+                                <span class="notice-text position_text" style="margin-left: 342px;">针对图片上水印的显示进行基本配置</span>
+                                <input type="hidden" id="position" name="config[position]" value="{$watermark['position']|default='1,1'}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="l noticeinfo">水印类型</td>
+                            <td class="r table_radio">
+									<span class="form_radio">
+										<label>
+                                            <input type="radio" name="config[types]" value="0" onclick="dr_type(0)" checked> 图片
+                                        </label>
+										<label>
+                                            <input type="radio" name="config[types]" value="1" onclick="dr_type(1)"> 文字
+                                        </label>
+									</span>
+                            </td>
+                        </tr>
+                        <tr class="dr_sy dr_sy_1" style="<neq name='watermark.types' value='1'>display:none;</neq>">
+                            <td class="l noticeinfo">文字字体</td>
+                            <td class="r table_radio">
+                                <select name="config[font]">
+                                    <option value="1.ttf" selected="">字体1</option>
+                                    <option value="2.ttf">字体2</option>
+                                    <option value="3.ttf">字体3</option>
+                                </select>
+                                <span class="notice-text" style="margin-left: 256px;">自定义字体文件.config/font/</span>
+                            </td>
+                        </tr>
+                        <tr class="dr_sy dr_sy_1" style="<neq name='watermark.types' value='1'>display:none;</neq>">
+                            <td class="l noticeinfo">水印文字</td>
+                            <td class="r table_radio">
+                                <input name="config[font_text]" type="text" value="{$watermark.font_text}">
+                                <span class="notice-text" style="margin-left: 256px;width: auto;">如果为中文，先要在font目录中添加字体</span>
+                            </td>
+                        </tr>
+                        <tr class="dr_sy dr_sy_1" style="<neq name='watermark.types' value='1'>display:none;</neq>">
+                            <td class="l noticeinfo">水印文字大小</td>
+                            <td class="r table_radio">
+                                <input name="config[font_size]" type="text" value="{$watermark.font_size}">
+                                <span class="notice-text" style="margin-left: 256px;width: auto;">字体大小，单位px</span>
+                            </td>
+                        </tr>
+                        <tr class="dr_sy dr_sy_1" style="<neq name='watermark.types' value='1'>display:none;</neq>">
+                            <td class="l noticeinfo">水印文字颜色</td>
+                            <td class="r table_radio">
+                                <div class="minicolors minicolors-theme-bootstrap minicolors-position-bottom minicolors-position-left">
+                                    <input type="hidden" id="hue-demo" data-control="hue" data-defaultValue="{$watermark.font_color}" class="form-control demo minicolors-input" name="config[font_color]" value="{$watermark.font_color}" size="7">
+
+                                    <div class="minicolors-panel minicolors-slider-hue">
+                                        <div class="minicolors-slider minicolors-sprite">
+                                            <div class="minicolors-picker"></div>
+                                        </div>
+                                        <div class="minicolors-opacity-slider minicolors-sprite">
+                                            <div class="minicolors-picker"></div>
+                                        </div>
+                                        <div class="minicolors-grid minicolors-sprite">
+                                            <div class="minicolors-grid-inner"></div>
+                                            <div class="minicolors-picker">
+                                                <div></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="dr_sy dr_sy_0" style="<neq name='watermark.types' value='0'>display:none;</neq>">
+                            <td class="l noticeinfo">水印图片</td>
+                            <td class="r table_radio">
+                                <div class="select_img fl">
+
+                                    <div class="upload-img-box">
+                                        <notempty name="watermark['icon']">
+                                            <div class="upload-pre-item upload-pre-watermark"><img src="{$watermark['icon']|get_cover='path'}"/></div>
+                                            <else />
+                                            <div class="upload-pre-item"><img src="__IMG__/icon_normal_picture.png"></div>
+                                        </notempty>
+                                    </div>
+                                    <input type="file" id="upload_picture_icon" >
+                                    <input type="hidden" name="config[icon]" id="cover_id_icon" value="{$watermark.icon}" />
+                                    <input type="hidden" name="config[path]" id="cover_id_icon_path" disabled value="<notempty name='watermark.icon'>{:get_cover($watermark['icon'],'path',0,false)}<else />__IMG__/icon_normal_picture.png</notempty>"/>
+                                </div>
+                                <span class="notice-text mg_t10" style="margin-left: 348px;">自定义水印，格式为.png</span>
+                            </td>
+                        </tr>
+                        <tr class="dr_sy dr_sy_0" style="<neq name='watermark.types' value='0'>display:none;</neq>">
+                            <td class="l noticeinfo">水印透明度</td>
+                            <td class="r table_radio">
+                                <div class="slider_st fl">
+                                    <div id="demo6_slider1" class="noUi-danger noUi-target noUi-ltr noUi-horizontal noUi-background" style="width: 443px;"></div>
+                                    <span id="demo6_slider1-span" class="bar-span">{$watermark.transparency|default=1}</span>
+                                    <input type="hidden" id="transparency" name="config[transparency]" value="{$watermark.transparency|default=1}" >
+                                </div>
+                                <span class="notice-text mg_t10" style="left: 480px!important;">设置水印图标透明度，数值越大，图标越清晰</span>
+                            </td>
+                        </tr>
+                        <tr class="dr_sy dr_sy_1 dr_sy_0">
+                            <td class="l noticeinfo">水印质量</td>
+                            <td class="r table_radio">
+                                <div class="slider_st fl">
+                                    <div id="demo6_slider2" class="noUi-danger noUi-target noUi-ltr noUi-horizontal noUi-background" style="width: 443px;"></div>
+                                    <span id="demo6_slider2-span" class="bar-span">{$watermark.quality|default=1}</span>
+                                    <input type="hidden" id="quality" name="config[quality]" value="{$watermark.quality|default=1}" >
+                                </div>
+                                <span class="notice-text mg_t10" style="height:48px;line-height:48px;left: 480px!important;">设置添加水印后的图片质量，数值越大，图片越清晰</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="l noticeinfo">水印显示状态</td>
+                            <td class="r table_radio">
+									<span class="form_radio">
+										<label>
+                                            <input type="radio" name="config[status]" value="1"> 开启
+                                        </label>
+										<label>
+                                            <input type="radio" name="config[status]" value="0" checked> 关闭
+                                        </label>
+									</span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <input type="hidden" name="name" value="watermark">
+                    <input type="submit" value="保存" target-form="watermarkform" class="submit_btn form_btn jsajaxpost">
+                </form>
+            </div>
+        </div>
+    </div>
+    {:W('index/comset',['title'=>'水印设置','url'=>'Tool/watermark'])}
+</block>
+
+<block name="script">
+    <script src="__JS__/jquery.minicolors.min.js" type="text/javascript"></script>
+    <script src="__JS__/nouislider.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        Think.setValue('config[status]',{$watermark['status']|default=0});
+        Think.setValue('config[types]',{$watermark['types']|default=0});
+        Think.setValue('config[font]',"{$watermark['font']|default='1.ttf'}");
+        //导航高亮
+        highlight_subnav('{:U('Tool/watermark')}');
+        $(function() {
+            //支持tab
+            showTab();
+        });
+
+        var imgurl = '__IMG__/';
+
+
+        $("#upload_picture_icon").uploadify({
+            "height"          : 30,
+            "swf"             : "__STATIC__/uploadify/uploadify.swf",
+            "fileObjName"     : "download",
+            "buttonText"      : "上传图标",
+            "uploader"        : "{:U('File/uploadPicture',array('session_id'=>session_id()))}",
+            "width"           : 120,
+            'removeTimeout'   : 1,
+            'fileTypeExts'    : '*.jpg; *.png; *.gif;',
+            "onUploadSuccess" : upload_picture_icon{$field.name},
+        'onFallback' : function() {
+            alert('未检测到兼容版本的Flash.');
+        }
+        });
+        function upload_picture_icon{$field.name}(file, data){
+            var data = $.parseJSON(data);
+            var src = '';
+            if(data.status){
+                $("#cover_id_icon").val(data.id);
+                $("#cover_id_icon_path").val(data.path);
+                src = data.url || '__ROOT__' + data.path;
+                $("#cover_id_icon").parent().find('.upload-img-box').html(
+                        '<div class="upload-pre-item upmt16"><img src="' + src + '"/></div>'
+                );
+                setwatrer($('input[name="config[types]"]:checked').val());
+            } else {
+                updateAlert(data.info,'tip_error');
+                setTimeout(function(){
+                    $('#tip').find('.tipclose').click();
+                    $('#top-alert').find('button').click();
+                    $(that).removeClass('disabled').prop('disabled',false);
+                },1500);
+            }
+        }
+
+        $('.position_rows span').click(function(){
+            var that = $(this);
+            that.closest('.position_water').find('span').removeClass('current');
+            that.addClass('current');
+
+            var rowindex = that.closest('.position_rows').index();
+            var index = that.index();
+            $('#position').val(rowindex+","+index);
+            var tsc = $('.tip_rows span.current').html();
+            $('.tip_rows span').removeClass('current').html('');
+
+            $('.tip_rows').eq(rowindex).find('span').eq(index).addClass('current').html(tsc);
+
+            setwatrer($('input[name="config[types]"]:checked').val());
+
+        });
+
+        function setwatrer(type) {
+
+            var list = $('.dr_sy_' + type).find('input,select');
+            var tip = $('.tip_rows span.current');
+            if (type == 1) {tip.html('<i></i>');}else{tip.html('');}
+            var css = {};
+            var text = '';
+
+            $.each(list,function(i,n) {
+                var that = $(n);
+                var name = that.attr('name').replace('config[','').replace(']','');
+                var val = that.val();
+
+                switch(name) {
+                    case 'font':css['font-family']="'"+(val.replace('.',''))+"'";break;
+                    case 'font_text':text = val;break;
+                    case 'font_size':css['font-size']=val+'px';break;
+                    case 'font_color':css.color=val;break;
+                    case 'quality':{
+                        css['-webkit-filter']='blur('+(5-val*0.05)+'px)';
+                        css['-moz-filter']='blur('+(5-val*0.05)+'px)';
+                        css['-ms-filter']='blur('+(5-val*0.05)+'px)';
+                        css['filter']='blur('+(5-val*0.05)+'px)';
+                        css['filter']='progid:DXImageTransform.Microsoft.Blur(PixelRadius='+(5-val*0.05)+',MakeShadow=false)';
+                    };break;
+
+                    case 'path':text = val;break;
+                    case 'transparency':css['opacity']=val/100;break;
+                }
+
+
+            });
+
+
+            if (type == 1) {
+                switch(tip.index()) {case 1:css['text-align']='center';break;case 2:css['text-align']='right';break;default:css['text-align']='left';}
+                tip.find('i').css(css).text(text);
+            } else {
+                tip.html('<img src="'+text+'" width="90" height="70">');
+                tip.find('img').css(css);
+            }
+
+        }
+
+        function dr_type(v) {
+            $('.dr_sy').hide();
+            $('.dr_sy_' + v).show();
+
+            setwatrer(v);
+        }
+
+
+        $(function(){
+            var wm = {$watermark['types']|default=0};
+
+            $('.jsajaxpost').on('click',function() {
+                var that = $(this);
+                if (that.attr('type')=='submit') {
+                    if (that.hasClass('disabled')) {return false;}
+                    that.addClass('disabled').attr('autocomplete','off').prop('disabled',true);
+                    var form = $('.'+that.attr('target-form'));
+                    $.ajax({
+                        type:'post',
+                        dataType:'json',
+                        url:form.attr('action'),
+                        data:form.serialize(),
+                        success:function(data) {
+                            if (data.status==1) {
+                                if($("input[name='config[status]']:checked").val() == 0){
+                                    updateAlert('关闭成功');
+                                    setTimeout(function(){
+                                        location.reload();
+                                    },1500);
+                                }else{
+                                    updateAlert(data.info+'，正在准备加水印');
+                                    setTimeout(function(){
+                                        updateAlert('添加中');
+                                        $.ajax({
+                                            type:'post',
+                                            dataType:'json',
+                                            url:'{:U("addWatermarkOnPic")}',
+                                            data:{},
+                                            success:function(data) {
+                                                if (data.status==1) {
+                                                    updateAlert(data.info);
+                                                    setTimeout(function(){
+                                                        location.reload();
+                                                    },1500);
+                                                } else {
+                                                    updateAlert(data.info,'tip_error');
+                                                    setTimeout(function(){
+                                                        location.reload();
+                                                    },1500);
+                                                }
+                                            },error:function() {
+                                                updateAlert('服务器故障，请稍候再试','tip_error');
+                                                setTimeout(function(){
+                                                    location.reload();
+                                                },1500);
+                                            }
+                                        });
+                                    },1500);
+                                }
+                            }else{
+                                updateAlert(data.info,'tip_error');
+                                setTimeout(function(){
+                                    that.removeClass('disabled').prop('disabled',false);
+                                    $('#tip').find('.tipclose').click();
+                                },1500);
+                            }
+                        },error:function() {
+                            updateAlert('服务器故障，请稍候再试','tip_error');
+                            setTimeout(function(){
+                                location.reload();
+                            },1500);
+                        }
+                    });
+                }
+                return false;
+            });
+
+            var position = [{$watermark['position']}];
+            var tsc = $('.tip_rows span.current').html();
+            $('.position_rows span').removeClass('current');
+            $('.tip_rows span').removeClass('current').html('');
+            $('.position_rows').eq(position[0]).find('span').eq(position[1]).addClass('current');
+            $('.tip_rows').eq(position[0]).find('span').eq(position[1]).addClass('current').html(tsc);
+
+            $("#hue-demo").minicolors({
+                control: $(this).attr('data-control') || 'hue',
+                defaultValue: $(this).attr('data-defaultValue') || '',
+                inline: $(this).attr('data-inline') === 'true',
+                letterCase: $(this).attr('data-letterCase') || 'lowercase',
+                opacity: $(this).attr('data-opacity'),
+                position: $(this).attr('data-position') || 'bottom left',
+                change: function(hex, opacity) {
+                    if(!hex) return;
+                    if(opacity) hex += ', ' + opacity;
+                    if(typeof console === 'object') {
+                        console.log(hex);
+                        setwatrer($('input[name="config[types]"]:checked').val());
+                    }
+                },
+                theme: 'bootstrap'
+            });
+
+            $('input[name="config[font_text]"],input[name="config[font_size]"],input[name="config[voffset]"],input[name="config[hoffset]"],select[name="config[font]"]').change(function(){
+
+                setwatrer($('input[name="config[types]"]:checked').val());
+
+                return false;
+            });
+
+            dr_type(wm);
+            // Store the locked state and slider values.
+            var lockedState = false,
+                    lockedSlider = false,
+                    lockedValues = [60, 80],
+                    slider1 = document.getElementById('demo6_slider1'),
+                    slider2 = document.getElementById('demo6_slider2'),
+                    slider1Value = document.getElementById('demo6_slider1-span'),
+                    slider2Value = document.getElementById('demo6_slider2-span');
+
+            // When the button is clicked, the locked
+            // state is inverted.
+            function crossUpdate(value, slider) {
+
+                // If the sliders aren't interlocked, don't
+                // cross-update.
+                if(!lockedState) return;
+
+                // Select whether to increase or decrease
+                // the other slider value.
+                var a = slider1 === slider ? 0 : 1,
+                        b = a ? 0 : 1;
+
+                // Offset the slider value.
+                value -= lockedValues[b] - lockedValues[a];
+
+                // Set the value
+                slider.noUiSlider.set();
+            }
+
+            noUiSlider.create(slider1, {
+                start: {$watermark.transparency|default=0},
+
+            // Disable animation on value-setting,
+            // so the sliders respond immediately. value:{$watermark.transparency|default=1},
+            animate: false,
+                    range: {
+                min: 1,
+                        max: 100
+            }
+        });
+
+            noUiSlider.create(slider2, {
+                start: {$watermark.quality|default=0},
+            animate: false,
+                    range: {
+                min: 1,
+                        max: 100
+            }
+        });
+
+            slider1.noUiSlider.on('update', function(values, handle) {
+                slider1Value.innerHTML = parseInt(values[handle]);
+                $('#transparency').val($.trim(slider1Value.innerHTML));
+                setwatrer($('input[name="config[types]"]:checked').val());
+            });
+
+            slider2.noUiSlider.on('update', function(values, handle) {
+                slider2Value.innerHTML = parseInt(values[handle]);
+                $('#quality').val($.trim(slider2Value.innerHTML));
+                setwatrer($('input[name="config[types]"]:checked').val());
+            });
+
+            function setLockedValues() {
+                lockedValues = [
+                    Number(slider1.noUiSlider.get()),
+                    Number(slider2.noUiSlider.get())
+                ];
+            }
+
+            slider1.noUiSlider.on('change', setLockedValues);
+            slider2.noUiSlider.on('change', setLockedValues);
+
+            slider1.noUiSlider.on('slide', function(values, handle) {
+                crossUpdate(values[handle], slider2);
+            });
+
+            slider2.noUiSlider.on('slide', function(values, handle) {
+                crossUpdate(values[handle], slider1);
+            });
+        });
+
+    </script>
+</block>
+
+
+
+</block>

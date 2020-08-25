@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="__JS__/mui.min.js"></script>
+		<link href="__CSS__/mui.min.css" rel="stylesheet" />
+		<link href="__CSS__/index.css" rel="stylesheet" />
+
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+	</head>
+
+	<body>
+		<div class="containers">
+			<div class="header">
+				
+				<div class="title">
+					<span>选择支付方式</span>
+				</div>
+			</div>
+			<!--中间内容-->
+			<div class="contents" style="background-color:#F3F2F7;">
+				<style>
+					ul{ padding: 0px;}
+					.infomation {
+						background-color: #FFFFFF;
+						width: 100%;
+						padding-top: 15px;
+						padding-bottom: 15px;
+						font-size: 16px;
+						position: relative;
+					}
+					
+					.info_content {
+						margin: 0 14px;
+						position: relative;
+					}
+					
+					.infomation span {
+						display: block;
+					}
+					
+					.methods {
+						background-color: #FFFFFF;
+						margin-top: 20px;
+						width: 100%;
+						display: inline-block;
+						padding: 15px 0px;
+					}
+					
+					.confirm {
+						margin-top: 20px;
+						position: relative;
+						width: 100%;
+					}
+					
+					.confirm a {
+						width: 90%;
+						height: 40px;
+						background-color: #01B1EC;
+						display: block;
+						margin: 0 auto;
+						text-align: center;
+						line-height: 40px;
+						color: #ffffff;
+						font-size: 18px;
+						border-radius: 2px;
+					}
+										
+					.methods_content .zhifubao,
+					.weixin {
+						width: 33%;
+						text-align: center;
+					}
+					
+					.zhifubao {
+						float: left;
+					}
+					
+					.weixin {
+						float: right;
+					}
+					.methods_content ul li{ width: 50%; float: left;}
+					.methods_content ul li div{ border: 2px solid #dbdada; width: 60%; max-width: 120px; margin: 0 auto; border-radius: 8px; overflow: hidden; text-align: center; padding-top: 10px;}
+					.methods_content ul li div h3{ background:#dbdada; color: #fff; margin-top:10px; margin-bottom: 0px; display: block; width: 100%; text-align: center; height: 30px; line-height: 30px; font-size: 15px;}
+					.methods_content ul li div span{ display: block; width: 60px; height: 60px; margin: 0 auto;}
+					.zhifubao_type span{ background: url(__IMG__/icon-zhifubao_g.png) no-repeat center; background-size:100% 100% ;}
+					.weixin_type span{ background: url(__IMG__/icon-weixin_g.png) no-repeat center; background-size:100% 100% ;}
+					.zf_check{ display: block; width: 30px; height: 30px; margin: 0 auto; margin-top: 10px; border-radius: 30px; border: 1px solid #dbdada;}
+				    
+						.methods_content ul li.chose div{border: 2px solid #00b1eb}
+						.methods_content ul li.chose div h3{ background: #00b1eb;}
+						.methods_content ul li.chose.zhifubao_type span{ background: url(__IMG__/icon-zhifubao.png) no-repeat center; background-size:100% 100% ;}
+				   .methods_content ul li.chose.weixin_type span{background: url(__IMG__/icon-weixin.png) no-repeat center; background-size:100% 100% ;}
+				  .methods_content ul li.chose .zf_check{ display: block; width: 30px; height: 30px; background: url(__IMG__/icon-1.png) no-repeat center; background-size:100% 100%; border: 1px solid #00b1eb;}
+				</style>
+	
+				<div class="methods">
+					<div class="methods_content">
+						<ul>
+						<if condition="($_GET['type'] eq 3) OR ($_GET['type'] eq 4)">
+
+						<li class="zhifubao_type <if condition="$_GET['type'] eq 3">chose </if>">
+								<div><span></span>
+								<h3>支付宝支付</h3>
+								</div>
+								<a href="{:U('pay_way',array('type'=>3,'user_id'=>I('user_id'),'game_id'=>I('game_id')))}" class="zf_check"></a>
+								</li>
+
+								<li class="weixin_type <if condition="$_GET['type'] eq 4">chose </if>">
+								<div><span></span>
+								<h3>微信支付</h3>
+								</div>
+								<a href="{:U('pay_way',array('type'=>4,'user_id'=>I('user_id'),'game_id'=>I('game_id')))}" class="zf_check"></a>
+								</li>
+
+
+
+						<else/>
+							<li class="zhifubao_type <if condition="($_GET['type'] eq 1) OR ($_GET['type'] eq '')">chose </if>">
+								<div><span></span>
+								<h3>支付宝支付</h3>
+								</div>
+								<a href="{:U('pay_way',array('type'=>1,'user_id'=>I('user_id'),'game_id'=>I('game_id')))}" class="zf_check"></a>
+								</li>
+
+								<li class="weixin_type <if condition="$_GET['type'] eq 2">chose </if>">
+								<div><span></span>
+								<h3>微信支付</h3>
+								</div>
+								<a href="{:U('pay_way',array('type'=>2,'user_id'=>I('user_id'),'game_id'=>I('game_id')))}" class="zf_check"></a>
+								</li>
+
+	
+						</if>
+						</ul>
+						
+						
+					</div>
+				</div>
+
+					<if condition="($_GET['type'] eq 3) OR ($_GET['type'] eq 4)">
+						<div class="confirm">
+							<a href="{:U('jft_pay',array('user_id'=>I('user_id'),'game_id'=>I('game_id'),'type'=>$_GET['type']))}">确认</a>
+						</div>
+
+					<else/>
+							<div class="confirm">
+							<if condition="($_GET['type'] eq 1) OR ($_GET['type'] eq '')">
+								<a href="{:U('Apple/apple_alipay_pay',array('user_id'=>I('user_id'),'game_id'=>I('game_id')))}">确认</a>
+							<else/>
+								<a href="{:U('Apple/apple_weixin_pay',array('user_id'=>I('user_id'),'game_id'=>I('game_id')))}">确认</a>
+							</if>
+							</div>
+
+					</if>
+			</div>
+		</div>
+	</body>
+
+</html>

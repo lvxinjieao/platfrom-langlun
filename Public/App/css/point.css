@@ -1,0 +1,55 @@
+@charset "utf-8";
+
+/*css reset*/
+html,body,ul,li,ol,dl,dd,dt,p,h1,h2,h3,h4,h5,h6,form,fieldset,legend,img{margin:0;padding:0;}
+fieldset,img{border:none;}
+address,caption,cite,code,dfn,th,var{font-style:normal;font-weight:normal;}
+ul,ol{list-style:none;}
+input{padding-top:0;padding-bottom:0;}
+input::-moz-focus-inner{border:none;padding:0;}
+select,input{vertical-align:middle;}
+select,input,textarea{margin:0;}
+input[type="text"],input[type="password"],textarea{outline-style:none;-webkit-appearance:none;}
+textarea{resize:none;}
+table{border-collapse:collapse;}
+body{font: 12px/1.42857143 "Microsoft YaHei","微软雅黑","Arial", "宋体"; color:#333;}
+input, textarea, keygen, select, button {font-family:"Microsoft YaHei","微软雅黑","Arial", "宋体";}
+h1, h2, h3, h4{font-family:"Microsoft YaHei","微软雅黑", "Arial";}
+a{color:#333;}
+a,a:hover,a:visited,a:link{text-decoration:none;}
+
+/* common */
+.clearfix{zoom:1;}
+.clearfix:before,.clearfix:after{content:".";display:block;height:0;visibility:hidden;}
+.clearfix:after{clear:both;}
+.inner {max-width:640px;margin:0 auto;}
+.hidden {display:none;}
+.left {float:left;}
+body {background-color:#fff;}
+/* header */
+.header {height:60px;line-height:60px;background-color:#18B1EA;position:relative;}
+.header .return {position:absolute;height:40px;top:10px;left:10px;}
+.header .title {text-align:center;width:100%;color:#fff;font-weight:normal;}
+/* main */
+.main {min-height:300px;position:relative;}
+.main .integral {width:100%;position:relative;}
+.main .integralbg {width:100%;position:absolute;z-index:1;top:0;left:0;}
+.main .container {padding:17% 5.55%;}
+.main .container .content {background-color:#EEEEEE;border-radius:12px;padding:3% 7% 2%;}
+.main .container .content .title {font-weight:normal;color:#505050;font-size:24px;padding-top:10%;}
+.main .container .content .items {padding-top:5%;}
+.main .container .content .items .icon {float:left;width:14%;margin-left:-6px;}
+.main .container .content .items .text {float:right;width:86%;}
+.main .container .content .items .text .font {padding-top:3%;}
+.main .container .content .items .text .font span:nth-child(1){font-size:16px;color:#565656;}
+.main .container .content .items .text .font span:nth-child(2){font-size:12px;color:#1FB3EA;margin-left:3px;}
+.main .container .content .items .text .font span:nth-child(3){font-size:16px;color:#FEB253;float:right;margin-right:4%;}
+.main .container .content .items .text .line {width:100%;vertical-align:top;}
+.main .container .content .items .paragraph {font-size:16px;line-height:28px;color:#616161;}
+.main .container .content .items .paragraph a {color:#49BDEB;text-decoration:underline;}
+.main .container .content .items .paragraph .keyword {color:#FDA337;}
+
+
+
+
+/* footer */

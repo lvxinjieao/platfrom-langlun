@@ -1,0 +1,309 @@
+<extend name="Public/base"/>
+
+<block name="sidebar"></block>
+
+<block name="style">
+    <style>
+        body{padding: 0}
+        html{ background: #fff;}
+       	.blockinfo .question{ position: initial!important;}
+    </style>
+</block>
+<block name="body">
+<link rel="stylesheet" href="__CSS__/kendo.dataviz.min.css" />
+<link rel="stylesheet" href="__CSS__/kendo.default.min.css" />
+<link rel="stylesheet" href="__CSS__/kendo.rtl.min.css" />
+<link rel="stylesheet" href="__CSS__/zwmcss/index.css" />
+<script src="__JS__/kendo.dataviz.min.js"></script>
+<script src="__JS__/kendo.timezones.min.js"></script>
+<script src="__STATIC__/layer/layer.js" type="text/javascript"></script>
+<script src="__JS__/zwmjs/highcharts.js"></script>
+    <!-- 主体 -->
+    <div id="indexMain" class="index-main">
+       <!-- 插件块 -->
+       <div class="container-span aiwrap">
+
+           <div class="xg_patone">
+               <div class="xg_hello">
+                   <span class="xg_spanmar"><span class="col_333">您好，</span><span class="xg_colb"><notempty name="data.nickname">{$data.nickname}<else />{$data.username}</notempty></span>({$data.group})</span>
+                   <span>上次登录时间：</span><span class="xg_spanmar">{$data.last_login_time|date='Y-m-d H:i:s',###}</span>
+                   <span>上次登录IP：</span><span class="xg_spanmar">{:long2ip($data['last_login_ip'])}</span>
+                   <span>累计登录次数：</span><span>{$data.login}</span>
+               </div>
+           </div>
+           <!--第一部分结束-->
+           {:hook('AdminIndex')}
+       </div>
+    </div>
+</block>
+
+<block name="script">
+
+<script>
+    var datelist;
+    $(function() {
+
+        //点击时间显示日历 begin
+        $(".js-pt-calendar").click(function(){
+            $(".js-show-calendar").toggle();
+        })
+        //end 点击时间显示日历
+
+        //点击确定关闭日历 begin
+        $(".js_determine").click(function(){
+            $(".js-show-calendar").hide();
+        });
+        //end 点击确定关闭日历
+
+
+        if({$foldline.hours|default=1}==1) {
+            Highcharts.setOptions({
+                chart:{type:'areaspline',spacingLeft:0,},
+                title:{text: null},legend:{enabled:false},yAxis:{title:{text:null}},
+                tooltip:{backgroundColor: '#fff',borderColor:'white',borderRadius:10,borderWidth:1,shadow:true,animation:true,style:{color: "#999",fontSize: "12px",fontWeight: "blod",fontFamily: "Microsoft Yahei"},shared: true,useHTML: true,valueDecimals:2,
+                    headerFormat: '<table>',pointFormat:'',footerFormat:'</table>',pointFormatter:function(){var s = '<table style="text-align:center;"><small style="color:#1bb2eb;text-align:center;display:block;margin:0;padding:0;">'+this.y+'</small><small>';s += $('.jsctitle1').text()+'/';s += this.category+'~'+(this.index+1)+':00';s += '</small></table>';return s;}
+                },
+                credits:{enabled: false},
+                plotOptions:{areaspline:{fillOpacity:0.5}},
+                xAxis:{tickInterval:2,categories:['0:00','1:00','2:00','3:00','4:00','5:00','6:00','7:00','8:00','9:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00'],tickmarkPlacement:'on'},
+            });
+            datelist = [{$foldline.date}];
+        } else {
+            var date = [{$foldline.date}];
+            Highcharts.setOptions({
+                chart:{type:'areaspline',spacingLeft:0,},
+                title:{text: null},legend:{enabled:false},yAxis:{title:{text:null}},
+                tooltip:{backgroundColor: '#fff',borderColor:'white',borderRadius:10,borderWidth:1,shadow:true,animation:true,style:{color: "#999",fontSize: "12px",fontWeight: "blod",fontFamily: "Microsoft Yahei"},shared: true,useHTML: true,valueDecimals:2,headerFormat:'<small style="color:#1bb2eb;text-align:center;display:block;margin:0;padding:0;">{point.y}</small><small>{point.key}</small><table>',pointFormat:'',footerFormat:'</table>',},
+                credits:{enabled: false},
+                plotOptions:{areaspline:{fillOpacity:0.5}},
+                xAxis:{categories:date,tickmarkPlacement:'on'},
+        });
+            datelist = [{$foldline.date}];
+        }
+
+        selectrange(datelist);
+
+        var news_z = [{$foldline['news']}];
+        $('#container1').highcharts({
+            series:[{data:news_z}]
+        });
+
+        var active_z = [{$foldline.active}];
+        $('#container2').highcharts({
+            series:[{data:active_z}]
+        });
+
+        var player_z = [{$foldline.player}];
+        $('#container3').highcharts({
+            series:[{data:player_z}]
+        });
+
+        var money_z = [{$foldline.money}];
+        $('#container4').highcharts({
+            series:[{data:money_z}]
+        });
+
+        //新增用户和付费用户数据图表切换
+        $('.tab_head a').click(function() {
+            var that=$(this),sib = that.closest('.tab_head').siblings('.tab_content');
+            that.siblings().removeClass('current');
+            var index= that.addClass('current').index();
+            sib.find('.htchart_area_tab').removeClass('show').eq(index).addClass('show');
+
+            $('.ranges li a').each(function() {
+                var url = $.trim($(this).attr('href')).replace(/((\.htm(l?))?)$/g,'').replace(/\/tb\/[012]/g,'');
+
+                $(this).attr('href',url+'/tb/'+index+'.html');
+            });
+        });
+
+
+        $('.jsranges li').on('click',function() {
+            var that = $(this),range = $.trim(that.attr('data-range-key')).split(',');
+            if (that.hasClass('datapick_active')) {return false;}
+            that.addClass('datapick_active').siblings('li').removeClass('datapick_active');
+            parent = that.closest('.jsctitle');
+
+            chartdata(range[0],range[1],parent);
+
+            $(".js-show-calendar").toggle();
+
+            return false;
+        });
+
+        $('.jspn').on('click',function() {
+
+            jspn($(this));
+
+            return false;
+        });
+
+        $('.js_determine').on('click',function() {
+            var that = $(this),parent = that.closest('.jsctitle');
+            if (parent.find('.in-range').length>0) {
+                var first = parent.find('.jscalendarcontent .in-range.first').attr('data-key');
+                var last = parent.find('.jscalendarcontent .in-range.last').attr('data-key');
+
+                chartdata(first,last,parent);
+
+            } else {
+                layer.msg('请选择时间范围');
+            }
+            return false;
+        });
+
+        jsselect();
+
+    });
+
+    function selectrange(range) {
+        if (range) {
+            $.each(range,function(i,n) {
+                if (i == 0) {$('.available[data-key="'+n+'"]').addClass('in-range first');}
+                else if (i == range.length-1) {$('.available[data-key="'+n+'"]').addClass('in-range last');}
+                else {$('.available[data-key="'+n+'"]').addClass('in-range');}
+            });
+        }
+    }
+
+    function chartdata(start,end,parent) {
+
+        var href = '{:U("index")}';
+        end = end?end:start;
+        var tb = $.trim($('.tab_head a.current').attr('href')).replace('#','');
+        window.location.href = href.replace('.html','')+'/start/'+start+'/end/'+end+'/tb/'+tb+'.html';
+
+    }
+
+    function getdatelist(start,end) {
+        var i = start,j=0;
+        var range=[];
+        while(i<=end) {
+            var date = new Date(i);
+            range[j++] = date.getFullYear()+'-'+supplement_zero(date.getMonth()+1)+'-'+supplement_zero(date.getDate());
+            i+=86400000;
+        }
+        return range;
+    }
+
+    function supplement_zero(num) {
+        return num.toString().length==1?'0'+num:num;
+    }
+
+    function jsselect() {
+        $('.jsselect').on('click',function(){
+            
+            var that = $(this),sib = $('.jsselect.active');
+            if (sib.length<1) {
+                $('.jsselect').removeClass('in-range first last'); 
+                that.addClass('active first');
+            } else if (sib.length==1) {
+                that.addClass('active last');
+                var val = (new Date($.trim(that.attr('data-key')).replace(/-/g,'/'))).getTime();
+                var sibval = (new Date($.trim(sib.attr('data-key')).replace(/-/g,'/'))).getTime();
+
+                if (val<sibval) {
+                    that.removeClass('last').addClass('first');
+                    sib.removeClass('first').addClass('last');
+                    var temp = val;val = sibval;sibval=temp;
+                }
+                var dl = getdatelist(sibval,val);
+
+                $.each(dl,function(i,n) {
+                    $('.jsselect[data-key="'+n+'"]').addClass('in-range');
+                });
+
+            } else {
+                $('.jsselect').removeClass('in-range active first last');
+                that.addClass('active first');
+            }
+
+            return false;
+        });
+    }
+
+
+    function jspn(that) {
+
+        var range = $.trim(that.attr('data-range-key')).split(',');
+        if (that.hasClass('disabled')) {return false;}
+        that.addClass('disabled');
+        $.ajax({
+            type:'post',
+            dataType:'json',
+            url:'{:U("calendar")}',
+            data:{start:range[0],end:range[1],flag:true},
+            success:function(data) {
+                var first = $('.jscalendar1');
+                var last = $('.jscalendar2');
+
+                var dfirst = data.first;
+                var dlast = data.last;
+
+                first.find('.month').text(data.ftitle).siblings('.prev').attr('data-range-key',data.prev);
+                var next = last.find('.month').text(data.ltitle).siblings('.next').attr('data-range-key',data.next);
+                if (parseInt(data.iscurrent)==1){next.addClass('available jspn');} else {next.removeClass('available jspn');}
+                var ftemp = '';var ltemp = '';
+                $.each(dfirst,function(i,n) {
+                    ftemp += '<tr>';
+                    $.each(n,function(j,m) {
+                        var classname = '';
+                        if (m.full == data.today) {classname += ' today ';}
+                        if (m.no == 1) {classname += ' noselect ';}
+                        if (j == 6 || j == 7) {classname += ' weekend ';}
+                        ftemp += '<td class="available jsselect '+classname+' " data-key="'+m.full+'" ><span>';
+                        if (m.value) {ftemp += m.value;}
+                        else {ftemp += ' ';}
+                        ftemp += '</span></td> ';
+                    });
+                    ftemp += '</tr>';
+
+                });
+
+                first.find('.jscalendarcontent').html('').html(ftemp);
+
+                $.each(dlast,function(i,n) {
+                    ltemp += '<tr>';
+                    $.each(n,function(j,m) {
+                        var classname = '';
+                        if (m.full == data.today) {classname += ' today ';}
+                        if (m.no == 1) {classname += ' noselect ';} else {classname += ' jsselect ';}
+                        if (j == 6 || j == 7) {classname += ' weekend ';}
+                        ltemp += '<td class="available '+classname+' " data-key="'+m.full+'" ><span>';
+                        if (m.value) {ltemp += m.value;}
+                        else {ltemp += ' ';}
+                        ltemp += '</span></td> ';
+                    });
+                    ltemp += '</tr>';
+
+                });
+
+                last.find('.jscalendarcontent').html('').html(ltemp);
+
+                that.removeClass('disabled');
+
+                $('.jspn').on('click',function() {jspn($(this)); return false;});
+                selectrange(datelist);
+                jsselect();
+            },error:function() {
+                layer.msg('服务器错误，请稍候再试');that.removeClass('disabled');
+            }
+        });
+    }
+
+</script>
+
+<script type="text/javascript">
+    /* 插件块关闭操作 */
+    $(".title-opt .wm-slide").each(function(){
+        $(this).click(function(){
+            $(this).closest(".columns-mod").find(".bd").toggle();
+            $(this).find("i").toggleClass("mod-up");
+        });
+    })
+    $(function(){
+        $('.copyright').html('<div class="copyright"> &copy;2013-2017 徐州梦创信息科技有限公司版权所有</div>');
+        $('.sidebar').remove();
+    })
+</script>
+</block>

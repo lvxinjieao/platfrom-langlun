@@ -1,0 +1,190 @@
+<html style="font-size: 120px;">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>{$data_list.game_name}</title>
+		<meta name="keywords" content="传奇时代，重续传奇经典，共赴巅峰决战">
+		<meta name="description" content="{$data_list.back_describe}">
+		<link href="{$dow_icon}" type="image/x-icon" />
+		<meta itemprop="name" content="{$data_list.game_name}" />
+	    <meta itemprop="image" content="{$dow_icon}" />
+	    <meta name="description" itemprop="description" content="{$data_list.back_describe}"/>
+
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+		<style>
+			html,
+			body,
+			h1,
+			h2,
+			a {
+				margin: 0;
+				padding: 0;
+			}
+			
+			html {
+				font-size: 20px;
+				background-color: #fff;
+			}
+			
+			.h60 {
+				position: fixed;
+				right: 0;
+				left: 0;
+				bottom: 0.3rem;
+				height: 2.65rem;
+				z-index: 1;
+			}
+			
+			.logo {
+				float: left;
+				width: 2.45rem;
+				height: 2.45rem;
+				background: url("__IMG__/game_h5_show/") no-repeat;   /*  游戏图标*/
+				background-size: 100% 100%;
+			}
+			
+			.topdown {
+				width: 8.75rem;
+				height: 2.4rem;
+				margin: 0px auto;
+				background: url(__IMG__/game_h5_show/2017091415360835.png) no-repeat;   /*立即下载图片*/
+				background-size: 100% 100%;
+				overflow: hidden;
+			}
+			
+			h2 {
+				width: 7.6rem;
+				padding: .2rem 0 0 3rem;
+				color: #fff;
+				font-size: .45rem;
+				font-weight: normal;
+				font-family: \5FAE\8F6F\96C5\9ED1;
+				line-height: .75rem;
+			}
+			
+			h2 em {
+				font-size: .7rem;
+				font-weight: normal;
+				font-style: normal;
+			}
+			
+			h2 img {
+				width: 3.375rem;
+				height: .725rem;
+				vertical-align: bottom;
+			}
+			
+			.main {
+				height: 21.3rem;
+				padding-top: 11.75rem;
+				background: url("__IMG__/game_h5_show/2017091415363030.jpg") no-repeat center;  /*  背景图片*/
+				-webkit-background-size: 100% 100%;
+				background-size: 100% 100%;
+			}
+			
+			.download {
+				display: block;
+				width: 5.5rem;
+				height: 1.75rem;
+				margin: 0 auto;
+				line-height: 99rem;
+				overflow: hidden;
+			}
+			
+			.pic {
+				height: 17rem;
+				background: url() no-repeat center;
+				-webkit-background-size: 100% 100%;
+				background-size: 100% 100%;
+			}
+			
+			.down {
+				height: 23.5rem;
+				background: url() no-repeat center;
+				-webkit-background-size: 100% 100%;
+				background-size: 100% 100%;
+			}
+			
+			.main .qrcode {
+				height: 10.50rem;
+				-webkit-background-size: 100% 100%;
+				background-size: 100% 100%;
+				padding-top: 5.00rem;
+			}
+			
+			.main .qrcode .qrcodeimg {
+				width: 5rem;
+				height: 7rem;
+				padding: 0.6rem;
+				margin: 0px auto;
+				-moz-border-radius: 6px;
+				/* Gecko browsers */
+				-webkit-border-radius: 6px;
+				/* Webkit browsers */
+				border-radius: 6px;
+				/* W3C syntax */
+				background: url(__IMG__/game_h5_show/2017091415361852.png) left top no-repeat;
+				background-size: 100%;
+			}
+			
+			.main .qrcode .qrcodeimg img {
+				width: 5rem;
+				height: 5rem;
+				-moz-border-radius: 6px;
+				/* Gecko browsers */
+				-webkit-border-radius: 6px;
+				/* Webkit browsers */
+				border-radius: 6px;
+				/* W3C syntax */
+				background-color: #ffffff;
+			}
+			
+			.copy {
+				margin: .5rem 0;
+				color: #666;
+				font-size: .6rem;
+				font-family: \5FAE\8F6F\96C5\9ED1;
+				line-height: 1.5;
+				text-align: center;
+			}
+			
+			.qrcode .qrcodeimg i {
+				animation: 2s linear 0s alternate none infinite running line;
+				background: rgba(0, 0, 0, 0) url("") no-repeat scroll 0 0;
+				height: 14px;
+				left: -11px;
+				position: absolute;
+				top: 0;
+				width: 152px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div style=" display:none;"><img src=""></div>
+		<div style=" display:none;">{$data_list.back_describe}</div>
+		<header class="h60">
+			<a href="javascript:">
+				<div class="topdown"></div>
+			</a>
+		</header>
+		<div class="main">
+			<div class="qrcode">				
+				<div class="qrcodeimg"><img src="{$url}"><i></i></div> 
+			</div>
+			<a class="download" href="javascript:">立即下载</a>
+		</div>
+		<script>
+			(function(doc, win) { var docEl = doc.documentElement,
+					resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+					recalc = function() { var clientWidth = docEl.clientWidth; if(!clientWidth) return;
+						docEl.style.fontSize = 20 * (clientWidth / 320) + 'px'; }; if(!doc.addEventListener) return;
+				win.addEventListener(resizeEvt, recalc, false);
+				doc.addEventListener('DOMContentLoaded', recalc, false); })(document, window);
+		</script>
+		<div class="hidden" style="display:none">
+			<!-- 统计代码 -->
+		</div>
+	</body>
+
+</html>

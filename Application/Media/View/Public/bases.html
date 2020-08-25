@@ -1,0 +1,540 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta property="qc:admins" content="71472552776166367">
+		<meta property="qc:admins" content="0500007726643536375">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-app-status-bar-style" content="black">
+		<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="Cache-Control" content="no-store, must-revalidate">
+		<meta http-equiv="expires" content="0">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1,minimal-ui">
+		<meta name="full-screen" content="yes">
+		<if condition="ACTION_NAME eq index and CONTROLLER_NAME eq Index">
+			<title>{:seo_replace(C('media_index.seo_title'),'','media')}</title>
+			<meta name="keywords" content="{:C('media_index.seo_keyword')}">
+			<meta name="description" content="{:C('media_index.seo_description')}">
+			<elseif condition="(ACTION_NAME eq index and CONTROLLER_NAME eq Game) or CONTROLLER_NAME eq SmallGame" />
+			<title>{:seo_replace(C('media_game_list.seo_title'),'','media')}</title>
+			<meta name="keywords" content="{:C('media_game_list.seo_keyword')}">
+			<meta name="description" content="{:C('media_game_list.seo_description')}">
+			<elseif condition="ACTION_NAME eq detail and CONTROLLER_NAME eq Game" />
+			<title>{:seo_replace(C('media_game_detail.seo_title'),array('game_name'=>$data['game_name']),'media')}</title>
+			<meta name="keywords" content="{:C('media_game_detail.seo_keyword')}">
+			<meta name="description" content="{:C('media_game_detail.seo_description')}">
+			<elseif condition="ACTION_NAME eq index and CONTROLLER_NAME eq Gift" />
+			<title>{:seo_replace(C('media_gift_list.seo_title'),'','media')}</title>
+			<meta name="keywords" content="{:C('media_gift_index.seo_keyword')}">
+			<meta name="description" content="{:C('media_gift_index.seo_description')}">
+			<elseif condition="ACTION_NAME eq giftdetail and CONTROLLER_NAME eq Gift" />
+			<title>{:seo_replace(C('media_gift_detail.seo_title'),array('game_name'=>$data['game_name'],'giftbag_name'=>$data['giftbag_name']),'media')}</title>
+			<meta name="keywords" content="{:C('media_gift_detail.seo_keyword')}">
+			<meta name="description" content="{:C('media_gift_detail.seo_description')}">
+			<elseif condition="ACTION_NAME eq mall and CONTROLLER_NAME eq PointShop" />
+			<title>{:seo_replace(C('media_shop.seo_title'),'','media')}</title>
+			<meta name="keywords" content="{:C('media_shop.seo_keyword')}">
+			<meta name="description" content="{:C('media_shop.seo_description')}">
+			<elseif condition="ACTION_NAME eq mall_detail and CONTROLLER_NAME eq PointShop" />
+			<title>{:seo_replace(C('media_shop_detail.seo_title'),array('good_name'=>$data['good_name']),'media')}</title>
+			<meta name="keywords" content="{:C('media_shop_detail.seo_keyword')}">
+			<meta name="description" content="{:C('media_shop_detail.seo_description')}">
+			<elseif condition="ACTION_NAME eq detail and CONTROLLER_NAME eq Article" />
+			<title>{:seo_replace(C('media_news_detail.seo_title'),array('title'=>$info['title']),'media')}</title>
+			<meta name="keywords" content="{:C('media_news_detail.seo_keyword')}">
+			<meta name="description" content="{:C('media_news_detail.seo_description')}">
+			<elseif condition="ACTION_NAME eq pay and CONTROLLER_NAME eq Subscriber" />
+			<title>{:seo_replace(C('media_recharge.seo_title'),'','media')}</title>
+			<meta name="keywords" content="{:C('media_recharge.seo_keyword')}">
+			<meta name="description" content="{:C('media_recharge.seo_description')}">
+			<elseif condition="CONTROLLER_NAME eq Service" />
+			<title>{:seo_replace(C('media_help.seo_title'),'','media')}</title>
+			<meta name="keywords" content="{:C('media_help.seo_keyword')}">
+			<meta name="description" content="{:C('media_help.seo_description')}">
+			<elseif condition="ACTION_NAME eq 'open_game' and CONTROLLER_NAME eq Game" />
+			<title>{:seo_replace(C('media_game_detail.seo_title'),array('game_name'=>$game_name),'media')}</title>
+			<meta name="keywords" content="{:C('media_game_detail.seo_keyword')}">
+			<meta name="description" content="{:C('media_game_detail.seo_description')}">
+			<else />
+			<title>{:seo_replace(C('media_index.seo_title'),'','media')}</title>
+			<meta name="keywords" content="{:C('media_index.seo_keyword')}">
+			<meta name="description" content="{:C('media_index.seo_description')}">
+		</if>
+		<notempty name="union_set.pc_icon">
+			<link href="{:get_cover($union_set['pc_icon'],'path')}" type="image/x-icon" rel="shortcut icon">
+			<else/>
+			<link href="{:get_cover(C('PC_SET_ICO'),'path')}" type="image/x-icon" rel="shortcut icon">
+		</notempty>
+		<link href="__CSS__/base.css" type="text/css" rel="stylesheet">
+		<link href="__CSS__/index.css" type="text/css" rel="stylesheet">
+		<link rel="stylesheet" href="__CSS__/edit.css">
+		<link href="__CSS__/user.css" type="text/css" rel="stylesheet">
+		<script type="text/javascript" src="__JS__/jquery-1.7.2.min.js"></script>
+		<!--下拉菜单-->
+		<script type="text/javascript" src="__JS__/ddsmoothmenu.js"></script>
+		<script type="text/javascript">
+			ddsmoothmenu.init({
+				mainmenuid: "smoothmenu1", //menu DIV id
+				orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
+				classname: 'moregame'
+			});
+
+		</script>
+		<style type="text/css">
+			.noselect {
+				-webkit-touch-callout: none;
+				/* iOS Safari */
+				-webkit-user-select: none;
+				/* Chrome/Safari/Opera */
+				-khtml-user-select: none;
+				/* Konqueror */
+				-moz-user-select: none;
+				/* Firefox */
+				-ms-user-select: none;
+				/* Internet Explorer/Edge */
+				user-select: none;
+				/* Non-prefixed version, currentlynot supported by any browser */
+			}
+		</style>
+
+		<!--下拉菜单结束-->
+	</head>
+
+	<body>
+		<!--头部-->
+		<div id="header">
+			<div class="htopbg">
+				<div class="htop">
+					<div class="htopright">
+						<ul class="fl">
+							<li class="list">
+								<a href="javascript:;" id="sethome"><em class="icon161 homepage_gray"></em><span class="name" id="cooll">设为首页</span><i>|</i></a>
+							</li>
+							<li class="list line">
+								<a href="{:U('Base/savedesk',array('url'=>$_SERVER['HTTP_HOST'],'title'=>seo_replace(C('media_index.seo_title'),'','media')))}" target="_blank" id="indesk"><em class="icon161 desktop__gray"></em><span class="name">放到桌面</span><i>|</i></a>
+							</li>
+							<!--<li class="list line">-->
+								<!--<a class="addfav" href="javascript:;" id="bookmark"><em class="icon161 fav_gray"></em><span class="favorites name">加入收藏</span><i>|</i></a>-->
+							<!--</li>-->
+						</ul>
+						<div class="navbox fl">
+							<div class="moregame icon161 game_gray" id="smoothmenu1">
+								<ul class="clearfix">
+									<li>
+										<a><span>所有游戏<em></em></span></a>
+										<ul class="submenu">
+											<li class="" style="float:none;width:100%;">
+												<h3 style="width：100%;text-align:center;">热门游戏</h3></li>
+
+											<volist name=":get_hot_game_list(2)" id="game" offset="0" length='18'>
+												<li>
+													<a target="_blank" href="{:U('Game/detail',array('game_id'=>$game['id']))}">
+														<i class="icon_hot"></i> {$game.game_name}
+														<em class="iconnewhot smnew_graw"></em></a>
+												</li>
+
+											</volist>
+											<li style="width:100%;">
+												<div style="height: 28px;text-align:right;margin-right: 13px;">
+													<a class="a_more" href="{:U('Game/index')}" target="_blank">更多&gt;&gt;</a>
+												</div>
+											</li>
+
+										</ul>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div class="toploginfo">
+						<if condition="session('user_auth.user_id') eq ''">
+							<div id="topUnLog" style="">
+								<span id="topLoginSpan">
+                  <a href="{:U('Subscriber/login')}" class="top_login_btn topopuplogin">
+                  <span class="name">登录</span></a>
+								<a href="{:U('Subscriber/registerf')}" class="top_reg_btn">注册</a>
+								</span>
+							</div>
+							<else/>
+							<div id="topLoged" style="">
+								<div class="welcome"><span class="top_mc"><img src="__IMG__/news.png" /><if condition="$newmsg eq 1"><font class="top_mc_tit"></font></if></span>
+									<a href="{:U('Subscriber/index')}"><span id="topUsername">{:session('user_auth.nickname')}</span></a><img src="__IMG__/icon_user.png" class="top_user" /></div>
+							</div>
+							<notempty name="msg">
+								<!-- 预约通知 begin-->
+								<div class="notic_list">
+									<div class="xg_list">
+										<ul>
+											<php>static $msgnum=0,$msgpage=1; </php>
+											<volist name="msg" id="mg">
+												<php>$msgnum++;$msgnum>1&&$msgnum%5==1&&count($msg)>$msgnum?$msgpage++:$msgpage=$msgpage;</php>
+												<php>$msgpagearr[$msgpage][]=$msgpage</php>
+												<li class="xg_litli yy_{$msgpage}" data-page="{$msgpage}" data-num="{$msgnum}" style="display: none;">
+													<div class="media">
+														<div class="media-left">
+															<a href="javascript:;">
+																<img class="media-object xg_circle" src="{$mg['icon']}" height="56" width="56" onerror="this.onerror=null;">
+																<span class="dis_tabcell xg_circle">
+																<span class="span_mid">
+																<div>{:C('BITMAP')}</div>
+																 <!-- <div>H5游戏</div> -->
+																</span>
+																</span>
+															</a>
+														</div>
+														<div class="media-body">
+															<h4 class="media-heading xg_h4"><if condition="$mg.type eq 3">预约通知<else/>开服通知</if></h4>
+															<p class="time fr">{$mg['create_time']|date='Y-m-d <br> H:i:s',###}</p>
+															<p class="media-desc xg_mediap media-kftz">{$mg['content']}
+																<!--<if condition="mb_strlen($mg['content'],'utf-8') gt 45">...</if>-->
+															</p>
+														</div>
+													</div>
+												</li>
+											</volist>
+										</ul>
+									</div>
+									<if condition="$msgpage gt 1">
+										<div class="xg_pag noselect">
+											<div class="pag_tabcell">
+												<ul>
+													<li class="xg_pagli">
+														<a class="noselect prev">
+															<</a>
+													</li>
+													<li class="xg_pagli">
+														<a class="pag_on noselect">1</a>
+													</li>
+													<li class="xg_pagli">
+														<a class="noselect next">></a>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</if>
+								</div>
+								<!--end 预约通知 -->
+								<else/>
+								<div class="notic_list"  >
+									<div class="notic_list_nodata">
+										<p>暂无消息通知</p>
+									</div>
+								</div>
+							</notempty>
+						</if>
+					</div>
+
+				</div>
+			</div>
+			<!-- 处理图片加载失败 -->
+			<script>
+				$(".media-left img").error(function() {
+					$(this).hide();
+				});
+			</script>
+			<div class="navbar">
+				<div class="bd">
+
+					<if condition="$union_set eq ''">
+						<h1 class="logo"><a href="{:U('Index/index')}"><img style="width: 190px;height: 60px;" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null" src="{:get_cover(C('WIDE_PC_SET_LOGO'),'path')}"></a></h1>
+						<else/>
+						<h1 class="logo"><a ><img onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null" src="{:get_cover($union_set['pc_logo'],'path')}"></a></h1>
+					</if>
+					<div class="navcon">
+						<ul>
+							<li>
+								<a href="{:U('Index/index')}" <if condition="CONTROLLER_NAME eq 'Index'"> class="on"</if> ><span class="homebar">{:C('WIDE_INDEX')==''?'首页':C('WIDE_INDEX')}</span><i></i></a>
+							</li>
+							<li>
+								<a href="{:U('Game/index')}" <if condition="CONTROLLER_NAME eq 'Game' and I('get.ish5') neq 1 and (ACTION_NAME neq 'game_pay')"> class="on"</if>><span class="h5youxi">{:C('WIDE_GAME')==''?'手游':C('WIDE_GAME')}</span><i></i></a>
+							</li>
+							<li>
+								<a href="{:U('Game/index',['ish5'=>1])}" <if condition="(CONTROLLER_NAME eq 'Game' and I('get.ish5') eq 1) or (ACTION_NAME eq 'game_pay')"> class="on"</if>><span class="h5youxi">{:C('WIDE_H5_GAME')==''?'H5游戏':C('WIDE_H5_GAME')}</span><i></i></a>
+							</li>
+							<if condition="empty($union_set) and C('SMALL_PROGRAM_IS_SHOW') eq 1">
+								<li>
+									<a href="{:U('SmallGame/index')}" <if condition="CONTROLLER_NAME eq 'SmallGame'"> class="on"</if> ><span class="homebar small_header">{:C('WIDE_Small')==''?'小程序':C('WIDE_Small')}</span><i></i></a>
+							</li>
+							</if>
+							<li>
+								<a href="{:U('Gift/index')}" <if condition="CONTROLLER_NAME eq 'Gift'"> class="on"</if>><span class="h5hj">{:C('WIDE_GIFT')==''?'礼包':C('WIDE_GIFT')}</span><i></i></a>
+							</li>
+							<li>
+								<a href="{:U('Subscriber/pay')}" <if condition="(CONTROLLER_NAME eq 'Subscriber' and (ACTION_NAME eq 'pay' or ACTION_NAME eq 'payStatus')) or (CONTROLLER_NAME eq 'Pay' and (ACTION_NAME eq 'wx_pay'))"> class="on"</if>><span class="paybar">{:C('WIDE_PAY')==''?'充值':C('WIDE_PAY')}</span><i></i></a>
+							</li>
+							<li>
+								<a href="{:U('PointShop/mall')}" <if condition="CONTROLLER_NAME eq 'PointShop'"> class="on"</if>><span class="paybar">{:C('WIDE_SHOP')==''?'商城':C('WIDE_SHOP')}</span><i></i></a>
+							</li>
+							<li>
+								<a href="{:U('Article/index',array('category'=>'media_zx'))}" <if condition="CONTROLLER_NAME eq 'Article'  and ACTION_NAME neq 'news'"> class="on"</if>><span class="shopbar">{:C('WIDE_ZX')==''?'资讯':C('WIDE_ZX')}</span><i></i></a>
+							</li>
+							<li>
+								<a href="{:U('Service/index')}" <if condition="CONTROLLER_NAME eq 'Service'"> class="on"</if>><span class="shopbar">{:C('WIDE_HELP')==''?'帮助':C('WIDE_HELP')}</span><i></i></a>
+							</li>
+							<if condition="C('WIDE_CLIENT_STATUS') eq 1">
+								<li>
+									<a href="{:U('index/download')}" target="_blank"><span class="paybar">{:C('WIDE_CLIENT')==''?'客户端':C('WIDE_CLIENT')}</span><i></i></a>
+								</li>
+							</if>
+						</ul>
+						<!--<div class="clear"></div>-->
+						<div class="base_ser fr">
+							<input class="search search-txt input-focus" id="serinput" name="keyword" value="{:I('game_name')}" placeholder="请输入游戏名字">
+							<button class="searchbtn search-btn-ga"></button>
+							<div class="base_ser_list">
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!--头部结束-->
+
+		<block name="body"></block>
+		<!--悬浮-->
+		<div class="g-sidefun">
+			<a href="javascript:;" class="qrcode"> <i class="icon i-qr"></i>
+				<div class="wechat-content">
+					<i class="iarrow"></i>
+					<notempty name="union_set['qrcode']">
+						<img src="{:get_cover($union_set['qrcode'],'path')}" alt="微信" width="168" height="168" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null" >
+						<else/>
+						<img src="{:get_cover(C('PC_SET_QRCODE'),'path')}" alt="微信" width="168" height="168" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null" >
+					</notempty>
+					<p class="raside_tip">扫码关注<span>{:C('WXGZH_NAME')}</span>公众号</p>
+				</div>
+			</a>
+			<if condition="$union_set eq ''">
+				<a href="http://wpa.qq.com/msgrd?v=3&amp;uin={:C(PC_SET_SERVER_QQ)}&amp;site=qq&amp;menu=yes" target="_blank" title="客服" class="olkf"><i class="icon i-olkf"></i></a>
+				<else/>
+				<a href="http://wpa.qq.com/msgrd?v=3&amp;uin={$union_set['cust_qq']}&amp;site=qq&amp;menu=yes" target="_blank" title="客服" class="olkf"><i class="icon i-olkf"></i></a>
+			</if>
+			<div class="expand"><i class="icon i-expand">推广</i>
+				<div class="expand-content">
+					<i class="iarrow"></i> 推广游戏得分成~
+					<br> 赚钱就是那么容易！
+					<a class="expand_pic_btn" href="/index.php" target="_blank">去加入</a>
+				</div>
+			</div>
+			<a class="down"><i class="icon i-down"></i>
+				<div class="down-content down-content1">
+					<i class="iarrow"></i>
+
+					<img src="{:U('Base/downQrcode',['url'=>base64_encode(base64_encode('/media.php/Index/iosdownload'))])}" alt="扫码下载" width="168" height="168" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null" >
+
+					<p class="raside_tip">扫码下载<span>{:C('APP_NAME')}</span></p>
+				</div>
+			</a>
+			<a href="javascript:scroll(0,0)" title="顶部" class="totop" id="totop"><i class="icon i-totop"></i></a>
+		</div>
+
+		<!--悬浮结束-->
+
+		<!--底部-->
+		<if condition="CONTROLLER_NAME neq 'Subscriber'">
+			<div class="footer">
+				<div class="cont1">
+					<div class="foot_l">
+						<a target="_blank" href="{:U('article/news/type/aboutus')}">关于我们</a>
+						<a target="_blank" href="{:U('article/news/type/sw')}">商务合作</a>
+						<a target="_blank" href="{:U('article/news/type/rc')}">人才招聘</a>
+						<a target="_blank" href="{:U('article/news/type/contact')}">联系我们</a>
+						<a target="_blank" href="http://{:$_SERVER['HTTP_HOST']}/index.php">推广联盟</a>
+						<a target="_blank" href="{:U('article/news/type/mem')}">家长监护</a>
+						<a target="_blank" href="{:U('article/news/type/huoban')}">合作伙伴</a>
+						<a target="_blank" href="https://www.vlcms.com/">技术支持</a>
+					</div>
+
+					<div class="foot_m">
+						<ul>
+							<li><i class="adre"></i>{:C('COMPANY_ADDRESS')}</li>
+							<li><i class="email"></i>{:C('PC_SET_SERVER_EMAIL')}</li>
+						</ul>
+					</div>
+
+					<div class="foot_r"><img src="__IMG__/anyz.png"></div>
+					<div class="clear"></div>
+				</div>
+				<div class="foot_b">
+					<div class="cont" style="width:1350px;">
+						<span style="text-align:right;margin-left:0;width: 17%">{:C('PC_GUAN')}</span>
+						<span style="width: 17%">互联网ICP备案：{:C('WEB_BEIAN')}</span>
+						<span style="width: 22%">网络文化经营许可证：{:C('WEB_SITE_PC_ICP')}</span>
+						<span style="width: 17%">增值业务经营许可证：{:C('VALUE_ADDED_TELEC_BUS_LICENSE')}</span>
+						<span style="text-align:left;width: 19%"><em><img src="__IMG__/hz.png"></em><em>公安部备案号：{:C('GAB_BEIAN')}</em></span>
+					</div>
+				</div>
+				<div class="warn" style="display: table;width: 100%;background-color: #222222;color:rgba(255,255,255,.4);font-size: 12px;">
+					<div class="warn_con" style="margin-top: -5px;padding-bottom: 10px;width: 100%;text-align: center;">{:C('FOOT_TIP')}</div>
+				</div>
+			</div>
+			<else/>
+			<div class="footer_user">
+				<div class="footer_con">
+					<p>{:C('PC_GUAN')}&nbsp;&nbsp;&nbsp;互联网ICP备案：{:C('WEB_BEIAN')}&nbsp;&nbsp;&nbsp;网络文化经营许可证：{:C('WEB_SITE_PC_ICP')}</p>
+					<p>{:C('FOOT_TIP')}</p>
+				</div>
+			</div>
+		</if>
+		<!--底部结束-->
+	</body>
+	<script src="__STATIC__/jquery.cookie.js"></script>
+	<block name="script"></block>
+	<script>
+
+		$('.expand-content').mouseleave(function(){
+			$('.expand-content').hide()
+		})
+		$('.g-sidefun a').mouseover(function(){
+			$('.expand').mouseover(function(){
+			$('.expand-content').show()
+		})
+			$('.expand-content').hide()
+		})
+		//	输入框提示层
+		$("#serinput").on('input', function() {
+			that = $(this);
+			if(that.val()==''){
+				$('.base_ser_list').html('');
+				return false;
+			}
+			var sehtml='';
+			$.ajax({
+				type:'post',
+				url:"{:U('pc_search_game')}",
+				data:{key:that.val()},
+				success:function(data){
+					if(data.status==1){
+						for (var i = 0; i < data.data.length; i++) {
+							var info = data.data[i];
+							sehtml += "<a class='jsaaa' "+"href='"+info.play_detail_url+"'"+">"+info.game_name+"</a>";
+						}
+						$('.base_ser_list').html(sehtml);
+					}
+				}
+			});
+			$('.base_ser_list').show();
+		})
+		$("#serinput").on('focus', function() {
+			$('.base_ser_list').show();
+		})
+		$('body').on('click','.jsaaa',function(){
+			setTimeout("$('#serinput').val('');",100);
+		})
+		$(".search-btn-ga").click(function() {
+			$game_name = $(".input-focus").val();
+			$href = "{:U('Game/index')}";
+			if($game_name != '') {
+				$href = $href.replace('.html', '/game_name/' + $game_name + '.html');
+			}
+			if("{$Think.CONTROLLER_NAME}" == 'SmallGame') {
+				$href = "./media.php?s=/SmallGame/index/game_name/" + $game_name + ".html";
+			}
+			window.location.href = $href;
+		});
+
+		$(".favorites").click(function() {
+			try {
+				var ctrl = (navigator.userAgent.toLowerCase()).indexOf('mac') != -1 ? 'Command/Cmd' : 'CTRL';
+				if(document.all) {
+					window.external.addFavorite(window.location, document.title);
+				} else if(window.sidebar) {
+					window.sidebar.addPanel(document.title, window.location);
+				} else {
+					alert('添加失败\n您可以尝试通过快捷键' + ctrl + ' + D 加入到收藏夹~');
+				}
+			} catch(e) {
+				alert('添加失败\n您可以尝试通过快捷键' + ctrl + ' + D 加入到收藏夹~');
+			}
+		});
+
+		$('#cooll').click(function() {
+			SetHome(window.location.href);
+		});
+		//设为首页
+		function SetHome(url) {
+			if(document.all) {
+				document.body.style.behavior = 'url(#default#homepage)';
+				document.body.setHomePage(url);
+			} else {
+				alert("您好,您的浏览器不支持自动设置页面为首页功能,请您手动在浏览器里设置该页面为首页!");
+			}
+		}
+	</script>
+	<!-- 预约通知 begin -->
+	<script>
+		$('.top_mc').hover(function() {
+			$.ajax({
+				type: 'post',
+				url: "{:U('Base/user_message')}",
+				success: function(data) {
+
+				},
+				error: function() {
+					layer.msg('服务器错误');
+				}
+			});
+			$('.notic_list').show();
+		})
+		<!-- $('.top_mc').hover(function(){ -->
+		<!-- $('.notic_list').show(); -->
+		<!-- },function(){ -->
+		<!-- $('.notic_list').hide(); -->
+		<!-- }); -->
+		$('.notic_list').hover(function() {
+			$('.notic_list').show();
+		}, function() {
+			$('.notic_list').hide();
+			$('.top_mc_tit').hide();
+		})
+
+		page = 1;
+		pageall = "{$msgpage}";
+		$('.yy_' + page).show();
+		$('.xg_pagli .next').click(function() {
+			page++;
+			if(page > pageall) {
+				page--;
+				return;
+			} else {
+				$('.xg_litli').hide(10);
+				$('.yy_' + page).show(10);
+				$('.xg_pagli .pag_on').text(page);
+			}
+		});
+		$('.xg_pagli .prev').click(function() {
+			page--;
+			if(page < 1) {
+				page++;
+				return;
+			} else {
+				$('.xg_litli').hide(10);
+				$('.yy_' + page).show(10);
+				$('.xg_pagli .pag_on').text(page);
+			}
+		});
+	</script>
+	<!--end 预约通知-->
+	<script type="text/javascript">
+		//设置cookie有效期
+		var date = new Date();
+		date.setTime(date.getTime() + 30 * 1000); //有效期30秒
+
+		if(!$.cookie('access_log')) {
+			//存入cookie
+			$.cookie('access_log', '1', {
+				expires: date
+			});
+			var url = "{:U('base/access_log')}";
+			$.post(url, '', function(res) {})
+		}
+	</script>
+
+</html>

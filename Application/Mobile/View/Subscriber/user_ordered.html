@@ -1,0 +1,113 @@
+<extend name="Public/bases" />
+<block name="body">
+	<link href="__CSS__/user.css" rel="stylesheet">
+	<script src="__JS__/clipboard.min.js"></script>
+	<style>
+		.footer {
+			display: none;
+		}
+		
+		body {
+			background: #ffffff;
+		}
+	</style>
+	<header class="header">
+		<section class="wrap">
+			<a href="{:U('user')}" class="hbtn left arrow-left"><span class="table"><span class="table-cell"><img src="__IMG__/back_return.png"></span></span>
+			</a>
+			<div class="caption"><span class="table"><span class="table-cell">我的订单</span></span>
+			</div>
+		</section>
+	</header>
+	<div class="occupy"></div>
+
+	<section class="trunker">
+
+		<section class="inner">
+			<section class="contain">
+				<div class="order-list">
+
+					<ul class="list second-list">
+						<li class="clearfix">
+							<div class="item clearfix">
+								<div class="order-info">
+									<div class="iconbox"><span class="font table"><span class="table-cell">H5游戏</span></span><img src="" class="icon"></div>
+									<div class="textbox">小米移动电源兑换</div>
+									<div class="time">2017-05-17 12:23:12</div>
+								</div>
+								<div class="orderbag-list">
+									<div class="subitem">
+										<div class="butnbox"><span class="table"><span class="table-cell"><a href="javascript:;" class="butn copybutn" data-code="cf0626425bbdb89c1e01790cc452d4">复制</a></span></span>
+										</div>
+										<div class="textbox">
+
+											<div class="giftcode"><span>激活码：</span>
+												<div class="txt code">cf0626425bbdb89c1e01790cc452d4</div>
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+
+						<li class="clearfix">
+							<div class="item clearfix">
+								<div class="order-info">
+									<div class="iconbox"><span class="font table"><span class="table-cell">H5游戏</span></span><img src="" class="icon"></div>
+									<div class="textbox">小米移动电源兑换</div>
+									<div class="time">2017-05-17 12:23:12</div>
+								</div>
+								<div class="orderbag-list">
+									<div class="subitem">
+
+										<div class="textbox">
+
+											<div class="giftcode">
+												<div class="txt code">张三，18205003727，江苏省徐州市云龙区花园小区12号楼1单元</div>
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				</div>
+
+				
+			</section>
+
+		</section>
+	</section>
+	<div class="pop"></div>
+	<script src="__JS__/pop.lwx.min.js"></script>
+	<script src="__JS__/common.js"></script>
+	<script>
+		$(function() {
+			var pop = $('.pop').pop();
+
+			$('.copybutn').click(function() {
+				var that = $(this),
+					text = that.attr('data-code');
+
+				var clipboard = new Clipboard('.copybutn', {
+					text: function() {
+						return text;
+					}
+				});
+				clipboard.on('success', function(e) {
+					pop.addClass('pop-message').msg('<img class="pop-image" src="__IMG__/pop_completed.png"><p class="pop-text">已复制</p>', 1000, 250);
+					e.clearSelection();
+				});
+
+				clipboard.on('error', function(e) {
+					pop.addClass('pop-cue').msg('<div class="pop-content"><div class="pop-title">复制失败</div><div class="pop-text">此浏览器不支持此操作，请长按礼包码复制</div></div>', 2000);
+				});
+
+			});
+
+		});
+	</script>
+</block>

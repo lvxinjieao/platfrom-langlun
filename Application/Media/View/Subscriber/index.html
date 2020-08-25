@@ -1,0 +1,152 @@
+<extend name="Public/bases" />
+<block name="body">
+<link href="__CSS__/user.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="__JS__/pc_7724.js"></script>
+<script type="text/javascript" src="__JS__/jquery.SuperSlide.2.1.1.js"></script>
+<!--用户中心-->
+<div class="bg_user">
+<div class="cont userbg wid_1206">
+<div class="user-bd laybox clearfix">
+      <include file='base' />
+        <div class="user-section-wrap fl" id="user-section-wrap">
+        <div class="userinfo_top wbg">
+        <dl>
+        <dt>
+          <if condition="$headpic eq ''">
+            <img src="__IMG__/userimg.png" alt="" width="75" height="75">
+          <else/>
+            <img src="{$headpic}" alt="" width="75" height="75">
+          </if>
+        </dt>
+        <dd>
+      <h3>您好,
+        <font class="blue">{$user_data.nickname}</font>
+        <a class="xg_et" onclick="logout();">[退出]</a>
+      </h3>
+      <span>上次登录时间：{:set_show_time($user_data['login_time'],'','other')}</span>
+    </dd>
+        <dd>
+      <a href="{:U('subscriber/pay')}" class="ut_lq">充值</a> 
+      <a href="javascript:;" class="ut_qd jssign <if condition='$issignin eq 1 '> issignin</if>" data-score="{$addpoint}">签到</a>
+	
+    </dd>
+        </dl>
+        </div>
+          <div class="user-section user-section-1 wbg">
+            <form method="post" id="form1">
+              <div class="section-tit"><i></i>个人资料</div>
+              <div class="w-item">
+                <label class="w-label">用户名：</label>
+                <div class="w-div">{$user_data.account}</div>
+              </div>
+              <div class="w-item">
+                <label class="w-label">平台币：</label>
+                <div class="w-div">{$user_data.balance}</div>
+              </div>
+              <div class="w-item">
+                <label class="w-label">昵称：</label>
+                <div class="w-div"> <input type="text" name="nickname" class="w-input" value="{$user_data.nickname}"></div>
+              </div>
+              
+              <div class="w-item">
+                <label class="w-label">QQ号码：</label>
+                <input type="text" name="qq" class="w-input" id="qq" value="{$user_data.qq}">
+              </div>
+              <div class="w-item">
+                <label class="w-label">真实姓名：</label>
+                <input type="text" class="w-input" name="real_name" <if condition="$user_data.real_name neq ''"> disabled="disabled"</if> value="{$user_data.real_name}" datatype="Chinese" msg="请认真填写姓名">
+              </div>
+              <div class="w-item">
+                <label class="w-label">身份证号：</label>
+                <input type="text" class="w-input idcard"  value="{$user_data.idcard}" <if condition="$user_data.idcard neq ''"> disabled="disabled"</if> name="idcard" id="id_card_number" datatype="IdCard" msg="身份证号码不正确">
+              </div>
+              <div class="w-item">
+                <label class="w-label"></label>
+                <div class="w-div">
+                  <input type="button" value="提交保存" class="g-btn jsubmit ut_qd">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="reset" value="重新编辑" class="g-btn ut_tc">
+                </div>
+              </div>
+            </form>
+            
+            <div class="w-div lh24" style="margin-top:25px;"> <span class="c-blue">注意：此帐号的身份证信息只能填写一次，是判断帐号归属的重要依据。
+                  以上证件信息将作为您的防沉迷信息。
+                  我们将保证您填写的信息不会外泄。 </span></div>
+          </div>
+        </div>
+        
+        <div class="clear"></div>
+      </div>
+</div>
+</div>
+<!--用户中心结束--> 
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+<script>
+  function logout() {
+      $.getJSON('__CONTROLLER__/logout',function(data) {
+        window.location=data.url;
+      });
+    }
+</script>
+<script>
+  $('.jsubmit').click(function(){
+    data=$("#form1").serialize();
+    url = "{:U('Subscriber/profile')}";
+    $.ajax({
+        type: 'POST',
+        url: url ,
+        data:data,
+        success:function(d){
+          if(d.status!=1){
+            layer.msg(d.msg,{icon:2,time:2000});
+          }else{
+            layer.msg(d.msg,{icon:1,time:1000});
+            setTimeout("location.reload();",800);
+          }
+        }
+    });
+  });
+</script>
+<script type="text/javascript">
+    ttt= $('.jssign');
+    $is_sign = ttt.hasClass('issignin');
+    $user = "{:is_login()}";
+    if($is_sign){
+        if(!ttt.hasClass('disabled'))
+        {
+            ttt.addClass('disabled');
+            // ttt.find('.circle').remove();
+            ttt.text('已签到');
+            ttt.css('background','#b9b7b7');
+        }
+    }
+
+    $('.jssign').click(function() {
+    var that = $(this);
+    if (that.hasClass('disabled')) {layer.msg('今日已签，无需重复签到');return false;}
+    that.addClass('disabled');
+    if ($user>0) {
+        $.ajax({
+          type:'post',
+          url:"{:U('PointShop/user_sign_in')}",
+          success:function(data){
+            if(data.status==1){
+              layer.msg(data.msg);
+              ttt.text('已签到');
+              ttt.css('background','#b9b7b7');
+            }else{
+              layer.msg(data.msg);
+            }
+          },error:function(){
+
+          }
+        })
+        
+    } else {
+      return false;
+    }
+
+    });
+</script>
+</block>

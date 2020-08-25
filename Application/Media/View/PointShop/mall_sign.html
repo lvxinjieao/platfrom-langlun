@@ -1,0 +1,220 @@
+<extend name="Public/bases" />
+<block name="body">
+<link href="__CSS__/base.css" type="text/css" rel="stylesheet">
+<link href="__CSS__/game.css" type="text/css" rel="stylesheet">
+<link href="__CSS__/shop.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="__JS__/jquery.SuperSlide.2.1.1.js"></script>
+<script  type="text/javascript" src="__JS__/layer/layer.js"></script>
+
+<!--商城签到 主要内容部分 begin-->
+	<div class="sign_main">
+		<div class="shopsign_t">
+			<div class="shopsign_con">
+				<div class="shopsign_conr">
+				 	<if condition="is_login() elt 0">
+					<!-- 签到未登录 登陆后才能查看详情 begin-->
+					<div class="div_hello">
+						<span class="hello_span"><a class="a_login col_yellow" href="{:U('Subscriber/login')}">登录</a>后才能签到哦</span>
+						
+					</div>
+					<else/>
+					<div class="div_hello">
+						<span class="hello_span">你好，{:session('user_auth.nickname')} </span><span class="">累计获得积分：</span><span class="col_yellow newpoint">{$userpoint}</span>
+						<a class="a_close logoutbtn" style="width:18px;height:15px;"></a>
+					</div>
+					</if>
+					<!--end 签到未登录 登陆后才能查看详情 -->
+					<div class="xg_calendar">
+						<div class="xg_calendartit">
+							<span></span>
+							<span class="fr">
+								<span>{:date('Y年m月')}</span>
+								<!-- <a class="a_pre no_alink"><</a><span>2017-01</span><a class="a_next">></a> -->
+							</span>
+						</div>
+						<div class="xg_calendarrili">
+							<div class="xg-calendar-row xg_week">
+								<volist name='weeklist' id="wkl">
+		                        	<span class="xg-calendar-cell"><span class="xg-calendar-cell-text">{$wkl}</span></span>
+		                      	</volist>
+							</div>
+
+							<php>$d = date('d',time()) </php>
+							<volist name="week" id="wk">
+								<div class="xg-calendar-row">
+									<volist name="wk" id="w">
+									  	<if condition='$w[1] eq "pre"'>
+									  		<span class="xg-calendar-cell xg-calendar-list-prev"><span class="xg-calendar-cell-text">{$w[0]}</span></span>
+									  	<elseif condition='$w[1] eq "cur"'/>
+									    	<span class="xg-calendar-cell xg-calendar-list-curr <if condition='$w[0] eq $d && $w[3] eq "is_sign"'>signed ttttt<elseif condition='$w[0] eq $d'/> today  <elseif condition='$w[3] eq "is_sign"'/> signed</if>"><span class="lwx-calendar-cell-text">{$w[0]}</span></span>
+									  	<else/> 
+									  		<span class="xg-calendar-cell xg-calendar-list-prev"><span class="xg-calendar-cell-text">{$w[0]}</span></span>
+									    	
+									  	</if>
+									</volist>
+								</div>
+							</volist>
+							<div class="div_signnow"><a class="jssign a_signnow layer_success">立即签到</a></div>
+							<!-- 立即签到 签到失败弹窗 begin-->
+							<!-- <div class="div_signnow" style="display:none;"><a class="a_signnow layer_false">立即签到</a></div> -->
+							<!--end 立即签到 签到失败弹窗 -->
+							<!-- 今日签到 begin-->
+							<!-- <div class="div_signnow" style="display:none;"><a class="a_signnow sign_today">今日签到</a></div> -->
+							<!--end 今日签到 -->
+						</div>
+					</div>
+				</div>
+			</div>
+				</div>
+			</div>
+		</div>
+		<div class="shopsign_b">
+			<div class="shopsign_con">
+				<div class="xg_space"><img src="__IMG__/space_duihuan.png" width="177" height="69" alt="兑换图片"></div>
+				<div class="signcenter exchange_list">
+					<div class="exchange_listcen">
+						<ul class="exchange_ul clearfix">
+							<volist name="likedata" id="like">
+								<li class="exchange_li">
+									<div class="exchange_lier">
+										<div class="exchange_tab">
+											<div class="exchange_tabcell">
+												<img src="{$like.cover}" width="135" height="79" alt="商品图片">
+											</div>
+										</div>
+										<div class="shop_name"><span>{$like.good_name}</span></div>
+									</div>
+									<if condition="$key eq 2"><div class="exchange_bdiv" style="display:block;"><a class="layer_exchangefalse" href="{:U('PointShop/mall')}">立即兑换</a></div></if>
+								</li>
+							</volist>
+						</ul>
+						<!-- <script type="text/javascript">
+							$('.exchange_ul .exchange_li').hover(function(){
+								that = $(this);
+								that.children('.exchange_bdiv').css('display','block');
+								that.siblings().children('.exchange_bdiv').css('display','none')
+							});
+						</script> -->
+					</div>
+				</div>
+				<div class="xg_space"><img src="__IMG__/space_guize.png" width="177" height="69" alt="规则图片"></div>
+				<div class="signcenter sign_rules">
+				<div class="exchange_listcen sign_relative">
+					<img class="signimg_rb" src="__IMG__/sign_people.png" width="186" height="216" alt="小孩图片">
+					<div class="sign_guizel fl">
+						<h4 class="sign_guizeh4"><i>1</i>你可以通过以下方式分享给好友</h4>
+						<div class="sign_share">
+							<a onclick="javascript:bShare.share(event,'qqim');return false;" class="icon qq"><img src="__IMG__/icon_qq.png"></a>
+							<a onclick="javascript:bShare.share(event,'qzone');return false;" class="icon qq"><img src="__IMG__/bds_qzone.png"></a>
+							<a onclick="javascript:bShare.share(event,'sinaminiblog');return false;" class="icon qq"><img src="__IMG__/bds_tsina.png"></a>
+							<!-- <a><img src="__IMG__/bds_weixin.png"></a> -->
+							<!-- <a><img src="__IMG__/icon_pengyouquan.png"></a> -->
+						</div>
+						<h4 class="sign_guizeh4"><i>2</i>活动时间</h4>
+						<div class="txt_div">
+							<p><span>2017-01-01</span>至<span>2019-12-31</span></p>
+						</div>
+					</div>
+					<div class="sign_guizer fl">
+						<h4 class="sign_guizeh4"><i>3</i>活动规则</h4>
+						<div class="txt_div">
+							<p><span cla="txt_divnub">1.</span>参与条件：在本平台注册的用户</p>
+							<p><span cla="txt_divnub">2.</span>每天只能签到一次（以服务器系统时间为准）</p>
+							<p><span cla="txt_divnub">3.</span>签到获得的积分将自动存入【积分余额】中</p>
+							<p><span cla="txt_divnub">4.</span>在规定时间内连续签到可获得相应奖品，签到获得积分可用来获得相关商品</p>
+							<p><span cla="txt_divnub">5.</span>如果中间有一天未签到，将重新开始计算连续签到时间</p>
+							<p><span cla="txt_divnub">6.</span>本活动最终解释全归徐州梦创科技有限公司所有</p>
+						</div>
+					</div>
+				</div>	
+				</div>
+			</div>
+		</div>
+	</div>
+<!--end 商城签到 主要内容部分-->
+<script type="text/javascript" charset="utf-8" src="__STATIC__/jsshare/buttonLite.js#style=-1&amp;uuid=&amp;pophcol=2&amp;lang=zh"></script>
+<script type="text/javascript" charset="utf-8" src="__STATIC__/jsshare//bshareC0.js"></script>
+<script type="text/javascript" charset="utf-8">
+  bShare.addEntry({
+      pic: window.location.origin+"__STATIC__/guide_img_logo@2x.png"
+  });
+</script> 
+<script>
+$('.logoutbtn').click(function(){
+  $.ajax({
+      type:'post',
+      url:"{:U('Subscriber/logout')}",
+      success:function(data){
+          window.location='{:U("mall_sign")}';
+      }
+  });
+});
+</script>
+<script>
+	layer.config({
+		extend: 'myskin/style.css' //同样需要加载新皮肤
+	});
+    $(function() {
+      $user = "{:is_login()}";
+      $('.xg-calendar-row .xg-calendar-cell').each(function(){
+        // console.log($(this).attr('class'));
+        if($(this).hasClass('ttttt')){
+            $('.div_signnow a').removeClass('layer_success').addClass('sign_today').text('今日已签');
+        }
+      });
+      $nowsignday = "{:$signday-1}";
+      if($nowsignday>0){
+        $('.xg_calendartit span:first').text('已连续签到'+($nowsignday)+'天啦');
+      }
+      
+      $('.jssign').click(function() {
+        var that = $(this),day=parseInt(that.attr('data-day')),score=parseInt(that.attr('data-score'));
+          $.ajax({
+            type:'post',
+            url:"{:U('PointShop/user_sign_in')}",
+            success:function(data){
+              if(data.status==1){
+                  that.addClass('disabled').text('今日已签');
+                  // 签到成功
+                  $addpoint = "{$addpoint}";
+                  $topoint = "{$topoint}";
+	              	layer.open({
+						type: 1,
+						time:2000,
+						area: ['345px', '310px'], //宽高
+						title:false,
+						btn:false,
+						closeBtn: false,
+						shadeClose: true, //开启遮罩关闭
+						shade: 0.5,
+						content: '<div class="signtips_tab"><div class="signtips_tabcell">\n'+
+						'<img src="__IMG__/icon_chenggong.png">\n'+
+						'</div></div>\n'+
+						'<p class="txt_center cor_o">签到成功！</div>'
+					});
+              	$('.div_signnow a').removeClass('layer_success').addClass('sign_today').text('今日已签');
+              	$('.xg_calendartit span:first').text('已连续签到'+({$signday})+'天啦');
+              	$('.newpoint').text($('.newpoint').text()-(-$addpoint));
+              }else{
+                //页面层
+				layer.open({
+				  type: 1,
+				  time:2000,
+				  area: ['345px', '310px'], //宽高
+				  title:false,
+				  btn:false,
+				  closeBtn: false,
+				  shadeClose: true, //开启遮罩关闭
+				  shade: 0.5,
+				  content: '<div class="signtips_tab"><div class="signtips_tabcell">\n'+
+				  '<img src="__IMG__/icon_shibai.png">\n'+
+				  '</div></div>\n'+
+				  '<p class="txt_center cor_gray">'+data.msg+'</div>'
+				});
+              }
+            }
+          })
+      }); 
+    });
+</script>
+</block>

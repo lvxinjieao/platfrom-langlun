@@ -1,0 +1,196 @@
+<extend name="Public/base"/>
+
+<block name="body">
+<link rel="stylesheet" href="__CSS__/select2.min.css" type="text/css" />
+<script type="text/javascript" src="__JS__/bootstrap.min.js"></script>
+<script type="text/javascript" src="__JS__/select2.min.js"></script>
+    <!-- 标题栏 -->
+    <div class="main-place">
+        <span class="main-placetitle">位置</span>
+        <ul class="main-placeul">
+            <li><a href="{:U('PromoteWelfare/lists')}">福利管理</a></li>
+            <li><a href="{:U('PromoteCoin/send_lists')}">平台币收回</a></li>
+            <li><a href="#">平台币收回列表</a></li>
+        </ul>
+        <div class="question">
+            <i class="question_mark">?</i>
+            <ul class="question_content">
+                <li class="question_title">功能以及数据相关说明</li>
+                <li class="question_list">
+                    <span class="">{$meta_title}</span>
+                    <span class="">收回渠道账户预留的平台币数量</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+        <div class="cf top_nav_list navtab_list">
+        <a  <if condition="(I('type') eq 1) or (I('type') eq '') "> class="tabchose" </if>  href="{:U('PromoteCoin/deduct_lists',array('type'=>1))}">玩家收回</a>
+        <a <if condition="I('type') eq 2"> class="tabchose" </if> href="{:U('PromoteCoin/deduct_lists',array('type'=>2))}">推广员收回</a>
+    </div>
+    <style>
+        .navtab_list{ width:100%; border-bottom:1px solid #ddd; margin: 15px 0px; height: 65px;}
+        .navtab_list a{ display:block; width:100px; height:35px; line-height:35px; text-align:center; float:left; margin-left:20px; background:#e0e0e0; border-radius:3px; color:#333; margin-top: 15px;}
+        .navtab_list a:first-child{ margin-left:0px;}
+        .navtab_list a:hover, .navtab_list a.tabchose{ text-decoration:none; border-bottom:none; background:#ec4800; color:#fff;}
+    </style>
+
+    <div class="cf top_nav_list">
+        <div class="fl button_list">
+        <empty name="model.extend">
+            <div class="tools">
+                <a class=" " href="{:U('deduct',array('type'=>I('type')))}"><span class="button_icon button_icon1"></span>收回平台币</a>
+            </div>
+        </empty>
+        </div>
+        <!-- 高级搜索 -->
+        <div class="jssearch fr cf search_list">
+        <if condition="I('type') eq 2">
+              <div class="input-list input-list-game search_label_rehab">
+                <label>渠道帐号：</label>
+                <select name="promote_id" class="select_gallery" style="width:150px;">
+                    <option value="">请选择渠道</option>
+                    <volist name=":get_promote_list()" id="vo">
+                        <option  value="{$vo.id}">{$vo.account}</option>
+                    </volist>
+                </select>
+            </div>
+            <div class="input-list">
+            <label>渠道等级：</label>
+                <select id="promote_type" name="promote_type"  style="width:100px;">
+                    <option value="">请选择</option>
+                    <option value="1">一级渠道</option>
+                    <option value="2">二级渠道</option>
+                </select>
+            </div>
+        <else/>
+           <div class="input-list input-list-game search_label_rehab">
+                <label>玩家账号：</label>
+                <select name="user_id" class="select_gallery" style="width:150px;">
+                    <option value="">请选择玩家</option>
+                    <volist name=":get_user_list()" id="vo">
+                        <option  value="{$vo.id}">{$vo.account}</option>
+                    </volist>
+                </select>
+            </div>
+        </if>
+
+            <div class="input-list">
+                <a class="sch-btn" href="javascript:;" id="search" url="{:U('deduct_lists',array('model'=>$model['name'],'type'=>I('type')),false)}">搜索</a>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- 数据列表 -->
+    <div class="data_list">
+        <div class="">
+
+
+
+
+            <table>
+                <!-- 表头 -->
+                <thead>
+                <tr>
+                    <th>
+                        <input class="check-all" type="checkbox">
+                    </th>
+
+                    <if condition="I('type') eq 2">
+                          <th>所属推广员</th>
+                          <th>渠道等级</th>
+                    <else/>
+                          <th>玩家账号</th>
+                          <th>回收类型</th>
+                    </if>
+
+                    <th>收回数量</th>
+                    <th>收回时间</th>
+                    <th>收回人员</th>
+                </tr>
+                </thead>
+
+                <!-- 列表 -->
+                <tbody>
+                <empty name ="list_data">
+                <tr>
+                <td colspan="8" class="text-center">aOh! 暂时还没有内容!</td>
+                </tr>
+                <else/>
+                <volist name="list_data" id="data">
+                    <tr>
+                        <td><input class="ids" type="checkbox" value="{$data['id']}" name="ids"
+                                   status="{$data['status']}"></td>
+                     <if condition="I('type') eq 2">
+                        <td>{:get_promote_account($data['promote_id'])}</td>
+                        <td>{:get_info_status($data['promote_type'],20)}</td>
+                    <else/>
+                        <td>{$data['user_account']}</td>
+                        <td>平台币</td>
+                    </if>
+
+
+                        <td>{$data['num']}</td>
+                        <td>{:set_show_time($data['create_time'])}</td>
+                        <td>{:get_nickname($data['op_id'])}</td>
+                    </tr>
+                </volist>
+                </empty>
+                <tr class="data_summary">
+                    
+
+                <td>汇总</td>
+                    <td colspan="8">今日收回：{$sum.to_day|default=0}个 ； 昨日收回：{$sum.yse_day|default=0}个 ； 累计收回：{$sum.all_num}个</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="page">
+        {$_page|default=''}
+    </div>
+</block>
+
+<block name="script">
+<script type="text/javascript">
+
+    Think.setValue("promote_id","{:I('promote_id')}");
+    Think.setValue("promote_type","{:I('promote_type')}");
+     Think.setValue("user_id","{:I('user_id')}");
+
+
+    $(".select_gallery").select2();
+</script>
+<script type="text/javascript">
+highlight_subnav('{:U('PromoteCoin/deduct_lists')}');
+if('{$Think.get.game_name}'!=''){
+    $('#select2-game_id-container').text('{$Think.get.game_name}');
+}
+$(function(){
+    //搜索功能
+    $("#search").click(function(){
+        var url = $(this).attr('url');
+        var query  = $('.jssearch').find('input').serialize();
+        query  += "&"+$('.jssearch').find('select').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+        window.location.href = url;
+    });
+
+    //回车自动提交
+    $('.jssearch').find('input').keyup(function(event){
+        if(event.keyCode===13){
+            $("#search").click();
+        }
+    });
+
+})
+</script>
+</block>

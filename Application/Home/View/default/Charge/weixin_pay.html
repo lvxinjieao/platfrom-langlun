@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>微信支付</title>
+
+		<link href="../../../../../Public/Home/css/20170913/common.css" rel="stylesheet">
+		<link href="../../../../../Public/Home/css/20170913/index.css" rel="stylesheet">
+
+		<style type="text/css">
+			.header {
+				background-color: #FFFFFF;
+				color: #333333;
+				box-shadow: 0 4px 4px rgba(0, 0, 0, .2);
+			}
+			.header .logo .text {
+				padding-top: 18px;
+				color: #333333;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		<div class="header">
+			<div class="inner clearfix">
+				<div class="logo">
+					<a href="{:U('index/index')}">
+						<img src="{:get_cover(C('CH_SET_LOGO'),'path')}" alt="logo">
+					</a>
+					<i></i>
+					<span class="text">溪谷游戏</span>
+				</div>
+				<ul class="nav clearfix">
+					<ul class="nav clearfix">
+						<li><a href="{:U('Index/index')}" target="_blank"><span>首页</span></a></li>
+						<li><a href="{:U('Article/more_lists')}" target="_blank"><span>渠道公告</span></a></li>
+						<li><a href="{:U('Index/about')}" target="_blank"><span>关于我们</span></a></li>
+						<li><a href="{:U('Article/game_list')}" target="_blank"><span>全部应用</span></a></li>
+					</ul>
+				</ul>
+			</div>
+		</div>
+		<div id="cz_wxbox">
+			<div class="wxtitle">
+				<h2>请您及时付款，以便订单尽快处理！订单号:<span>{$data.out_trade_no}</span></h2>
+				<p>应付金额<em>{$data.amount}</em>元</p>
+			</div>
+
+			<div class="wxboxCon">
+				<h3>微信支付</h3>
+				<div class="leftbox">
+					<div class="wximg"><img src="{$data.code_img_url}" alt="二维码"></div>
+				</div>
+				<div class="rightbox mbimg"></div>
+				<div class="clear"></div>
+				<div class="return">
+					<a class="" href="{:U('Charge/agent_pay')}">&lt;&lt;返回充值中心</a>
+				</div>
+
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="__JS__/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="__STATIC__/layer/layer.js" ></script>
+	<script>
+        var out_trade_no = "{$data.out_trade_no}";
+        $(function () {
+            var timesRun = 0;
+            var interval = setInterval(function(){
+                var order = out_trade_no;
+                $.ajax({
+                    type: 'POST',
+                    url: "{:U('check_status')}" ,
+                    data:{"order_num":order},
+                    async:true,
+                    success:function(data){
+                        if (data.status > 0){
+                            layer.msg('支付成功');
+                            setTimeout(function () {
+                                window.location.href = "{:U('Charge/agent_pay_list')}";
+                            },1000)
+
+                        }
+                    }
+                });
+            }, 1000);
+        })
+	</script>
+</html>

@@ -1,0 +1,431 @@
+<extend name="Public/bases" />
+<block name="body">
+<style>
+.htopbg{display: none;}
+#header{display: none;}
+.footer{display: none;}
+.g-sidefun{display: none;}
+</style>
+<link href="__CSS__/login.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="__JS__/jquery-1.7.2.min.js"></script>
+<!--下拉菜单--><script type="text/javascript" src="__JS__/ddsmoothmenu.js"></script>
+<script type="text/javascript">
+ddsmoothmenu.init({
+  mainmenuid: "smoothmenu1", //menu DIV id  
+  orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"  
+  classname: 'moregame'
+});
+</script>
+<!--下拉菜单结束-->
+<script type="text/javascript" src="__JS__/pc_7724.js"></script>
+<script type="text/javascript" src="__JS__/jquery.SuperSlide.2.1.1.js"></script>
+<!-- 主体内容 -->
+<div class="loginbg">
+    <div class="cont-box regcont">
+
+        <div class="box login-box regbox">              
+              <!--其他方式注册-->  
+                <div class="ad-box">
+                <div class="dsf">
+                <h3>也可使用以下账号<br>简单注册快人一步</h3>
+                <ul>
+                <!-- <li><a href="#" class="ds_wb"><i></i><font>新浪微博登录</font></a></li> -->
+                <li><a onclick="login('qq')" class="ds_qq"><i></i><font>QQ号登录</font></a></li>
+                <li><a onclick="login('weixin')" class="ds_wx"><i></i><font>微信号登录</font></a></li>
+                </ul>
+                <h3>已有账号，点击登录</h3>
+                <br>
+                <a class="dsflog" href="{:U('login',array('gid'=>I('gid'),'pid'=>I('pid')))}">登录</a>
+                </div>
+                </div><!--其他方式注册结束--> 
+                <div class="loginbk">
+                    <div class="reg_tit">
+                       <span id="reg1" class="nav01" onclick="selreg(1)">手机账号注册<em></em></span>
+                        <span id="reg2" class="nav2" onclick="selreg(2)">个性账号注册<em></em></span>
+                    </div>
+                    <!--手机账号注册-->
+                <form id="form1" action="{:U('register2',array('gid'=>I('gid'),'pid'=>I('pid')))}" method="post">
+                <input type="hidden" name="type" value="phone">
+                <input type="hidden" name="registerverify" class="registerverify" value="">
+                    <div id="name1" style="display: block;">
+                     <div class="ipt-box">
+                        <i class="login_pho"></i>
+                        <input class="puser" type="text" name="account" placeholder="请输入手机号">
+                    </div>
+                    <div class="ipt-box yzm">
+                            <i class="login_my"></i>
+                            <input id="registerPhonePop" class="regyzm" type="text" name="verify" placeholder="手机收到的验证码" style="width:45%;">
+                            <a class="hqbtn sendvcode" id="send_code">获取验证码</a>
+                            <p></p>
+                        </div>
+                    <!-- <div class="ipt-box yzm">
+                        <i class="login_yzm"></i>
+                        <input id="login-yzm" type="text" name="LoginForm[yzm]" placeholder="验证码" style="width:45%;">
+                        <img id="img_captcha" src="/index.php?s=/Home/Index/verify/t/1492224187874">
+                    </div> -->
+                     <div class="ipt-box">
+                        <i class="login_pwd"></i>
+                        <input  type="password" class="ppwd" name="password" placeholder="请输入密码(6-15个字符字母或数字)">
+                    </div>
+                    <div class="ipt-box">
+                        <i class="login_pwd"></i>
+                        <input  type="password" class="rppwd" placeholder="再次输入确认密码">
+                    </div>
+                   <!--  <div class="ipt-box">
+                        <i class="login_mail"></i>
+                        <input id="login-account" type="text" name="LoginForm[username]" value="" placeholder="已绑定的手机号/邮箱">
+                    </div> -->
+                    <input id="login-btn" class="phbut" type="button" value="下一步">
+                      <span ><input class="pckb" type="checkbox" >我接受<a onclick="agreement()">用户使用协议</a></span>
+                    </div>
+                </form>
+                     <!--手机账号注册结束-->
+                <form id="form2" action="{:U('register2',array('gid'=>I('gid'),'pid'=>I('pid')))}" method ="post">
+                    <!--个性账号注册-->
+                    <div id="name2" style="display: none;">
+                    <input type="hidden" name="type" value="account">
+                    <input type="hidden" name="registerverify" class="aregisterverify" value="">
+                    <div class="ipt-box">
+                        <i class="login_user"></i>
+                        <input id="login-account" class="auser" type="text" name="account" value="" placeholder="6-15个字符(数字/字母/下划线)">
+                    </div>
+                    <div class="ipt-box yzm">
+                        <i class="login_yzm"></i>
+                        <input  class="verify" type="text" name="verify" placeholder="验证码" style="width:45%;">
+                        <img class="checkcode" id="img_captcha" src="__MODULE__/Subscriber/verify">
+                    </div>
+                    <div class="ipt-box">
+                        <i class="login_pwd"></i>
+                        <input  type="password" class="apwd" name="password" placeholder="请输入密码(6-15个字符字母或数字)">
+                    </div>
+                    <div class="ipt-box">
+                        <i class="login_pwd"></i>
+                        <input  type="password" class="rapwd" placeholder="再次输入确认密码">
+                    </div>
+                     <!--  <div class="ipt-box">
+                        <i class="login_mail"></i>
+                        <input  type="text" name="LoginForm[password]" placeholder="输入正确的邮箱,可用邮箱取回密码">
+                    </div> -->
+                    <!-- <div class="ipt-box">
+                        <i class="login_pho"></i>
+                        <input type="text" name="LoginForm[password]" placeholder="请输入手机号(选填)">
+                    </div> -->
+                    <input id="login-btn" class="acbut" type="button" value="下一步">
+                    <span class="rember"><input class="ackb" type="checkbox" >我接受<a onclick="agreement()">用户使用协议</a></span>
+                    </div>
+                    <!--个性账号注册结束-->
+                </form>
+                </div>
+        </div>
+
+    </div>
+   
+</div>
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript" src="__STATIC__/layer/extend/layer.ext.js"></script>
+<script type="text/javascript"> 
+    $(document).ready(function(){
+            selreg(1);
+    });
+    function selreg(tag){
+        for(var i=1;i<3;i++){
+            $("#reg"+i).attr("class","nav"+i);
+            $("#name"+i).hide();
+        }
+        $("#reg"+tag).attr("class","nav0"+tag);
+        $("#name"+tag).show();
+        if(tag == 1){
+            $('#chooseMobile').hide();
+            $('#ac').val('phone');
+            $('#regMobile').removeAttr('jvrequired');
+            $('#phonecode').removeAttr('jvrequired');
+            $('#txtUsername').removeAttr('jvajaxurl');
+            $('#txtUsername').attr('jvrequired',false);
+            $('#regMobile').attr('jvajaxurl','/Public/check/op/regMobile');
+            $('#email').removeAttr('jvajaxurl');
+            $('#email').attr('jvrequired',false);
+        }else{
+            $('#chooseMobile').show();
+            $('#ac').val('normal');
+            $('#regMobile').attr('jvrequired',false);
+            $('#phonecode').attr('jvrequired',false);
+            $('#txtUsername').attr('jvajaxurl','/Public/check/op/username');
+            $('#txtUsername').removeAttr('jvrequired');
+            $('#regMobile').removeAttr('jvajaxurl');
+            $('#email').attr('jvajaxurl','/Public/check/op/email');
+            $('#email').removeAttr('jvrequired');
+        }
+    }
+</script>
+<script>
+function agreement(content){
+    //页面层-自定义
+        layer.open({
+          type: 2,
+          title: '用户注册协议',
+          shadeClose: false,
+          shade: 0.5,
+          maxmin: false, //开启最大化最小化按钮
+          area: ['50%', '70%'],
+          content: ["{:U('Subscriber/agreement')}"]
+        });
+}
+function login(obj) {
+    var url = '{:U("thirdlogin",array("gid"=>$_REQUEST["gid"],"pid"=>$_REQUEST["pid"]))}';
+    url = url.replace(".html","")+"/type/"+obj;
+    window.location=url;
+}
+</script>
+<script>
+//图片验证码
+$('.checkcode').on('click',function() {
+    var e = (new Date).getTime();
+    codeurl="__MODULE__/Subscriber/verify/t/";
+    $(this).attr('src', codeurl + e);
+});
+var f=function(msg,obj) {
+    layer.tips(msg, obj, {
+        tips: [1, 'red'],
+      tipsMore: true
+    });
+};
+//手机注册
+$('.puser').blur(function() {
+    var account = $.trim($(this).val());
+    if (account == '') {f('手机号码不能为空！','.puser');return;}
+    if (!(/^1[3456789]\d{9}$/.test(account))) {
+        f('手机号码格式不正确','.puser');return;
+    }else{
+        $(".sendvcode").addClass('phoneok');
+    }
+});
+//验证码不能为空！
+$('#registerPhonePop').blur(function() {
+    var apwd = $.trim($(this).val());
+    if (apwd == '') {f('验证码不能为空！','#registerPhonePop');return;}
+});
+//密码不能为空！
+$('.ppwd').blur(function() {
+    var apwd = $.trim($(this).val());
+    if (apwd == '') {f('密码不能为空！','.ppwd');return;}
+    if (apwd.length<6||apwd.length>15) {
+        f('请输入6-15位的密码','.ppwd');return false;
+    }
+});
+$('.rppwd').blur(function() {
+    var apwd = $.trim($('.ppwd').val());
+    var rapwd = $.trim($(this).val());
+    if (apwd!=rapwd) {
+        f('两次密码不一致','.rppwd');return false;
+    }
+});
+
+//发送验证码
+$(".sendvcode").on('click',function() {
+    account=$.trim($('.puser').val());
+    if (!(/^1[3456789]\d{9}$/.test(account))) {
+        f('手机号码格式不正确','.puser');return;
+    }else{
+        $(".sendvcode").addClass('phoneok');
+    }
+// 发送安全码
+if (!$(this).hasClass('disabled')&&$(this).hasClass('phoneok')) {
+    var e = this,p = account;
+    $(e).addClass('disabled');
+    $.ajax({
+        type:'post',
+        url: '{:U("Subscriber/telsvcode")}',
+        data: 'phone='+p,
+        dataType: 'json',
+        success: function(d) {
+            if (parseInt(d.status) >0) {
+                r && r(parseInt(d.status))
+            } else {
+                $(e).siblings('.regyzm').addClass('msg-fail');
+                alert(d.msg);
+            } 
+        }
+    });
+    var r = function(i, t) {
+        if (i>0) {
+            var r = 60;
+            $(e).addClass('disabled');
+            var a = setInterval(function() {
+                r--;
+                $(e).text('成功'+r + '秒'),
+                0 == r && ($(e).removeClass('disabled'), $(e).text('获取验证码'), clearInterval(a))
+            },1e3)
+        } 
+    };                      
+}
+return false;
+});
+$('.phbut').click(function(){
+    var account = $.trim($('.puser').val());
+    if (account == '') {f('手机号码不能为空！','.puser');return;}
+    if (!(/^1[3456789]\d{9}$/.test(account))) {
+        f('手机号码格式不正确','.puser');return;
+    }else{
+        $(".sendvcode").addClass('phoneok');
+    }
+    //验证手机是否使用
+    $.ajax({
+        type:'post',
+        async:false,
+        url:"{:U('Subscriber/checkphoneexsite')}",
+        data:{phone:account},
+        success:function(data){
+            if(data.status==1){
+              f('手机号已使用','.puser');$('.phbut').addClass('error');
+            }else{
+              $('.phbut').removeClass('error')
+            }
+        },error:function(){
+            $('.phbut').addClass('error');
+            alert('服务器故障，请稍后再试');
+        }
+    });
+    if($('.phbut').hasClass('error')){
+      return false;
+    }
+    //验证用户是否已存在
+    $.ajax({
+        type:'post',
+        async:false,
+        url:"{:U('Subscriber/checkaccount')}",
+        data:{account:account},
+        success:function(data){
+            if(data.status==0&&data.code==0){
+              $('.phbut').removeClass('error')
+            }else{
+              f('用户已存在','.puser');$('.phbut').addClass('error');
+            }
+        },error:function(){
+            $('.phbut').addClass('error');
+            alert('服务器故障，请稍后再试');
+        }
+    });
+    if($('.phbut').hasClass('error')){
+      return false;
+    }
+    var apwd = $.trim($('#registerPhonePop').val());
+    if (apwd == '') {f('验证码不能为空！','#registerPhonePop');return;}
+    var apwd = $.trim($('.ppwd').val());
+    if (apwd == '') {f('密码不能为空！','.ppwd');return;}
+    if (apwd.length<6||apwd.length>15) {
+        f('请输入6-15位的密码','.ppwd');return false;
+    }
+    var apwd = $.trim($('.ppwd').val());
+    var rapwd = $.trim($('.rppwd').val());
+    if (apwd!=rapwd) {
+        f('两次密码不一致','.rppwd');return false;
+    }
+    if (!$(".pckb").prop("checked")){
+        f('请阅读用户注册协议','.pckb');return false;
+    }
+    pdata = $('#form1').serialize();
+    $.ajax({
+        type:'post',
+        url:"{:U('registerf')}",
+        data:pdata,
+        success:function(data){
+            if(data.status){
+                $('.registerverify').val(data.registerverify);
+                $('#form1').submit();
+            }else{
+                layer.msg(data.msg);
+                // if(data.code==0){
+                //     layer.msg();
+                // }
+            }
+        },error:function(){
+            alert('服务器故障，请稍后再试');
+        }
+    });
+});
+
+//普通账号
+$('.auser').blur(function() {
+    var account = $.trim($(this).val());
+    if (account == '') {f('用户名不能为空！','.auser');return;}
+});
+//验证码不能为空！
+$('.verify').blur(function() {
+    var apwd = $.trim($(this).val());
+    if (apwd == '') {f('验证码不能为空！','.verify');return;}
+});
+//密码不能为空！
+$('.apwd').blur(function() {
+    var apwd = $.trim($(this).val());
+    if (apwd == '') {f('密码不能为空！','.apwd');return;}
+    if (apwd.length<6||apwd.length>15) {
+        f('请输入6-15位的密码','.apwd');return false;
+    }
+});
+$('.rapwd').blur(function() {
+    var apwd = $.trim($('.apwd').val());
+    var rapwd = $.trim($(this).val());
+    if (apwd!=rapwd) {
+        f('两次密码不一致','.rapwd');return false;
+    }
+});
+
+$('.acbut').click(function(){
+    var account = $.trim($('.auser').val());
+    if (account == '') {f('用户名不能为空！','.auser');return;}
+    //验证用户是否已存在
+    $.ajax({
+        type:'post',
+        async:false,
+        url:"{:U('Subscriber/checkaccount')}",
+        data:{account:account},
+        success:function(data){
+            if(data.status==0&&data.code==0){
+              $('.acbut').removeClass('error')
+            }else{
+              f('用户已存在','.auser');$('.acbut').addClass('error');
+            }
+        },error:function(){
+            $('.acbut').addClass('error');
+            alert('服务器故障，请稍后再试');
+        }
+    });
+    if($('.acbut').hasClass('error')){
+      return false;
+    }
+    var apwd = $.trim($('.verify').val());
+    if (apwd == '') {f('验证码不能为空！','.verify');return;}
+    var apwd = $.trim($('.ppwd').val());
+
+    var apwd = $.trim($('.apwd').val());
+    if (apwd == '') {f('密码不能为空！','.apwd');return;}
+    if (apwd.length<6||apwd.length>15) {
+        f('请输入6-15位的密码','.apwd');return false;
+    }
+
+    var rapwd = $.trim($('.rapwd').val());
+    if (apwd!=rapwd) {
+        f('两次密码不一致','.rapwd');return false;
+    }
+    if (!$(".ackb").prop("checked")){
+        f('请阅读用户注册协议','.ackb');return false;
+    }
+    adata = $('#form2').serialize();
+    $.ajax({
+        type:'post',
+        url:"{:U('registerf')}",
+        data:adata,
+        success:function(data){
+            if(data.status){
+                $('.aregisterverify').val(data.registerverify);
+                $('#form2').submit();
+            }else{
+                layer.msg(data.msg);
+            }
+        },error:function(){
+            alert('服务器故障，请稍后再试');
+        }
+    });
+});
+</script>
+</block>

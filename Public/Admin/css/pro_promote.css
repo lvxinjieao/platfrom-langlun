@@ -1,0 +1,214 @@
+/*推广员列表弹窗*/
+
+.pro_promot {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(39, 49, 69, 0.3);
+	z-index: 19891015;
+}
+
+.pro_promot_main {
+	width: 780px;
+	/*margin:0 auto 25%;*/
+	border-radius: 5px;
+	height: auto;
+	overflow: hidden;
+    position: absolute;
+    left: 32%;
+    top: 25%;
+}
+
+.pro_promot_title {
+	width: 100%;
+	height: 47px;
+	line-height: 47px;
+	background: #f5f6f6;
+	border-bottom: 1px solid #dddddd;
+	
+}
+
+.pro_promot_title_text {
+	font-size: 12px;
+	color: #999999;
+}
+
+.pro_promot_title_bigtext {
+	font-size: 15px;
+	color: #666666;
+	margin: 0 20px;
+}
+
+.fl {
+	float: left;
+}
+
+.fr {
+	float: right;
+}
+.clear{
+	clear: both;
+}
+
+.pro_promot_close {
+	margin-right: 20px;
+}
+
+.pro_promot_con {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	background: #ffffff;
+	padding: 20px 0;
+
+}
+
+.pro_promot_account {
+	font-size: 13px;
+	color: #666666;
+	margin-left: 20px;
+}
+
+.pro_promot_number {
+	color: #444444;
+	padding-left: 8px;
+	font-weight:bold;
+}
+
+.pro_promot_select_title {
+	font-size: 14px;
+	margin: 10px 2px 0 20px;
+	display: block;
+	line-height: 29px;
+	color: #666666;
+}
+
+.pro_promot_select_list {
+	margin: 10px 0px 0 8px;
+	height: 20px;
+}
+
+.pro_promot_select_list_con {
+	display: inline-block;
+	color: #666666;
+	font-size: 12px;
+	margin: 5px 0 10px 4px;
+	border-radius: 5px;
+	
+	cursor: pointer;
+}
+.pro_promot_all{
+	padding:2px 5px;
+	border-radius: 15px;
+}
+.pro_promot_mr20{
+	margin-right:20px;
+}
+.pro_promot_select_list .active,
+.pro_promot_select_list_con:hover {
+	background: #24bbf4;
+	color: #ffffff;
+}
+.pro_promot_game{
+	width: 753px;
+	height: 350px;
+	margin: 0 auto;
+	color: #666666;
+	font-size: 13px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+.pro_promot_game_con{
+	margin-top: 20px;
+	position: relative;
+	width: 18%;
+}
+.pro_promot_game_check{
+	display: none;
+}
+.pro_promot_game_name {
+	
+	/*margin: 0px 25px 0 10px;*/
+    margin: 0px 0px 0 5px;
+}
+/**/
+.pro_promot_game_check+ label{
+    background-color: white;
+
+    border:1px solid #d3d3d3;
+    width:15px;
+    height:15px;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 15px;
+}
+
+
+.pro_promot_game_check:checked + label:after{
+    content:"\2714";
+    color: #24bbf4;
+}
+.pro_promot_btn{
+	width: 230px;
+	margin: 20px auto 0;
+}
+.pro_promot_btn_confirm,.pro_promot_btn_cancel{
+	width: 86px;
+	height: 32px;
+	line-height: 32px;
+	text-align: center;
+	border: 1px solid #19b1ea;
+	color: #19b1ea;
+	border-radius: 5px;
+	cursor: pointer;
+}
+.pro_promot_btn_confirm{
+	color: #ffffff;
+	background: #19b1ea ;
+}
+
+.game_list{
+	margin-left: 91px;
+	width: 670px;
+}
+
+
+ /* 美化复选按钮 begin */
+   .custom-label input[type="checkbox"]{     
+            position: absolute;
+            clip:rect(0,0,0,0);
+        }
+		.custom-label{
+			float: left;
+			margin-left: 90px;
+			font-size: 0;
+			line-height: 17px;
+			cursor: pointer;
+			color: #666;
+			margin-top: 20px;
+        }
+		.label_icon{
+            float: left;
+            width: 17px;
+            height: 17px;
+            margin-right: 4px;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+		.label_text{
+            overflow: hidden;
+            display: block;
+            font-size: 14px;
+        }
+		.custom-label input[type="checkbox"] + .label_icon{
+            background-image:url('../images/label_icon.png');
+        }
+		.custom-label input[type="checkbox"]:checked + .label_icon{
+            background-image:url('../images/btn_selected_xuanzhong.png');
+        }
+		/*end 美化复选按钮 */

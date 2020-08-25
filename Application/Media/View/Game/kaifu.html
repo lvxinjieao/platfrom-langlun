@@ -1,0 +1,72 @@
+<extend name="Public/bases" />
+<block name="body">
+<link href="__CSS__/game.css" type="text/css" rel="stylesheet">
+<link href="__CSS__/gift.css" type="text/css" rel="stylesheet">
+<!--开服表-->
+<div class="cont">
+	<div class="g-main mgnt_26">
+		<div class="kaifu">
+			<div class="kaifu_con">
+				<div class="tab_head">
+					<a href="{:U('')}" <if condition="$type eq 2">class="current"</if>>今日开服</a>
+					<a href="{:U('',['type'=>1])}" <if condition="$type eq 1">class="current"</if>>即将开服</a>
+					<a href="{:U('',['type'=>0])}" <if condition="$type eq 0">class="current"</if>>已开区服</a>
+				</div>
+				<div class="tab_content">
+					<div class="list_kaifu">
+                        <volist name="server" id="yi">
+						<div class="list_box clearfix">
+							<div class="l_box fl">
+								<a title="{$yi.game_name}" href="{$yi.play_detail_url}" class="img-box fl">
+									<span class="img-box-font">
+							<span class="img-box-cell">
+								<div class="img-box-text">{:C('BITMAP')}</div>
+							</span>
+									</span>
+									<img class="img-box-img" src="{$yi.icon}">
+								</a>
+								<div class="txt_b fl">
+									<a  href="{$yi.play_detail_url}">{$yi.game_name}</a>
+									<div class="txt_det">
+										<p><i class="types"></i><span>{$yi.game_type_name}</span></p>
+										<p><i class="times"></i><span><eq name="type" value="0">{$yi.pastTime}<else/>{$yi.start_date}</eq></span></p>
+										<p><i class="tests"></i><span>{$yi.server_name}</span></p>
+									</div>
+								</div>
+							</div>
+							<div class="r_box fr">
+								<if condition="$yi['gift'] neq false"><a href="{$yi['gift']['gift_detail_url']}" <if condition="$yi['gift']['receive'] eq 1"> class="already_btn">已领取<else/> class="get_libao" target="_blank">礼包领取</if></a></if>
+								<a target="_blank" href="{$yi.play_url}" class="start_game" target="_blank">开始游戏</a>
+							</div>
+						</div>
+						</volist>
+					</div>	
+				</div>
+			</div>
+			<div class="pagenation clearfix">{$_page}</div>
+		</div>
+
+				
+	</div>
+</div>
+<!--礼包中心结束-->
+
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.remind').click(function(){
+			layer.alert('已开启开服提醒！', {
+				icon: 1,
+				time: 2000,
+				title:false,
+				btn:false,
+				closeBtn: false
+			});
+		});
+		layer.config({
+		  extend: 'myskin/msg.css' //同样需要加载新皮肤
+		});
+	});
+	
+</script>
+</block>

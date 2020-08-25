@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta property="qc:admins" content="71472552776166367">
+  <meta property="qc:admins" content="0500007726643536375">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <title>{:seo_replace(C('media_index.seo_title'),'','media')}</title>
+  <meta name="keywords" content="{:C('media_index.seo_keyword')}">
+  <meta name="description" content="{:C('media_index.seo_description')}">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-app-status-bar-style" content="black">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="Cache-Control" content="no-store, must-revalidate">
+  <meta http-equiv="expires" content="0">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1,minimal-ui">
+  <meta name="full-screen" content="yes">
+  <block name="title"><title>{:C(PC_SET_TITLE)}</title></block>
+  <link href="{:get_cover(C('PC_SET_ICO'),'path')}" type="image/x-icon" rel="shortcut icon">
+  <link href="__CSS__/base.css" type="text/css" rel="stylesheet">
+  <link href="__CSS__/index.css" type="text/css" rel="stylesheet">
+  <link rel="stylesheet" href="__CSS__/edit.css">
+  <link href="__CSS__/user.css" type="text/css" rel="stylesheet">
+  <script type="text/javascript" src="__JS__/jquery-1.7.2.min.js"></script>
+</head>
+
+<body>
+<!--头部-->
+<div id="header">
+  <div class="navbar">
+    <div class="bd">
+
+      <if condition="$union_set eq ''">
+        <h1 class="logo"><a href="{:U('Index/index')}" title="H5游戏"><img style="width: 190px;height: 60px;" src="{:get_cover(C('WIDE_PC_SET_LOGO'),'path')}"></a></h1>
+        <else/>
+        <h1 class="logo"><a title="H5游戏{$union_set['pc_logo']}"><img src="{:get_cover($union_set['pc_logo'],'path')}"></a></h1>
+      </if>
+
+      <div class="navcon fr">
+        <ul>
+          <li><a href="{:U('Index/index')}" <if condition="CONTROLLER_NAME eq 'Index'"> class="on"</if> ><span class="homebar">{:C('WIDE_INDEX')==''?'首页':C('WIDE_INDEX')}</span><i></i></a></li>
+          <li><a href="{:U('Game/index')}" <if condition="CONTROLLER_NAME eq 'Game'"> class="on"</if>><span class="h5youxi">{:C('WIDE_GAME')==''?'手游':C('WIDE_GAME')}</span><i></i></a></li>
+          <li>
+            <a href="{:U('Game/index',['ish5'=>1])}" <if condition="(CONTROLLER_NAME eq 'Game' and I('get.ish5') eq 1) or (ACTION_NAME eq 'game_pay')"> class="on"</if>><span class="h5youxi">{:C('WIDE_GAME')==''?'H5游戏':C('WIDE_GAME')}</span><i></i></a>
+          </li>
+          <if condition="empty($union_set) and C('SMALL_PROGRAM_IS_SHOW') eq 1">
+            <li>
+              <a href="{:U('SmallGame/index')}" <if condition="CONTROLLER_NAME eq 'SmallGame'"> class="on"</if> ><span class="homebar small_header">{:C('WIDE_Small')==''?'小程序':C('WIDE_Small')}</span><i></i></a>
+            </li>
+          </if>
+          <li><a href="{:U('Gift/index')}" <if condition="CONTROLLER_NAME eq 'Gift'"> class="on"</if>><span class="h5hj">{:C('WIDE_GIFT')==''?'礼包':C('WIDE_GIFT')}</span><i></i></a></li>
+          <li><a href="{:U('Subscriber/pay')}" <if condition="CONTROLLER_NAME eq 'Subscriber' and ACTION_NAME eq 'pay'"> class="on"</if>><span class="paybar">{:C('WIDE_PAY')==''?'充值':C('WIDE_PAY')}</span><i></i></a></li>
+          <li><a href="{:U('PointShop/mall')}" <if condition="CONTROLLER_NAME eq 'PointShop'"> class="on"</if>><span class="paybar">{:C('WIDE_SHOP')==''?'商城':C('WIDE_SHOP')}</span><i></i></a></li>
+          <li><a href="{:U('Article/index',array('category'=>'media_zx'))}" <if condition="CONTROLLER_NAME eq 'Article'"> class="on"</if>><span class="shopbar">{:C('WIDE_ZX')==''?'资讯':C('WIDE_ZX')}</span><i></i></a></li>
+          <li><a href="{:U('Service/index')}" <if condition="CONTROLLER_NAME eq 'Service'"> class="on"</if>><span class="shopbar">{:C('WIDE_HELP')==''?'帮助':C('WIDE_HELP')}</span><i></i></a></li>
+          <if condition="C('WIDE_CLIENT_STATUS') eq 1">
+            <li><a href="{:U('index/download')}" target="_blank"><span class="paybar">{:C('WIDE_CLIENT')==''?'客户端':C('WIDE_CLIENT')}</span><i></i></a></li>
+          </if>
+        </ul>
+        <div class="clear"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--头部结束-->
+
+<block name="body"></block> 
+<!--悬浮-->
+<div class="g-sidefun">
+  <a href="javascript:;" class="qrcode"> <i class="icon i-qr"></i>
+    <div class="wechat-content">
+        <i class="iarrow"></i>
+        <notempty name="union_set['qrcode']">
+            <img src="{:get_cover($union_set['qrcode'],'path')}" alt="微信" width="168" height="168">
+            <else/>
+            <img src="{:get_cover(C('PC_SET_QRCODE'),'path')}" alt="微信" width="168" height="168">
+        </notempty>
+        <p class="raside_tip">扫码关注<span>溪谷H5游戏</span>公众号</p>
+    </div>
+  </a>
+  <if condition="$union_set eq ''">
+      <a href="http://wpa.qq.com/msgrd?v=3&amp;uin={:C(PC_SET_SERVER_QQ)}&amp;site=qq&amp;menu=yes" target="_blank" title="客服" class="olkf"><i class="icon i-olkf"></i></a>
+    <else/>
+      <a href="http://wpa.qq.com/msgrd?v=3&amp;uin={$union_set['cust_qq']}&amp;site=qq&amp;menu=yes" target="_blank" title="客服" class="olkf"><i class="icon i-olkf"></i></a>
+  </if>
+  <div  class="expand" ><i class="icon i-expand">推广</i>
+	<div class="expand-content">
+	<i class="iarrow"></i>
+	推广游戏得分成~<br> 赚钱就是那么容易！
+	<a class="expand_pic_btn" href="./index.php" target="_blank">去加入</a>
+    </div>
+  </div>
+   <a  class="down" ><i class="icon i-down"></i>
+	<div class="down-content down-content1">
+        <i class="iarrow"></i>
+       
+            <img src="{:U('Base/downQrcode',['url'=>base64_encode(base64_encode('/mobile.php/Index/iosdownload'))])}" alt="扫码下载" width="168" height="168">
+            
+        <p class="raside_tip">扫码下载<span>H5游戏</span>APP</p>
+    </div>
+   </a>
+  <a href="javascript:scroll(0,0)" title="顶部" class="totop" id="totop"><i class="icon i-totop"></i></a>
+</div>
+
+<!--悬浮结束-->
+
+</body>
+<script>
+$(".search-btn-ga").click(function(){
+  $game_name=$(".input-focus").val();
+  $href="{:U('Game/index')}";
+  if($game_name!=''){
+    $href=$href.replace('.html','/game_name/'+$game_name+'.html');
+  }
+  window.location.href=$href;
+});
+
+$(".favorites").click(function(){
+  try{
+     var ctrl = (navigator.userAgent.toLowerCase()).indexOf('mac') != -1 ? 'Command/Cmd' : 'CTRL'; 
+     if (document.all){  
+      window.external.addFavorite(window.location, document.title);
+     }
+     else if (window.sidebar)
+     { 
+      window.sidebar.addPanel(document.title,window.location); 
+     }
+     else{
+      alert('添加失败\n您可以尝试通过快捷键' + ctrl + ' + D 加入到收藏夹~'); 
+     } 
+  }catch (e) {
+    alert('添加失败\n您可以尝试通过快捷键' + ctrl + ' + D 加入到收藏夹~'); 
+  }
+}); 
+
+$('#cooll').click(function(){
+  SetHome(window.location.href);
+});
+//设为首页
+function SetHome(url){
+  if (document.all) {
+      document.body.style.behavior='url(#default#homepage)';
+         document.body.setHomePage(url);
+  }else{
+      alert("您好,您的浏览器不支持自动设置页面为首页功能,请您手动在浏览器里设置该页面为首页!");
+  }
+}
+</script>
+<!-- 预约通知 begin -->
+<script>
+  $('#topLoged').closest('.toploginfo').hover(function(){
+    $('.notic_list').show();
+  },function(){
+    $('.notic_list').hide();
+  });
+</script>
+<!--end 预约通知-->
+</html>

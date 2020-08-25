@@ -1,0 +1,613 @@
+<meta name="keywords" content="{:C('media_index.seo_keyword')}">
+<meta name="description" content="{:C('media_index.seo_description')}">
+<extend name="Public/bases" />
+<block name="body">
+	<link href="__CSS__/pay.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="__JS__/jquery-1.7.2.min.js"></script>
+	<!--下拉菜单-->
+	<script type="text/javascript" src="__JS__/ddsmoothmenu.js"></script>
+	<script type="text/javascript">
+		ddsmoothmenu.init({
+			mainmenuid: "smoothmenu1", //menu DIV id
+			orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
+			classname: 'moregame'
+		});
+	</script>
+	<!--下拉菜单结束-->
+	<!--充值-->
+	<script type="text/javascript" src="__JS__/common.js"></script>
+	<script type="text/javascript" src="__JS__/jquery-2.0.3.min.js"></script>
+	<script type="text/javascript" src="__JS__/yeepay.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			if($("#money").val() != '') {
+				$("#money").parent().parent().siblings().children('input').removeProp("checked");
+				$("#money").parent().parent().siblings().removeClass('money_checked');
+			}
+			if($('#form_pay .money2').val()) {
+				$("#form_pay .last_money").addClass('money_checked').siblings().removeClass('money_checked');
+			}
+			$(".last_money").click(function() {
+				$(this).addClass('money_checked').siblings().removeClass('money_checked');
+			});
+		})
+	</script>
+	<!--充值中心-->
+	<!--充值中心-->
+	<div class="cont">
+		<div class="g-main">
+			<div class="pay_box clearfix">
+				<div class="pay_l fl">
+					<ul id="paytypes">
+						<if condition="get_tool_status('alipay') eq 1">
+							<li class="li_h" data-type="alipay">
+								<span class="pay_tab"><i class="zhufubao"></i>
+		        	<span class="pay_name">支付宝</span></span>
+							</li>
+						</if>
+						<if condition="get_tool_status('wei_xin') eq 1">
+							<li data-type="weixin" class="">
+								<span class="pay_tab"><i class="weixin"></i>
+		        	<span class="pay_name">微信支付</span></span>
+							</li>
+						</if>
+						<if condition="get_tool_status('goldpig') eq 1 ">
+							<li data-type="goldpig" class="">
+			        <span class="pay_tab"><i class="goldpig"></i>
+						<span class="pay_name">金猪支付</span></span></li>
+						</if>
+					</ul>
+				</div>
+				<div class="pay_r fr">
+					<div id="change_box">
+						<ul>
+							<li class="bb" id="alipay" style="display: list-item;">
+								<h3 class="pay_tit">您当前选择的是 <font id="choose_type">支付宝</font><a href="{:U('Service/index/',['type'=>'chongzhi'])}" target="_blank">充值遇到问题？</a></h3>
+								<form id="form_pay" action="" method="post">
+									<ul class="cz_ul">
+										<li style="position:relative;"> <span> <span class="label_name">充值到：</span>
+											<input type="checkbox" checked="checked" class="ptbcheckbox" disabled="disabled">
+											<label class="ptb">平台币</label>
+											</span>
+											<div class="ptbtips pa" id="ptbtips">平台币是游戏平台统一支付的虚拟货币。玩家可以使用平台币兑换游戏平台旗下绝大部分游戏的游戏币。
+												<a href="javascript:;" class="ptbtipsclose db pa"></a>
+											</div>
+										</li>
+										<li> <span> <span class="label_name">充值帐号：</span>
+											<input type="text" id="toaccount" name="uname1" class="zh_input" value="{:session('user_auth.account')}">
+											</span>
+										</li>
+										<li> <span id="main_user_input"> <span class="label_name">确认帐号：</span>
+											<input type="text" id="retoaccount" name="uname2" class="zh_input" value="{:session('user_auth.account')}">
+											</span>
+										</li>
+										<li class="clearfix"> <span class="label_name fl">选择金额：</span>
+											<div class="pay_money_box"> <span>
+	                    <input type="radio" name="money" value="10">
+	                    <font>10元</font> </span> <span>
+	                    <input type="radio" name="money" value="30">
+	                    <font>30元</font> </span> <span>
+	                    <input type="radio" name="money" value="50">
+	                    <font>50元</font> </span> <span class="money_checked">
+	                    <input type="radio" name="money" checked value="100">
+	                    <font>100元</font> </span> <span>
+	                    <input type="radio" name="money" value="300">
+	                    <font>300元</font> </span> <span>
+	                    <input type="radio" name="money" value="500">
+	                    <font>500元</font> </span> <span>
+	                    <input type="radio" name="money" value="1000">
+	                    <font>1000元</font> </span>
+												<span class="last_money"> <font>其他
+	                    <input type="text" maxlength="10" size="10" name="money" id="money" class="money2" onkeyup="this.value = this.value.replace(/[^0-9]/g, &#39;&#39;); get_game_coin();" style="display: inline-block">
+	                    元 </font> </span>
+												<input type="hidden" id="alipay_amount" name="flatcoin" value="">
+												<input type="hidden" name="apitype" id="apitype" value="alipay">
+											</div>
+											<div class="clear"></div>
+										</li>
+										<li><span class="label_name fl">获得平台币：</span><b class="org" style="font-size:24px;" id="game_coin">100</b></li>
+										<li class="clearfix"><span class="label_name"></span>
+											<div class="flqtips_div">
+												<p class="flqtips_l">*兑换比例1元=1平台币</p>
+											</div>
+										</li>
+										<li>
+											<a class="pay_submit" href="javascript:;" id="jssubmitss">立即充值</a>
+										</li>
+									</ul>
+								</form>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div style="display: none" id="preview"></div>
+	<!--充值确认提醒-->
+	<div class="pay_modal" id="pay_sure">
+		<div class="pay_modal_con">
+			<a class="pay_modal_close"><img src="__IMG__/close_normal.png"></a>
+			<div class="pay_modal_tit">确认充值信息</div>
+			<form id="priviewform" target="_blank" onsubmit="return priview(this);" action="" method="post" >
+			<ul class="pay_sure_list">
+				<li class="pay_model_pay"><span>您的充值方式:</span>
+					<p></p>
+				</li>
+				<li class="pay_model_name"><span>您的充值账号:</span>
+					<p></p>
+				</li>
+				<li class="pay_model_amount"><span>您的金额:</span>
+					<p></p>
+				</li>
+				<li class="pay_model_getptb"><span>充值所得:</span>
+					<p></p>
+				</li>
+			</ul>
+				<input type="hidden" name="uname1" id="uname1">
+				<input type="hidden" name="amount" id="amount">
+				<input type="hidden" name="trade_no" id="trade_no">
+				<input type="hidden" name="game_id" id="game_id">
+				<input type="hidden" name="money" id="money1">
+				<input type="submit" value="确认充值" class="pay_model_submit" >
+			
+			</form>
+		</div>
+	</div>
+	<!--充值提示-->
+	<div class="pay_modal" id="pay_go">
+		<div class="pay_modal_con" style="width: 400px; text-align: center;">
+			<a class="pay_modal_close" href="javascript:$('.pay_modal_close').click();"><img src="__IMG__/close_normal.png"></a>
+			<div class="pay_modal_tit">请在新打开的支付页面上完成付款充值！
+			<h3>付款前请不要关闭或刷新此窗口</h3></div>
+			<div class="pay_go_warn_con">
+				<a href="javascript:;" onclick="check_status()">查看充值结果</a>
+				<a href="{:U('Service/index',['type'=>'chongzhi'])}" target="_blank">付款遇到问题</a>
+				<a href="javascript:$('.pay_modal_close').click();">返回</a>
+			</div>
+		</div>
+	</div>
+	<div class="pop"></div>
+	<div class="popmmm"></div>
+	<!--充值中心结束-->
+	<script src="__STATIC__/layer/layer.js"></script>
+	<script src="__JS__/pop.lwx.min.js"></script>
+	<script>
+		$(".pay_modal_close").click(function() {
+			$(".pay_modal").hide();
+		})
+		var pop = $('.pop').pop();
+		var popmmm = $('.popmmm').pop();
+		var out_trade_no = "";
+		//点击立即充值
+		$('#jssubmitss').click(function(){
+			if($.trim($("#toaccount").val()).length == 0) {
+				layer.msg("充值账号不能为空!");
+				return false;
+			}
+			if($.trim($("#retoaccount").val()) != $.trim($("#toaccount").val())) {
+				layer.msg("两次账号不相同!");
+				return false;
+			}
+			$.ajax({
+					type: "POST",
+					data: {
+						uname1: $("#toaccount").val()
+					},
+					url: "{:U('Pay/check_account')}",
+					dataType: "json",
+					success: function(res) {
+					    if(res.status == 1){
+							$('.pay_model_name').find('p').text($.trim($("#toaccount").val()));
+
+							paymoney = $("#game_coin").text();
+							if(paymoney < 1) {
+								layer.msg('请输入充值金额');
+								return false;
+							}
+							$('.pay_model_amount').find('p').text(paymoney);
+							$('.pay_model_getptb').find('p').text(paymoney);
+
+
+
+							$paytype = $('#apitype').val();
+							try {
+								if($paytype == '') {
+									layer.msg('请选择支付方式');
+									return false;
+								}
+								$('.pay_model_pay').find('p').text($('#choose_type').text());
+							} catch(err) {
+								layer.msg('请选择支付方式');
+								return false;
+							}
+							$.ajax({
+								type: "POST",
+								data: {
+									code: 2
+								},
+								async:true,
+								url: "{:U('Pay/getTradeNo')}",
+								success:function(res){
+									out_trade_no = res.data;
+								},error:function(){
+									layer.msg("服务器错误，请稍后再试!");
+									return false;
+								}
+							})
+							$("#pay_sure").show();
+                            switch($paytype) {
+                                case 'weixin':
+                                    if(isWeiXin()) {
+                                        $type = {:get_wx_type()};
+                                        if($type) {
+                                            $("#form_pay").attr('target', "_self");
+                                            $("#form_pay").submit();
+                                        } else {
+                                            get_wx_code();
+                                        }
+                                    } else if(IsPC()) {
+                                        wx_pay();
+                                        return false;
+                                    } else {
+                                        wx_wap_pay();
+                                        return false;
+                                    }
+                                    break;
+                                case 'alipay':
+                                    alipay();
+                                    break;
+                                case 'goldpig':
+                                    goldpig();
+                                    break;
+                                default:
+                                    layer.msg('请选择支付方式');
+                                    break;
+                            }
+					    }else{
+							layer.msg(res.msg);
+							return false;
+					    	
+					    }
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+						layer.msg('服务器错误，请重试！');
+						return false;
+					}
+				});
+		});
+
+		function priview(that) {
+		    var form = $(that);
+            if($.trim($("#toaccount").val()).length == 0) {
+                layer.msg("充值账号不能为空!");
+                return false;
+            }
+
+            if($.trim($("#retoaccount").val()) != $.trim($("#toaccount").val())) {
+                layer.msg("两次账号不相同!");
+                return false;
+            }
+
+            paymoney = $("#game_coin").text();
+            if(paymoney < 1) {
+                layer.msg('请输入充值金额');
+                return false;
+            }
+            if($(this).hasClass('disabled')) {
+                return false;
+            }
+            var that = $(this);
+            $paytype = $('#apitype').val();
+            try {
+                if($paytype == '') {
+                    layer.msg('请选择支付方式');
+                    return false;
+                }
+            } catch(err) {
+                layer.msg('请选择支付方式');
+                return false;
+            }
+
+            if($paytype == '') {
+                layer.mag('请选择支付方式');
+                return false;
+            } else {
+
+
+                //检测账户是否存在
+                $.ajax({
+                    type: "POST",
+                    data: {
+                        uname1: $("#toaccount").val()
+                    },
+                    url: "{:U('Pay/check_account')}",
+                    dataType: "json",
+                    success: function(res) {
+                        if(res.status == 1) {
+
+                            $(".pay_modal").hide();
+                            $("#pay_go").show();
+                        } else {
+                            layer.msg(res.msg);
+                            return false;
+                        }
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        layer.msg('服务器错误，请重试！');
+                        return false;
+                    }
+                });
+
+            }
+
+            $('.jscancel').click(function() {
+                pop.close();
+            });
+
+		}
+
+		$('#jssubmit').click(function() {
+			if($.trim($("#toaccount").val()).length == 0) {
+				layer.msg("充值账号不能为空!");
+				return false;
+			}
+
+			if($.trim($("#retoaccount").val()).length != $.trim($("#toaccount").val()).length) {
+				layer.msg("两次账号不相同!");
+				return false;
+			}
+
+			paymoney = $("#game_coin").text();
+			if(paymoney < 1) {
+				layer.msg('请输入充值金额');
+				return false;
+			}
+			if($(this).hasClass('disabled')) {
+				return false;
+			}
+			var that = $(this);
+			$paytype = $('#apitype').val();
+			try {
+				if($paytype == '') {
+					layer.msg('请选择支付方式');
+					return false;
+				}
+			} catch(err) {
+				layer.msg('请选择支付方式');
+				return false;
+			}
+
+			if($paytype == '') {
+				layer.mag('请选择支付方式');
+				return false;
+			} else {
+				
+				//检测账户是否存在
+				$.ajax({
+					type: "POST",
+					data: {
+						uname1: $("#toaccount").val()
+					},
+					url: "{:U('Pay/check_account')}",
+					dataType: "json",
+					success: function(res) {
+						if(res.status == 1) {
+							
+							$(".pay_modal").hide();
+							$("#pay_go").show();
+							switch($paytype) {
+								case 'weixin':
+									if(isWeiXin()) {
+										$type = {: get_wx_type()
+										};
+										if($type) {
+											$("#form_pay").attr('target', "_self");
+											$("#form_pay").submit();
+										} else {
+											get_wx_code();
+										}
+									} else if(IsPC()) {
+										wx_pay();
+										return false;
+									} else {
+										wx_wap_pay();
+										return false;
+									}
+									break;
+								case 'alipay':
+									alipay();
+									break;
+                                case 'goldpig':
+                                    goldpig();
+                                    break;
+								default:
+									layer.msg('请选择支付方式');
+									break;
+							}
+
+						} else {
+							layer.msg(res.msg);
+							return false;
+						}
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+						layer.msg('服务器错误，请重试！');
+						return false;
+					}
+				});
+
+			}
+
+			$('.jscancel').click(function() {
+				pop.close();
+			});
+			return false;
+		});
+
+		function isWeiXin() {
+			var ua = window.navigator.userAgent.toLowerCase();
+			if(ua.match(/MicroMessenger/i) == 'micromessenger') {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		function get_wx_code() {
+			pcloading = layer.load(0, {
+				shade: false
+			});
+			$game_id = "{:base64_decode(I('game_id'))}";
+			$.ajax({
+				type: "POST",
+				data: {
+					amount: $("#game_coin").text(),
+					game_id: $game_id,
+					uname1: $("#toaccount").val()
+				},
+				url: "{:U('get_wx_code')}",
+				dataType: "json",
+				success: function(res) {
+					if(res.status) {
+						window.location.href = res.url;
+					} else {
+						alert(res.msg);
+					}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					layer.closeAll();
+				},
+				complete: function() {
+					layer.closeAll();
+				}
+			})
+			return;
+		}
+
+		function IsPC() {
+			var userAgentInfo = navigator.userAgent;
+			var Agents = ["Android", "iPhone",
+				"SymbianOS", "Windows Phone",
+				"iPad", "iPod"
+			];
+			var flag = true;
+			for(var v = 0; v < Agents.length; v++) {
+				if(userAgentInfo.indexOf(Agents[v]) > 0) {
+					flag = false;
+					break;
+				}
+			}
+			return flag;
+		}
+
+		function wx_pay() {
+			$game_id = "{:base64_decode(I('game_id'))}";
+			$amount = $("#game_coin").text();
+			if($amount < 1) {
+				layer.msg('充值金额不正确');
+				return false;
+			}
+			preview_url = "{:U('Pay/wx_pay')}";
+			$("#priviewform").attr('action',preview_url);
+            $("#priviewform").find('#uname1').val($("#toaccount").val());
+            $("#priviewform").find('#amount').val($amount);
+            $("#priviewform").find('#trade_no').val(out_trade_no);
+            $("#priviewform").find('#game_id').val($game_id);
+			//$('#preview').html('<form id="preview_form" target="NewWindow" action="' + preview_url +'" method="POST"><textarea name="uname1">'+ $("#toaccount").val() +'</textarea><textarea name="amount">'+$amount+'</textarea><textarea name="trade_no">'+out_trade_no+'</textarea><textarea name="game_id">'+$game_id+'</textarea></form>');
+
+		    //window.open("", 'NewWindow');
+		    //$('#preview_form').submit();
+		}
+		function wx_wap_pay() {
+			$.ajax({
+				type: "POST",
+				url: "{:U('Pay/weixin_wap_pay')}",
+				data: {
+					amount: $("#game_coin").text(),
+					uname1: $("#toaccount").val()
+				},
+				dataType: "json",
+				success: function(data) {
+					if(data.status == 1) {
+						window.location = data.pay_info;
+					} else if(data.status == 0) {
+						layer.msg(data.info);
+					} else {
+						layer.closeAll();
+						pop.addClass('pop-prompt').open('', '<div class="pop-content"><div class="pop-title">创建订单失败<div class="pop-text">' + data.info + '</div></div></div><div class="pop-butn-box"><a  class="pop-butn2 pop-comfirm2 jscancel">好的</a></div>');
+						$('.jscancel').click(function() {
+							pop.close();
+						});
+						return false;
+					}
+				},
+				error: function(res) {
+					layer.closeAll();
+					pop.addClass('pop-prompt').open('', '<div class="pop-content"><div class="pop-title">服务器错误，请稍后再试</div></div><div class="pop-butn-box"><a  class="pop-butn2 pop-comfirm2 jscancel">好的</a></div>');
+					$('.jscancel').click(function() {
+						location.href = location.href
+					});
+					return false;
+				}
+			})
+		}
+
+		function alipay() {
+			$game_id = "{:base64_decode(I('game_id'))}";
+			$amount = $("#game_coin").text();
+			if($amount < 1) {
+				layer.msg('充值金额不正确');
+				return false;
+			}
+			preview_url = "{:U('Pay/alipay')}";
+            $("#priviewform").attr('action',preview_url);
+            $("#priviewform").find('#uname1').val($("#toaccount").val());
+            $("#priviewform").find('#amount').val($amount);
+            $("#priviewform").find('#trade_no').val(out_trade_no);
+            $("#priviewform").find('#game_id').val($game_id);
+
+			//$('#preview').html('<form id="preview_form" target="NewWindow" action="' + preview_url +'" method="POST"><textarea name="uname1">'+ $("#toaccount").val() +'</textarea><textarea name="amount">'+$amount+'</textarea><textarea name="trade_no">'+out_trade_no+'</textarea><textarea name="game_id">'+$game_id+'</textarea></form>');
+
+		    //window.open("", 'NewWindow');
+		    //$('#priviewform').submit();
+		}
+        function goldpig(){
+            //layer.load();
+            if($("#game_coin").text()<1){
+                layer.msg('充值金额有误');
+                return false;
+            }
+            preview_url = "{:U('Pay/recharge_pig')}";
+            $("#priviewform").attr('action',preview_url);
+            $("#priviewform").find('#uname1').val($("#toaccount").val());
+            $("#priviewform").find('#money1').val($("#game_coin").text());
+            //$('#preview').html('<form id="preview_form" target="NewWindow" action="' + preview_url +'" method="POST"><textarea name="money">'+ $("#game_coin").text() +'</textarea><textarea name="uname1">'+$("#toaccount").val()+'</textarea></form>');
+
+           // window.open("", 'NewWindow');
+            //$('#preview_form').submit();
+            // $.ajax({
+            //     type:"POST",
+            //     url:"{:U('Pay/recharge_pig')}",
+            //     data:{money:$("#game_coin").text(),uname1:$("#toaccount").val()},
+            //     dataType:"json",
+            //     success:function(data){
+            //         layer.closeAll('loading');
+            //         if(data.status==1){
+            //             location.href = data.url;
+            //         }else{
+            //             layer.msg(data.info);
+            //         }
+            //     },error:function(){
+            //         layer.msg('服务器忙，请稍后再试');
+            //         return false;
+            //     }
+            // });
+        }
+		function check_status(){
+			preview_url = "{:U('Subscriber/payStatus')}";
+			$('#preview').html('<form id="preview_form" action="' + preview_url +'" method="POST"><textarea name="out_trade_no">'+ out_trade_no+'</textarea></form>');
+			$('#preview_form').submit();
+		}
+	</script>
+</block>

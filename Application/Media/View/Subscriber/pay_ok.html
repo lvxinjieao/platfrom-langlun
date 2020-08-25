@@ -1,0 +1,49 @@
+<meta name="keywords" content="{:C('media_index.seo_keyword')}">
+<meta name="description" content="{:C('media_index.seo_description')}">
+<extend name="Public/bases" />
+<block name="body">
+	<link href="__CSS__/pay_failure.css" type="text/css" rel="stylesheet">
+
+	<div id="czjgbox" style="margin: 70px auto 50px;">
+		<div class="jgboxTop"></div>
+
+		<div class="jgCon_sb jgCon">
+			<b class="succedimg">充值失败！</b>
+			<div class="czinfo">
+				<h1 class="succed_czinfo_title"><span class="fl">恭喜您，<font>充值成功</font></span><a target="_blank" href="{:U('Subscriber/index')}" class="jgCon_sb_balance fl">查看余额</a></h1>
+				<dl>
+					<dt>您的充值方式：</dt>
+					<dd>
+						<if condition="$data.pay_way eq 1">支付宝<else/>微信</if>充值平台币
+					</dd>
+				</dl>
+				<dl>
+					<dt>您的订单号：</dt>
+					<dd><i>{$data.pay_order_number}</i></dd>
+				</dl>
+				<dl>
+					<dt>充值账号：</dt>
+					<dd>{$data.user_account}</dd>
+				</dl>
+
+				<dl>
+					<dt>您的充值金额：</dt>
+					<dd><em><font>{$data.pay_amount}</font>元</em></dd>
+				</dl>
+				<dl>
+					<dt>您获得：</dt>
+					<dd>{$data.pay_amount}平台币</dd>
+				</dl>
+				<ul>
+					<li>
+						<a href="{:U('Subscriber/pay')}" class="czjgBtn2">继续充值</a>
+					</li>
+					<li>
+						<a href="{:U('Index/index')}" class="czjgBtn3">返回平台</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="jgboxBottom"></div>
+	</div>
+</block>

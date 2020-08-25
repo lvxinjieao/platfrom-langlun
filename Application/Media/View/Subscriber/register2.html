@@ -1,0 +1,196 @@
+<extend name="Public/notopfootbase" />
+<block name="body">
+<link href="__CSS__/user.css" type="text/css" rel="stylesheet">
+<link href="__CSS__/login.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="__JS__/jquery-1.7.2.min.js"></script>
+<script src="__JS__/jquery.cookie.js" charset="utf-8"></script>
+<!-- 主体内容 -->
+<div class="loginbg">
+    <div class="cont-box regcont">
+
+        <div class="box login-box regbox">
+              
+              <!--其他方式注册-->  
+                <div class="ad-box">
+                <div class="dsf">
+                <h3>也可使用以下账号<br>简单注册快人一步</h3>
+                <ul>
+                <eq name="qq_login" value="1"><li><a onclick="login('qq')" class="ds_qq"><i></i><font>QQ号登录</font></a></li></eq>
+                <eq name="wx_pc_login" value="1"><li><a onclick="login('weixin')" class="ds_wx"><i></i><font>微信号登录</font></a></li></eq>
+                </ul>
+                <a class="dsflog" href="{:U('Subscriber/login')}">登录</a>
+                </div>
+                </div><!--其他方式注册结束--> 
+                
+            <form id="form1" action="{:U('register3')}" method="post">
+                <input type="hidden" name="account" value="{$data.account}">
+                <input type="hidden" name="phone" value="{$data.phone}">
+                <input type="hidden" name="type" value="{$data.type}">
+                <input type="hidden" name="registerverify" class="registerverify" value="{$data.registerverify}">
+                <div class="loginbk">
+                <div class="login_tit">
+                        <span>登录密码</span>
+                    </div>
+                    <div>
+                     <div class="ipt-box">
+                        <i class="login_pwd"></i>
+                        <input  type="password" class="ppwd" name="password" placeholder="6-15个字符(字母或数字,区分大小写)" maxlength="15">
+                    </div>
+                    
+                    <div class="ipt-box">
+                        <i class="login_pwd"></i>
+                        <input  type="password" class="rppwd" placeholder="再次输入确认密码" maxlength="15">
+                    </div>
+                    <if condition="$open_name_auth eq 1"> 
+                      <input id="login-btn" class="phbut" type="button" value="下一步">
+                    <else/>
+                      <input id="login-btn" class="phbutok" type="button" value="完成">
+                    </if>
+                      <span class="custom-label rember">
+          					  <input class="form_control pckb" type="checkbox" checked>
+          					  <i class="label_icon"></i>
+          					  <a onclick="agreement()" class="label_text">
+          					  我已接受并同意《用户注册协议》
+          					  </a>
+          					  </span>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+   
+</div>
+   
+
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript" src="__STATIC__/layer/extend/layer.ext.js"></script>
+<script>
+function agreement(content){
+    //页面层-自定义
+        // layer.open({
+        //   type: 2,
+        //   title: '用户注册协议',
+        //   shadeClose: false,
+        //   shade: 0.5,
+        //   maxmin: false, //开启最大化最小化按钮
+        //   area: ['50%', '70%'],
+        //   content: ["{:U('agreement')}"]
+        // });
+        // window.location.href = "{:U('Article/news',array('type'=>'ur'))}"
+        window.open("{:U('Article/news',array('type'=>'ur'))}");
+}
+
+function login(obj) {
+    var url = '{:U("thirdlogin",array("gid"=>$_REQUEST["gid"],"pid"=>$_REQUEST["pid"]))}';
+    url = url.replace(".html","")+"/type/"+obj;
+    window.location=url;
+}
+
+var f=function(msg,obj) {
+    layer.tips(msg, obj, {
+        tips: [1, 'red'],
+      tipsMore: false
+    });
+};
+
+
+//密码不能为空！
+$('.ppwd').blur(function() {
+  var apwd = $.trim($(this).val());
+  if (apwd == '') {f('密码不能为空！','.ppwd');return;}
+  if (apwd.length<6||apwd.length>15) {
+      f('请输入6-15位的密码','.ppwd');return false;
+  }
+    if (!(/^[a-zA-Z0-9]{5,15}$/.test(apwd))) {
+        f('密码只能由字母或数字组成','.ppwd');return;
+    }
+});
+
+$('.rppwd').blur(function() {
+  var apwd = $.trim($('.ppwd').val());
+  var rapwd = $.trim($(this).val());
+  if (rapwd == ''){
+      f('确认密码不能为空','.rppwd');return false;
+  }
+  if (apwd!=rapwd) {
+      f('两次密码不一致','.rppwd');return false;
+  }
+});
+
+$('.phbut').click(function(){
+
+    var apwd = $.trim($('.ppwd').val());
+    if (apwd == '') {f('密码不能为空！','.ppwd');return;}
+    if (apwd.length<6||apwd.length>15) {
+        f('请输入6-15位的密码','.ppwd');return false;
+    }
+    if (!(/^[a-zA-Z0-9]{5,15}$/.test(apwd))) {
+        f('密码只能由字母或数字组成','.ppwd');return;
+    }
+
+    var apwd = $.trim($('.ppwd').val());
+    var rapwd = $.trim($('.rppwd').val());
+    if (rapwd == ''){
+        f('确认密码不能为空','.rppwd');return false;
+    }
+    if (apwd!=rapwd) {
+        f('两次密码不一致','.rppwd');return false;
+    }
+
+    if (!$(".pckb").prop("checked")){
+        f('请阅读用户注册协议','.pckb');return false;
+    }
+
+    $('#form1').submit();
+});
+$('.phbutok').click(function(){
+
+    var apwd = $.trim($('.ppwd').val());
+    if (apwd == '') {f('密码不能为空！','.ppwd');return;}
+    if (apwd.length<6||apwd.length>15) {
+        f('请输入6-15位的密码','.ppwd');return false;
+    }
+    if (!(/^[a-zA-Z0-9]{5,15}$/.test(apwd))) {
+        f('密码只能由字母或数字组成','.ppwd');return;
+    }
+
+    var apwd = $.trim($('.ppwd').val());
+    var rapwd = $.trim($('.rppwd').val());
+    if (apwd!=rapwd) {
+        f('两次密码不一致','.rppwd');return false;
+    }
+
+    if (!$(".pckb").prop("checked")){
+        f('请阅读用户注册协议','.pckb');return false;
+    }
+    if($('.phbutok').hasClass('error')){
+      return false;
+    }
+    if (!$(".pckb").prop("checked")){
+        f('请阅读用户注册协议','.pckb');return false;
+    }
+
+    $(this).attr('disabled',true);
+
+    pdata = $('#form1').serialize();
+    $.ajax({
+        type:'post',
+        url:"{:U('register')}",
+        data:pdata,
+        success:function(data){
+            if(data.status==1){
+                layer.msg(data.msg);
+                setTimeout("window.location.href = '"+data.url+"';",1500);
+            }else{
+                layer.msg(data.msg);
+            }
+        },error:function(){
+            alert('服务器故障，请稍后再试');
+        }
+    });
+});
+</script>
+<include file='foot' />
+</block>

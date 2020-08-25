@@ -1,0 +1,375 @@
+/**{
+    box-sizing: border-box;
+}*/
+.cont{
+    width: 1200px;
+	margin:0 auto;
+    background: none;
+}
+.xg-section{
+    box-sizing: border-box;
+}
+.xg-section::before,
+.xg-section::after{
+    display: table;
+    clear: both;
+    overflow: hidden;
+}
+/* .xg-section .xg-module{background: #ffffff;} */
+.xg-module .xg-header{}
+.xg-module .boxtop{
+    height: auto;
+}
+.xg-module .xg-body{
+    /*height: 396px;*/
+    padding:0px 20px;
+    padding-top: 20px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+}
+.xg-gram .xg-body,
+.xg-kfb .xg-body{
+    height: 396px;
+	overflow: hidden;
+}
+.xg-body{
+	background:#ffffff;
+}
+/*游戏礼包 begin*/
+.xg-gram .media{
+    float: left;
+    width: 33.3%;
+    padding-right: 16px;
+    margin-bottom: 20px;
+    cursor: default;
+}
+.xg-gram .media:nth-child(3n+3){
+    padding-right: 0px;
+}
+.xg-gram .media-left{
+    width: 56px;
+}
+.xg-gram .media-left .media-object{
+    border-radius: 100%;
+    position: relative;
+    border: none;
+    text-align: center;
+}
+/*图片加载失败 美化样式 begin*/
+/*.xg-gram .media-left .media-object::before{
+    content: '';
+    position: absolute;
+    top: 0;right: 0;bottom: 0;left:0;
+    background-color: #fff;
+}
+.xg-gram .media-left .media-object::after{
+    content: attr(alt);
+    position: absolute;
+    top: 0;right: 0;bottom: 0;left:0;
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    font-size: 12px;
+    line-height: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e2e2e2;
+    color: #cbcbcb;
+}*/
+/*end 图片加载失败 美化样式*/
+.xg-gram .media-body{height: 56px;}
+.xg-gram .media-body .media-heading,
+.xg-gram .media-body .media-desc{
+    width: 144px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.xg-gram .media-body .media-heading{
+    font-size: 14px;
+}
+.xg-gram .media-body .media-desc span{
+    color: #f70;
+}
+.xg-gram .media-right{
+    /* width: 10000px; */
+    text-align: right;
+}
+.xg-gram .media-left>a{
+    width:56px;
+    height: 56px;
+}
+.xg-get{
+    width: 43px;
+}
+.media-body .time{position: absolute;
+    top: 0;
+    right: 15px;}
+/*end 游戏礼包*/
+/*开服表 begin*/
+.xg-kfb{
+    background: none;
+}
+.xg-kfb .xg-body{
+    padding: 0px;
+	background: #ffffff;
+}
+.xg-tab .xg-nav-tabs{
+    margin-bottom: 12px;
+}
+.xg-tab .xg-nav-tabs>li{
+    float: left;
+    width: 50%;
+    color: #000;
+    font-size: 12px;
+    background-color: #f4f4f4;
+}
+.xg-tab .xg-nav-tabs>li.active a{
+    color: #3fa1e5;
+    position: relative;
+    background-color: #fff;
+}
+.xg-tab .xg-nav-tabs>li.active a::before{
+    content: "";
+    position: absolute;
+    left: -1px;
+    right: -1px;
+    height: 2px;
+    background-color: currentColor;
+    margin-top: -1px;
+}
+.xg-tab .xg-nav-tabs>li a{
+    display: block;
+    line-height: 32px;
+    text-align: center;
+}
+.xg-tab .xg-tab-content{
+
+}
+.xg-tab .xg-tab-pane{
+    display: none;
+}
+.xg-tab .xg-tab-pane.active{
+    display: block;
+}
+.xg-tab-pane .media-left>div{
+    width: 40px;
+    height: 40px;
+    position: relative;
+}
+.xg-tab-pane li{
+  padding: 10px 0px;
+    height: 30px!important;
+    width: 365px;
+}
+.xg-tab-pane li>a{
+    display: block;
+    padding: 6px 0;
+}
+.xg-tab-pane li:last-child>a{
+    border-bottom-color: transparent;
+}
+.xg-tab-pane li>a:hover{
+    color: #222;
+}
+.xg-tab-pane .media-body{
+     width: 150px;
+    float: left;
+}
+.xg-tab-pane .media-desc{
+
+}
+.xg-tab-pane .media-heading{
+    margin-bottom: 2px;
+}
+.xg-tab-pane .media-desc>span{
+    display: inline-block;
+    width: 55%;
+    /*padding-left: 16px;*/
+    text-align: left;
+    font-size: 12px;
+    color: #b8b8b8;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-position: left center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.xg-tab-pane .media-desc>span.time{
+    background-image: url('../images/icon_shizhong_lan.png')
+}
+.xg-tab-pane .media-desc>span.server{
+    background-image: url('../images/icon_shouji2.png')
+}
+.xg-tab-pane .media-body>*{
+    max-width: 180px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.xg-tab-pane li:hover{
+    background-color: #e5f7ff;
+}
+.xg-tab-pane li:hover .xg-go{
+    background: url('../images/banner_btn_right_selected.png') no-repeat center center;
+}
+.xg-go{
+    display: inline-block;
+    width: 24px;
+    height: 40px;
+    margin-right: 12px;
+    background: url('../images/banner_btn_right.png') no-repeat center center;
+}
+/*end 开服表*/
+.game_rank{
+    width: 393px;
+}
+/*清除浮动 begin*/
+.clearfix::before,
+.clearfix::after{
+    content: "";
+    display: table;
+    overflow: hidden;
+    clear: both;
+}
+/*end 清除浮动*/
+/*媒体对象 begin*/
+.media{
+    box-sizing: border-box;
+}
+.media, .media-body {
+    overflow: hidden;
+    zoom: 1;
+}
+.media-body, .media-left, .media-right {
+    display: table-cell;
+    vertical-align: top;
+}
+.media-body,.media-left{
+    padding-right: 10px;
+}
+.media-left {
+    width:74px;
+    height:44px;
+    float: left;
+}
+.media-44{
+	width:44px;
+    height:44px;
+}
+.media-left-kaifu {
+    width: 50px;
+    height: 40px;
+    float: left;
+	margin-left: 15px;
+}
+.media-kaifu-time{
+	padding-right: 8px;
+margin-top: 3px;
+display: inline-block;
+vertical-align: top;
+}
+.media-left > a{
+    display: block;
+    height: 100%;
+    position: relative;
+}
+/*图片加载失败样式*/
+.media-left .dis_tabcell{
+    height: 100%;
+    top:0px;
+    bottom: 0px;
+    margin: 0px;
+    border-radius: 100%;
+    background-color:#e2e2e2;
+}
+.media-right{
+    text-align: center;
+    vertical-align: middle;
+}
+.media-notify span{
+    display: block;
+}
+
+.media-body {
+    vertical-align: middle;
+    position: relative;
+}
+.media-object {
+    display: block;
+    z-index: 2;
+    overflow: hidden;
+    position: relative;
+}
+.media-heading {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+/*end 媒体对象*/
+.w892{
+    width: 892px;
+    height: auto;
+}
+.w286{
+    width: 286px;
+}
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}
+/*按钮 begin*/
+.xg-btn{
+    display: inline-block;
+    font-size: 12px;
+    line-height: 20px;
+    border-radius: 2px;
+    border: 1px solid transparent;
+    text-align: center;
+    background-color: transparent;
+    white-space: nowrap;
+}
+.xg-btn-blue{
+    color: #3fa1e5;
+    background: #fff;
+    border-color: #3fa1e5;
+}
+.xg-btn-blue:hover{
+    color: #fff;
+    background-color: #3fa1e5;
+}
+/*end 按钮*/
+
+/*热门推荐 begin*/
+.xg-hot .indexads{
+    width: auto;
+}
+.xg-hot .indexads>li{
+    width: 375px;
+    height: auto;
+    margin-right: 16px;
+}
+.xg-hot .indexads>li:nth-child(3n+3){
+    margin-right: 0px;
+}
+/*end 热门推荐*/
+/*右侧固定 begin*/
+.g-sidefun a{
+    box-sizing: border-box;
+}
+/*end 右侧固定*/
+/*首页区服 begin*/
+.index-qufu{
+    display: block;
+    padding: 6px 0;
+    border-bottom: 1px solid #ddd;
+}
+/*首页区服 end*/
+/*首页开服通知 begin*/
+.media-kftz{
+   overflow: hidden;
+}
+/*首页开服通知 end*/

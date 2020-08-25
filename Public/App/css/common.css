@@ -1,0 +1,68 @@
+﻿@charset "utf-8";
+
+/*css reset*/
+html,body,ul,li,ol,dl,dd,dt,p,h1,h2,h3,h4,h5,h6,form,fieldset,legend,img{margin:0;padding:0;}
+fieldset,img{border:none;}
+address,caption,cite,code,dfn,th,var{font-style:normal;font-weight:normal;}
+ul,ol{list-style:none;}
+input{padding-top:0;padding-bottom:0;}
+input::-moz-focus-inner{border:none;padding:0;}
+select,input{vertical-align:middle;}
+select,input,textarea{margin:0;}
+input[type="text"],input[type="password"],textarea{outline-style:none;-webkit-appearance:none;}
+textarea{resize:none;}
+table{border-collapse:collapse;}
+body{font: 12px/1.42857143 "Microsoft YaHei","微软雅黑","Arial", "宋体"; color:#333;}
+input, textarea, keygen, select, button {font-family:"Microsoft YaHei","微软雅黑","Arial", "宋体";}
+h1, h2, h3, h4{font-family:"Microsoft YaHei","微软雅黑", "Arial";}
+a{color:#333;}
+a,a:hover,a:visited,a:link{text-decoration:none;}
+
+/* common */
+.clearfix{zoom:1;}
+.clearfix:before,.clearfix:after{content:".";display:block;height:0;visibility:hidden;}
+.clearfix:after{clear:both;}
+.inner {max-width:640px;margin:0 auto;}
+.hidden {display:none;}
+.left {float:left;}
+body {background-color:#2A58A5;}
+/* header */
+.header {height:60px;line-height:60px;background-color:#18B1EA;position:relative;}
+.header .return {position:absolute;height:40px;top:10px;left:10px;}
+.header .title {text-align:center;width:100%;color:#fff;font-weight:normal;}
+/* main */
+.main {min-height:300px;}
+.main .banner {width:100%;position:relative;}
+.main .banner .img1 {width:94%;z-index:-1;visibility:hidden;opacity:0;display:block;margin:0 auto;}
+.main .banner .img2 {position:absolute;width:94%;top:13px;left:0;right:0;margin:0 auto;}
+.main .banner p {background-color:#184EA6;color:#fff;line-height:22px;font-size:14px;padding:15px 25px;}
+
+.main form {width:100%;padding:30px 0;}
+.main form .inputgroup {width:80%;margin:15px auto;}
+.main form .inputgroup .formgroup {width:100%;position:relative;border-radius:46px;border:1px solid #fff;background-color:#fff;}
+.main form .btnwrap {}
+.main form .inputgroup .formcontrol,
+.main form .btnwrap .btn {outline:none;height:46px;font-size:18px;border:none;background-color:transparent;}
+.main form .inputgroup .formcontrol{width:80%;padding-left:80px;margin-left:-20px;}
+.main form .inputgroup i {position:absolute;width:36px;height:36px;top:5px;left:15px;}
+.main form .inputgroup i img {width:100%;}
+.main form .inputgroup i:last-child{left:auto;right:20px;cursor:pointer;}
+.main form .inputgroup .formgroupcode {width:64%;float:left;}
+.main form .inputgroup .getcode {font-size:16px;color: #000;float: right;line-height: 46px;background:none;border:none;color:#fff;}
+.main form .inputgroup .formpassword .formcontrol[type=password] {width:70%;}
+
+.main form .btnwrap .formgroup{width:100%;background-color:#18B1EA;border-color:#18B1EA;}
+.main form .btnwrap .btn {width:100%;color:#fff;font-size:22px;}
+.main form .agree {padding:10px 0;}
+.main form .agree span{display:block;font-size:16px;color:#fff;text-align:center;}
+.main form .agree span:last-child{color:#EDCA60;}
+
+.main .title {font-size:30px;color:#FFD435;text-align:center;padding-top:40px;}
+.main .text {font-size:16px;color:#fff;text-align:center;line-height:32px;}
+.main .download {display:block;width:80%;margin:35px auto;height:46px;line-height: 46px;border-radius:46px;text-align:center;background-color:#18B1EA;border-color:#18B1EA;color:#fff;font-size:22px;}
+/* footer */
+
+@media screen and (max-width:400px) {
+    .main form .inputgroup .formcontrol{padding-left:70px;}
+    .main form .inputgroup .formgroupcode {width:55%;}
+}

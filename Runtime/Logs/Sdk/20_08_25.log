@@ -1,0 +1,406 @@
+[ 2020-08-25T22:43:05+08:00 ] 111.75.178.7 /sdk.php/User/user_login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000010s ]
+SQL: SHOW COLUMNS FROM `sys_hooks` [ RunTime:0.0011s ]
+SQL: SELECT `name`,`addons` FROM `sys_hooks`  [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `sys_addons` [ RunTime:0.0009s ]
+SQL: SELECT `id`,`name` FROM `sys_addons` WHERE `status` = 1 AND `name` IN ('ReturnTop')  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`name` FROM `sys_addons` WHERE `status` = 1 AND `name` IN ('Attachment')  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`name` FROM `sys_addons` WHERE `status` = 1 AND `name` IN ('Attachment','SocialComment')  [ RunTime:0.0077s ]
+SQL: SELECT `id`,`name` FROM `sys_addons` WHERE `status` = 1 AND `name` IN ('Attachment')  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`name` FROM `sys_addons` WHERE `status` = 1 AND `name` IN ('Editor')  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`name` FROM `sys_addons` WHERE `status` = 1 AND `name` IN ('EditorForAdmin')  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`name` FROM `sys_addons` WHERE `status` = 1 AND `name` IN ('SiteStat','SystemInfo','DevTeam')  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`name` FROM `sys_addons` WHERE `status` = 1 AND `name` IN ('Editor')  [ RunTime:0.0002s ]
+SQL: SELECT `id`,`name` FROM `sys_addons` WHERE `status` = 1 AND `name` IN ('UploadImages')  [ RunTime:0.0002s ]
+INFO: Run Common\Behavior\InitHookBehavior [ RunTime:0.017468s ]
+INFO: [ app_init ] --END-- [ RunTime:0.017816s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000221s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000238s ]
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+SQL: SHOW COLUMNS FROM `sys_config` [ RunTime:0.0011s ]
+SQL: SELECT `type`,`name`,`value` FROM `sys_config` WHERE `status` = 1  [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `tab_game` [ RunTime:0.0013s ]
+SQL: SELECT s.* FROM tab_game g left join tab_game_set s on s.game_id = g.id  WHERE g.apply_status = 1 AND g.id = '7' LIMIT 1   [ RunTime:0.0004s ]
+NOTIC: [8] Constant UC_AUTH_KEY already defined /web/wwwroot/plantform/Application/User/Conf/config.php 第 17 行.
+SQL: SHOW COLUMNS FROM `tab_user` [ RunTime:0.0012s ]
+SQL: SHOW COLUMNS FROM `tab_game` [ RunTime:0.0013s ]
+SQL: SELECT * FROM `tab_game` WHERE `id` = 7 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `tab_user` WHERE `account` = '18702596929' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `tab_user` [ RunTime:0.0011s ]
+SQL: UPDATE `tab_user` SET `login_time`='1598366584',`login_ip`='111.75.178.7',`token`='4d3efe70da64fd2c391e87d0215d500d' WHERE `id` = 200028 [ RunTime:0.0285s ]
+SQL: SHOW COLUMNS FROM `tab_user_play` [ RunTime:0.0009s ]
+SQL: SELECT * FROM `tab_user_play` WHERE `game_id` = 7 AND `user_id` = 200028 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `tab_user_behavior` [ RunTime:0.0006s ]
+SQL: SELECT * FROM tab_user_behavior as ub WHERE `user_id` = 200028 AND `game_id` = 7 AND `status` IN ('-2','2') AND `update_time` BETWEEN 1598284800 AND 1598371199 LIMIT 1   [ RunTime:0.0005s ]
+SQL: SHOW COLUMNS FROM `tab_user_behavior` [ RunTime:0.0006s ]
+SQL: UPDATE `tab_user_behavior` SET `status`='2',`update_time`='1598366585' WHERE `id` = 597 [ RunTime:0.0055s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000713s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000755s ]
+
+[ 2020-08-25T22:43:05+08:00 ] 111.75.178.7 /sdk.php/game/get_suspend
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: Run Common\Behavior\InitHookBehavior [ RunTime:0.000811s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001038s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000291s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000309s ]
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+SQL: SHOW COLUMNS FROM `sys_config` [ RunTime:0.0008s ]
+SQL: SELECT `type`,`name`,`value` FROM `sys_config` WHERE `status` = 1  [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `tab_game` [ RunTime:0.0008s ]
+SQL: SELECT s.* FROM tab_game g left join tab_game_set s on s.game_id = g.id  WHERE g.apply_status = 1 AND g.id = '7' LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [2] Use of undefined constant WAP_SUSPEND_ICON - assumed 'WAP_SUSPEND_ICON' (this will throw an Error in a future version of PHP) /web/wwwroot/plantform/Application/Sdk/Controller/GameController.class.php 第 31 行.
+
+[ 2020-08-25T22:43:05+08:00 ] 111.75.178.7 /sdk.php/user/return_age
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000006s ]
+INFO: Run Common\Behavior\InitHookBehavior [ RunTime:0.000696s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000852s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000233s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000250s ]
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+SQL: SHOW COLUMNS FROM `sys_config` [ RunTime:0.0013s ]
+SQL: SELECT `type`,`name`,`value` FROM `sys_config` WHERE `status` = 1  [ RunTime:0.0005s ]
+SQL: SHOW COLUMNS FROM `tab_game` [ RunTime:0.0015s ]
+SQL: SELECT s.* FROM tab_game g left join tab_game_set s on s.game_id = g.id  WHERE g.apply_status = 1 AND g.id = '7' LIMIT 1   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `tab_user` [ RunTime:0.0012s ]
+SQL: SELECT * FROM `tab_user` WHERE `account` = '18702596929' LIMIT 1   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `tab_game` [ RunTime:0.0014s ]
+SQL: SELECT * FROM `tab_game` WHERE `id` = 7 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `tab_user_login_record` [ RunTime:0.0009s ]
+SQL: SELECT `id`,`login_time`,`down_time` FROM `tab_user_login_record` WHERE `user_id` = 200028 AND `game_id` = 7 AND `sdk_version` = 1 AND `type` = 1 ORDER BY id desc LIMIT 1   [ RunTime:0.0003s ]
+SQL: INSERT INTO `tab_user_login_record` (`user_id`,`user_account`,`user_nickname`,`game_id`,`game_name`,`type`,`login_time`,`login_ip`,`sdk_version`,`promote_id`) VALUES ('200028','18702596929','18702596929','7','仙灵物语(安卓版)','1','1598366585','111.75.178.7','1','4') [ RunTime:0.0068s ]
+SQL: SELECT `age_status` FROM `tab_user` WHERE `account` = '18702596929' LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Undefined index: user_id /web/wwwroot/plantform/Application/Sdk/Controller/UserController.class.php 第 1877 行.
+NOTIC: [8] Undefined index: user_id /web/wwwroot/plantform/Application/Sdk/Controller/UserController.class.php 第 1887 行.
+SQL: SELECT `login_time` FROM `tab_user_login_record` WHERE `user_id` = null AND ( `login_time` >= 1598284800 AND `login_time` <= 1598371199  ) AND `is_down` = 0 AND `type` = 1 ORDER BY login_time ASC  [ RunTime:0.0002s ]
+SQL: SELECT `down_time` FROM `tab_user_login_record` WHERE `user_id` = null AND ( `login_time` >= 1598284800 AND `login_time` <= 1598371199  ) AND `is_down` = 1 AND `type` = 1 ORDER BY down_time ASC  [ RunTime:0.0001s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000358s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000371s ]
+
+[ 2020-08-25T22:43:07+08:00 ] 223.106.63.17 /sdk.php/User/user_login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: Run Common\Behavior\InitHookBehavior [ RunTime:0.000839s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001108s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000324s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000346s ]
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+SQL: SHOW COLUMNS FROM `sys_config` [ RunTime:0.0010s ]
+SQL: SELECT `type`,`name`,`value` FROM `sys_config` WHERE `status` = 1  [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `tab_game` [ RunTime:0.0014s ]
+SQL: SELECT s.* FROM tab_game g left join tab_game_set s on s.game_id = g.id  WHERE g.apply_status = 1 AND g.id = '7' LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [8] Constant UC_AUTH_KEY already defined /web/wwwroot/plantform/Application/User/Conf/config.php 第 17 行.
+SQL: SHOW COLUMNS FROM `tab_user` [ RunTime:0.0011s ]
+SQL: SHOW COLUMNS FROM `tab_game` [ RunTime:0.0013s ]
+SQL: SELECT * FROM `tab_game` WHERE `id` = 7 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `tab_user` WHERE `account` = 'za1314' LIMIT 1   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `tab_user` [ RunTime:0.0010s ]
+SQL: UPDATE `tab_user` SET `login_time`='1598366587',`login_ip`='223.106.63.17',`token`='5f864f8e0ab557195ca52dd035de864a' WHERE `id` = 200044 [ RunTime:0.0068s ]
+SQL: SHOW COLUMNS FROM `tab_user_play` [ RunTime:0.0007s ]
+SQL: SELECT * FROM `tab_user_play` WHERE `game_id` = 7 AND `user_id` = 200044 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `tab_user_behavior` [ RunTime:0.0006s ]
+SQL: SELECT * FROM tab_user_behavior as ub WHERE `user_id` = 200044 AND `game_id` = 7 AND `status` IN ('-2','2') AND `update_time` BETWEEN 1598284800 AND 1598371199 LIMIT 1   [ RunTime:0.0005s ]
+SQL: SHOW COLUMNS FROM `tab_user_behavior` [ RunTime:0.0006s ]
+SQL: UPDATE `tab_user_behavior` SET `status`='2',`update_time`='1598366587' WHERE `id` = 591 [ RunTime:0.0066s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000345s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000364s ]
+
+[ 2020-08-25T22:43:08+08:00 ] 223.106.63.17 /sdk.php/game/get_suspend
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000013s ]
+INFO: Run Common\Behavior\InitHookBehavior [ RunTime:0.001430s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001855s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000515s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000547s ]
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+SQL: SHOW COLUMNS FROM `sys_config` [ RunTime:0.0010s ]
+SQL: SELECT `type`,`name`,`value` FROM `sys_config` WHERE `status` = 1  [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `tab_game` [ RunTime:0.0011s ]
+SQL: SELECT s.* FROM tab_game g left join tab_game_set s on s.game_id = g.id  WHERE g.apply_status = 1 AND g.id = '7' LIMIT 1   [ RunTime:0.0003s ]
+NOTIC: [2] Use of undefined constant WAP_SUSPEND_ICON - assumed 'WAP_SUSPEND_ICON' (this will throw an Error in a future version of PHP) /web/wwwroot/plantform/Application/Sdk/Controller/GameController.class.php 第 31 行.
+
+[ 2020-08-25T22:43:08+08:00 ] 223.106.63.17 /sdk.php/user/return_age
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000042s ]
+INFO: Run Common\Behavior\InitHookBehavior [ RunTime:0.001487s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001935s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000504s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000545s ]
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+SQL: SHOW COLUMNS FROM `sys_config` [ RunTime:0.0009s ]
+SQL: SELECT `type`,`name`,`value` FROM `sys_config` WHERE `status` = 1  [ RunTime:0.0005s ]
+SQL: SHOW COLUMNS FROM `tab_game` [ RunTime:0.0009s ]
+SQL: SELECT s.* FROM tab_game g left join tab_game_set s on s.game_id = g.id  WHERE g.apply_status = 1 AND g.id = '7' LIMIT 1   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `tab_user` [ RunTime:0.0009s ]
+SQL: SELECT * FROM `tab_user` WHERE `account` = 'za1314' LIMIT 1   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `tab_game` [ RunTime:0.0009s ]
+SQL: SELECT * FROM `tab_game` WHERE `id` = 7 LIMIT 1   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `tab_user_login_record` [ RunTime:0.0006s ]
+SQL: SELECT `id`,`login_time`,`down_time` FROM `tab_user_login_record` WHERE `user_id` = 200044 AND `game_id` = 7 AND `sdk_version` = 1 AND `type` = 1 ORDER BY id desc LIMIT 1   [ RunTime:0.0003s ]
+SQL: INSERT INTO `tab_user_login_record` (`user_id`,`user_account`,`user_nickname`,`game_id`,`game_name`,`type`,`login_time`,`login_ip`,`sdk_version`,`promote_id`) VALUES ('200044','za1314','za1314','7','仙灵物语(安卓版)','1','1598366588','223.106.63.17','1','4') [ RunTime:0.0059s ]
+SQL: SELECT `age_status` FROM `tab_user` WHERE `account` = 'za1314' LIMIT 1   [ RunTime:0.0002s ]
+NOTIC: [8] Undefined index: user_id /web/wwwroot/plantform/Application/Sdk/Controller/UserController.class.php 第 1877 行.
+NOTIC: [8] Undefined index: user_id /web/wwwroot/plantform/Application/Sdk/Controller/UserController.class.php 第 1887 行.
+SQL: SELECT `login_time` FROM `tab_user_login_record` WHERE `user_id` = null AND ( `login_time` >= 1598284800 AND `login_time` <= 1598371199  ) AND `is_down` = 0 AND `type` = 1 ORDER BY login_time ASC  [ RunTime:0.0001s ]
+SQL: SELECT `down_time` FROM `tab_user_login_record` WHERE `user_id` = null AND ( `login_time` >= 1598284800 AND `login_time` <= 1598371199  ) AND `is_down` = 1 AND `type` = 1 ORDER BY down_time ASC  [ RunTime:0.0001s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000558s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000583s ]
+
+[ 2020-08-25T22:43:15+08:00 ] 223.106.63.17 /sdk.php/User/save_user_play_info
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000011s ]
+INFO: Run Common\Behavior\InitHookBehavior [ RunTime:0.001057s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001386s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000483s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000513s ]
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+SQL: SHOW COLUMNS FROM `sys_config` [ RunTime:0.0012s ]
+SQL: SELECT `type`,`name`,`value` FROM `sys_config` WHERE `status` = 1  [ RunTime:0.0006s ]
+SQL: SHOW COLUMNS FROM `tab_game` [ RunTime:0.0015s ]
+SQL: SELECT s.* FROM tab_game g left join tab_game_set s on s.game_id = g.id  WHERE g.apply_status = 1 AND g.id = '7' LIMIT 1   [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `tab_user_play_info` [ RunTime:0.0008s ]
+SQL: SELECT * FROM `tab_user_play_info` WHERE `user_id` = 200044 AND `game_id` = 7 AND `server_id` = 1228 AND `server_name` = '治本于农' LIMIT 1   [ RunTime:0.0150s ]
+SQL: SHOW COLUMNS FROM `tab_user` [ RunTime:0.0022s ]
+SQL: SELECT * FROM `tab_user` WHERE `id` = 200044 LIMIT 1   [ RunTime:0.0005s ]
+SQL: SHOW COLUMNS FROM `tab_promote` [ RunTime:0.0022s ]
+SQL: SELECT * FROM `tab_promote` WHERE `id` = 4 LIMIT 1   [ RunTime:0.0005s ]
+SQL: SHOW COLUMNS FROM `tab_game` [ RunTime:0.0026s ]
+SQL: SELECT * FROM `tab_game` WHERE `id` = 7 LIMIT 1   [ RunTime:0.0003s ]
+SQL: UPDATE `tab_user_play_info` SET `user_id`='200044',`user_account`='za1314',`user_play_id`='200044',`game_id`='7',`game_name`='仙灵物语(安卓版)',`server_id`='1228',`server_name`='治本于农',`role_id`='0',`role_name`='暂无亅',`role_level`='42',`update_time`='1598366595',`play_time`='1598366595',`play_ip`='223.106.63.17' WHERE `id` = 87 [ RunTime:0.0374s ]
+
+[ 2020-08-25T22:43:15+08:00 ] 223.106.63.17 /sdk.php/User/save_user_play_info
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000011s ]
+INFO: Run Common\Behavior\InitHookBehavior [ RunTime:0.001162s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001514s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000424s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000452s ]
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+NOTIC: [8] Undefined index: HTTP_ACCEPT /web/wwwroot/plantform/ThinkPHP/Library/Think/Controller/RestController.class.php 第 118 行.
+SQL: SHOW COLUMNS FROM `sys_config` [ RunTime:0.0011s ]
+SQL: SELECT `type`,`name`,`value` FROM `sys_config` WHERE `status` = 1  [ RunTime:0.0005s ]
+SQL: SHOW COLUMNS FROM `tab_game` [ RunTime:0.0014s ]
+SQL: SELECT s.* FROM tab_game g left join tab_game_set s on s.game_id = g.id  WHERE g.apply_status = 1 AND g.id = '7' LIMIT 1   [ RunTime:0.0003s ]
+SQL: SHOW COLUMNS FROM `tab_user_play_info` [ RunTime:0.0015s ]
+SQL: SELECT * FROM `tab_user_play_info` WHERE `user_id` = 200044 AND `game_id` = 7 AND `server_id` = 1228 AND `server_name` = '治本于农' LIMIT 1   [ RunTime:0.0044s ]
+SQL: SHOW COLUMNS FROM `tab_user` [ RunTime:0.0021s ]
+SQL: SELECT * FROM `tab_user` WHERE `id` = 200044 LIMIT 1   [ RunTime:0.0006s ]
+SQL: SHOW COLUMNS FROM `tab_promote` [ RunTime:0.0021s ]
+SQL: SELECT * FROM `tab_promote` WHERE `id` = 4 LIMIT 1   [ RunTime:0.0006s ]
+SQL: SHOW COLUMNS FROM `tab_game` [ RunTime:0.0026s ]
+SQL: SELECT * FROM `tab_game` WHERE `id` = 7 LIMIT 1   [ RunTime:0.0011s ]
+SQL: UPDATE `tab_user_play_info` SET `user_id`='200044',`user_account`='za1314',`user_play_id`='200044',`game_id`='7',`game_name`='仙灵物语(安卓版)',`server_id`='1228',`server_name`='治本于农',`role_id`='0',`role_name`='暂无亅',`role_level`='42',`update_time`='1598366595',`play_time`='1598366595',`play_ip`='223.106.63.17' WHERE `id` = 87 [ RunTime:0.0531s ]
+

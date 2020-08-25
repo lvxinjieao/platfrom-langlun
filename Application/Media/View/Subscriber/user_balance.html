@@ -1,0 +1,89 @@
+<extend name="Public/bases" />
+<block name="body">
+<link href="__CSS__/user.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="__JS__/pc_7724.js"></script>
+<script type="text/javascript" src="__JS__/jquery.SuperSlide.2.1.1.js"></script>
+<style type="text/css">
+	.pf-android, .pf-ios, .pf-h5{margin-left: 5px;}
+</style>
+<!--用户中心-->
+<div class="bg_user">
+<div class="cont userbg wid_1206">
+<div class="user-bd laybox clearfix">
+	<include file='base' />
+        <div class="user-section-wrap fl wbg" id="user-section-wrap">
+		<div class="user-section xg_usectionr">
+			<div class="section-tit"><i></i>我的余额</div>
+			<div class="het80">
+				<div class="xg_inb">
+					<div>账户积分</div>
+					<div class="xg_nub xg_co">{$user.shop_point}</div>
+				</div>
+				<div class="xg_divb">
+					<a class="xg_banance xg_co" href="{:U('PointShop/mall')}">获取</a>
+				</div>
+				<div class="xg_divb">
+					<a class="xg_banance xg_cb" href="{:U('PointShop/mall')}">兑换</a>
+				</div>
+				
+			</div> 
+			<div class="het80">
+				<div class="xg_inb">
+					<div>账户平台币</div>
+					<div class="xg_nub xg_cb">{$user.balance}</div>
+				</div>
+				<div class="xg_divb">
+					<a class="xg_banance xg_cg" href="{:U('subscriber/pay')}">充值</a>
+				</div>
+			</div>
+			<div class="xg_bddiv">
+				<p>绑定平台币</p>
+				<div class="bdli">
+					<ul>
+            		<volist name="binddata" id="data">
+						<li>
+							<div class="media">
+									<div class="media-left  media-44">
+										<a href="{$data['play_detail_url']}" target="_blank">
+											<notempty name="data['icon']">
+												<img class="media-object bd-rus" src="{$data['icon']}" height="44" width="44" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null">
+												<else/>
+												<img class="media-object bd-rus" height="44" width="44" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null">
+											</notempty>
+
+											<span class="dis_tabcell span_bd">
+												<span class="span_mid">
+												<div>{:C('SET_POSITION_IMG')}</div>
+												</span>
+											</span>
+										</a>
+									</div>
+									<div class="media-body">
+										<h4 class="media-heading xg_h4">{$data.relation_game_name}
+											<if condition="$data.sdk_version eq 1">
+												<i class="pf-android"></i>
+											<elseif condition="$data.sdk_version eq 2" />
+												<i class="pf-ios"></i>
+											<else/>
+												<i class="pf-h5"></i>
+											</if>
+										</h4>
+										<p class="media-desc xg_mediap xg_co">{$data.bind_balance}</p>
+									</div>
+							</div>
+						</li>
+					</volist>	            
+					</ul>
+				</div>
+				<div class="pagenation clearfix xg_bothelp">{$_page}</div>
+			</div>
+        </div>
+        </div>
+        
+        <div class="clear"></div>
+        
+      </div>
+</div>
+</div>
+<!--用户中心结束--> 
+</block>

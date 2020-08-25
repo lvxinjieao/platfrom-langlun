@@ -1,0 +1,304 @@
+<extend name="Public/sbases" />
+<block name="body" >
+<link href="__CSS__/user.css" type="text/css" rel="stylesheet">
+<!--头部-->
+<div class="head">
+<div class="detail_head">
+  <a class="page_back"><i class="back"></i>返 回</a>
+  <font>用户注册</font>
+  </div>
+  <div class="clear"></div>
+</div>
+<!--头部结束-->
+<div class="con">
+<div class="regist_con wh_bg pt60">
+        <script>
+                $(function(){
+                    $("#hear li").click(function(){
+                        $(this).css({
+                            height:"40px"
+                        }).siblings().css({
+                            height:"40px"
+                        });
+                    });                 
+                        
+                    $("#hear li").click(function(){
+                        $(this).addClass("action").siblings().removeClass("action");
+                        var index = $(this).index();
+                        $("#contentop li").eq(index).css("display","block").siblings().css("display","none");
+                    });
+                });
+        </script>
+<div data-role="page" class="regtab">
+        <div data-role = "content-floud">           
+            <div style="font-family: '微软雅黑';">
+                <ul id="hear">
+                    <li class="action"><a href="#">手机号注册</a></li>
+                    <li><a href="#" >普通帐号注册</a></li>
+                </ul>
+                <ul id="contentop">
+                    
+                    <!--手机号注册-->
+                    <li class="action">
+                       <dl>
+                       <dd><input type="text"  class="reguser puser" value="" placeholder="请输入手机号"></dd>
+                       <dd><input type="text" class="regpwd ppwd"  value="" placeholder="请输入密码"></dd>
+                       <dd class="yzbtn"><input type="text" class="regyzm" id="registerPhonePop" value="" placeholder="请输入验证码"><a class="sendvcode">免费获取安全码</a></dd>
+                       <dd class="ydcon"><input type="checkbox" class="pckb"><label>我已阅读并同意<a class="org porg" href="{:U('Subscriber/agreement')}">《用户注册协议》</a></label> <a href="{:U('Subscriber/login')}">已有帐号？<font class="org">立即登录</font></a></dd>  
+                       <dd><a class="rebtn" onclick="register('phone')">立即注册</a></dd>
+                       </dl>
+                        
+                    </li>
+                    <!--手机号注册结束-->
+                    
+                    <!--普通帐号注册-->
+                    <li>
+                       <dl>
+                       <dd><input type="text"  class="reguser auser" value="" placeholder="请输入账号"></dd>
+                       <dd><input type="text" class="regpwd apwd"  value="" placeholder="请输入密码"></dd>
+                       <dd class="yzbtn"><input type="text" id="registerNameVcodePop" class="regyzm" value="" placeholder="请输入验证码"><a><img src="__MODULE__/Subscriber/verify" class="checkcode"></a></dd>
+                       <dd class="ydcon"><input type="checkbox" class="ackb"><label>我已阅读并同意<a class="org aorg" href="{:U('Subscriber/agreement')}">《用户注册协议》</a></label> <a href="{:U('Subscriber/login')}">已有帐号？<font class="org">立即登录</font></a></dd>  
+                       <dd><a class="rebtn" onclick="register('account')">立即注册</a></dd>
+                       </dl>
+                        
+                    </li>
+                     <!--普通帐号注册结束-->
+                </ul>
+            </div>          
+        </div>                  
+    </div>
+    
+
+
+
+</div>
+    <!--注册页面底部-->
+    
+    <div class="regbottom wh_bg  pb55">
+    <dl>
+    <dt>一键登录</dt>
+    <dd><a class="wxlogin" onclick="register('weixin')"><img src="__IMG__/wxlogin.png"></a><a class="qqlogin" onclick="register('qq')"> <img src="__IMG__/qqlogin.png"></a></dd>
+    </dl>
+    
+    <ul>
+    <li><a href="http://shang.qq.com/wpa/qunwpa?idkey={$info.value}"><img src="__IMG__/joinqq.png"></a></li>
+    <li>官方QQ群：{$info1.value}</li>
+<li>溪谷游戏，给你最纯粹的快乐</li>
+<li><a href="http://{$info3.value}">{$info3.value}</a></li>
+    </ul>
+    </div>
+    <!--注册页面底部-->
+<!--底部-->
+<div class="bottom">
+  <ul>
+    <li><a href="{:U('Index/index')}"><i class="bot_home"></i><font>首页</font></a></li>
+    <li ><a href="{:U('Game/index')}"><i class="bot_game"></i><font>游戏</font></a></li>
+    <li><a href="{:U('Gift/index')}"><i class="bot_gift"></i><font>福利</font></a></li>
+    <li  class="active"><a href="{:U('Subscriber/index')}"><i class="bot_user"></i><font>我的</font></a></li>
+  </ul>
+</div>
+<!--底部结束-->
+</div>
+<script>
+var f=function(msg,id) {
+    alert(msg);
+};
+$('.checkcode').on('click',function() {
+    var e = (new Date).getTime();
+    codeurl="__MODULE__/Subscriber/verify/t/";
+    $(this).attr('src', codeurl + e);
+});
+$('.aorg').on('click',function() {
+    $("input[class='ackb']").attr("checked","checked");
+});
+$('.porg').on('click',function() {
+    $("input[class='pckb']").attr("checked","checked");
+});
+$('#registerNameVcodePop').blur(function() {
+    var code = $.trim($(this).val());
+    if (code == '') {f('验证码不能为空！');return;}
+});
+$('.auser').blur(function() {
+    var account = $.trim($(this).val());
+    if (account == '') {f('用户名不能为空！');return;}
+});
+$('.apwd').blur(function() {
+    var apwd = $.trim($(this).val());
+    if (apwd == '') {f('密码不能为空！');return;}
+});
+$('.puser').blur(function() {
+    var account = $.trim($(this).val());
+    if (account == '') {f('手机号码不能为空！');return;}
+    if (!(/^[1][3456789][0-9]{9}/.test(account))) {
+        f('手机号码格式不正确');return;
+    }else{
+        $(".sendvcode").addClass('phoneok');
+    }
+});
+$('.ppwd').blur(function() {
+    var apwd = $.trim($(this).val());
+    if (apwd == '') {f('密码不能为空！');return;}
+});
+//发送验证码
+$(".sendvcode").on('click',function() {
+    account=$.trim($('.puser').val());
+    if (!(/^[1][3456789][0-9]{9}/.test(account))) {
+        f('手机号码格式不正确');return;
+    }else{
+        $(".sendvcode").addClass('phoneok');
+    }
+// 发送安全码
+if (!$(this).hasClass('disabled')&&$(this).hasClass('phoneok')) {
+    var e = this,p = account;
+    $(e).addClass('disabled');
+    $.ajax({
+        type:'post',
+        url: '{:U("Subscriber/telsvcode")}',
+        data: 'phone='+p,
+        dataType: 'json',
+        success: function(d) {
+            if (parseInt(d.status) >0) {
+                r && r(parseInt(d.status))
+            } else {
+                $(e).siblings('span').addClass('msg-fail').text(d.msg);
+            } 
+        }
+    });
+    var r = function(i, t) {
+        if (i>0) {
+            var r = 60;
+            $(e).addClass('disabled');
+            var a = setInterval(function() {
+                r--;
+                $(e).text('成功'+r + '秒后重发'),
+                0 == r && ($(e).removeClass('disabled'), $(e).text('免费获取安全码'), clearInterval(a))
+            },1e3)
+        } 
+    };                      
+    }
+return false;
+});
+function register(obj) {
+    var pid="{:I('pid')}";
+    var gid="{:I('gid')}";
+    switch(obj){
+        case 'account':{
+            var account =$('.auser').val();
+            var password =$('.apwd').val();
+            var verify =$("#registerNameVcodePop").val();
+            var data = {"account":account,'verify':verify,"password":password,"type":obj} ;
+            gameboxbtn(data);
+        };break;
+        case 'phone':{
+            var account =$('.puser').val();
+            var password =$('.ppwd').val();
+            var verify =$("#registerPhonePop").val();
+            var data = {"account":account,"password":password,"type":obj,'verify':verify} ;
+            gameboxbtn(data);
+        };break;
+        default:{
+            var url = '{:U("thirdlogin")}';
+            url = url.replace(".html","")+"/type/"+obj+"/pid/"+pid+"/gid/"+gid;
+            window.location=url;
+        }
+    }
+}
+function gameboxbtn(data) {
+        var pid="{:I('pid')}";
+        var gid="{:I('gid')}"; 
+        if (data.type=='phone') {
+            if (!(/^[1][3456789][0-9]{9}/.test(data.account))) {
+                f('手机号码格式不正确');return false;
+            }
+            if (!data.password || data.password.length<6) {
+                f('请输入至少6位的密码');return false;
+            }
+            // if(data.verify==''){
+            //     f('验证码不能为空');return false;
+            // }
+            if (!$(".pckb").prop("checked")){
+                f('请阅读用户注册协议');return false;
+            }
+        }
+        if (data.type=='account') {
+            if(data.account.length>15||data.account.length<6){
+                f('用户名为6~15位数字、字母或下划线');return false;
+            }
+            if (!(/^[a-zA-Z]+[0-9a-zA-Z_]{5,15}$/.test(data.account))){
+                f('用户名必须由字母和数字组成,以字母开头');return false;
+            }
+            if (!data.password || data.password.length<6) {
+                f('请输入至少6位的密码');return false;
+            }
+            if(data.verify==''){
+                f('验证码不能为空');return false;
+            }
+            if (!$(".ackb").prop("checked")){
+                f('请阅读用户注册协议');return false;
+            }
+        }
+        switch(data.type){
+            case 'account':{
+                $.ajax({
+                    type:'post',
+                    dataType:'json',
+                    data:{"account":data.account,"password":data.password,"type":data.type,'verify':data.verify,'p_id':pid,'g_id':gid},
+                    url:'{:U("TuiRegister/register")}',
+                    success:function(d) {
+                        switch(d.status){
+                            case 1:{
+                                window.location.href=d.url;
+                            };break;
+                            default:{
+                                f(d.msg);
+                            }
+                        }
+                    },
+                    error:function() {
+                        alert('服务器故障，请稍后再试');
+                    }
+                });
+            };break;
+            case 'phone':{
+                $.ajax({
+                    type:'post',
+                    dataType:'json',
+                    data:{"account":data.account,"password":data.password,"type":data.type,'verify':data.verify,'way':0,'p_id':pid,'g_id':gid},
+                    url:'{:U("TuiRegister/check_tel_code")}',
+                    success:function(data) {
+                        switch(parseInt(data.status)) {
+                            case -3: {
+                                alert(data.msg);
+                            };break;
+                            case 0:{
+                                alert(data.msg)
+                            };break;
+                            default:{
+                                window.location.href = data.url;
+                            }
+                        }
+                    },
+                    error:function() {
+                        alert('服务器故障，请稍后再试');
+                    }
+                });
+            };break;
+            case 2:{
+                //t(phone,password,2,pid,gid,"123");
+                $.ajax({
+                    type:'post',
+                    dataType:'json',
+                    data: {"phone":phone,"delay":1,"way":2,"type":data.type},
+                    url: '{:U("telsvcode")}',
+                    success:function(data) {
+                        t(phone,password,2,pid,gid,data);
+                    },
+                    error:function() {
+                        alert('服务器故障，请稍后再试');
+                    }
+                });
+            };break;
+        }
+}
+</script>
+</block>

@@ -1,0 +1,64 @@
+<extend name="Public/bases" />
+<block name="body" >
+  <style>
+	.footer{
+	  display: none;
+	}
+	.inner {
+    position: relative;
+    margin: 0 auto;
+    max-width: 1242px;
+    width: 100%;
+	}
+	.empty {
+	    padding-top: 3rem;
+	    background: #FFF;
+	    padding-bottom: 1px;
+	    text-align: center;
+	}
+	.empty .empty-icon {
+		 width: 15rem;
+    	height: 8.94rem;
+    	margin: 1rem auto;
+	}
+	.empty .empty-text{
+		font-size: 0.8rem;
+	}
+	.empty .empty-back {
+		
+		color: #666;
+		text-align: center;
+		margin-top: 0.8rem;
+		font-size: 1rem;
+	}
+	.empty .empty-back-time {
+		color: #23BBF3;
+	}
+  </style>
+		<section class="inner">
+			<section class="contain">
+				<div class="list gift-list">
+					<div class="empty">
+						<img src="__IMG__/no_date.png" class="empty-icon">
+						<p class="empty-text">~ 游戏不见了 ~</p>
+						<p class="empty-back"><span class="empty-back-time" id="ebt">3s</span>后自动返回</p>
+					</div>
+
+					<script src="__JS__/opengame/js/jquery-1.11.1.min.js"></script>
+					<script>
+						(function() {
+							$mt = "other";
+							var ebt = $('#ebt');
+							var t = 3;
+							var a = setInterval(function() {
+								ebt.text(t + 's');
+								t--;
+								if(t < 0) {
+									$index = "{:U('Game/index')}";
+									setTimeout('location.href="' + $index + '";', 100);
+									window.clearTimeout(a);
+								}
+							}, 1000);
+						})();
+					</script>
+	</block>

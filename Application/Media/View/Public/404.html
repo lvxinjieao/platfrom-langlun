@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<if condition="ACTION_NAME eq index and CONTROLLER_NAME eq Index">
+	      <title>{:seo_replace(C('media_index.seo_title'),'','media')}</title>
+	      <meta name="keywords" content="{:seo_replace(C('media_index.seo_keyword'),'','media')}">
+	      <meta name="description" content="{:seo_replace(C('media_index.seo_description'),'','media')}">
+	    <elseif condition="ACTION_NAME eq index and CONTROLLER_NAME eq Game" />
+	      <title>{:seo_replace(C('media_game_list.seo_title'),'','media')}</title>
+	      <meta name="keywords" content="{:C('media_game_list.seo_keyword')}">
+	      <meta name="description" content="{:C('media_game_list.seo_description')}">
+	    <elseif condition="ACTION_NAME eq detail and CONTROLLER_NAME eq Game"/>
+	      <title>{:seo_replace(C('media_game_detail.seo_title'),array('game_name'=>$data['game_name']),'media')}</title>
+	      <meta name="keywords" content="{:seo_replace(C('media_game_detail.seo_keyword'),array('game_name'=>$data['game_name']),'media')}>
+	      <meta name="description" content="{:seo_replace(C('media_game_detail.seo_description'),array('game_name'=>$data['game_name']),'media')}">
+	    <elseif condition="ACTION_NAME eq index and CONTROLLER_NAME eq Gift"/>
+	      <title>{:seo_replace(C('media_gift_index.seo_title'),'','media')}</title>
+	      <meta name="keywords" content="{:seo_replace(C('media_gift_index.seo_keyword'),'','media')}">
+	      <meta name="description" content="{:seo_replace(C('media_gift_index.seo_description'),'','media')}">
+	    <elseif condition="ACTION_NAME eq giftdetail and CONTROLLER_NAME eq Gift"/>
+	      <title>{:seo_replace(C('media_gift_detail.seo_title'),array('game_name'=>$data['game_name'],'giftbag_name'=>$data['giftbag_name']),'media')}</title>
+	      <meta name="keywords" content="{:seo_replace(C('media_gift_detail.seo_keyword'),array('game_name'=>$data['game_name'],'giftbag_name'=>$data['giftbag_name']),'media')}">
+	      <meta name="description" content="{:seo_replace(C('media_gift_detail.seo_description'),array('game_name'=>$data['game_name'],'giftbag_name'=>$data['giftbag_name']),'media')}">
+	    <elseif condition="ACTION_NAME eq mall and CONTROLLER_NAME eq PointShop"/>
+	      <title>{:seo_replace(C('media_shop.seo_title'),'','media')}</title>
+	      <meta name="keywords" content="{:seo_replace(C('media_shop.seo_keyword'),'','media')}">
+	      <meta name="description" content="{:seo_replace(C('media_shop.seo_description'),'','media')}">
+	    <elseif condition="ACTION_NAME eq mall_detail and CONTROLLER_NAME eq PointShop"/>
+	      <title>{:seo_replace(C('media_shop_detail.seo_title'),array('good_name'=>$data['good_name']),'media')}</title>
+	      <meta name="keywords" content="{:seo_replace(C('media_shop_detail.seo_keyword'),array('good_name'=>$data['good_name']),'media')}">
+	      <meta name="description" content="{:seo_replace(C('media_shop_detail.seo_description'),array('good_name'=>$data['good_name']),'media')}">
+	    <elseif condition="ACTION_NAME eq detail and CONTROLLER_NAME eq Article"/>
+	      <title>{:seo_replace(C('media_news_detail.seo_title'),array('title'=>$data['title']),'media')}</title>
+	      <meta name="keywords" content="{:seo_replace(C('media_news_detail.seo_keyword'),array('title'=>$data['title']),'media')}">
+	      <meta name="description" content="{:seo_replace(C('media_news_detail.seo_description'),array('title'=>$data['title']),'media')}">
+	    <elseif condition="ACTION_NAME eq user_recharge and CONTROLLER_NAME eq Subscriber"/>
+	      <title>{:seo_replace(C('media_recharge.seo_title'),'','media')}</title>
+	      <meta name="keywords" content="{:seo_replace(C('media_recharge.seo_keyword'),'','media')}">
+	      <meta name="description" content="{:seo_replace(C('media_recharge.seo_description'),'','media')}">
+	    <elseif condition="CONTROLLER_NAME eq Service"/>
+	      <title>{:seo_replace(C('media_service.seo_title'),'','media')}</title>
+	      <meta name="keywords" content="{:seo_replace(C('media_service.seo_keyword'),'','media')}">
+	      <meta name="description" content="{:seo_replace(C('media_service.seo_description'),'','media')}">
+		<else />
+			<title>{:seo_replace(C('media_index.seo_title'),'','media')}</title>
+			<meta name="keywords" content="{:seo_replace(C('media_index.seo_keyword'),'','media')}">
+			<meta name="description" content="{:seo_replace(C('media_index.seo_description'),'','media')}">
+		</if>
+		<notempty name="union_set.pc_icon">
+			<link href="{:get_cover($union_set['pc_icon'],'path')}" type="image/x-icon" rel="shortcut icon">
+			<else/>
+			<link href="{:get_cover(C('PC_SET_ICO'),'path')}" type="image/x-icon" rel="shortcut icon">
+		</notempty>
+		<link href="__STATIC__/pc_no_show/css/404.css"  rel="stylesheet" />
+	</head>
+	
+	<body>
+		<style>
+	
+
+	</style>
+		<div class="con">
+		<img src="__STATIC__/pc_no_show/images/reqiqiu.png" alt="404" class="con_img" />
+		<div class="tip">哎呀！您访问的页面出错啦...</div>
+		<div class="link"><a href="tencent://message/?uin={:C('PC_SET_SERVER_QQ')}&amp;menu=yes" ><img src="__STATIC__/pc_no_show/images/kefu.png" class="link_img"/><span class="link_text">联系客服</span></a></div>
+		</div>
+	</body>
+</html>

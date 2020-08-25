@@ -1,0 +1,141 @@
+<extend name="Public/bases" />
+<block name="body">
+<link href="__CSS__/user.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="__JS__/pc_7724.js"></script>
+<script type="text/javascript" src="__JS__/jquery.SuperSlide.2.1.1.js"></script>
+
+<!--用户中心-->
+<div class="bg_user">
+<div class="cont userbg wid_1206">
+  <div class="user-bd laybox fix">
+    <include file='base' />
+    <div class="user-section-wrap fl wbg" id="user-section-wrap">
+      <div class="user-section xg_usectionr">
+        <div class="section-tit"><i></i>收货地址</div>
+        <div class="us2-mibao">
+            <form class="form1" method="post" id="form">
+              <div class="w-item">
+                <label for="" class="w-label">用户名：</label>
+                <div class="w-div">{$user.account}</div>
+              </div>
+              <div class="w-item">
+                <label for="" class="w-label">平台币：</label>
+                <div class="w-div">{$user.balance}元</div>
+              </div>
+              <div class="w-item">
+                <label for="" class="w-label"><span style="color:#ff0000">*</span>姓名：</label>
+                <input id="consignee" name="consignee" class="w-input" type="text" placeholder="不少于2个字符" style="width: 260px;" value="{$baseinfo.consignee}">
+              </div>
+              <div class="w-item">
+                <label for="" class="w-label"><span style="color:#ff0000">*</span>手机号码：</label>
+                <input id="consignee_phone" name="consignee_phone" class="w-input" type="text" placeholder="完整的11位手机号" style="width: 260px;" value="{$baseinfo.consignee_phone}">
+              </div>
+              <div class="w-item" id="distpicker" data-toggle="distpicker">
+                <label for="" class="w-label"><span style="color:#ff0000">*</span>所在地区：</label>
+                <select id="province" name="province" class="s_area"></select>				
+        				<select id="city" name="city" class="s_area"></select>
+        				<select id="district" name="district" class="s_area"></select>
+              </div>
+              <div class="w-item">
+                <label for="" class="w-label"><span style="color:#ff0000">*</span>详细地址：</label>
+                <input id="detailed_address" name="detailed_address" class="w-input" type="text" placeholder="不少于5个字符，且不能全部为数字" style="width: 330px;" value="{$detail}">
+              </div>
+              <div class="w-item">
+                <label for="" class="w-label"></label>
+                <input type="button" class="g-btn jsubmit ut_qd" value="完成">
+              </div>
+              <div class="utips xg_bothelp">
+                <p>注：请认真填写有效地址，误填将导致无法收货。</p>
+              </div>
+            </form>
+          </div>
+        
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+</div>
+</div>
+<!--用户中心结束-->
+<script src="__JS__/distpicker.data.min.js"></script>
+<script src="__JS__/distpicker.min.js"></script>
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript">
+$("#distpicker").distpicker({
+	 province: "{$address[0]}",
+	  city: "{$address[1]}",
+	  district: "{$address[2]}"
+});
+$('.jsubmit').click(function(){
+
+    var name = $("#consignee").val();
+    if (name == ''){
+      f('真实姓名不能为空！','#consignee');return;
+    }
+    if (name.length < 2 || !isChn(name)){
+      f('请输入大于两个字符的中文姓名！','#consignee');return;
+    }
+
+    var phone = $("#consignee_phone").val();
+    if (phone == ''){
+      f('手机号码不能为空','#consignee_phone');return;
+    }
+    if (!(/^[1][3,4,5,7,8][0-9]{9}$/.test(phone))) {
+       f('手机号码格式不正确','#consignee_phone');return;
+    }
+    var address = $("#detailed_address").val();
+    if (address == ''){
+      f('详细地址不能为空','#detailed_address');return;
+    }
+    if (address.length < 5 || !haveChn(address)){
+      f('请填写正确的详细地址','#detailed_address');return;
+    }
+
+
+	$.ajax({
+	    type:'post',
+	    url:"{:U('user_address')}",
+	    data:$('#form').serialize(),
+	    success:function(data){
+	      if(data.status==1){
+	        // 成功
+	        layer.msg('');
+	      	  layer.msg('保存成功');
+	          setTimeout(function(){window.location.reload();},2000);
+	      }else{
+	        // 失败
+              layer.msg('可能网络错误，请重新操作·');
+            //  setTimeout(function(){window.location.reload();},2000);
+	      }
+	    }
+	});
+});
+
+var f=function(msg,obj) {
+
+  layer.tips(msg, obj, {
+    tips: [1, 'red'],
+    tipsMore: false
+  });
+};
+
+//判断字符是否是中文字符
+function isChn(str){
+  var reg = /^[\u4E00-\u9FA5]+$/;
+  if(!reg.test(str)){
+    return false;
+  }
+  return true;
+}
+
+function haveChn(obj){
+  if(/.*[\u4e00-\u9fa5]+.*$/.test(obj)) {
+    return true;
+  }
+  if(!(/^[0-9]*$/.test(obj))) {
+    return true;
+  }
+  return false;
+}
+</script>
+</block>

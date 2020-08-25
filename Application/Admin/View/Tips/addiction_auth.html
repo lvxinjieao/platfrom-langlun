@@ -1,0 +1,201 @@
+<extend name="Public/base" />
+
+<block name="body">
+	<link rel="stylesheet" type="text/css" href="__STATIC__/bootstrap.min.css" media="all">
+	<link rel="stylesheet" type="text/css" href="__CSS__/admin_table.css" media="all">
+
+	<link rel="stylesheet" type="text/css" href="__STATIC__/webuploader/webuploader.css" media="all">
+	<script src="__STATIC__/md5.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="__STATIC__/webuploader/webuploader.js"></script>
+	<style type="text/css">
+		.form_hint {
+		    color: #999;
+		    padding-left: 20px;
+		    font-style: normal;
+		    font-size: 12px;
+		    line-height: 34px;
+		}
+		.form_main{display: inline-block;}
+		.navtab_list {width:100%;margin:0 0 15px;height:36px;padding-top:25px;}
+		.navtab_list a,.tabnav1711 li {font-size:15px;border:1px solid transparent;display:block;width:140px;height:35px;line-height:35px;text-align:center;float:left;color:#333;}
+		.navtab_list a.tabchose,.tabnav1711 li.current {border-color:#ddd;border-bottom-color:#FFF;background:#FFF;color:#3C95C8;border-top-left-radius:3px;border-top-right-radius:3px;}
+
+		.tabnav1711 li a {color:inherit;}
+		.tabcon1711 .submit_btn:visited,.tabcon1711 .submit_btn:active,.tabcon1711 .submit_btn:link {color:#FFF;}
+
+		.top_main_menu_con{
+		background: #fff;
+	    border: solid 1px transparent;
+	    width: 140px;
+	    height: 35px;
+	    line-height: 35px;
+	    border-bottom: 1px solid #ddd;}
+		.top_main_menu{height:37px;}
+		.top_main_menu_current {
+		    background: #fff;
+		    color: #fff;
+			border:1px solid #ddd;
+		    border-bottom: 1px solid transparent;
+		}
+		.z_bor{
+		    border-bottom: 1px solid #ddd;
+		    height: 61px;
+		}
+		#form .txt_area2{ width: 340px;}
+	</style>
+	<div class="main-place">
+		<span class="main-placetitle"></span>
+		<ul class="main-placeul">
+			<li>
+				<a href="{:U('Member/user_info')}">用户</a>
+			</li>
+			<li>
+				<a href="{:U('Member/user_info')}">玩家组</a>
+			</li>
+			<li>
+				<a href="#">{$meta_title}</a>
+			</li>
+		</ul>
+		<p class="description_text">说明：实名认证设置分为两部分设置，①全平台的实名认证设置，②未实名认证和未满18岁的防沉迷的防沉迷设置</p>
+	</div>
+	<div class="z_bor">
+        <ul class="top_main_menu navtab_list">
+			<li class="fr top_main_menu_con <if condition='I("get.version") eq 1'> top_main_menu_current </if>">
+                <a href="{:U('real_name_auth',['version'=>1])}" class="top_main_menu_con_link">H5游戏</a>
+            </li>
+			<li class=" fr top_main_menu_con <if condition='I("get.version") eq 0'> top_main_menu_current </if>">
+                <a href="{:U('real_name_auth')}" class="top_main_menu_con_link">手游</a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab_nav jstabnav box_mt">
+		<ul>
+		    <li>
+		        <a href="{:U('real_name_auth',['type'=>0,'version'=>I('get.version')])}">实名认证</a>
+		    </li>
+		    <if condition="I('get.version') eq 0">
+			    <li  class="current">
+			        <a href="{:U('addiction_auth')}">防沉迷</a>
+			    </li>
+			</if>
+		</ul>
+	</div>
+	<!-- 标签页导航 -->
+	<div class="tab-wrap">
+		<div class="tab-content tab_content">
+			<!-- 表单 -->
+			<form id="form" action="{:U('real_name_auth')}" method="post" class="form-horizontal">
+				<!-- 基础文档模型 -->
+				<div id="tab1" class="tab-pane in tab1 tab_table">
+					<table border="0" cellspacing="0" cellpadding="0">
+						<tbody>
+							<tr>
+				              <td class="l">提示对象</td>
+				              <td class="r">
+				                <input name="" type="text" value="未实名认证用户，未满18岁用户" class="" disabled>
+				              </td>
+				            </tr>
+
+				             <tr>
+				              <td class="l">未实名认证提示时间</td>
+				              <td class="r">
+				                <input name="hours" type="text" value="{$data['hours']}" class="" >
+							  	<i class="pxem" style="left: 320px;">小时</i>
+							  </td>
+				            </tr>
+				            
+				            <tr>
+				              <td class="l">开启状态</td>
+				              <td class="r">
+				                <span class="form_radio jsradio">
+				                    <label><input type="radio" name="bat" value="0" <eq name="data.bat" value="0">checked="checked"</eq>> 开启</label>
+				                    <label><input type="radio" name="bat" value="1" <eq name="data.bat" value="1">checked="checked"</eq>> 关闭</label>
+				                </span>
+				              </td>
+				            </tr>
+				            <tr class="nostart <eq name='data.bat' value='1'>hidden</eq>">
+				              <td class="l">提示时间①</td>
+				              <td class="r">
+				                <input placeholder="" name="hours_off_one" type="text" value="{$data['hours_off_one']}" class="">
+				                <i class="pxem" style="left: 320px;">小时</i>
+				                <span class="notice-text">单位：小时，即玩家登录N小时以后，进行首次防沉迷提示</span>
+				              </td>
+				            </tr>
+				            <tr class="nostart <eq name='data.bat' value='1'>hidden</eq>">
+				              <td class="l">提示内容①</td>
+				              <td class="r">
+				                <textarea name="contents_one" class="txt_area2" type="text" value="{$data['contents_one']}" placeholder="请输入提示内容..." class="">{$data.contents_one}</textarea>
+				              </td>
+				            </tr>
+				            <tr class="nostart <eq name='data.bat' value='1'>hidden</eq>">
+				              <td class="l">提示时间②</td>
+				              <td class="r">
+				                <input placeholder="" name="hours_off_two" type="text" value="{$data['hours_off_two']}" class="">
+				                <i class="pxem" style="left: 320px;">小时</i>
+				                <span class="notice-text">单位：小时，即玩家登录N小时以后，进行二次防沉迷提示</span>
+				              </td>
+				            </tr>
+				            <tr class="nostart <eq name='data.bat' value='1'>hidden</eq>">
+				              <td class="l">提示内容②</td>
+				              <td class="r">
+				                <textarea name="contents_two" type="text" value="{$data['contents_two']}" class="txt_area2" placeholder="请输入提示内容...">{$data.contents_two}</textarea>
+				              </td>
+				            </tr>
+				            <tr class="nostart <eq name='data.bat' value='1'>hidden</eq>">
+				              <td class="l">下线时间</td>
+				              <td class="r">
+				                <input name="down_time" type="text" value="{$data['down_time']}" placeholder="" class="" />
+				                  <i class="pxem" style="left: 320px;">小时</i>
+				                <span class="notice-text">单位：小时，即玩家登录N小时以后，将进行强制下线，不填写则不做强制</span>
+				              </td>
+				            </tr>
+				            <tr class="nostart <eq name='data.bat' value='1'>hidden</eq>">
+				              <td class="l">恢复时间</td>
+				              <td class="r">
+				                <input name="hours_cover" type="text" value="{$data['hours_cover']}" placeholder="" class="">
+				                  <i class="pxem" style="left: 320px;">小时</i>
+				                <span class="notice-text">单位：小时，即玩家下线N小时以后，玩家才可再次登录游戏</span>
+				              </td>
+				            </tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="form-item cf">
+					<input type="hidden" name="name" value="sy_age_prevent">
+					<button class="submit_btn ajax-post  " id="submit" type="submit" target-form="form-horizontal">确 定</button>
+				</div>
+			</form>
+		</div>
+		{:W('index/comset',['title'=>'实名认证设置','url'=>'Tips/real_name_auth'])}
+	</div>
+</block>
+
+<block name="script">
+	<link href="__STATIC__/datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css">
+	<php>if(C('COLOR_STYLE')=='blue_color') echo '
+		<link href="__STATIC__/datetimepicker/css/datetimepicker_blue.css" rel="stylesheet" type="text/css">';</php>
+	<link href="__STATIC__/datetimepicker/css/dropdown.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+	<script type="text/javascript">
+		//导航高亮
+		highlight_subnav('{:U('Tips/real_name_auth')}');
+		$('#submit').click(function() {
+			$('#form').submit();
+		});
+		$('.time').datetimepicker({
+			language: "zh-CN",
+			hour: 13,
+			minute: 15
+		});
+		$('.jsradio input').click(function() {
+	      var that=$(this),val = $.trim(that.val()),parent = that.closest('table');
+	      if (val>0) {
+	        parent.find('.nostart').addClass('hidden');
+	      } else {
+	        parent.find('.nostart').removeClass('hidden');
+	      }
+	      
+	    });
+	</script>
+</block>

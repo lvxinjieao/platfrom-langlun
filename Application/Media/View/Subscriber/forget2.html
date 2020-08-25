@@ -1,0 +1,101 @@
+<extend name="Public/notopfootbase" />
+<block name="body">
+<link href="__CSS__/user.css" type="text/css" rel="stylesheet">
+<link href="__CSS__/login.css" type="text/css" rel="stylesheet">
+<!-- 主体内容 -->
+<div class="loginbg">
+    <div class="cont-box centert">
+
+        <div class="box login-box clearfix active">
+            <form class="f-login" id="login-form" action="{:U('forget3')}" method="post">
+                <div class="ad-box">
+                    <div class="ad-title">海量游戏 &nbsp;&nbsp;扫码即玩</div>
+                    <span target="_blank">
+                       <img src="{:get_cover(C('PC_SET_QRCODE'),'path')}" alt="" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null">
+                     </span>
+
+                 <div class="ad-code ad-title">扫描关注公众号</div>
+                </div>
+                <div class="loginbk">
+                    <div class="login_tit">
+                        <span>找回密码</span>
+                        <a href="{:U('forget')}" class="last">上一步</a>
+                    </div>
+                    <div class="ipt-box">
+                        <i class="login_pwd"></i>
+                        <input id="login-password" type="password" name="password" placeholder="6-15位字符">
+                    </div>
+                    <div class="ipt-box">
+                        <i class="login_pwd"></i>
+                        <input id="login-repassword" type="password" name="repassword" placeholder="再次确认密码">
+                    </div>
+                    <input  type="hidden" name="account" value="{$data['account']}">
+                    <input id="login-btn" type="button" value="完成">
+                    
+                    <div class="forwarn">注：使用找回密码功能必须是已绑定手机的用户才能使用</div>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+   
+</div>
+<include file='foot' />
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript">
+    var f=function(msg,obj) {
+        layer.tips(msg, obj, {
+            tips: [1, 'red'],
+          tipsMore: true
+        });
+    };
+    $('.registerPhonePop').blur(function() {
+        var apwd = $.trim($(this).val());
+        if (apwd == '') {f('验证码不能为空！','.registerPhonePop');return;}
+    });
+    $('#login-password').blur(function() {
+        var password = $.trim($(this).val());
+        if (password == '') {f('密码不能为空！','#login-password');return;}
+        if (!/^[a-zA-Z0-9_\.]{6,15}$/.test(password)) {
+            f('密码格式不正确','#login-password');return;
+        }
+    });
+    $('#login-repassword').blur(function() {
+        var password = $.trim($("#login-password").val());
+        var repassword = $.trim($("#login-repassword").val());
+        if (repassword == '') {f('确认密码不能为空！','#login-repassword');return;}
+        if (password!=repassword) {
+            f('两次密码输入不一致','#login-repassword');return;
+        }
+    });
+    $('#login-btn').click(function(){
+        that = $(this);
+        var password = $.trim($("#login-password").val());
+        var repassword = $.trim($("#login-repassword").val());
+        if (password == '') {f('密码不能为空！','#login-password');return;}
+        if (repassword == '') {f('确认密码不能为空！','#login-repassword');return;}
+        if (!/^[a-zA-Z0-9_\.]{6,15}$/.test(password)) {
+            f('密码格式不正确','#login-password');return;
+        }
+        if (password!=repassword) {
+            f('两次密码输入不一致','#login-repassword');return;
+        }
+        pdata = $('#login-form').serialize();
+        $.ajax({
+            type:'post',
+            url:"{:U('forget3')}",
+            data:pdata,
+            success:function(data){
+                if(data.status){
+                    location.href = '{:U("forget3")}';
+                }else{
+                    layer.msg(data.msg);
+                }
+            },error:function(){
+                alert('服务器故障，请稍后再试');
+            }
+        });
+    });
+</script>
+</block>

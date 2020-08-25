@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8" >
+        <link rel="shortcut icon" href="">
+        
+        <title>玩游戏 就上整合盒子</title>
+        <meta name="keywords" content="">
+        <meta name="description" content="">
+        <link href="__CSS__/common.css" rel="stylesheet">
+        
+        <script src="__JS__/jquery.min.js"></script>
+        <script src="__JS__/common.js"></script>
+        <script src="__STATIC__/layer/layer.js"></script>
+
+        
+    </head>
+    <body>
+        <div class="main">
+            <div class="inner">
+                <div class="banner">
+                    <img class="img1" src="__IMG__/img_invite.png" >
+                    <img class="img2" src="__IMG__/img_invite.png" >
+                    <p class="">
+                        整合盒子是一款拿返利、享折扣的手游平台，我们为您提供了海量游戏福利，大礼包等；让您轻松畅玩游戏的同时，可参与各种活动、获取大量积分、平台币，达到免费玩游戏、免费兑换商品的目的
+                    </p>
+                </div>
+                <form>
+                    <div class="inputgroup clearfix">
+                        <div class="formgroup">
+                        <i class=""><img src="__IMG__/phone.png"></i>
+                        <input id="phone" class="formcontrol" type="text" placeholder="手机号码" >
+                        </div>
+                    </div>
+                    <div class="inputgroup clearfix">
+                        <div class="formgroup formgroupcode">
+                        <i class=""><img src="__IMG__/barcode.png"></i>
+                        <input class="formcontrol code" id="code" name="code" type="text" placeholder="验证码" >
+                        </div>
+                        <button class="getcode" id="get_code" type="button">获取验证码</button>
+                    </div>
+                    <div class="inputgroup clearfix">
+                        <div class="formgroup formpassword">
+                        <i class=""><img src="__IMG__/password.png"></i>
+                        <input class="formcontrol" id="password" type="password" placeholder="请设定登录密码">
+                        <i class="jsvisible" ><img src="__IMG__/invisible.png"></i>
+                        </div>
+                    </div>
+                    <div class="inputgroup btnwrap clearfix">
+                        <div class="formgroup">
+                            <input type="button" class="btn" id="submit_btn" value="下一步" >
+                        </div>
+                        <div class="agree">
+                            <span>注册则视为阅读并同意</span>
+                            <a href="/media.php/Subscriber/user_argeement.html"><span>《整合盒子网络协议》</span></a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="footer">
+           
+        </div>
+        <script>
+            $(function() {
+                $('.jsvisible').on("click",function() {
+                    var that = $(this);
+                    if (that.hasClass('closeeye')) {
+                        $('input[id=password]').attr('type','password');
+                        that.removeClass('closeeye').find('img').attr('src','__IMG__/invisible.png');
+                    } else {
+                        $('input[id=password]').attr('type','text');
+                        that.addClass('closeeye').find('img').attr('src','__IMG__/visible.png');
+                    }
+
+                });
+
+                //发送短信
+                $("#get_code").click(function(){
+                    var phone = $("#phone").val();
+                      if(phone == ""){
+                        layer.msg("手机号不能为空");
+                        return false;
+                    }
+                     if (!(/^1[34578]\d{9}$/.test(phone))) {
+                       layer.msg('手机号码格式不正确');
+                        return false;
+                }
+                    $.ajax({
+                        type:"post",
+                        url:"{:U('User/send_sms')}",
+                        dataType:"json",
+                        data:{phone:$("#phone").val()},
+                        success:function(data){
+                            if(data.code != 200){
+                                layer.msg(data.msg);
+                            }else{
+                                timedown("#get_code");
+                            }
+                        }
+                    });
+                });
+
+                //注册
+                $("#submit_btn").click(function(){
+                    var phone = $("#phone").val();
+                    var code = $("#code").val();
+                    var password = $("#password").val();
+                    if(phone == ""){
+                        layer.msg("手机号不能为空");
+                        return false;
+                    }
+                    if(code == ""){
+                        layer.msg("验证码不能为空");
+                        return false;
+                    }
+                    if(password == ""){
+                        layer.msg("密码不能为空");
+                        return false;
+                    }
+                    var invite_account = "{:I('invite_account')}";
+                    $.ajax({
+                        type:"post",
+                        url:"{:U('Share/share_register')}",
+                        dataType:"json",
+                        data:{phone:$("#phone").val(),password:$("#password").val(),v_code:$("#code").val(),invite_account:invite_account},
+                        success:function(data){
+                            if(data.code == -1){
+                                var msg = "";
+                                switch (data.msg){
+                                    case -1: msg = "用户名不合法";break;
+                                    case -2: msg = "包含敏感字符";break;
+                                    case -3: msg = "用户已存在";break;
+                                    case 98: msg = "验证码超时";break;
+                                    case -97: msg = "验证码错误";break;
+                                    case 2: msg = "验证码错误";break;
+                                    default : msg = data.msg;
+                                }
+                                layer.msg(msg);
+                            }else{
+                                window.location.href = "{:U('Share/down')}"
+                            }
+                        }
+                    });
+                });
+            });
+
+            function timedown(e) {
+                var t = t?t:60,s = $(e);
+                s.attr('disabled','disabled');
+                var a = setInterval(function() {
+                    t--;
+                    s.text(t + '秒后重发'),
+                    0 == t && (s.removeAttr('disabled').text('获取验证码'), clearInterval(a))
+                },1e3)
+            };
+        </script>
+    </body>
+</html>

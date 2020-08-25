@@ -1,0 +1,302 @@
+<extend name="Public/bases" />
+<block name="body">
+<link href="__CSS__/game.css" type="text/css" rel="stylesheet">
+<link href="__CSS__/shop.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="__JS__/jquery.SuperSlide.2.1.1.js"></script>
+<!--游戏中心-->
+<div class="contbg game-center-list">
+	<div class="shop_top">
+		<div class="shoptop_tl clearfix">
+			<div class="user_detail">
+				<div class="user_msg">
+					<div class="media">
+						<div class="media-left">
+							<a href="javascript:;" style="cursor:default">
+								<if condition="$headpic eq ''">
+						            <img class="media-object" src="__IMG__/userimg.png" height="74" width="74" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null">
+					          	<else/>
+					            	<img class="media-object" src="{$headpic}" height="74" width="74" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null">
+					          	</if>
+								<span class="dis_tabcell pos_absu">
+									<span class="span_mid">
+									<div>{:C('SET_POSITION_IMG')}</div>
+									</span>
+								</span>
+							</a>
+						</div>
+						<if condition="is_login() gt 0">	
+							<div class="media-body">
+								<h4 class="media-heading xg_mh">{:session('user_auth.account')}</h4>
+								<p class="media-desc">可用积分：<span class="xg_co kyjf">{$point}</span></p>
+							</div>
+						</if>
+					</div>
+					<div class="xg_btns">
+						<if condition="is_login() gt 0">	
+							<a style="width:55px;" class="xg_banance1 xg_bgco jssign <if condition='$issignin eq 1 '> issignin</if>" data-score="{$addpoint}">签到</a>
+							<a class="xg_banance1 xg_bgcg" href="{:U('Subscriber/pay')}">充值</a>
+							<a class="xg_banance1 xg_bgcg dhjl" href="#">兑换记录</a>
+						<else/>
+							<a class="xg_banance1 xg_bgco" href="{:U('Subscriber/login')}">登录</a>
+							<a class="xg_banance1 xg_bgcg" href="{:U('Subscriber/registerf')}">注册</a>
+						</if>
+					</div>
+				</div>
+				<div class="task_ingetral">
+					<div class="task_tit">
+						<span class="xg_sidai">
+						任务赚积分
+						</span>
+						<a href="{:U('Service/index',array('type'=>'jifen'))}"><span class="xg_co xg_gz">积分规则</span></a>
+					</div>
+					<div class="gz_list">
+						<ul>
+							<li class="">
+								<span class="txtalgn_l">签到</span>
+								<span class="txtalgn_c">+{$todaypoint}积分</span>
+								<if condition='$issignin neq 1'>
+									<span class="txtalgn_r"><a href="{:U('PointShop/mall_sign')}">做任务</a></span>
+								<else/>
+									<span class="txtalgn_r disabled"><a href="{:U('PointShop/mall_sign')}">已签到</a></span>
+								</if>
+							</li>
+							<li class="">
+								<span class="txtalgn_l">绑定手机</span>
+								<span class="txtalgn_c">+{$list['bind_phone']['point']}积分</span>
+								<if condition="$bindphone eq ''">
+									<span class="txtalgn_r"><a href="{:U('Subscriber/account')}">做任务</a></span>
+								<else/>
+									<span class="txtalgn_r"><a>已绑定</a></span>
+								</if>
+							</li>
+							<li class="">
+								<span class="txtalgn_l">每日游戏首充</span>
+								<span class="txtalgn_c">+{$list['share_game']['point']}积分</span>
+								<span class="txtalgn_r"><a href="{:U('Game/index')}">
+									<if condition="$is_share_game eq 1">
+										已充值
+										<else/>
+										做任务
+									</if>
+								</a></span>
+							</li>
+							<li class="">
+								<span class="txtalgn_l">游戏充值</span>
+								<span class="txtalgn_c">+{$list['share_article']['point']}积分</span>
+								<span class="txtalgn_r"><a href="{:U('Game/index')}">做任务</a></span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<volist name="adv" id="adv2">
+				<div class="xg_advertise">
+					<a href="{$adv2['url']}" target="{$adv2['target']}">
+						<notempty name="adv2['data']">
+							<img style="width:892px;height:272px;" src="{$adv2['data']}" width="" height="" alt="广告位">
+						</notempty>
+						<span style="">
+					<span>
+					<div>{:C('BITMAP')}</div>
+					</span>
+				</span>
+					</a>
+				</div>
+			</volist>
+
+
+
+			<ol class="xg_advertise_menu">
+				<volist name="adv" id="adv3">
+					<li class="xg_advertise_menu_li "></li>
+				</volist>
+			</ol>
+			
+		</div>
+		<div class="news_tips">
+			<i></i>
+			<div class="txtMarquee-top">
+				<div class="bd">
+					<div class="tempWrap">
+						<ul class="infoList">
+							<volist name="record['data']" id="record">
+								<li class="clone"><a ><span class="date">{$record['account']} </span>兑换了【{$record['good_name']}】</a></li>
+							</volist>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div class="g-main game_center">
+      <div class="game-select-box fix">
+        <div class="game-theme"> 
+          	<span>字母:</span>
+      		<a href="{:U('PointShop/mall',array('type'=>I('get.type')))}" class="<if condition='I("short") eq ""'> active </if>">不限</a>
+      		<div style="margin-left: 15px; float: left;">
+      		<volist name=":zimu26()" id="zimu">
+				<a href="{:U('PointShop/mall',array('type'=>I('get.type'),'short'=>$zimu['value']))}" class="game-theme-item <if condition='I("short") eq $zimu["value"]'> active </if>">{$zimu["value"]}</a>
+			</volist>
+			</div>
+        </div>
+		 <div class="game-type ">
+			<span>属性:</span> 
+			<a href="{:U('PointShop/mall',array('short'=>I('get.short')))}" class="<if condition='I("type") eq ""'> active </if>">不限</a>
+			<div class="fl" style="width: 90%;">
+			<a href="{:U('PointShop/mall',array('type'=>2,'short'=>I('get.short')))}" class="<if condition='I("type") eq 2'> active </if>">虚拟</a>
+			<a href="{:U('PointShop/mall',array('type'=>1,'short'=>I('get.short')))}" class="<if condition='I("type") eq 1'> active </if>">实物</a>
+		</div>
+			</div>
+      </div>
+      <div class="shop_goods">
+		<div class="goods_divul">
+			<ul class="goods_ul clearfix">
+
+				<empty name="data['data']">
+
+					<!-- 搜索显示没有商品 begin-->
+					<div class="empty">
+						<img class="empty_img" src="__IMG__/empty.png" width="256px" height="156px" alt="图片">
+						<p class="empty_txt">暂时没有该商品~</p>
+					</div>
+					<!--end 搜索显示没有商品 -->
+
+					<else/>
+
+					<volist name="data['data']" id="data" key='k'>
+						<li class="">
+							<a href="{:U('mall_detail',array('id'=>$data['id']))}" target="_self" class="img">
+								<span class="img-font">
+									<span class="img-font-cell">
+										<div class="img-font-text">{:C('BITMAP')}</div>
+									</span>
+								</span>
+								<notempty name="data['cover']">
+									<img src="{$data.cover}"  class="img-img">
+								</notempty>
+							</a>
+							<h4 class="goods_name" title="{$data.good_name}">{$data.good_name}</h4>
+							<p>
+								<span class="fl_l">积分:<span class="font_s13 xg_co">{$data.price}</span></span>
+								<span class="fl_r">剩余:<span class="font_s13 xg_co">{$data.number}</span></span>
+							</p>
+						</li>
+					</volist>
+
+				</empty>
+
+
+			</ul>
+        </div>
+		<div class="pagenation clearfix shop_pag">
+			<div> 
+				{$_page|default=''}
+			</div>
+		</div>
+
+	  </div>
+	</div>
+</div>
+<!--游戏中心结束-->
+<!--底部结束-->
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+<script>
+// 广告通知滚动效果 begin
+jQuery(".txtMarquee-top").slide({mainCell:".bd ul",autoPlay:true,effect:"topMarquee",interTime:50,trigger:"click"});
+// 广告通知滚动效果
+</script>
+<script type="text/javascript">
+	
+    ttt= $('.jssign');
+    $is_sign = ttt.hasClass('issignin');
+    $user = "{:is_login()}";
+    if($is_sign){
+        if(!ttt.hasClass('disabled'))
+        {
+            ttt.addClass('disabled');
+            // ttt.find('.circle').remove();
+            ttt.text('已签到');
+            ttt.css('background','#b9b7b7');
+        }
+    }
+
+    $('.jssign').click(function() {
+
+		var that = $(this);
+		if (that.hasClass('disabled')) {layer.msg('今日已签，无需重复签到');return false;}
+		that.addClass('disabled');
+		$(".kyjf").html(parseInt($(".kyjf").html())+parseInt($(this).attr('data-score')));
+		if ($user>0) {
+			$.ajax({
+			  type:'post',
+			  url:"{:U('PointShop/user_sign_in')}",
+			  success:function(data){
+				if(data.status==1){
+				  	layer.msg(data.msg);
+				  	ttt.text('已签到');
+				  	ttt.css('background','#b9b7b7');
+				}else{
+				  layer.msg(data.msg);
+				}
+			  },error:function(){
+
+			  }
+			})
+        
+    } else {
+      return false;
+    }
+
+    });
+</script>
+
+<script>
+	$(".dhjl").click(function () {
+		layer.open({
+			title:'兑换记录',
+			type: 2,
+			content: "{:U('PointShop/mall_record')}",
+			area: ['500px', '700px']
+		});
+	})
+	<!-- 判断是否有页码 -->
+	var page_length=$(".pagenation").find("span").length;
+	if(page_length==0){
+		$(".pagenation").css("display","none")
+	}
+	
+	
+</script>
+	<!-- 图片轮播	 -->
+	<script>
+		$(document).ready(function(){
+			$(".xg_advertise_menu_li:first").addClass("xg_advertise_menu_active");
+			$(".xg_advertise:first").addClass('xg_show');
+
+		});
+		timer = setInterval(function () {
+			iNow++;
+			
+			showNumber = $(".xg_advertise");
+			if (iNow > showNumber.length - 1) { //当到达最后一张图的时候，让iNow赋值为第一张图的索引值，轮播效果跳转到第一张图重新开始
+				iNow = 0;
+			}
+			$(".xg_advertise_menu_li").eq(iNow).addClass('xg_advertise_menu_active').siblings().removeClass('xg_advertise_menu_active');
+			$(".xg_advertise").eq(iNow).addClass('xg_show').siblings().removeClass('xg_show');
+		}, 2000);
+		$(".xg_advertise_menu_li").hover(function () {
+			clearInterval(timer);
+			index = $(this).index();
+
+			$(".xg_advertise_menu_li").eq(index).addClass('xg_advertise_menu_active').siblings().removeClass('xg_advertise_menu_active');
+			$(".xg_advertise").eq(index).addClass('xg_show').siblings().removeClass('xg_show');
+		})
+
+		var timer = null; //定时器返回值，主要用于关闭定时器
+		var iNow = 0;
+
+
+	</script>
+	
+</block>

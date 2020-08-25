@@ -1,0 +1,28 @@
+<extend name="Public/sbases" />
+<block name="body" >
+<link rel="stylesheet" type="text/css" href="__CSS__/suspension/common.css" />
+<link rel="stylesheet" type="text/css" href="__CSS__/suspension/game.css" />
+<style type="text/css">
+html,body{height:100%;margin:0;padding:0;overflow:hidden;}
+body {margin:0 auto;text-align:left;background: transparent; }
+</style>
+<div style="background:#fff;">
+    <iframe id="op_url_mainframe" frameborder="0" scrolling="yes" name="main" src="{$login_url}" 
+    style="height:100vh; visibility: inherit; width: 100vw;max-width:640px; z-index: 1;overflow: visible;position:absolute;background-image:url({$game_img});background-repeat:no-repeat;background-size:cover;"></iframe>
+</div><!-- background-image:url(./__IMG__/img.png); -->
+<script type="text/javascript">
+domain = "http://"+"{:C(PC_SET_DOMAIM)}";
+window.addEventListener('message', function(e) {
+  //监听运营方返回消息
+    if( e.data.event=='login'&&e.data.status==0){
+      $("#game_menu_box").css('z-index',0);
+    }else{
+      $("#game_menu_box").css('z-index',10);
+      $("#game_menu_box").css('display','block');
+    }
+    if(e.origin==domain && e.data.event=='login'&&e.data.status==-1){
+      location.reload();
+    }
+}, false);
+</script>
+</block>

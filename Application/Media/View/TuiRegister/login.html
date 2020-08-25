@@ -1,0 +1,130 @@
+<extend name="Public/bases" />
+<block name="body">
+<style>
+.htopbg{display: none;}
+#header{display: none;}
+.footer{display: none;}
+.g-sidefun{display: none;}
+</style>
+<link href="__CSS__/login.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="__JS__/jquery-1.7.2.min.js"></script>
+<!--下拉菜单--><script type="text/javascript" src="__JS__/ddsmoothmenu.js"></script>
+<script type="text/javascript">
+ddsmoothmenu.init({
+  mainmenuid: "smoothmenu1", //menu DIV id  
+  orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"  
+  classname: 'moregame'
+});
+</script>
+<!--下拉菜单结束-->
+<script type="text/javascript" src="__JS__/pc_7724.js"></script>
+<script type="text/javascript" src="__JS__/jquery.SuperSlide.2.1.1.js"></script>
+<!-- 主体内容 -->
+<div class="loginbg">
+    <div class="cont-box cont">
+        <div class="box login-box clearfix active">
+            <form class="f-login" id="loginForm"  method="post">
+                <div class="ad-box"><div class="dsf">
+                <h3>快乐之门&nbsp;&nbsp;由此开启</h3>
+                <span class="dsfimg"><img src="__IMG__/loginbg.png" alt=""></span>
+                </div></div>
+                <div class="loginbk">
+                    <div class="login_tit">
+                        <span>登录平台账号</span>
+                        <p><a href="{:U('registerf',array('gid'=>I('gid'),'pid'=>I('pid')))}"> 注册</a></p>
+                    </div>
+                  
+                    <div class="ipt-box">
+                        <i class="login_user"></i>
+                        <input id="username" type="text" name="username" value="{$_COOKIE['media_account']}" placeholder="请输入登录账号">
+                          <label id="username-error" class="error" for="username"></label>
+                    </div>
+                    
+                    <div class="ipt-box">
+                        <i class="login_pwd"></i>
+                        <input id="password" type="password" name="password" value="{$_COOKIE['media_pas']}" placeholder="请输入登录密码">
+                        <label id="password-error" class="error" for="password"></label>
+                    </div>
+                    
+                    <input id="login-btn" type="submit" value="登录">
+                    
+                    <div id="user_more" class="tb">
+                        <p class="l" id="third-party" style="line-height:14px;"><span>使用第三方登录：</span></p>
+                        <div class="sfdl">
+                            <a onclick="login('qq')" class="login_more qq"></a>
+                            <a onclick="login('weixin')" class="login_more wx"></a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+   
+</div>
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+<script src="__JS__/jquery.form.js"></script>
+<script src="__JS__/jquery.validate.min.js"></script>
+<script>
+$(document).ready(function(){
+    /**
+     * 新增验证方法
+    */
+    $.validator.addMethod("numOrLetter", function(value, element) {
+        return this.optional(element) || /^[a-zA-Z0-9_\.]+$/.test(value);
+    }, '只能是字母或数字');
+    // 登录验证
+    $("#loginForm").validate({
+        //定义规则
+        rules:{
+            username:{
+                required:true,
+                rangelength:[6,30]
+            },
+            password:{
+                required:true,
+                minlength:6
+            }
+        },
+        //定义错误消息
+        messages:{
+            username:{
+                required:"请输入登录账号",
+                rangelength:"用户名必须是6~30位字符串"
+            },
+            password:{
+                required:"请输入登录密码",
+                minlength:'登录密码必须大于6位',
+            }
+        },
+        submitHandler:function(form){
+            data = $('#loginForm').serialize();
+            $.ajax({
+                type:'post',
+                url:"{:U('login')}",
+                data:data,
+                success:function(data){
+                    if(data.status==1){
+                        layer.msg(data.msg, {icon: 1});
+                        window.location.href=data.url;
+                    }else{
+                        
+                        layer.msg(data.msg, {icon: 2});
+                    }
+                },error:function(){
+
+                }
+            });
+        }
+    });
+});
+</script>
+<script>
+function login(obj) {
+    var url = '{:U("thirdlogin",array("gid"=>$_REQUEST["gid"],"pid"=>$_REQUEST["pid"]))}';
+    url = url.replace(".html","")+"/type/"+obj;
+    window.location=url;
+}
+</script>
+</block>

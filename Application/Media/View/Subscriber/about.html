@@ -1,0 +1,19 @@
+<extend name="Public/sbases" />
+<block name="body">
+<link href="__CSS__/my.css" rel="stylesheet" />
+<div class="personal">
+	<div class="shead">
+		关于我们
+	</div>
+	<div class="amain">
+		<div class="alogo"><img src="{:get_cover(C('PC_SET_LOGO'),'path')}" /></div>
+		<div class="am">
+			<p class="amc"><span>官方网站：</span>{:C('PC_SET_DOMAIM')}</p>
+			<p class="amc"><span>客服 Q Q：</span>{:C('PC_SET_SERVER_QQ')}</p>
+			<p class="amc"><span>工作时间：</span>{:C('PC_WORK_TIME')}</p>
+			<p class="amc"><span>联系邮箱：</span>{:C('PC_SET_SERVER_EMAIL')}</p>
+			<!-- <p class="amc"><span>商务合作：</span>{:C('MT_SITE_TEMAIL')}</p> -->
+		</div>
+	</div>
+</div>
+</block>

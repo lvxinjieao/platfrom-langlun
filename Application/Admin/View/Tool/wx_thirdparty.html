@@ -1,0 +1,139 @@
+<extend name="Public/base"/>
+
+<block name="body">
+<link rel="stylesheet" href="__CSS__/select2.min.css" type="text/css" />
+
+    <script type="text/javascript" src="__JS__/select2.min.js"></script>
+
+    <script type="text/javascript" src="__JS__/bootstrap.min.js"></script>
+    	<style>
+		.navtab_list {
+			height: 36px;
+			border-bottom: solid 1px #d0dee5;
+			position: relative;
+			border-left: solid 1px #d3dbde;
+			margin: 15px 0 0;
+		}
+		
+		.navtab_list a {
+			float: left;
+			height: 37px;
+			line-height: 37px;
+			background: url(__IMG__/itabbg.png) repeat-x;
+			border-right: solid 1px #d3dbde;
+			font-size: 14px;
+			color: #000;
+			padding-left: 25px;
+			padding-right: 25px;
+			text-decoration: none;
+		}
+	</style>
+    <div class="cf main-place tabnav1711_last top_nav_list">
+        <ul class="tabnav1711 fr jstabnav">
+			<li data-tab="tab1" ><a href="{:U('qq_thirdparty')}" >QQ登录</a></li>
+            <li data-tab="tab2" class="current"><a href="{:U('wx_thirdparty')}" >微信登录</a></li>
+			<!-- <li data-tab="tab3"><a href="{:U('wb_thirdparty')}" >微博登录</a></li> -->
+			<!-- <li data-tab="tab4"><a href="{:U('bd_thirdparty')}" >百度登录</a></li> -->
+		</ul>
+        <h3 class="page_title">{$meta_title}</h3>
+        <p class="description_text">用于配置相关第三方登录所用参数的功能</p>
+    </div>
+    
+	<div class="tab-wrap">
+        <div class="infomation information1711">
+          <div class="informationitem tab-pane tab2 in">
+            <p>微信第三方登录在本系统有两处需使用，PC官网和手游SDK；PC官网需申请网页应用，手游SDK需申请移动应用。</p>
+            <p>网页应用申请地址：<a href="https://open.weixin.qq.com/" target="_blank">https://open.weixin.qq.com/（微信开放平台）</a></p>
+            <p>移动应用申请地址：<a href="https://open.weixin.qq.com/" target="_blank">https://open.weixin.qq.com/</a></p>
+          </div>
+
+        </div>
+
+		<div class="tab-content tabcon1711 tabcon17112">
+    		<div id="tab1" class="tab-pane in tab1">
+                <div class="tab-content-subtab jssubtab navtab_list clearfix">
+                  <a href="{:U('wx_thirdparty')}" class="tabcon-subtab tcst1 current">PC官网</a>
+                  <a href="{:U('wx_param_lists')}" class="tabcon-subtab tcst2">SDK</a>
+                </div>
+
+                <div class="tab-content-subpan jssubpan clearfix current">
+                    <form action="{:U('saveTool')}" method="post" class="form-horizontal wx_login form_info_ml">
+                        <table border="0" cellspacing="0" cellpadding="0">
+                          <tbody>
+                            <tr>
+                                <td class="l noticeinfo">公众号ID</td>
+                                <td class="r table_radio">
+                                    <input name="config[appid]" type="text" value="{$wx_login['appid']}" class="">
+                                    <span class="notice-text">微信提供的唯一识别码</span>
+                                </td>
+                            </tr><tr>
+                                <td class="l noticeinfo">APPSECRET</td>
+                                <td class="r table_radio">
+                                    <input name="config[appsecret]" type="text" value="{$wx_login['appsecret']}" class="">
+                                    <span class="notice-text">应用注册成功后分配的KEY</span>
+                                </td>
+                            </tr>
+ <!--                            <tr>
+                                <td class="l noticeinfo">回调地址</td>
+                                <td class="r table_radio">
+                                    <input name="config[callback]" type="text" value="{$wx_pc_login['callback']}" class="">
+                                    <span class="notice-text">登录成功后返回的地址</span>
+                                </td>
+                            </tr> -->
+                            <tr>
+                                <td class="l noticeinfo">启用状态</td>
+                                <td class="r table_radio">
+                                    <span class="form_radio">
+                                    <label><input type="radio" name="status" value="0" <eq name="wx_login_data['status']" value="0">checked="checked"</eq>> 禁用</label>
+                                    <label><input type="radio" name="status" value="1" <eq name="wx_login_data['status']" value="1">checked="checked"</eq>> 启用
+                                </label></span>
+                                    <span class="notice-text">微信登录开启状态</span>
+                                </td>
+                            </tr>
+                            
+                            
+                          </tbody>
+                        </table>
+                        <input type="hidden" name="name" value="wx_login">
+                        <input type="submit" id="submit" value="保存" target-form="wx_login" class="submit_btn form_btn ajax-post">
+                    </form>
+                </div>
+               
+    		</div>
+		</div>
+
+	</div>
+</block>
+
+<block name="script">
+<script type="text/javascript">
+	//导航高亮
+	highlight_subnav('{:U('Tool/qq_thirdparty')}');
+	$(function(){
+$(".select_gallery").select2();
+            //搜索功能
+    $("#search").click(function(){
+        var url = $(this).attr('url');
+        var query  = $('.jssearch').find('input').serialize();
+        query  += "&"+$('.jssearch').find('select').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+        window.location.href = url;
+    });
+		//支持tab
+		showTab();
+    
+    $('.jssubtab a').click(function() {
+      var that=$(this),index = that.index(),pan = that.closest('.jssubtab').siblings('.jssubpan');
+      that.siblings().removeClass('current');
+      that.addClass('current');
+      pan.removeClass('current').eq(index).addClass('current');
+    });
+	})
+</script>
+</block>

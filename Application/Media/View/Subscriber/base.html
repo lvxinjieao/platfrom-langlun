@@ -1,0 +1,18 @@
+<!-- <ul class="user-menu fl" id="user-menu" style="min-height: 640px;">
+  <li <if condition="ACTION_NAME eq index"> class="active"</if>> <a href="{:U('/subscriber','',true,'',true)}" class="menu-1"><i></i> 账号资料<em></em></a> </li>
+  <li <if condition="ACTION_NAME eq account || ACTION_NAME eq bdphone"> class="active"</if>> <a href="{:U('/subacc','',true,'',true)}" class="menu-2"><i></i> 帐号安全<em></em></a> </li>
+  <li <if condition="ACTION_NAME eq resetpwd"> class="active"</if>> <a href="{:U('Subscriber/resetpwd')}" class="menu-3"><i></i> 修改密码<em></em></a> </li>
+  <li <if condition="ACTION_NAME eq my_gift"> class="active"</if>> <a href="{:U('/mygift','',true,'',true)}" class="menu-4"><i></i> 礼包中心<em></em></a> </li>
+    <li <if condition="ACTION_NAME eq my_collection"> class="active"</if>> <a href="{:U('Subscriber/my_collection','',true,'',true)}" class="menu-4"><i></i> 我的收藏<em></em></a> </li>
+  <li <if condition="ACTION_NAME eq bdptb"> class="active" </if>> <a href="{:U('/bdptb',array('id'=>session('user_auth.user_id')),true,'',true)}" class="menu-5"><i></i> 绑币余额<em></em></a> </li>
+</ul> -->
+<ul class="user-menu fl" id="user-menu" style="min-height: 640px;">
+	<li <if condition="ACTION_NAME eq index"> class="active"</if>> <a href="{:U('Subscriber/index')}" class="menu-1"><i></i> 用户中心<em></em></a> </li>
+	<li <if condition="ACTION_NAME eq account || ACTION_NAME eq user_bind_phone"> class="active"</if>> <a href="{:U('Subscriber/account')}" class="menu-2"><i></i> 帐号安全<em></em></a> </li>
+	<li <if condition="ACTION_NAME eq user_balance"> class="active"</if>> <a href="{:U('Subscriber/user_balance')}" class="menu-5"><i></i> 我的余额<em></em></a> </li>
+	<if condition="$user_data['register_way'] eq 1 or $user_data['register_way'] eq 2"><li <if condition="ACTION_NAME eq user_password"> class="active"</if>> <a href="{:U('Subscriber/user_password')}" class="menu-3"><i></i> 修改密码<em></em></a> </li></if>
+	<li <if condition="ACTION_NAME eq user_gift"> class="active"</if>> <a href="{:U('Subscriber/user_gift')}" class="menu-4"><i></i>我的礼包<em></em></a> </li>
+	<li <if condition="ACTION_NAME eq user_collection"> class="active"</if>> <a href="{:U('Subscriber/user_collection')}" class="menu-6"><i></i>我的游戏<em></em></a> </li>
+	<li <if condition="ACTION_NAME eq user_order"> class="active"</if>> <a href="{:U('Subscriber/user_order')}" class="menu-8"><i></i>我的订单<em></em></a> </li>
+	<li <if condition="ACTION_NAME eq user_address"> class="active"</if>> <a href="{:U('Subscriber/user_address')}" class="menu-7"><i></i>收货地址<em></em></a> </li>
+</ul>

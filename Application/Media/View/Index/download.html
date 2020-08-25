@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+		<title>APP客户端下载-安卓版|iOS版_游戏官网</title>
+		<meta name="keywords" content="">
+		<link href="{:get_cover(C('PC_SET_ICO'),'path')}" type="image/x-icon" rel="shortcut icon">
+		<meta name="description" content="免费下载,一键安装，手游攻略,手游礼包,一网打尽!找游戏,找福利!">
+<!--		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
+
+		<link rel="stylesheet" href="__CSS__/reset.css">
+		<link rel="stylesheet" href="__CSS__/common.css">
+		<link rel="stylesheet" href="__CSS__/download.css">
+	</head>
+
+	<body class="no-scroll">
+		<div class="section section-a noscale active">
+			<div class="top-menu">
+				<div class="container">
+					<div class="row">
+						<a href="{:U('Index/index')}" class="logo">
+							<img src="{:get_cover(C('WIDE_PC_SET_LOGO'),'path')}" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null" alt="" style="width: 190px;height: 60px;">
+						</a>
+						<div class="menu">
+							<a href="{:U('index')}"><i class="icon icon-1"></i>返回官网</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="content clearfix">
+
+				<div class="pull-left down01-left right-size">
+					<div class="slogan">
+						<img src="__IMG__/down_txt.png" />
+						<!--<h1>溪谷游戏APP</h1>
+						<h4 class="slogantext">玩游戏,拿福利,免费兑换,就上溪谷游戏!</h4>-->
+					</div>
+					<div class="dl_box clearfix">
+						<div class="down_iosbtn">
+							<if condition="get_devices_type() eq 1">
+								<a download id="download_And"  class="downloadbtn download_android" href="{$android.file_url}">
+								<img src="__IMG__/down_android_phone.png" />
+								<p><em>大小：{$android.file_size}</em><em>版本：{:C('APP_VERSION_NAME')}</em></p>
+								</a>
+									<else/>
+								<a download id="download_Ios" class="downloadbtn download_ios" href="{$ios.plist_url}">
+								<img src="__IMG__/down_ios_phone.png" />
+								<p><em>大小：{$ios.file_size}</em><em>版本：{:C('IOS_VERSION')}</em></p>
+								</a>
+							</if>
+						</div>
+						<div class="sao_box">
+							<div class="qrcode"><img src="{:U('Base/downQrcode',['url'=>base64_encode(base64_encode(U('Index/iosdownload')))])}" alt="qrcode"></div>
+							<p class="sao_txt">扫一扫下载</p>
+						</div>
+					</div>
+				</div>
+				<div class="pull-right phone_img  left-size">
+					<img src="__IMG__/whitephone.png" alt="手机展示">
+				</div>
+			</div>
+		</div>
+		<div class="section section-b">
+			<div class="title titlenotice">
+				<h1>精品游戏,免费下载,一键安装,即点即玩</h1>
+				<h5>网罗当下热门游戏  总有一款适合你 让你一次玩到HIGH</h5>
+			</div>
+			<div class="section-b-con">
+				<img src="__IMG__/down_part2.png" />
+			</div>
+		</div>
+		<div class="section section-c">
+			<div class="title titlenotice">
+				<h1>海量福利,超低折扣,每日更新</h1>
+				<h5>礼包 开服 充值折扣返利 积分赠送 助你攀登游戏巅峰</h5>
+			</div>
+			<div class="content">
+				<img class="bg" src="__IMG__/pic_2.png" alt="bg">
+				<div class="giftbg">
+					<div class="giftbox ">
+						<div class="giftpic vm "></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="section section-d">
+			<div class="title titlenotice">
+				<h1>平台币,各类商品,想换就换</h1>
+				<h5>每日签到 任务分享 游戏充值 不用花钱积分领到手软</h5>
+			</div>
+			<div class="section-d-con" style="bottom:90px">
+				<div class="mall">
+					<div class="mall1"></div>
+				</div>
+			</div>
+		</div>
+		<div class="section section-f">
+			<div class="title titlenotice">
+				<h1>签到送积分</h1>
+				<h5>超多好礼等你拿</h5>
+			</div>
+			<div class="section-f-con">
+				<img class="bg" src="__IMG__/pic_jifen.png" alt="bg">
+			</div>
+			<div class="footer">
+				<div class="Copyright">
+					<!--<a style="text-align:center;margin-right:5px;color:#5e6263;text-decoration: none;" target="_blank" href="#">-->
+						<!--<img style="position:relative; right:4px;bottom:-2px;vertical-align: middle;" src="__IMG__/jc.png">苏公网安备 32030302000181号</a>-->
+					<a style="color:#5e6263;text-decoration: none;" target="_blank" href="#">ICP备案：{:C('WEB_BEIAN')}&nbsp;&nbsp;&nbsp;&nbsp;网络文化经营许可证：{:C('WEB_SITE_PC_ICP')}</a><br>
+					<span style="text-align: center;line-height: 25px;color:#5e6263;"> {:C('PC_GUAN')}</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="right_nav">
+			<a class="clearfix" data-idx="1"><img src="__IMG__/right_nav_game.png" alt="section_a"></a>
+			<a class="clearfix" data-idx="2"><img src="__IMG__/right_nav_welfare.png" alt="section_b"></a>
+			<a class="clearfix" data-idx="3"><img src="__IMG__/right_nav_mall.png" alt="section_c"></a>
+			<a class="clearfix" data-idx="4"><img src="__IMG__/right_nav_invitation.png" alt="section_d"></a>
+			<a class="clearfix unvis" data-idx="5"></a>
+			<a class="clearfix last active" data-idx="0"><img src="__IMG__/right_nav_top.png" alt="section_f"></a>
+		</div>
+		<div class="tips">
+			<div class="content">
+				<img class="qrcode" src="__IMG__/qrcode_007923a.png" alt="qrcode">
+				<p>iOS用户可以扫一扫二维码直接安装哦</p>
+			</div>
+			<div class="bg"><b>×</b></div>
+		</div>
+		<!-- 浏览器打开 -->
+		<div class="hint" style="display:none;"><img class="hint_img" src="__IMG__/icon_guide.png"></div>
+		<script src="__JS__/jquery.min.js"></script>
+		<script src="__JS__/jquery.mousewheel.min.js"></script>
+		<script src="__JS__/index.js"></script>
+		<script>
+            $(function() {
+                if (is_weixin() && !is_ios()) {
+                    $(".hint").css("display", "block");
+                }
+            })
+            function is_weixin(){
+                var ua = navigator.userAgent.toLowerCase();
+                if(ua.match(/MicroMessenger/i)=="micromessenger") {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            function is_ios() {
+                var u = navigator.userAgent;
+                var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+                var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+                if (isiOS) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+		</script>
+	</body>
+
+</html>

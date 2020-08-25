@@ -1,0 +1,78 @@
+<extend name="Public/bases" />
+<meta name="keywords" content="{:C('media_index.seo_keyword')}">
+<meta name="description" content="{:C('media_index.seo_description')}">
+<block name="body">
+		<meta charset="UTF-8">
+		<title></title>
+		<link href="__CSS__/wechat_pay.css" rel="stylesheet">
+
+		<div id="cz_wxbox" style="margin: 25px auto 45px">
+			<div class="wxtitle">
+				<h2>请您及时付款，以便订单尽快处理！订单号:<span class="trade_no">{:I('post.trade_no')}</span>，<span style="color: red;">付款前请不要关闭或刷新此窗口</span></h2>
+				<p>应付金额<em>{:I('post.amount')}</em>元</p>
+			</div>
+			<div class="wxboxCon">
+				<h3>微信支付</h3>
+				<div class="leftbox">
+					<div class="wximg"><img style="width: 296px;height: 296px;" src="{$data.qrcode_url}" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null"></div>
+					<div class="tsimg"></div>
+				</div>
+				<div class="rightbox mbimg"></div>
+				<div class="clear"></div>
+				<div class="return">
+					<a class="" href="{:U('Subscriber/pay')}">&lt;&lt;返回充值中心</a> |
+					<a href="javascript:;" onclick="check_status()">查看充值结果</a>
+				</div>
+			<div style="display: none" id="preview"></div>
+			</div>
+		</div>
+		<script src="__STATIC__/layer/layer.js"></script>
+		<script type="text/javascript">
+			check_pay();
+			document.onkeydown = function (e) {
+		    var ev = window.event || e;
+		    var code = ev.keyCode || ev.which;
+		    if (code == 116) {
+		    ev.keyCode ? ev.keyCode = 0 : ev.which = 0;
+		    cancelBubble = true;
+		    return false;
+		    }
+		    } //禁止f5刷新
+		    document.oncontextmenu=function(){return false};//禁止右键刷新
+
+			$repeat = "{$repeat}";
+		    if($repeat==1){
+		    	layer.open({
+				  	title: '订单已过期',
+				  	closeBtn:false,
+				  	shadeClose: false,
+		    		shade: 0.8,
+		    		btn:[],
+		    		content:'请关闭本页面，并刷新充值页面重新下单！'
+		    	});
+		    }
+		    function check_status(){
+				preview_url = "{:U('Subscriber/payStatus')}";
+				$('#preview').html('<form id="preview_form" action="' + preview_url +'" method="POST"><textarea name="out_trade_no">'+ $('.trade_no').text()+'</textarea></form>');
+				$('#preview_form').submit();
+			}
+			function check_pay(){
+				order = "{:I('post.trade_no')}";
+				$.ajax({
+					type:'post',
+					url:"{:U('Pay/checkstatus')}",
+					data:{'out_trade_no':order},
+					success:function(data){
+						if(data.status==1){
+							check_status();
+						}else{
+							setTimeout('check_pay()',5000);
+						}
+					},error:function(){
+						alert('服务器错误');
+					}
+				})
+			}
+		</script>
+
+</block>

@@ -1,0 +1,20 @@
+<div class="common_settings">
+	<span class="plus_icon"><span>+</span></span>
+	<form class="addShortcutIcon">
+		<input class="nodis" name="title" value="{$title}" type="hidden">
+		<input class="nodis" name="url" value="{$url}" type="hidden">
+	</form>
+	<a class="ajax-post add-butn" href="javascript:;" target-form="addShortcutIcon" url="/admin.php?s=/Think/addShortcutIcon.html">
+        <span class=" add-butn_icon">+</span>
+        <empty name="status">
+            <span>添加至常用设置</span>
+        <else/>
+            <span>已添加</span>
+        </empty>
+    </a>
+</div>
+<script type="text/javascript">
+    $(function() {
+        $('.addShortcutIcon .nodis').prop('disabled',false);
+    })
+</script>

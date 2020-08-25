@@ -1,0 +1,283 @@
+<extend name="Public/base" />
+
+<block name="body">
+<link rel="stylesheet" type="text/css" href="__CSS__/admin_table.css" media="all">
+<script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+    <link rel="stylesheet" href="__CSS__/select2.min.css" type="text/css" />
+    <script type="text/javascript" src="__JS__/select2.min.js"></script>
+    <style>
+    .tabcon1711 .select2-container--default .select2-selection--single{
+    font-size: 12px;    
+    color: #555;
+    vertical-align: middle;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    -webkit-transition: border linear .2s, box-shadow linear .2s;
+    -moz-transition: border linear .2s, box-shadow linear .2s;
+    -o-transition: border linear .2s, box-shadow linear .2s;
+    transition: border linear .2s, box-shadow linear .2s;height:30px;}
+    .tabcon1711 .select2-container--default .select2-selection--single .select2-selection__rendered {line-height: 30px;}
+    .tabcon1711 .select2-container--default .select2-selection--single .select2-selection__arrow {height:30px;}
+    .tabcon1711 .select2-container--default .select2-search--dropdown .select2-search__field {
+      height:26px;line-height:26px;font-size:12px;
+    }
+    .tabcon1711 .select2-results__option[aria-selected] {font-size:12px;}
+    </style>
+    
+    <div class="main-place">
+        <span class="main-placetitle"></span>
+        <ul class="main-placeul">
+            <li><a href="{:U('Spend/lists')}">充值</a></li>
+            <li><a href="{:U('Rebate/lists')}">返利折扣</a></li>
+            <li><a href="#">{$meta_title}</a></li>
+        </ul>
+    </div>
+    
+    
+    <!-- 标签页导航 -->
+<div class="tab-wrap">
+    
+    <div class="tab-content tabcon1711">
+    <!-- 表单 -->
+    <form id="form" action="{:U('add?model='.$model['id'])}" method="post" class="form-horizontal">
+	    <if condition="I('type') neq 2">
+            <div class="formtitle" style="margin-bottom: 20px;"><span>新增会长代充折扣</span></div>
+        <else/>
+            <div class="formtitle" style="margin-bottom: 20px;"><span>新增首冲续充折扣</span></div>
+        </if>
+
+	    
+        <!-- 基础文档模型 -->
+        <div id="tab1" class="tab-pane in tab1 ">
+            <if condition="I('type') neq 2">
+        	<div class="infomation information1711">
+		        <p>注意①：此处的会长代充折扣，针对的对象全部推广员；设置推广员折扣，即代表该推广会长代充时享受独立的优惠折扣。</p>
+		        <p>注意②：统一折扣代表该游戏全部推广员享受的会长代充折扣；当设置单个推广员折扣时，会长代充折扣以设置的推广员折扣值为准。</p>
+            </div>
+            </if>
+    		<table  border="0" cellspacing="0" cellpadding="0">
+                <tbody>
+                <if condition="(I('type') eq 1) or (I('type') eq '')">
+                <tr>
+                    <td class="l">推广员帐号</td>
+                    <td class="r">
+                        <select id="promote_id" name="promote_id" class="select_2">
+                            <option value="-1">请选择推广员</option>
+                            <volist name=":get_promote_list()" id="vo">
+                                <option value="{$vo.id}">{$vo.account}</option>
+                            </volist>
+                        </select>
+                    </td>
+                </tr>  
+                <tr>
+                    <td class="l noticeinfo">游戏名称</td>
+                    <td class="r">
+                        <select id="game_id" name="game_id" class="select_2">
+                            <option value="0" game-discount='0'>请选择游戏</option>
+                            <volist name=":get_game_list()" id="vo">
+                                <option value="{$vo.id}" game-discount='{$vo.discount}'>{$vo.game_name}</option>
+                            </volist>
+                        </select>
+                        <span class="notice-text">选择支持福利的游戏名称</span>
+                        <input type="hidden" id="game_name" name="game_name" value=""></input>
+                    </td>
+                </tr>  
+                <else/>
+                <tr>
+                    <td class="l">折扣对象</td>
+                    <td class="r">
+                        <select id="promote_id" name="promote_id" class="select_2">
+                            <option  value="-1">全站玩家</option>
+                            <option  value="0">官方渠道</option>
+                            <option  value="-2">推广渠道</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="l noticeinfo">游戏名称</td>  
+                    <td class="r">
+                        <select id="game_id" name="game_id" class="select_2">
+                            <volist name=":get_game_list()" id="vo">
+                                <option value="{$vo.id}" game-discount='{$vo.discount}'>{$vo.game_name}</option>
+                            </volist>
+                        </select>
+                        <span class="notice-text">选择支持福利的游戏名称</span>
+                        <input type="hidden" id="game_name" name="game_name" value=""></input>
+                    </td>
+                </tr>
+                </if>
+                
+                <if condition="(I('type') eq 1) or (I('type') eq '')">
+                <tr>
+                    <td class="l noticeinfo">统一折扣</td>
+                    <td class="r">
+                        <span id="game_discount_txt">10</span>
+                        <input class="txt " name="game_discount" value="" type="hidden" id="game_discount">
+                      <span class="notice-text">游戏添加时设置的会长代充统一折扣值</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="l noticeinfo">推广员折扣</td>
+                    <td class="r">
+                        <input type="text" class="txt " name="promote_discount" value="" placeholder="请输入1-10的数字">
+                        <span class="notice-text">设置该渠道享受的会长代充折扣</span>
+                    </td>
+                </tr>
+                <else/>
+                <tr>
+                    <td class="l noticeinfo">首冲折扣</td>
+                    <td class="r">
+                        <input type="text" class="txt " name="first_discount" value="">
+                        <span class="notice-text">设置该渠道某个游戏的玩家第一次充值享受的折扣</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="l noticeinfo">续冲折扣</td>
+                    <td class="r">
+                        <input type="text" class="txt " name="continue_discount" value="">
+                        <span class="notice-text">设置该渠道某个游戏的玩家二次充值享受的折扣</span>
+                    </td>
+                </tr>
+                </if>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="form-item cf">
+            <input type="hidden" name="type" value="{$_GET['type']}">
+            <if condition="(I('type') eq 1) or (I('type') eq '')">
+                <input type="hidden" id="addStatus" name="status" value="1">
+            <else/>
+                <input type="hidden" id="addStatus" name="status" value="2">
+            </if>
+            <button class="submit_btn ajax-post" id="submit" type="submit" target-form="form-horizontal">保存</button>
+            <a class="submit_btn " alt="返回上一页" title="返回上一页" href="javascript:window.history.back();" style="margin-left: 0;" >
+                  返回
+              </a>
+        </div>
+    </form>
+    </div>
+</div>
+
+<div class="common_settings">
+			<span class="plus_icon"><span><img src="__IMG__/zwmimages/icon_jia.png"></span></span>
+			<form class="addShortcutIcon">
+				<input type="hidden" name="title" value="{$m_title}">
+				<input type="hidden" name="url" value="PromoteWelfare/lists">
+			</form>
+			<a class="ajax-post add-butn <notempty name='commonset'>addSIsetted</notempty>" href="javascript:;" target-form="addShortcutIcon" url="{:U('Think/addShortcutIcon')}"><img src="__IMG__/zwmimages/icon_jia.png"><span><notempty name='commonset'>已添加<else />添加至常用设置</notempty></span></a>
+		</div>
+
+</block>
+
+<block name="script">
+<link href="__STATIC__/datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css">
+<php>if(C('COLOR_STYLE')=='blue_color') echo '<link href="__STATIC__/datetimepicker/css/datetimepicker_blue.css" rel="stylesheet" type="text/css">';</php>
+<link href="__STATIC__/datetimepicker/css/dropdown.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script type="text/javascript">
+//导航高亮
+highlight_subnav('{:U('PromoteWelfare/lists')}');
+$('#submit').click(function(){
+    $('#form').submit();
+});
+
+$(function(){
+    
+    $('.date').datetimepicker({
+        format: 'yyyy-mm-dd',
+        language:"zh-CN",
+        minView:2,
+        autoclose:true
+    });
+    $('.time').datetimepicker({
+    language:"zh-CN",
+     hour: 13,
+       minute: 15
+    });
+    showTab();
+    //$("#promote_id").change();
+    //$("#game_id").change();
+		$('#game_name').val($('#game_id option:selected').text());
+    $(".select_2").select2();
+});
+
+/*根据推广员选择折扣游戏*/
+$("#promote_id").change(function(){
+    if($("#addStatus").val() == "1"){
+        var promote_id = $("#promote_id option:selected").val();
+        getApplyGame(promote_id);
+    }
+})
+
+/*获取游戏名称*/
+$("#game_id").change(function() {
+    $("#game_name").val($("#game_id option:selected").text());
+    $("#game_discount_txt").text($("#game_id option:selected").attr('game-discount'));
+    $("#game_discount").val($("#game_id option:selected").attr('game-discount'));
+    getDiscount();
+});
+
+function getApplyGame($promote_id){
+    if($promote_id == -1){
+        $("#game_id").html("");
+        $("#game_id").append("<option value='0' game-discount='0'>请选择游戏</option>");
+        $(".select_2").select2();
+        return false;
+    }
+    $.ajax({
+        url:"{:U('Ajax/getPromoteApplyGame')}",
+        type:'post',
+        dataType:"json",
+        data:{promote_id:$promote_id},
+        success:function(result){
+            var $html = '';
+            if(result.status == 1){
+                var data = result.data;
+                $("#game_id").html("");
+                $("#game_id").append("<option value='0' game-discount='0'>请选择游戏</option>");
+                for(var item in data){
+                    $html += "<option value='"+data[item].id+"' game-discount='"+data[item].discount+"'>" + data[item].game_name + "</option>";
+                }
+                $("#game_id").append($html);
+            }else{
+                updateAlert(result.info,'tip_error');
+                setTimeout(function(){
+                    $('#tip').find('.tipclose').click();
+                    $('#top-alert').find('button').click();
+                },1500);
+                // alert(result.info);
+                $("#game_id").html("");
+                $("#game_id").append("<option value='0' game-discount='0'>请选择游戏</option>");
+                $(".select_2").select2();
+            }
+        }   
+    })
+}
+
+function getDiscount() {
+    $.ajax({
+        url:"{:U('Ajax/getGameDiscount')}",
+        type:'post',
+        dataType:'json',
+        data:{game_id:$("#game_id").val()},
+        success:function(data){
+            console.log(data);
+            $("#game_discount_txt").text(data.discount);
+            $("#game_discount").val(data.discount);
+        }
+    })
+}
+
+
+
+
+</script>
+</block>

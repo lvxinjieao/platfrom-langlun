@@ -1,0 +1,1137 @@
+<extend name="Public/bases" />
+<block name="body">
+	<link href="__CSS__/index/main_pq.css" rel="stylesheet" />
+	<!--轮播-->
+	<script type="text/javascript" src="__JS__/plugs.js"></script>
+	<script type="text/javascript" src="__JS__/main.js"></script>
+	<!--轮播结束-->
+	<!--图片滚动-->
+	<!--<script type="text/javascript" src="__JS__/script.js"></script>-->
+	<script type="text/javascript" src="__JS__/scroll.1.3.js"></script>
+	<!--图片滚动结束-->
+	<style>
+		.error {
+			color: #ff0000;
+			float: left;
+			margin-left: 5px;
+		}
+		
+		#header {
+			border: none;
+		}
+		
+		.bgc_change {
+			margin-top: -20px;
+			padding-top: 20px;
+		}
+
+	</style>
+	<!--首页轮播-->
+	<div class="banner">
+		<div class="slide-box fade">
+			<ul class="slide-img" style="position: relative; width: 1920px; height: 812px;">
+				<!-- 大屏广告图 banneer-->
+				<notempty name="sliderWap">
+					<volist name="sliderWap" id="vo">
+						<li style="position: absolute; width: 1920px; left: 0px; top: 0px;"><span class="img-font"><span class="img-font-cell">
+						<div class="img-font-text"> {:C('SET_POSITION_IMG')} </div></span></span>
+							<a href="{$vo.url}" target="{$vo['target']}">
+								<img src="{$vo.data}" class="img_4" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null" width="1920px" />
+							</a>
+						</li>
+					</volist>
+					<else />
+					<li>
+						<a target="_blank">
+							<img src="{:C(DEFAULT_ERROR_IMG)}" class="img_4" width="1920px">
+						</a>
+					</li>
+				</notempty>
+			</ul>
+			<ul class="slide-num ">
+				<volist name="sliderWap" id="vo">
+					<li <if condition="$key eq 1"> class="on"> </if>
+					</li>
+				</volist>
+			</ul>
+			<if condition="count($sliderWap) gt 1">
+				<div class="prev ">
+					<img src="__IMG__/left_arrow.png " />
+				</div>
+				<div class="next ">
+					<img src="__IMG__/right_arrow.png " />
+				</div>
+			</if>
+		</div>
+		<!--首页内容部分-->
+		<div class="cont">
+			<div class="news-box ">
+				<!--分类-->
+				<div class="hd-title ">
+					<span class="tab-menu "><span class="tab-menu-con tab-menu-active ">手游</span><span class="tab-menu-con ">H5游戏</span></span>
+				</div>
+				<!--左侧广告位-->
+				<div class="js_tab ">
+					<div class="slide-box fade2 js_tab_con js_tab_show ">
+						<ul class="slide-img " style="position: relative; width: 470px; height: 350px; ">
+							<!-- 左侧滚屏 -->
+							<volist name="tuisy['data']" id="rec">
+								<li style="position: absolute; width: 470px; left: 0px; top: 0px;">
+									<span class="img-font ">
+										<span class="img-font-cell ">
+								            <div class="img-font-text "> {:C('SET_POSITION_IMG')}</div>
+								        </span>
+									</span>
+									<a href="{$rec['play_detail_url']}">
+										<img src="{$rec['cover']}" width="470 " height="350" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null" />
+									</a>
+								</li>
+							</volist>
+						</ul>
+						<ul class="slide-num ">
+							<volist name="tuisy['data']" id="rec" offset="0" length="5">
+								<li class="">
+									<div class="pic ">
+										<span class="img-font "> 
+											<span class="img-font-cell "> 
+									         	<div class="img-font-text ">
+									          		{:C('SET_POSITION_IMG')}
+									         	</div> 
+									     	</span>
+										</span>
+										<img src="{$rec['icon']}" width="40 " height="40 " onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null" />
+									</div>
+									<div class="text ">
+										<p class="name ">{$rec['game_name']}</p>
+										<p class="intr ">{$rec['features']}</p>
+									</div>
+								</li>
+							</volist>
+						</ul>
+					</div>
+					<!-- H5 -->
+					<div class="slide-box fade2 js_tab_con ">
+						<ul class="slide-img " style="position: relative; width: 470px; height: 350px; ">
+							<!-- 左侧滚屏 -->
+							<volist name="tuih5['data']" id="rec" offset="0" length="5">
+								<li style="position: absolute; width: 470px; left: 0px; top: 0px;">
+									<span class="img-font ">
+									<span class="img-font-cell ">
+							            <div class="img-font-text ">
+							             {:C('SET_POSITION_IMG')}
+							            </div>
+							        </span>
+									</span>
+									<a href="{$rec['play_detail_url']}"><img src="{$rec['cover']}" width="470 " height="350 " onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null" /></a>
+								</li>
+							</volist>
+						</ul>
+						<ul class="slide-num ">
+							<volist name="tuih5['data']" id="rec" offset="0" length="5">
+								<li class=" ">
+									<div class="pic ">
+										<span class="img-font "> 
+										<span class="img-font-cell " style="width:40px;height:40px; "> 
+							             	<div class="img-font-text ">
+								              {:C('SET_POSITION_IMG')}
+							             	</div> 
+							         	</span>
+										</span>
+										<img src="{$rec['icon']}" width="40 " height="40 " onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null" />
+									</div>
+									<div class="text ">
+										<p class="name ">{$rec['game_name']}</p>
+										<p class="intr ">{$rec['features']}</p>
+									</div>
+								</li>
+							</volist>
+						</ul>
+					</div>
+				</div>
+				<!-- 右侧新闻 -->
+				<div class="tab-box tab-box-1 ">
+					<!-- 右侧新闻 -->
+					<div class="tab-num ">
+						<ul>
+							<li class="on ">新闻公告</li>
+							<li>游戏资讯</li>
+						</ul>
+						<a href="/media.php?s=/Article/index/category/media_zx.html " class="more "></a>
+					</div>
+					<div class="tab-con " style="display: block; ">
+						<ul>
+							<volist name="media_gg" id="gg">
+								<if condition="$key eq 0">
+									<div class="hot-title">
+										<a href="{:U('Article/detail',array('id'=>$gg['id']))}">{$gg.title}</a>
+									</div>
+									<else/>
+									<li>
+										<a href="{:U('Article/detail',array('id'=>$gg['id']))}">{$gg.title}</a><span class="time">{:date('m-d',$gg['update_time'])}</span>
+									</li>
+								</if>
+							</volist>
+						</ul>
+					</div>
+					<div class="tab-con " style="display: none; ">
+						<ul>
+							<volist name="media_zx" id="gg">
+								<if condition="$key eq 0">
+									<div class="hot-title">
+										<a href="{:U('Article/detail',array('id'=>$gg['id']))}">{$gg.title}</a>
+									</div>
+									<else/>
+									<li>
+										<a href="{:U('Article/detail',array('id'=>$gg['id']))}">{$gg.title}</a><span class="time">{:date('m-d',$gg['update_time'])}</span>
+									</li>
+								</if>
+							</volist>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<!--首页第一部分-->
+	<div class="index_part_bg part-box ">
+		<div class=" part part-1 ">
+			<div class="cont ">
+				<div class="hot-game-box-index ">
+					<div class="hd-title ">
+						热门游戏
+						<span class="tab-menu "><span class="tab-menu-con tab-menu-active ">手游</span><span class="tab-menu-con ">H5游戏</span></span>
+					</div>
+					<div class="js_tab ">
+						<!--手游热门游戏 -->
+						<div class="hot-game-list js_tab_con js_tab_show ">
+							<volist name="hotsy['data']" id="hsy">
+								<div class="hot-game-info hot-game-1 ">
+									<div class="top-info ">
+										<div class="pic ">
+											<span class="img-font ">
+												<span class="img-font-cell ">
+								              		<div class="img-font-text ">
+								               		{:C('SET_POSITION_IMG')}
+								              		</div>
+								              	</span>
+											</span>
+											<img src="{$hsy['cover']}" width="380 " height="209 " onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null" />
+										</div>
+										<div class="down-code ">
+											<div class="code ">
+												<img src="{:U('Game/dow_url_generate',array('game_id'=>$rec['relation_game_id'],'type'=>1))}" width="100" height="100" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null" />
+											</div>
+											<div class="text ">
+												<p class="type ">游戏类型：{$hsy['game_type_name']}</p>
+												<p class="score ">玩家评分：<span class="stars "><em style="width:{:$hsy['real_game_score']*10}%;"></em></span></p>
+												<a href="{:U('Game/detail',array('game_id'=>$hsy['relation_game_id']))}">下载游戏</a>
+											</div>
+										</div>
+									</div>
+									<div class="bottom-info ">
+										<h3 class="name ">{$hsy.game_name}</h3>
+										<p style="height: 20px;">{$hsy.features}</p>
+										<a href="{:U('Game/detail',array('game_id'=>$hsy['relation_game_id']))}">进入官网</a>
+									</div>
+								</div>
+							</volist>
+						</div>
+						<!-- h5热门游戏 -->
+						<div class="h5-hot-game-list js_tab_con ">
+							<volist name="hoth5['data']" id="hh5">
+								<div class="hot-game-info hot-game-1 ">
+									<div class="top-info ">
+										<div class="pic ">
+											<span class="img-font ">
+												<span class="img-font-cell ">
+									      			<div class="img-font-text ">
+										       		{:C('SET_POSITION_IMG')}
+										      		</div>
+										  		</span>
+											</span>
+											<img src="{$hh5['cover']}" width="380 " height="209 " onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null" />
+										</div>
+										<div class="down-code ">
+											<div class="code ">
+												<img src="{:U('Subscriber/qrcode',array(3,4,'url'=>base64_encode(base64_encode($hh5['play_url']))))}" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null" />
+											</div>
+											<div class="text ">
+												<p>扫一扫手机同步玩</p>
+											</div>
+										</div>
+									</div>
+									<div class="bottom-info ">
+										<h3 class="name ">{$hh5.game_name}</h3>
+										<p style="height: 20px;">{$hh5.features}</p>
+										<a href="{:U('Game/detail',array('game_id'=>$hh5['relation_game_id'],'ish5'=>1))}">进入官网</a>
+										<a class="btn_phone ">手机上玩</a>
+									</div>
+								</div>
+							</volist>
+						</div>
+						<div class="hd-title mb15 ">
+							<span>最新游戏</span>
+							<span class="tab-menu "><span class="tab-menu-con tab-menu-active ">手游</span><span class="tab-menu-con ">H5游戏</span></span>
+							<a class="jsmoregame" href="javascript:;" data-sy="{:U('Game/index')}" data-h5="{:U('Game/index',['ish5'=>1])}">+更多</a>
+						</div>
+						<div class="js_tab ">
+							<!-- 手游最新游戏 -->
+							<div class="hot-game-min-box js_tab_con js_tab_show ">
+								<ul>
+									<volist name="newsy['data']" id="nsy">
+										<li>
+											<span class="img-font " style="left:20px; ">
+												<span class="img-font-cell ">
+											      <div class="img-font-text ">
+											       {:C('SET_POSITION_IMG')}
+											      </div>
+											  </span>
+											</span>
+											<a href="{:U('Game/detail',array('game_id'=>$nsy['relation_game_id']))}" class="icon ">
+												<img src="{$nsy['icon']}" width="90 " height="90 " onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null" />
+											</a>
+											<div class="text ">
+												<p>{$nsy.game_name}</p>
+												<span style="height: 20px;"><if condition="get_gift_list($nsy['id'],1)"><img style="float:left;margin: 2px 5px 0 0;" src="__IMG__/icon_libao.png"></if>{:msubstr1($nsy['features'],0,10)}</span>
+												<a href="{:U('Game/detail',array('game_id'=>$nsy['relation_game_id']))}">下载游戏</a>
+											</div>
+										</li>
+									</volist>
+								</ul>
+							</div>
+							<!-- h5最新游戏 -->
+							<div class="hot-game-min-box js_tab_con ">
+								<ul>
+									<volist name="newh5['data']" id="nh5">
+										<li>
+											<span class="img-font " style="left:20px; ">
+											<span class="img-font-cell ">
+										      <div class="img-font-text ">
+										       {:C('SET_POSITION_IMG')}
+										      </div>
+										  </span>
+											</span>
+											<a href="{$nh5.play_detail_url}" class="icon "><img src="{$nh5['icon']}" width="90 " height="90 " onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null" /></a>
+											<div class="text ">
+												<p>{$nh5.game_name}</p>
+												<span style="height: 20px;"><if condition="get_gift_list($nh5['id'],1)"><img style="float:left;margin: 2px 5px 0 0;" src="__IMG__/icon_libao.png"></if>{$nh5.play_num}人在玩</span>
+												<a href="{$nh5.play_url}">开始游戏</a>
+											</div>
+										</li>
+									</volist>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--首页第二个部分-->
+	<div class="part part-2 ">
+		<div class="m1200 ">
+			<div class="rank-box-wrap ">
+				<!--礼包中心-->
+				<div class="rank-box gift-box index ">
+					<div class="rank-title ">
+						<span>礼包中心</span>
+						<span class="tab-menu "><span class="tab-menu-con tab-menu-active ">手游</span><span class="tab-menu-con ">H5游戏</span></span>
+						<a class="jsmoregame" href="javascript:;" data-sy="{:U('Gift/index')}" data-h5="{:U('Gift/index',['ish5'=>1])}">+更多</a>
+					</div>
+					<div class="js_tab ">
+						<div class="rank-content js_tab_con js_tab_show ">
+							<div class="gift-list ">
+								<ul>
+									<foreach name="gbsy" item="gbs">
+										<li>
+											<a href="{:U('Gift/giftdetail',array('gift_id'=>$gbs['gift_id']))}"><div class="pic ">
+												<span class="img-font ">
+													<span class="img-font-cell ">
+												        <div class="img-font-text ">
+												         {:C('SET_POSITION_IMG')}
+												        </div>
+												    </span>
+												</span>
+												<img src="{$gbs['icon']}" width="60 " height="60 " onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null" />
+											</div></a>
+											<div class="text ">
+												<p title="{$gbs['relation_game_name']}">{$gbs['relation_game_name']}</p>
+												<span>{$gbs['giftbag_name']}</span>
+												<if condition="$gbs['receive'] eq 0">
+													<a class="name get get-gifts-btn getgift" href="javascript:;" data-game_id="{$gbs.game_id}" data-novice_surplus="{$gbs.novice_surplus}" data-gift_id="{$gbs.gift_id}">领取</a>
+													<else/>
+													<a class="name get get-gifts-btn" href="javascript:;" >已领取</a>
+												</if>
+											</div>
+										</li>
+									</foreach>
+								</ul>
+							</div>
+						</div>
+						<div class="rank-content js_tab_con ">
+							<div class="gift-list ">
+								<ul>
+									<foreach name="gbh5" item="gbh">
+										<li>
+											<a href="{:U('Gift/giftdetail',array('gift_id'=>$gbh['gift_id']))}"><div class="pic ">
+												<span class="img-font ">
+													<span class="img-font-cell ">
+												        <div class="img-font-text ">
+												         {:C('SET_POSITION_IMG')}
+												        </div>
+												    </span>
+												</span>
+												<img src="{$gbh['icon']}" width="60 " height="60 " onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null" />
+											</div></a>
+											<div class="text ">
+												<p title="{$gbh['relation_game_name']}">{$gbh['relation_game_name']}</p>
+												<span>{$gbh['giftbag_name']}</span>
+												<if condition="$gbh['receive'] eq 0">
+													<a class="name get get-gifts-btn getgift" href="javascript:;" data-game_id="{$gbh.game_id}" data-novice_surplus="{$gbh.novice_surplus}" data-gift_id="{$gbh.gift_id}">领取</a>
+													<else/>
+													<a class="name get get-gifts-btn" href="javascript:;" >已领取</a>
+												</if>
+											</div>
+										</li>
+									</foreach>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--最新开服-->
+				<div class="rank-box topic-rank-box index ">
+					<div class="rank-title ">
+						<span>最新开服</span>
+						<span class="tab-menu "><span class="tab-menu-con tab-menu-active ">手游</span><span class="tab-menu-con ">H5游戏</span></span>
+					</div>
+					<div class="js_tab ">
+						<!--手游-->
+						<div class="rank-content js_tab_con js_tab_show ">
+							<div class="topic-list ">
+								<ul class="xg-nav-tabs clearfix ">
+									<li class="active jsserver" data-index="0 " id="syserver0">
+										<a href="javascript:; ">已开新服</a>
+									</li>
+									<li class="jsserver" data-index="1 " id="syserver1">
+										<a href="javascript:; ">新服预告</a>
+									</li>
+								</ul>
+								<div>
+									<!--手游第一部分-->
+									<div class="xg-tab-pane active ">
+										<div class="rank-kf-tit fix ">
+											<span class="kf-tit-name ">游戏名称</span>
+											<span class="kf-tit-zone ">区服</span>
+											<span class="kf-tit-time ">时间</span>
+											<span class="kf-tit-down ">下载</span>
+										</div>
+										<div class="clear "></div>
+										<div class="rank-kf-wrap rank-kf-wrap1">
+											<div class="rank-kf-tab" id="rank-kf-tab">
+												<foreach name="syserver['yi']" item="seyi">
+													<ul>
+														<foreach name="seyi" item="seys">
+															<li>
+																<a target="_blank" href="{$seys['play_detail_url']}" class="server-game-link ">
+																	<span class="img-font ">
+																		<span class="img-font-cell ">
+																          <div class="img-font-text " style="width:30px; ">
+																           {:C('SET_POSITION_IMG')}
+																          </div>
+																      	</span>
+																	</span>
+																	<img src="{$seys['icon']}" style="width:30px;height: 30px; " onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null" />
+																</a>
+																<span class="name " title="{$seys['relation_game_name']} "> 
+																	<a href="{$seys['play_detail_url']}" target=" _blank ">{$seys['relation_game_name']}</a> 
+																</span>
+																<span class="server ">{$seys['server_name']}</span>
+																<span class="time ">{:date('m-d',$seys['start_time'])}</span>
+																<a href="{$seys['play_detail_url']}" target="_blank " class="link">下载</a>
+															</li>
+														</foreach>
+													</ul>
+												</foreach>
+											</div>
+										</div>
+										<div class="kf-tab-page active ">
+											<span id="current_game_page " class="pageState current_game_page "></span>
+											<a onclick="_switch( 'left') " class="prev ">&lt;</a>
+											<a onclick="_switch( 'right') " class="next ">&gt;</a>
+										</div>
+									</div>
+									<!--手游第二部分-->
+									<div class="xg-tab-pane ">
+										<div class="rank-kf-tit fix ">
+											<span class="kf-tit-name ">游戏名称</span>
+											<span class="kf-tit-zone ">区服</span>
+											<span class="kf-tit-time ">时间</span>
+											<span class="kf-tit-down ">下载</span>
+										</div>
+										<div class="clear "></div>
+										<div class="rank-kf-wrap rank-kf-wrap2 ">
+											<div class="rank-kf-tab" id="rank-kf-tab1">
+												<foreach name="syserver[ 'new'] " item="senew ">
+													<ul>
+														<foreach name="senew " item="sens ">
+															<li>
+																<a target="_blank" href="{$sens[ 'play_detail_url']} " class="server-game-link ">
+																	<span class="img-font ">
+																	<span class="img-font-cell ">
+															          <div class="img-font-text " style="width:30px; ">
+															           {:C('SET_POSITION_IMG')}
+															          </div>
+															      	</span>
+																	</span>
+																	<img src="{$sens[ 'icon']} " style="width:30px;height: 30px; " onerror="this.src='{:C(DEFAULT_ERROR_IMG)}' ;this.onerror=null " />
+																</a>
+																<span class="name " title="{$sens[ 'relation_game_name']} "> 
+																<a href="{$sens[ 'play_detail_url']} " target=" _blank ">{$sens['relation_game_name']}</a> 
+															</span>
+																<span class="server ">{$sens['server_name']}</span>
+																<span class="time ">{:date('m-d',$sens['start_time'])}</span>
+																<!--<a href="{$sens[ 'play_detail_url']}" target="_blank" class="link">下载</a>-->
+																<if condition="$sens['isnotice'] eq 1">
+																	<span class="jsfun"><a href="javascript:;" onclick="reservefun($(this),{$sens['server_id']},0);" class="link">已设置</a></span>
+																	<else/>
+																	<span class="jsfun"><a href="javascript:;" onclick="reservefun($(this),{$sens['server_id']},1);" class="link">通知</a></span>
+																</if>
+															</li>
+														</foreach>
+													</ul>
+												</foreach>
+											</div>
+										</div>
+										<div class="kf-tab-page active">
+											<span id="current_game_page1" class="pageState current_game_page1"></span>
+											<a onclick="_switch1('left')" class="prev ">&lt;</a>
+											<a onclick="_switch1( 'right')" class="next ">&gt;</a>
+										</div>
+
+									</div>
+
+								</div>
+								<script src="__JS__/game_kf.js "></script>
+							</div>
+						</div>
+						<!-- H5 -->
+						<div class="rank-content  js_tab_con ">
+							<div class="topic-list ">
+								<ul class="xg-nav-tabs clearfix ">
+									<li class="active jsserver" data-index="0 " id="h5server0">
+										<a href="javascript:; ">已开新服</a>
+									</li>
+									<li class="jsserver" data-index="1 " id="h5server1">
+										<a href="javascript:; ">新服预告</a>
+									</li>
+								</ul>
+								<div>
+									<!--H5第一部分-->
+									<div class="xg-tab-pane active ">
+										<div class="rank-kf-tit fix ">
+											<span class="kf-tit-name ">游戏名称</span>
+											<span class="kf-tit-zone ">区服</span>
+											<span class="kf-tit-time ">时间</span>
+											<span class="kf-tit-down ">去玩</span>
+										</div>
+										<div class="clear "></div>
+										<div class="rank-kf-wrap">
+											<div class="rank-kf-tab" id="rank-kf-tab2">
+												<foreach name="h5server['yi']" item="seyih">
+													<ul>
+														<foreach name="seyih" item="seyh">
+															<li>
+																<a target="_blank" href="{$seyh['play_detail_url']}" class="server-game-link ">
+																	<span class="img-font ">
+																	<span class="img-font-cell ">
+															          <div class="img-font-text" style="width:30px; ">
+															           {:C('SET_POSITION_IMG')}
+															          </div>
+															      	</span>
+																	</span>
+																	<img src="{$seyh['icon']}" style="width:30px;height: 30px; " onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null" />
+																</a>
+																<span class="name " title="{$seyh['relation_game_name']} "> 
+																<a href="{$seyh['play_detail_url']}" target=" _blank ">{$seyh['relation_game_name']}</a> 
+															</span>
+																<span class="server ">{$seyh['server_name']}</span>
+																<span class="time ">{:date('m-d',$seyh['start_time'])}</span>
+																<a href="{$seyh['play_url']}" target="_blank " class="link ">去玩</a>
+															</li>
+														</foreach>
+													</ul>
+												</foreach>
+											</div>
+										</div>
+										<div class="kf-tab-page active ">
+											<span id="current_game_page2 " class="pageState current_game_page2 "></span>
+											<a onclick="_switch2( 'left') " class="prev ">&lt;</a>
+											<a onclick="_switch2( 'right') " class="next ">&gt;</a>
+										</div>
+
+									</div>
+									<!--H5第二部分-->
+									<div class="xg-tab-pane ">
+										<div class="rank-kf-tit fix ">
+											<span class="kf-tit-name ">游戏名称</span>
+											<span class="kf-tit-zone ">区服</span>
+											<span class="kf-tit-time ">时间</span>
+											<span class="kf-tit-down ">通知</span>
+										</div>
+										<div class="clear "></div>
+										<div class="rank-kf-wrap">
+											<div class="rank-kf-tab" id="rank-kf-tab3">
+												<foreach name="h5server['new'] " item="senewh ">
+													<ul>
+														<foreach name="senewh " item="senh ">
+															<li>
+																<a target="_blank" href="{$senh[ 'play_detail_url']} " class="server-game-link ">
+																	<span class="img-font ">
+																	<span class="img-font-cell ">
+															          <div class="img-font-text " style="width:30px; ">
+															           {:C('SET_POSITION_IMG')}
+															          </div>
+															      	</span>
+																	</span>
+																	<img src="{$senh[ 'icon']} " style="width:30px;height: 30px; " onerror="this.src='{:C(DEFAULT_ERROR_IMG)}' ;this.onerror=null " />
+																</a>
+																<span class="name " title="{$senh[ 'relation_game_name']} "> 
+																<a href="{$senh[ 'play_detail_url']} " target=" _blank ">{$senh['relation_game_name']}</a> 
+															</span>
+																<span class="server ">{$senh['server_name']}</span>
+																<span class="time ">{:date('m-d',$senh['start_time'])}</span>
+																<if condition="$senh['isnotice'] eq 1">
+																	<span class="jsfun"><a href="javascript:;" onclick="reservefun($(this),{$senh['server_id']},0);" class="link">已设置</a></span>
+																<else/>
+																	<span class="jsfun"><a href="javascript:;" onclick="reservefun($(this),{$senh['server_id']},1);" class="link">通知</a></span>
+																</if>
+															</li>
+														</foreach>
+													</ul>
+												</foreach>
+											</div>
+										</div>
+										<div class="kf-tab-page active ">
+											<span id="current_game_page3 " class="pageState current_game_page3"></span>
+											<a onclick="_switch3( 'left') " class="prev ">&lt;</a>
+											<a onclick="_switch3( 'right') " class="next ">&gt;</a>
+										</div>
+
+									</div>
+
+								</div>
+								<script src="__JS__/game_kf.js "></script>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--客服中心-->
+				<div class="rank-box service-box index ">
+					<div class="rank-title ">
+						<span>客服中心</span>
+						<a href="{:U('Service/index')}">+更多</a>
+					</div>
+					<div class="rank-content ">
+						<div class="service-list ">
+							<ul>
+								<li class="li-1 ">
+									<a target="_blank" href="{:U('Subscriber/registerf')}"> <i class="pq_icon "></i> <span>免费注册</span> <em></em> </a>
+								</li>
+								<li class="li-2 ">
+									<a target="_blank" href="{:U('Subscriber/pay')}"> <i class="pq_icon "></i> <span>账号充值</span> <em></em> </a>
+								</li>
+								<li class="li-3 ">
+									<a target="_blank" href="{:U('Subscriber/user_password')}"> <i class="pq_icon "></i> <span>修改密码</span> <em></em> </a>
+								</li>
+								<li class="li-4 ">
+									<a target="_blank" href="{:U('Subscriber/forget')}"> <i class="pq_icon "></i> <span>找回密码</span> <em></em> </a>
+								</li>
+								<li class="li-5 ">
+									<a target="_blank" href="{:U('Subscriber/account')}"> <i class="pq_icon "></i> <span>绑定手机</span> <em></em> </a>
+								</li>
+								<li class="li-6 ">
+									<a target="_blank" href="{:U('Subscriber/account')}"> <i class="pq_icon "></i> <span>实名认证</span> <em></em> </a>
+								</li>
+								<li class="li-10 ">
+									<a target="_blank" href="{:U('article/news',array('type'=>'mem'))}"> <i class="pq_icon "></i> <span>家长监护</span> <em></em> </a>
+								</li>
+								<li class="li-11 ">
+									<a target="_blank" href="{:U('Subscriber/index')}"> <i class="pq_icon "></i> <span>修改资料</span> <em></em> </a>
+								</li>
+								<li class="li-7 ">
+									<a href="javascript:void(0); "> <i class="pq_icon "></i> <span>客服电话</span>
+										<p>{:C('PC_SET_SERVER_TEL')}</p> <em></em> </a>
+								</li>
+								<li class="li-8 ">
+									<a class="wx_link "> <i class="pq_icon "></i> <span>微信客服</span> <em></em>
+										<div class="wx_pic ">
+											<img src="{:get_cover(C('PC_SET_QRCODE'),'path')}" />
+											<i class="arrow "></i>
+										</div>
+									</a>
+								</li>
+								<li class="li-9 ">
+									<a href="javascript:void(0);"> <i class="pq_icon "></i> <span>QQ客服</span>
+										<p>{:C('PC_SET_SERVER_QQ')}</p> <em></em> </a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--活动专题-->
+			<div class="ibox hjbox cf">
+				<div class="hjbox-tab-menu">
+					<span class="tab-menu" style=""><span class="tab-menu-con tab-menu-active">手游</span><span class="tab-menu-con">H5游戏</span></span>
+				</div>
+				<div class="js_tab">
+					<div class="js_tab_con js_tab_show">
+						<div class="boxtop mt20 ">
+							<h3><i></i>活动专题<a id="right1" class="arrow_right">&gt;</a>
+							<a id="left1" class="arrow_left">&lt;</a>
+							<a class="more" target="_blank" href="{:U('Article/index',['category'=>'wap_huodong'])}" title="更多+">更多+</a> </h3>
+						</div>
+						<div id="sca1" class="warp-pic-list slide">
+							<div id="wrapBox1" class="wrapBox">
+								<ul id="count1" class="count clearfix">
+									<foreach name="hdadv" item="ad">
+										<if condition="$ad['sdk_version'] neq 3">
+											<li>
+												<a href="{$ad.url}">
+													<if condition="$ad.article_status eq 1">
+														<img class="state" src="__IMG__/icon_jinxing.png" width="" height="" alt="进行状态">
+														<elseif condition="$ad.article_status eq -1" />
+														<img class="state" src="__IMG__/icon_jijiang.png" width="" height="" alt="进行状态">
+														<else/>
+														<img class="state" src="__IMG__/icon_yijieshu.png" width="" height="" alt="进行状态">
+													</if>
+													<img src="{$ad['cover']}" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null">
+
+													<span class="dis_tabcell">
+		                                                    <span class="span_mid bgc_e2">
+		                                                        <div>{:C('SET_POSITION_IMG')}</div>
+		                                                    </span>
+													</span>
+													<span class="info-wrap">
+		                                                    <i></i>
+		                                                    <span class="info">{$ad['title']}</span>
+													</span>
+												</a>
+											</li>
+										</if>
+									</foreach>
+								</ul>
+							</div>
+
+						</div>
+					</div>
+					<div class="js_tab_con ">
+						<div class="boxtop mt20 ">
+							<h3><i></i>活动专题<a id="right2" class="arrow_right">&gt;</a>
+							<a id="left2" class="arrow_left">&lt;</a><a class="more" target="_blank" href="{:U('Article/index',['category'=>'wap_gg'])}" title="更多+">更多+</a> </h3>
+						</div>
+						<div id="sca1" class="warp-pic-list slide">
+							<div id="wrapBox2" class="wrapBox">
+								<ul id="count2" class="count clearfix">
+									<foreach name="hdadv" item="ad">
+										<if condition="$ad['sdk_version'] eq 3">
+											<li data-category="tv">
+												<a href="{$ad.url}">
+													<if condition="$ad.article_status eq 1">
+														<img class="state" src="__IMG__/icon_jinxing.png" width="" height="" alt="进行状态">
+														<elseif condition="$ad.article_status eq -1" />
+														<img class="state" src="__IMG__/icon_jijiang.png" width="" height="" alt="进行状态">
+														<else/>
+														<img class="state" src="__IMG__/icon_yijieshu.png" width="" height="" alt="进行状态">
+													</if>
+													<img src="{$ad['cover']}" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null">
+
+													<span class="dis_tabcell">
+		                                                    <span class="span_mid bgc_e2">
+		                                                        <div>{:C('SET_POSITION_IMG')}</div>
+		                                                    </span>
+													</span>
+													<span class="info-wrap">
+		                                                    <i></i>
+		                                                    <span class="info">{$ad['title']}</span>
+													</span>
+												</a>
+											</li>
+										</if>
+									</foreach>
+								</ul>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<!--首页第三部分-->
+	<div class=" part part-3">
+		<div class="cont">
+			<!--友情链接-->
+			<div class="link">
+				<div class="boxtop mt20">
+					<h3><i></i>友情链接</h3>
+				</div>
+				<div class="linkdiv">
+					<volist name="links" id="lk">
+						<a href="{$lk.link_url}" title="{$lk.title}" target="_blank">{$lk.title}</a>
+					</volist>
+				</div>
+			</div>
+			<!--友情链接结束-->
+		</div>
+	</div>
+	<!--礼包领取提示-->
+	<div class="gift_warn_bg" style="display: none;">
+		<div class="gift_warn">
+			<a class="close_normal"></a>
+			<h3 class="s title"></h3>
+			<h4 class="s code" id="codemsg" style="display: none;"></h4>
+			<span class="tishi">请到<span style="cursor: pointer;color: #00c8fe;" href-data="{:U('Subscriber/user_gift','',true,'',true)}" class="gcen"> 礼包中心 </span>中查看</span>
+			<a class="g mcopybtn">复制</a>
+		</div>
+	</div>
+	<script>
+		$('.jslist li').hover(function() {
+			$(this).find('.gpx2').show().siblings().hide();
+			$(this).siblings().find('.gpx1').show().siblings().hide();
+		});
+		$('.xg-nav-tabs>li').click(function() {
+			$(this).addClass('active').siblings().removeClass('active');
+			var index = $(this).index();
+			$(this).parent().next().find(".xg-tab-pane ").eq(index).addClass('active').siblings().removeClass('active')
+		})
+	</script>
+	<!--首页内容部分结束-->
+	<script type="text/javascript " src="__STATIC__/layer/layer.js "></script>
+	<script src="__JS__/jquery.form.js "></script>
+	<script src="__JS__/jquery.validate.min.js "></script>
+	<script src="__JS__/jquery.md5.js "></script>
+	<script src="__JS__/add_index.js "></script>
+	<script>
+		$(document).ready(function() {
+			$("#count1").dayuwscroll({
+				parent_ele: '#wrapBox1',
+				list_btn: '#tabT04',
+				pre_btn: '#left1',
+				next_btn: '#right1',
+				path: 'left',
+				auto: true,
+				time: 3000,
+				num: 5,
+				gd_num: 5,
+				waite_time: 1000
+			});
+			$("#count2").dayuwscroll({
+				parent_ele: '#wrapBox2',
+				list_btn: '#tabT04',
+				pre_btn: '#left2',
+				next_btn: '#right2',
+				path: 'left',
+				auto: true,
+				time: 3000,
+				num: 5,
+				gd_num: 5,
+				waite_time: 1000
+			});
+			$('.mcopybtn').click(function() {
+			Copy($('#codemsg').text(), $(this));
+			console.log($('.code').text());
+		});
+			function Copy(str, that) {
+			var save = function(e) {
+				e.clipboardData.setData('text/plain', str);
+				e.preventDefault();
+			}
+			that.css("color", "white");
+			document.addEventListener('copy', save);
+			document.execCommand('copy');
+			document.removeEventListener('copy', save);
+			that.text('复制成功');
+		}
+
+            $('.getgift').click(function() {
+                that = $(this);
+                $novice_surplus = that.data('novice_surplus');
+                thatt = $(".mcopybtn");
+                thatt.css("color", "#fff");
+                thatt.text('复制');
+                if($(that).hasClass('disabled')) {
+                    return false;
+                }
+                // 是否登录
+                $.ajax({
+                    type: 'post',
+                    url: '{:U("Gift/getgift")}',
+                    async: false,
+                    data: {
+                        gameid: that.attr('data-game_id'),
+                        giftid: that.attr('data-gift_id')
+                    },
+                    dataType: 'json',
+                    beforeSend: function() {
+                        $(that).addClass('disabled');
+                    },
+                    success: function(data) {
+                        if(data.code == 1) {
+                            // 成功
+                            that.text('已领取');
+                            that.addClass('disabled libao2');
+                            that.parent('.p3').prev('.p2').children('.p2_3').children('.novice_surplus').text($novice_surplus - 1);
+                            $('.gift_warn_bg').css('display', 'block');
+                            $('.title').html('领取成功');
+                            $('#codemsg').show().html(data.nvalue);
+                            $('.tishi').show().html('请到<a style="cursor: pointer;color: #00c8fe;" href="{:U('Subscriber/user_gift','',true,'',true)}" class="gcen"> 礼包中心 </a>中查看');
+
+                        } else if(data.code == -2) {
+                            that.text('已领取');
+                            $('.gift_warn_bg').css('display', 'block');
+                            $('.title').html('领取成功');
+                            $('#codemsg').show().html(data.nvalue);
+                            $('.tishi').show().html('您已经领取过了~');
+
+                        } else if(data.code == -4) {
+                            //未关注公众号
+                            //that.text('领取失败');
+                            //                  $('.gift_warn_bg').css('display','block');
+                            $('.title').html('领取失败');
+                            $('.tishi').show().html(data.msg);
+                            $('.mcopybtn').hide();
+                            $(".code-img").attr('src', data.qrcodeurl);
+                            //页面层
+                            layer.open({
+                                type: 1,
+                                shadeClose: false,
+                                title: '&nbsp',
+                                area: ['317px', '321px'], //宽高
+                                content: $('#code')
+                            });
+                            $(".layui-layer").css("border-radius", "10px");
+                        } else {
+                            // 失败
+                            //that.text('领取失败');
+                            $('.gift_warn_bg').css('display', 'block');
+                            $('.title').html('领取失败！');
+                            $('.tishi').show().html('您还未登录，请登录后领取');
+                            $('.mcopybtn').hide();
+                        }
+                    },
+                    error: function(xhr, type) {
+                        alert('服务器错误');
+                    }
+                });
+            });
+            $(".close_normal").click(function() {
+                $('.gift_warn_bg').css('display', 'none');
+            })
+		});
+
+		$('.logoutbtn').click(function() {
+			$.ajax({
+				type: 'post',
+				url: "{:U( 'Subscriber/logout')} ",
+				success: function(data) {
+					window.location = '{:U("index ")}';
+				}
+			});
+		});
+		$('.jsmoregame').click(function(){
+			that=$(this);
+			index = that.prev('span').children('.tab-menu-active').index();
+			if(index==1){
+				location.href=that.data('h5');
+			}else{
+				location.href=that.data('sy');
+			}
+		});
+	</script>
+	<script>
+		function logout() {
+			$.getJSON('Subscriber/logout', function(data) {
+				window.location = data.url;
+			});
+		}
+	</script>
+	<script>
+		/**
+		 * 新增验证方法
+		 */
+		$.validator.addMethod("numOrLetter ", function(value, element) {
+			return this.optional(element) || /^[a-zA-Z0-9_\.]+$/.test(value);
+		}, '只能是字母或数字');
+		$.validator.addMethod("ismobile ", function(value, element) {
+			var length = value.length;
+			var mobile = /^1[3456789]\d{9}$/;
+			return(length == 11 && mobile.exec(value)) ? true : false;
+		}, "请正确填写您的手机号码 ");
+		$("#logform ").validate({
+			//定义规则
+			rules: {
+				username: {
+					required: true,
+					rangelength: [6, 30],
+					numOrLetter: true,
+				},
+				password: {
+					required: true,
+					minlength: 6
+				},
+			},
+			//定义错误消息
+			messages: {
+				username: {
+					required: "请输入登录账号 ",
+					rangelength: "用户账号长度不正确 ",
+					numOrLetter: "只能是字母或数字 "
+					// remote:"用户名已经存在 ",
+				},
+				password: {
+					required: "密码不能为空 ",
+					minlength: "密码长度不能小于6位 "
+				},
+			},
+			submitHandler: function(form) {
+				data = $('#logform').serialize();
+				// layer.msg(data);
+				$.ajax({
+					type: 'post',
+					url: "{:U( 'Subscriber/login')} ",
+					data: data,
+					success: function(data) {
+						if(data.status == 1) {
+							layer.msg('登录成功', {
+								icon: 1
+							});
+							window.location.href = "{:U( 'index')} ";
+						} else {
+							layer.msg(data.msg, {
+								icon: 2
+							});
+						}
+					}
+				});
+			}
+		});
+	</script>
+	<script>
+		function login(obj) {
+			var url = '{:U("Subscriber/thirdlogin ",array("gid "=>$_REQUEST["gid "],"pid "=>$_REQUEST["pid "]))}';
+			url = url.replace(".html ", " ") + "/type/ " + obj;
+			window.location = url;
+		}
+
+		function jslogin() {
+			$uid = "{:is_login()} ";
+			if($uid <= 0) {
+				layer.msg('未登录,请先登录！');
+				return false;
+			} else {
+				return true;
+			}
+		}
+
+		function reservefun(ele, server_id, type) {
+			res = jslogin();
+			if(!res) {
+				return false;
+			}
+			that = ele.parent('.jsfun');
+			var $ok = false;
+			$.ajax({
+				type: 'post',
+				url: "{:U( 'Index/setServerNotice')} ",
+				data: {
+					server: server_id,
+					type: type
+				},
+				async: false,
+				success: function(data) {
+					if(data.code == 1) {
+						$ok = true;
+					} else if(data.code == -1) {
+						$ok = false;
+						res = jslogin();
+						if(!res) {
+							return false;
+						}
+					} else {
+						$ok = false;
+						layer.msg('请刷新后重试', {
+							time: 1000
+						});
+					}
+				},
+				error: function() {
+					$ok = false;
+				}
+			});
+			if(type == 1 && $ok) {
+				that.html('<a href="javascript:; " onclick="reservefun($(this), ' + server_id + ',0); "  class="link ">已设置</a>');
+				layer.msg('已设置通知', {
+					time: 500
+				});
+			} else if($ok) {
+				that.html('<a href="javascript:; " onclick="reservefun($(this), ' + server_id + ',1); "  class="link ">通知</a>');
+				layer.msg('已取消通知', {
+					time: 500
+				});
+			}
+		}
+	</script>
+	<script type="text/javascript ">
+		ttt = $('.jssign');
+		$is_sign = ttt.hasClass('issignin');
+		$user = "{:is_login()} ";
+		if($is_sign) {
+			if(!ttt.hasClass('disabled')) {
+				ttt.addClass('disabled');
+				// ttt.find('.circle').remove();
+				ttt.text('已签到');
+				ttt.css('background', '#b9b7b7');
+			}
+		}
+
+		$('.jssign').click(function() {
+			var that = $(this);
+			if(that.hasClass('disabled')) {
+				layer.msg('今日已签，无需重复签到');
+				return false;
+			}
+			that.addClass('disabled');
+			if($user > 0) {
+				$.ajax({
+					type: 'post',
+					url: "{:U( 'PointShop/user_sign_in')} ",
+					success: function(data) {
+						if(data.status == 1) {
+							layer.msg(data.msg);
+							ttt.text('已签到');
+							ttt.css('background', '#b9b7b7');
+						} else {
+							layer.msg(data.msg);
+						}
+					},
+					error: function() {
+
+					}
+				})
+
+			} else {
+				return false;
+			}
+
+		});
+	</script>
+	<script>
+	</script>
+</block>

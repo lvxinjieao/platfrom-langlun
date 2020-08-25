@@ -1,0 +1,372 @@
+<extend name="Public/bases" />
+<block name="body">
+	<link href="__CSS__/game.css" type="text/css" rel="stylesheet">
+	<link href="__CSS__/gift.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="__JS__/pc_7724.js"></script>
+	<script type="text/javascript" src="__JS__/jquery.SuperSlide.2.1.1.js"></script>
+	<!--礼包中心-->
+	<div class="cont">
+		<div class="g-main mgnt_26">
+			<div class="h5_left h5_leftg">
+				<div class="gift_lcont">
+					<div class="game-select-box fix padl_14">
+						<div class="type-menu">
+							<div class="game-type" style="padding-left: 0;">
+								<span>类型:</span>
+								<div class="type-menu-con">
+									<a href="{:U('Gift/index')}" class="<if condition='I("get.ish5") neq 1'>active </if> js-type-menu">手游</a>
+									<a href="{:U('Gift/index',['ish5'=>1])}" class="<if condition='I("get.ish5") eq 1'>active </if> js-type-menu">H5游戏</a>
+								</div>
+							</div>
+						</div>
+						<div class="game-theme padl_0">
+							<span>字母:</span>
+							<a href="{:U('Gift/index',array('ish5'=>I("get.ish5"),'rec_sta'=>I('get.rec_sta')))}" class="<if condition='I("theme") eq ""'> active </if>">不限</a>
+							<div style="float: left; margin-left: 15px;">
+								<volist name=":zimu26()" id="zimu">
+									<a href="{:U('Gift/index',array('ish5'=>I("get.ish5"),'rec_sta'=>I('get.rec_sta'),'theme'=>$zimu['value']))}" class="game-theme-item <if condition='I("theme") eq $zimu["value"]'> active1 </if>">{$zimu['value']}</a>
+								</volist>
+							</div>
+						</div>
+
+						<div class="game-type padl_0">
+							<span>属性:</span>
+							<a href="{:U('Gift/index',array('ish5'=>I("get.ish5"),'theme'=>I('get.theme')))}" class="<if condition='I("rec_sta") eq ""'> active </if>">全部</a>
+							<a href="{:U('Gift/index',array('ish5'=>I("get.ish5"),'rec_sta'=>1,'theme'=>I('get.theme')))}" class="<if condition='I("rec_sta") eq 1'> active </if>">推荐</a>
+							<a href="{:U('Gift/index',array('ish5'=>I("get.ish5"),'rec_sta'=>2,'theme'=>I('get.theme')))}" class="<if condition='I("rec_sta") eq 2'> active </if>">热门</a>
+							<a href="{:U('Gift/index',array('ish5'=>I("get.ish5"),'rec_sta'=>3,'theme'=>I('get.theme')))}" class="<if condition='I("rec_sta") eq 3'> active </if>">最新</a>
+							<a href="{:U('Subscriber/user_gift')}" class="receive_r"><i></i>领取记录</a>
+						</div>
+					</div>
+					<ul class="gift_list">
+						<empty name="data">
+							<div style="text-align: center;">没找到您搜索的内容。。。</div>
+							<else/>
+							<volist name="data" id="data">
+								<li>
+									<div class="p1">
+										<a title="{$data.game_name}：{$data.giftbag_name}" href="{$data.gift_detail_url}">
+											<empty name="data['icon']">
+												<img>
+												<else/>
+												<img src="{$data.icon}">
+											</empty>
+
+											<span class="dis_tabcell">
+							                  <span class="span_mid">
+							                    <div class="">{:C('SET_POSITION_IMG')}</div>
+							                  </span>
+											</span>
+										</a>
+									</div>
+									<div class="p2">
+										<p class="p2_1">
+											<a title="{$data.game_name}：{$data.giftbag_name}" href="{$data.gift_detail_url}">{$data.relation_game_name}：{$data.giftbag_name}</a>
+										</p>
+										<p class="p2_2" style="margin-top:0px;">有效期:{:set_show_time($data['start_time'],'date','forever')}~{:set_show_time($data['end_time'],'date','forever')}</p>
+										<p class="p2_3" style="margin-top:0px;">
+											<div class="fl" style="line-height: 20px;margin-right: 5px;">剩余
+											<font class="novice_surplus">{$data['novice_surplus']}</font>个</div>
+											<if condition="stripos($data['giftbag_version'],'1') nheq false">
+												<i class="pf-android"></i>
+											</if>
+											<if condition="stripos($data['giftbag_version'],'2') nheq false">
+												<i class="pf-ios"></i>
+											</if>
+											<if condition="stripos($data['giftbag_version'],'3') nheq false">
+												<i class="pf-h5"></i>
+											</if>
+										</p>
+									</div>
+									<div class="p3">
+										<if condition="$data.receive eq 0">
+											<a class="getgift" data-game_id="{$data.game_id}" data-novice_surplus="{$data.novice_surplus}" data-gift_id="{$data.gift_id}"> <span>礼包领取</span> </a>
+											<else/>
+											<a class="getgift graybtn" data-game_id="{$data.game_id}" data-novice_surplus="{$data.novice_surplus}" data-gift_id="{$data.gift_id}"> <span>已领取</span> </a>
+										</if>
+									</div>
+								</li>
+							</volist>
+						</empty>
+					</ul>
+
+					<notempty name="_page">
+						<!--页码 begin-->
+						<div class="pagenation clearfix">
+							<div>
+								{$_page|default=''}
+							</div>
+						</div>
+						<!--页码 begin-->
+					</notempty>
+
+				</div>
+			</div>
+
+			<!--右边-->
+			<div class="h5_right">
+				<!--玩家昵称-->
+				<!--开服表 begin-->
+				<div class="openserver-list">
+					<div class="boxtop mt20" style="margin-top:0;padding-top:0;">
+						<h3><i></i>开服表<a class="more" target="_blank" href="{:U('game/kaifu')}" title="更多+">更多+</a></h3>
+					</div>
+					<div class="giftleft_tab">
+						<a class="active" id="sy">手游</a>
+						<a id="h5">H5游戏</a>
+					</div>
+					<div class="osl-content bdr_de sykf">
+						<p class="p_th">
+							<span class="span2">游戏名称</span>
+							<span class="span4">版本</span>
+							<span class="span3">服务器</span>
+							<span class="span1">时间</span>
+						</p>
+						<ul class="kaifu_ul">
+							<volist name="syserverdata" id="server" offset="0" length="10">
+								<if condition="$server['sdk_version'] neq 3">
+									<li class="">
+										<span class="span2"><a href="{$server.play_detail_url}">{$server.game_name}</a></span>
+										<span class="span4">
+											<if condition="$server.sdk_version eq 2">
+												<i class="pf-ios"></i>
+											<elseif condition="$server.sdk_version eq 1"/>
+												<i class="pf-android"></i>
+											<else/>
+												<i class="pf-h5"></i>
+											</if>
+										</span>
+										<span class="span3"><i>{$server.server_name}</i></span>
+										<span class="span1">{$server.start_date}</span>
+									</li>
+								</if>
+							</volist>
+						</ul>
+					</div>
+					<div class="osl-content bdr_de h5kf hidden">
+						<p class="p_th">
+							<span class="span2">游戏名称</span>
+							<span class="span4">版本</span>
+							<span class="span3">服务器</span>
+							<span class="span1">时间</span>
+						</p>
+						<ul class="kaifu_ul">
+
+							<volist name="h5serverdata" id="server" offset="0" length="10">
+								<if condition="$server['sdk_version'] eq 3">
+									<li class="">
+										<span class="span2"><a href="{$server.play_detail_url}">{$server.game_name}</a></span>
+										<span class="span4">
+											<if condition="$server.sdk_version eq 2">
+												<i class="pf-ios"></i>
+											<elseif condition="$server.sdk_version eq 1"/>
+												<i class="pf-android"></i>
+											<else/>
+												<i class="pf-h5"></i>
+											</if>
+										</span>
+										<span class="span3"><i>{$server.server_name}</i></span>
+										<span class="span1">{$server.start_date}</span>
+									</li>
+								</if>
+							</volist>
+						</ul>
+					</div>
+				</div>
+				<!--end 开服表-->
+
+				<!--热门游戏 -->
+				<div class="hot-game subject_h_g h5_r_bg">
+					<div class="boxtop mt20">
+						<h3><i></i>热门游戏<a class="more" target="_blank" href="{:U('Game/index')}" title="更多+">更多+</a></h3>
+					</div>
+					<div class="gifthot_tab">
+						<a class="gifthot_sy active" id="gsy">手游</a>
+						<a class="gifthot_h5" id="hsy">H5游戏</a>
+					</div>
+					<ul class="jshotgame bdr_de gsy">
+						<volist name="syhot" id="ht">
+							<if condition="$ht.sdk_version neq 3">
+								<li <if condition="$i eq 1"> class="hover"</if>>
+							<div class="p1">
+								<a title="{$ht.game_name}" class="img-box" href="{$ht.play_detail_url}">
+									<span class="img-box-font"><span class="img-box-cell"><div class="img-box-text">{:C('SET_POSITION_IMG')}</div></span></span>
+									<img class="img-box-img" src="{$ht['icon']}" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null"></a>
+							</div>
+							<div class="p2">
+								<p>
+									<a title="{$ht.game_name}" href="{$ht.play_detail_url}">{$ht.game_name}</a>
+								</p>
+								<span style="width: 24%;"><a >{$ht.game_type_name}</a></span>
+								<em><i>{$ht.play_num}</i>人下载</em> </div>
+							<div class="p3">
+								<a href="{$ht.play_detail_url}" class="gifthot_link" target="_blank">下载游戏</a>
+							</div>
+							</li>
+							</if>
+						</volist>
+					</ul>
+					<ul class="jshotgame bdr_de hsy hidden">
+						<volist name="h5hot" id="hot">
+							<if condition="$hot.sdk_version eq 3">
+								<php> $ii++;</php>
+								<li <if condition="$ii eq 1"> class="hover"</if>>
+							<div class="p1">
+								<a title="{$hot.game_name}" class="img-box" href="{$hot.play_detail_url}">
+									<span class="img-box-font"><span class="img-box-cell"><div class="img-box-text">{:C('SET_POSITION_IMG')}</div></span></span>
+									<img class="img-box-img" src="{$hot['icon']}" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null"></a>
+							</div>
+							<div class="p2">
+								<p>
+									<a title="{$hot.game_name}" href="{$hot.play_detail_url}">{$hot.game_name}</a>
+								</p>
+								<span style="width: 24%;"><a >{$hot.game_type_name}</a></span>
+								<em><i>{$hot.play_num}</i>人在玩</em> </div>
+							<div class="p3">
+								<a href="{$hot.play_url}" class="gifthot_link" target="_blank">开始游戏</a>
+							</div>
+							</li>
+							</if>
+						</volist>
+					</ul>
+				</div>
+			</div>
+			<!--右边结束-->
+			<div class="clear"></div>
+		</div>
+	</div>
+	<!--礼包领取提示-->
+	<div class="gift_warn_bg" style="display: none;">
+		<div class="gift_warn">
+			<a class="close_normal"></a>
+			<h3 class="s title"></h3>
+			<h4 class="s code" style="display: none;"></h4>
+			<span class="tishi">请到<span style="cursor: pointer;color: #00c8fe;" href-data="{:U('Subscriber/user_gift','',true,'',true)}" class="gcen"> 礼包中心 </span>中查看</span>
+			<a class="g mcopybtn">复制</a>
+		</div>
+	</div>
+	<script>
+		function Copy(str, that) {
+			var save = function(e) {
+				e.clipboardData.setData('text/plain', str);
+				e.preventDefault();
+			}
+			that.css("color", "white");
+			document.addEventListener('copy', save);
+			document.execCommand('copy');
+			document.removeEventListener('copy', save);
+			that.text('复制成功');
+		}
+		$(function() {
+			$(".gifthot_tab a").click(function() {
+				$(".gifthot_tab a").removeClass("active");
+				$(this).addClass("active");
+				$class = $(this).attr('id');
+				$('.' + $class).removeClass('hidden').siblings('.jshotgame').addClass('hidden');
+			})
+
+			$(".giftleft_tab a").click(function() {
+				$(".giftleft_tab a").removeClass("active");
+				$(this).addClass("active");
+				$class = $(this).attr('id');
+				$('.' + $class + 'kf').removeClass('hidden').siblings('.osl-content').addClass('hidden');
+			})
+			$(".kaifu_ul li").hover(function() {
+				$(".kaifu_ul li").removeClass("hover");
+				$(this).addClass("hover");
+			})
+			//无开服信息时，开服表板块不显示，热门游戏板块上移 
+			if($(".openserver-list .kaifu_ul").has("li").length > 0) {
+				$(".openserver-list").css("display", "block");
+				$(".subject_h_g").css("margin-top", "10px");
+			} else {
+
+				$(".openserver-list").css("display", "none");
+				$(".subject_h_g").css("margin-top", "-25px");
+
+			}
+
+		})
+
+		// <!-- 无开服信息时，开服表板块不显示 -->
+		$('.mcopybtn').click(function() {
+			Copy($('.code').text(), $(this));
+		});
+		$('.getgift').click(function() {
+			that = $(this);
+			$novice_surplus = that.data('novice_surplus');
+			thatt = $(".mcopybtn");
+			thatt.css("color", "#fff");
+			thatt.text('复制');
+			if($(that).hasClass('disabled')) {
+				return false;
+			}
+			// 是否登录
+			$.ajax({
+				type: 'post',
+				url: '{:U("Gift/getgift")}',
+				async: false,
+				data: {
+					gameid: that.attr('data-game_id'),
+					giftid: that.attr('data-gift_id')
+				},
+				dataType: 'json',
+				beforeSend: function() {
+					$(that).addClass('disabled');
+				},
+				success: function(data) {
+					if(data.code == 1) {
+						// 成功
+						that.text('已领取');
+						that.addClass('disabled libao2');
+						that.parent('.p3').prev('.p2').children('.p2_3').children('.novice_surplus').text($novice_surplus - 1);
+						$('.gift_warn_bg').css('display', 'block');
+						$('.title').html('领取成功');
+						$('.code').show().html(data.nvalue);
+						$('.tishi').show().html('请到<a style="cursor: pointer;color: #00c8fe;" href="{:U('Subscriber/user_gift','',true,'',true)}" class="gcen"> 礼包中心 </a>中查看');
+
+					} else if(data.code == -2) {
+						that.text('已领取');
+						$('.gift_warn_bg').css('display', 'block');
+						$('.title').html('领取成功');
+						$('.code').show().html(data.nvalue);
+						$('.tishi').show().html('您已经领取过了~');
+
+					} else if(data.code == -4) {
+						//未关注公众号
+						//that.text('领取失败');
+						//                  $('.gift_warn_bg').css('display','block');
+						$('.title').html('领取失败');
+						$('.tishi').show().html(data.msg);
+						$('.mcopybtn').hide();
+						$(".code-img").attr('src', data.qrcodeurl);
+						//页面层
+						layer.open({
+							type: 1,
+							shadeClose: false,
+							title: '&nbsp',
+							area: ['317px', '321px'], //宽高
+							content: $('#code')
+						});
+						$(".layui-layer").css("border-radius", "10px");
+					} else {
+						// 失败
+						//that.text('领取失败');
+						$('.gift_warn_bg').css('display', 'block');
+						$('.title').html('领取失败！');
+						$('.tishi').show().html('您还未登录，请登录后领取');
+						$('.mcopybtn').hide();
+					}
+				},
+				error: function(xhr, type) {
+					alert('服务器错误');
+				}
+			});
+		});
+		$(".close_normal").click(function() {
+			$('.gift_warn_bg').css('display', 'none');
+		})
+	</script>
+
+	<!--礼包中心结束-->
+</block>

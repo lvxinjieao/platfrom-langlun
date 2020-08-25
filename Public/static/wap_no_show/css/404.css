@@ -1,0 +1,82 @@
+/*
+* @description: 404样式
+ *@author:王奉
+* @update: name(xxxx-xx-xx xx:xx)
+ */
+	body,html{
+	
+	background: #fff;
+
+	margin: 0 auto;
+}
+a{
+	text-decoration: none;
+}
+.con{
+	display: block;
+	width: 90%;
+	margin: 30% auto 0;
+}
+.con_img {
+	width: 100%;
+}
+.tip{
+	font-size: 0.7rem;
+	text-align: center;
+	color: #444;
+	margin:5%  0 15% 0;
+}
+.link{
+	
+	font-size: 0.6rem;
+	text-align: center;
+	height: 40px;
+	line-height: 40px;
+	cursor: pointer;
+}
+.link_img{
+	width: 0.65rem;
+	vertical-align: middle;
+}
+.link_text{
+	padding-left: 10px;
+	color: #24bdf6;
+}
+
+@media screen and (max-width:1240px) {
+  html{font-size:70px;}
+}
+
+@media screen and (max-width:992px) {
+  html{font-size:62px;}
+}
+@media screen and (max-width:768px) {
+  html{font-size:60px;}
+}
+@media screen and (max-width:720px) {
+  html{font-size:58px;}
+}
+@media screen and (max-width:660px) {
+	html{font-size:55px;}
+  
+}
+@media screen and (max-width:600px) {
+  html{font-size:53px;}
+}
+@media screen and (max-width:540px) {
+  html{font-size:51px;}
+  
+}
+@media screen and (max-width:480px) {
+  html{font-size:48px;}
+}
+@media screen and (max-width:420px) {
+  html{font-size:45px;}
+}
+@media screen and (max-width:360px) {
+  html{font-size:42px;}
+}
+@media screen and (max-width:320px) {
+ html{font-size:40px;}
+
+}

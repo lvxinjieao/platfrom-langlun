@@ -1,0 +1,82 @@
+
+<extend name="Public/sbases" />
+<block name="body" >
+<link href="__CSS__/user.css" type="text/css" rel="stylesheet">
+<link href="__CSS__/game.css" type="text/css" rel="stylesheet">
+<link href="__CSS__/my.css" rel="stylesheet" />
+<script src="__STATIC__/layer/layer.js"></script>
+<div class="con">
+	<div class="shead">
+		意见反馈
+	</div>
+	<div class="fmain">
+		<form action="__SELF__" id="form" method="post" >
+			<div class="fm fmt"><textarea id="content" name="content" cols="10" class="fta" >欢迎您提出宝贵的意见和建议，您的喜爱和支持是我们不断前进的动力</textarea></div>
+			<div class="fm fmi"><input id="contact" type="text" name="contact" class="fia" placeholder="请填写您的联系方式（QQ、邮箱或手机号码）" /></div>
+			<p>提示：填写联系方式，方便客服MM回复您的问题哦！</p>
+			<div class="fm fms">
+				<input type="button" class="submit" value="提交"/>
+			</div>
+		</form>
+	</div>
+</div>
+<!--底部-->
+<div class="bottom">
+  <ul>
+	  <li ><a href="{:U('/index','',true,'',true)}"><i class="bot_home"></i><font>首页</font></a></li>
+	  <li><a href="{:U('/game','',true,'',true)}"><i class="bot_game"></i><font>游戏</font></a></li>
+	  <li><a href="{:U('/gift','',true,'',true)}"><i class="bot_gift"></i><font>福利</font></a></li>
+	  <li class="active"><a href="{:U('/subscriber','',true,'',true)}"><i class="bot_user"></i><font>我的</font></a></li>
+  </ul>
+</div>
+<!--底部结束-->
+<script>
+	function notice(info) {
+		$('body').append('<div class="noti"><div class="notbg"></div><div class="notmain"><div class="info">'+info+'</div><div class="btn"><a href="javascript:;">确定</a></div></div></div>');
+		$('.btn').on('click',function() {
+			$('body .noti').remove();
+		});
+	}
+	$('.fta').on('focus',function() {
+		var t = $.trim($(this).val());
+		if (t=='' || t == '欢迎您提出宝贵的意见和建议，您的喜爱和支持是我们不断前进的动力') {
+			$(this).val('');
+		}
+	});
+	$('.fta').on('blur',function(){
+		var t = $.trim($(this).val());
+		if (t == '' || t == '欢迎您提出宝贵的意见和建议，您的喜爱和支持是我们不断前进的动力' ) {
+			$(this).val('欢迎您提出宝贵的意见和建议，您的喜爱和支持是我们不断前进的动力');
+		}
+	});
+	$('.submit').on('click',function() {
+		//$('#form').unbind('submit').bind('submit',function() {});
+		var fta = $.trim($('.fta').val()),fia = $.trim($('.fia').val());
+		console.log(fta);
+		if (!fta) {notice('意见不能为空');return false;}
+		if (!fia) {notice('联系方式不能为空');return false;}
+		//$('#form').submit();
+		$.ajax({
+			type:"post",
+			async: false,
+			url:"{:U('feedback')}",
+			data:{content:$('#content').val(),contact:$("#contact").val()},
+			dataType:"json",
+			success:function(){
+				layer.alert('成功',{icon: 1,time:4000});
+				$url = "{:U('index')}";
+				setTimeout("jump_url($url)",4000);
+
+			},
+			error:function(){
+				layer.msg('服务器故障', {icon: 5});
+				return false;
+			}
+		})
+	});
+
+	function jump_url($url){
+		window.location.href = $url;
+	}
+</script>
+</block>

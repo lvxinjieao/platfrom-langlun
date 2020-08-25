@@ -1,0 +1,93 @@
+<extend name="Public/bases" />
+<block name="body">
+<link href="__CSS__/user.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="__JS__/pc_7724.js"></script>
+<script type="text/javascript" src="__JS__/jquery.SuperSlide.2.1.1.js"></script>
+<style type="text/css">
+	.pf-android, .pf-ios, .pf-h5{margin-left: 5px;}
+</style>
+
+<!--用户中心-->
+<div class="bg_user">
+<div class="cont userbg wid_1206">
+<div class="user-bd laybox clearfix">
+    <ul class="user-menu fl" id="user-menu" style="min-height:402px;">
+      <include file='base' />
+    </ul>
+    <div class="user-section-wrap fl wbg" id="user-section-wrap">
+      <div class="user-section xg_usectionr">
+        <div class="section-tit"><i></i>我的礼包</div>
+        <div class="us2-mibao">
+          <ul class="ugift-list clearfix">
+          <volist name="mygift" id="data">
+            <li>
+              <div class="top clearfix"> 
+              	<div class="gift_img fl">
+              		<a href="javascript:;" style="cursor: default;">
+						<img class="media-object bd-rus" src="{$data['icon']}" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null">
+						<span class="dis_tabcell span_bd">
+							<span class="span_mid">
+							<div>{:C('SET_POSITION_IMG')}</div>
+							</span>
+						</span>
+					</a>
+              	</div>
+                <div class="info">
+                  <p class="name">{$data.relation_game_name}-{$data.gift_name}
+                    <if condition="strpos($data['giftbag_version'],'1') nheq false">
+                      <i class="pf-android"></i>
+                    </if>
+                    <if condition="strpos($data['giftbag_version'],'2') nheq false">
+                      <i class="pf-ios"></i>
+                    </if>
+                    <if condition="strpos($data['giftbag_version'],'3') nheq false">
+                      <i class="pf-h5"></i>
+                    </if>
+                  </p>
+                  <p class="card">卡号：<em>{$data.novice}</em></p>
+                  <p>兑换截止：{:set_show_time($data['end_time'],'','forever')}</p>
+                  <div class="con">
+                    <p title="{$data['desribe']}">{:msubstr3($data['desribe'],0,60)}</p>
+                  </div>
+                </div>
+                
+                <a class="ut_qd copy_btn" style="margin-top:18px;" data-card="{$data.novice}">复制</a>
+              </div>
+            </li>
+          </volist>
+          </ul>
+        </div>
+		<div class="pagenation clearfix  xg_bothelp">{$_page}
+		</div>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+</div>
+</div>
+<!--用户中心结束--> 
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+
+
+<script>
+  $(function(){
+    $('.copy_btn').click(function(){
+    	 var data=$(this).data('card');
+         var oInput = document.createElement('input');
+         oInput.value = data;
+         document.body.appendChild(oInput);
+         oInput.select(); // 选择对象
+         document.execCommand("Copy"); // 执行浏览器复制命令
+         oInput.className = 'oInput';
+         oInput.style.display='none';
+         layer.msg('复制成功');
+		  $(this).text('已复制');
+          $(this).css('background','#8e8e8e');
+		   $(this).css('color','#fff');
+		 $(this).attr("disabled",true);
+		
+    })
+	
+  })
+</script> 
+</block>

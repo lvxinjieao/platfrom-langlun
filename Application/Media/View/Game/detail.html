@@ -1,0 +1,473 @@
+<extend name="Public/bases" />
+<block name="body">
+	<link href="__CSS__/game.css" type="text/css" rel="stylesheet">
+	<link href="__CSS__/pc_code.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="__JS__/jquery-1.7.2.min.js"></script>
+	<!--图片滚动列表-->
+	<script type="text/javascript" src="__JS__/pc_7724.js"></script>
+	<script type="text/javascript" src="__JS__/jquery.SuperSlide.2.1.1.js"></script>
+	<!--图片滚动列表结束-->
+
+	<!--游戏详情-->
+	<div class="contbg game-center-detail">
+		<div class="g-main">
+			<div class="game-center-location">
+				<a class="local_home" href="{:U('Index/index')}">首页</a><span>&gt;</span>
+				<a href="{:U('Game/index',array('game_type'=>$data['game_type_id']))}">{$data.game_type_name}</a><span>&gt;</span> <em class="blue">{$data.game_name}</em> </div>
+			<div class="h5_left bdr_de">
+				<div class="news_detail clearfix">
+					<!--H5游戏-->
+					<if condition="$data['sdk_version'] eq 3">
+						<div class="game-info clearfix">
+							<div class="game-icon-box">
+								<a title="{$data.game_name}" class="img-box" href="javascript;">
+									<span class="img-box-font"><span class="img-box-cell"><div class="img-box-text">{:C('SET_POSITION_IMG')}</div></span></span>
+									<img class="img-box-img" src="{$data['icon']}" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null">
+								</a>
+							</div>
+							<div class="game-base-info">
+								<div class="game-name">
+									<a title="{$data.game_name}" style="cursor:default">{$data.game_name}</a>
+								</div>
+								<p class="game-nature"><span>{$data.game_type_name}</span><em></em><span><i>{$data.play_num}</i>人在玩</span><em></em><span><i id="collect_num">{$data.collect_num}</i>人收藏</span></p>
+								<div class="game-btn-box">
+									<a href="{$data.play_url}" class="game-play" target="_blank">开始游戏</a>
+									<a data-collection="{$data.collect_status}" id="sc" class="game-collect" rel="2934" data-game_id="{$data.id}">
+										<if condition='$data.collect_status eq 1'>已收藏
+											<else/>收藏游戏</if>
+									</a>
+								</div>
+							</div>
+							<div class="game-qrcode-box">
+								<img src="{:U('Subscriber/qrcode',array(3,4,'url'=>base64_encode(base64_encode($data['play_url']))))}" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null">
+								<p>手机扫一扫，马上玩</p>
+							</div>
+						</div>
+						<else/>
+						<!--手游详情-->
+						<div class="game-info clearfix sygameinfo">
+							<div class="game-icon-box">
+								<a title="{$data.game_name}" class="img-box" href="javascript;">
+									<span class="img-box-font"><span class="img-box-cell"><div class="img-box-text">{:C('SET_POSITION_IMG')}</div></span></span>
+									<img class="img-box-img" src="{$data['icon']}" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null">
+								</a>
+							</div>
+							<div class="game-base-info">
+								<div class="game-name">
+									<a title="{$data.game_name}" style="cursor:default">{$data.game_name}</a>
+								</div>
+								<p class="game-nature"><span>
+								<if condition="$gameids[1] gt 0">
+								<i class="pf-android"></i>
+								</if>
+								<if condition="$gameids[2] gt 0">
+								<i class="pf-ios"></i>
+								</if>
+								</span><em></em><span>{$data.category}</span><em></em><span>{$data.game_type_name}</span><em></em><span><i id="collect_num">{$data.collect_num}</i>人下载</span></p>
+								<div class="intro">简介：{$data.features}</div>
+							</div>
+							<div class="btn_box">
+								<if condition="check_game_sorue($gameids[1]) eq 1">
+									<a href="{:U('Down/down_file',['game_id'=>$gameids['relation_game_id']])}"><i class="pq_icon icon1"></i>安卓下载
+										<div class="sweep_code">
+											<div class="code_arrow"></div>
+											<div class="codephone">
+												<img src="{:U('Subscriber/qrcode',array('level'=>3,'size'=>4,'url'=>base64_encode(base64_encode('http://'.$_SERVER['HTTP_HOST'].U('Index/down_file',['game_id'=>$gameids['relation_game_id']])))))}" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null">
+												<p>手机扫描下载</p>
+											</div>
+										</div>
+									</a>
+									<else/>
+									<a class="off" onclick="alert('敬请期待');"><i class="pq_icon icon2"></i>安卓下载</a>
+								</if>
+								<if condition="check_game_sorue($gameids[2]) eq 1">
+									<a href="{:U('Down/down_file',['sdk_version'=>2,'game_id'=>$gameids['relation_game_id']])}"><i class="pq_icon icon2"></i>IOS下载
+										<div class="sweep_code">
+											<div class="code_arrow"></div>
+											<div class="codephone">
+												<img src="{:U('Subscriber/qrcode',array('level'=>3,'size'=>4,'url'=>base64_encode(base64_encode('http://'.$_SERVER['HTTP_HOST'].U('Index/down_file',['type'=>2,'game_id'=>$gameids['relation_game_id']])))))}" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null">
+												<p>手机扫描下载</p>
+											</div>
+										</div>
+									</a>
+									<else/>
+									<a class="off" onclick="alert('敬请期待');"><i class="pq_icon icon2"></i>IOS下载</a>
+								</if>
+							</div>
+						</div>
+					</if>
+					<div class="shortscreen-wrap">
+						<div class="exquisite_con new_exquisite_con vertical_exquisite_con">
+							<div class="exquisite_bt exquisite_prev prev prevStop"></div>
+							<div class="exquisite_list bd">
+								<ul>
+									<volist name="data['screenshots']" id="sc" key='k'>
+										<li><span class="img-box"><span class="img-box-font"><span class="img-box-cell"><div class="img-box-text">{:C('SET_POSITION_IMG')}</div></span></span><img class="img-box-img" src="{$sc}" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null" /></span>
+										</li>
+									</volist>
+								</ul>
+							</div>
+							<div class="exquisite_bt exquisite_next next"></div>
+						</div>
+					</div>
+					<script type="text/javascript">
+						window.onload = function() {
+							if($(".exquisite_list li").length>4){
+								$('.exquisite_bt').show()
+							}
+							$(".new_exquisite_con li a img").length
+							var imgwidth = $(".new_exquisite_con li a img").width();
+							console.log(imgwidth);
+							var imgheight = $(".new_exquisite_con li a img").height();
+							if(imgwidth > imgheight) {
+								$(".new_exquisite_con").addClass("horizontal_exquisite_con");
+							} else {
+
+								$(".new_exquisite_con").addClass("vertical_exquisite_con");
+							}
+
+							jQuery(".exquisite_con").slide({
+								mainCell: "ul",
+								autoPlay: false,
+								effect: "left",
+								vis: 4,
+								scroll: 1,
+								autoPage: true,
+								pnLoop: false
+							})
+						}
+					</script>
+
+					<div class="game-description">
+						<div class="boxtop mt20">
+							<h3><i></i>简介</h3>
+						</div>
+						<div class="game-description-content">
+							{$data.introduction}
+						</div>
+					</div>
+					<notempty name="gamegift">
+						<div class="game-gift">
+							<div class="boxtop mt20">
+								<h3><i></i>礼包</h3>
+							</div>
+							<ul class="clearfix">
+								<volist name="gamegift" id="gift">
+									<li style="margin-top:10px;" <if condition="$i eq 1 || $i eq 4 || $i eq 7 || $i eq 10 || $i eq 13 || $i eq 16 || $i eq 19 || $i eq 21">class="gg"</if>>
+										<div class="game-gift-name">[{$gift['game_name']}]{$gift['giftbag_name']}</div>
+										<p>礼包内容：{$gift['desribe']}</p>
+										<div class="game-gift-btn">
+											<a data-wei="{$gift['novice_surplus']-1}" data-all="{$gift['novice_all']}" data-gift_id="{$gift['gift_id']}" data-game_id="{$gift['game_id']}" class="getgift <if condition=" $gift.received eq 1 ">disabled</if>">
+												<if condition="$gift.received eq 1">已</if>领取</a>
+											<span>剩余<i><i class=".bfb">{:round($gift['novice_surplus']/$gift['novice_all']*100,2)}</i>%</i></span>
+										</div>
+									</li>
+								</volist>
+							</ul>
+						</div>
+					</notempty>
+					<if condition="!empty($gameactive) or !empty($gamegg)">
+						<div class="game-activity">
+							<div class="boxtop mt20">
+								<h3><i></i>活动</h3>
+							</div>
+							<div class="game-activity-content">
+								<ul class="game-activity-list clearfix">
+									<volist name="gameactive" id="active">
+										<li <if condition="$i eq 1">class="ga"</if>>
+											<a target="_blank" href="{:U('Article/detail',array('id'=>$active['id']))}" class="img-box"><span class="img-box-font"><span class="img-box-cell"><div class="img-box-text">{:C('SET_POSITION_IMG')}</div></span></span><img class="img-box-img" src="{$active.cover}" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null"></a>
+											<a target="_blank" href="{:U('Article/detail',array('id'=>$active['id']))}" class="activity-name"><span class="mark">活动</span><span class="name">{$active.title}</span></a>
+										</li>
+									</volist>
+								</ul>
+								<div class="game-notice-list">
+									<volist name="gamegg" id="gg">
+										<a target="_blank" href="{:U('Article/detail',array('id'=>$gg['id']))}" class="activity-name"><span class="mark">公告</span><span class="name">{$gg.title}</span></a>
+									</volist>
+								</div>
+							</div>
+						</div>
+					</if>
+					<div class="relevant-game">
+						<div class="boxtop mt20">
+							<h3><i></i>相关推荐</h3>
+						</div>
+
+						<ul class="relevant-game-list clearfix">
+							<volist name="gamelike" id="like">
+								<li class="">
+									<a href="{$like['play_detail_url']}" class="img-box"><span class="img-box-font"><span class="img-box-cell"><div class="img-box-text"></div></span></span><img class="img-box-img" src="{$like['icon']}" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null"></a>
+									<div class="relevant-name">
+										<a href="{$like['play_detail_url']}" class="game-name">
+											{:msubstr4($like['game_name'],0,6)}
+											<if condition="$like.sdk_version eq 2">
+												<i class="pf-ios"></i>
+											<elseif condition="$like.sdk_version eq 1"/>
+												<i class="pf-android"></i>
+											<else/>
+												<i class="pf-h5"></i>
+											</if>
+										</a>
+										<a href="{$like['play_detail_url']}" class="open-game">进入官网</a>
+									</div>
+								</li>
+							</volist>
+						</ul>
+					</div>
+
+				</div>
+
+			</div>
+
+			<!--右边-->
+			<div class="h5_right">
+				<div class="download_box">
+
+					<notempty name="adv">
+						<a class="img-box" target="{$adv.target}" href="{$adv.url}">
+							<span class="img-box-font"><span class="img-box-cell"><div class="img-box-text">{:C('SET_POSITION_IMG')}</div></span></span>
+							<img class="img-box-img" src="{$adv.data}">
+						</a>
+					</notempty>
+				</div>
+
+				<!--礼包领取-->
+				<div class="hot-list">
+					<div class="boxtop mt20">
+						<h3><i></i>热门礼包</h3>
+					</div>
+					<ul class="bdr_de">
+						<volist name="giftlist" id="gl" offset="0" length='10'>
+							<li>
+								<a href="{$gl.play_detail_url}" class="img-box" target="_blank">
+									<span class="img-box-font"><span class="img-box-cell"><div class="img-box-text">{:C('SET_POSITION_IMG')}</div></span></span>
+									<img class="img-box-img" src="{$gl['icon']}">
+								</a>
+								<div class="btn-box">
+									<span class="table"><span class="table-cell"><a href="{$gl.gift_detail_url}" class="btn" target="_blank">领取</a></span></span>
+								</div>
+								<div class="txt-box">
+									<h4><a href="{:U('Gift/giftdetail',array('gift_id'=>$gl['gift_id']))}" target="_blank" title="{$gl.game_name}：{$gl.giftbag_name}">{$gl.relation_game_name}：{$gl.giftbag_name}</a></h4>
+									<p>
+										剩余<span>{$gl['novice_surplus']}个</span>
+										<if condition="stripos($gl['giftbag_version'],'1') nheq false">
+											<i class="pf-android"></i>
+										</if>
+										<if condition="stripos($gl['giftbag_version'],'2') nheq false">
+											<i class="pf-ios"></i>
+										</if>
+										<if condition="stripos($gl['giftbag_version'],'3') nheq false">
+											<i class="pf-h5"></i>
+										</if>
+									</p>
+								</div>
+							</li>
+						</volist>
+					</ul>
+				</div>
+
+				<div class="openserver-list">
+					<div class="boxtop mt20">
+						<h3><i></i>开服表<a class="more" target="_blank" href="{:U('Game/kaifu')}" title="更多+">更多+</a></h3>
+					</div>
+					<div class="osl-content">
+						<p class="p_th">
+							<span class="span2">游戏名称</span>
+							<span class="span4">版本</span>
+							<span class="span3">服务器</span>
+							<span class="span1">时间</span>
+						</p>
+						<ul class="kaifu_ul">
+							<volist name="server" id="ser">
+								<li>
+									<span class="span2"><a href="{$ser.play_detail_url}">{$ser.game_name}</a></span>
+									<span class="span4">
+										<if condition="$ser.sdk_version eq 2">
+											<i class="pf-ios"></i>
+										<elseif condition="$ser.sdk_version eq 1"/>
+											<i class="pf-android"></i>
+										<else/>
+											<i class="pf-h5"></i>
+										</if>
+									</span>
+									<span class="span3" style="cursor:default"><i>{$ser.server_name}</i></span>
+									<span class="span1" style="cursor:default">{:date('m-d H:i',$ser['start_time'])}</span>
+								</li>
+							</volist>
+						</ul>
+					</div>
+				</div>
+				<script>
+					$(function() {
+						$(".kaifu_ul li").hover(function() {
+							$(".kaifu_ul li").removeClass("hover");
+							$(this).addClass("hover");
+						})
+						<!-- 右边是否有广告图 -->
+						if($(".download_box").has("a").length > 0) {
+
+							$(".h5_right").css("margin-top", "0px");
+						} else {
+
+							$(".h5_right").css("margin-top", "-60px");
+						}
+
+					})
+					<!-- 礼包无数据时，礼包板块不显示 -->
+					if($(".hot-list").has("li").length == 0) {
+						$(".hot-list").css("display", "none")
+					} else {
+						$(".hot-list").css("display", "block")
+					}
+				</script>
+
+				<!--热门游戏 -->
+				<div class="hot-game subject_h_g h5_r_bg">
+					<div class="boxtop mt20">
+						<h3><i></i>热门游戏<a class="more" target="_blank" href="{:U('index')}" title="更多+">更多+</a></h3>
+					</div>
+					<ul class="jshotgame bdr_de">
+
+						<volist name="hot" id="hot">
+							<li <if condition="$i eq 1">class="hover"</if>>
+								<div class="p1">
+									<a title="{$hot.game_name}" class="img-box" href="{$hot.play_detail_url}">
+										<span class="img-box-font"><span class="img-box-cell"><div class="img-box-text">{:C('SET_POSITION_IMG')}</div></span></span>
+										<empty name="hot['icon']">
+											<img class="img-box-img">
+											<else/>
+											<img class="img-box-img" src="{$hot['icon']}">
+										</empty>
+									</a>
+								</div>
+								<div class="p2" style="width:43%">
+									<p>
+										<a title="{$hot.game_name}" href="{$hot.play_detail_url}">{$hot.game_name}</a>
+									</p>
+									<em><i>{$hot['play_num']}</i>人在玩</em>
+								</div>
+								<div class="p3">
+									<a target="_blank" href="{$hot.play_detail_url}">进入官网</a>
+								</div>
+							</li>
+						</volist>
+					</ul>
+				</div>
+			</div>
+			<!--右边结束-->
+			<div class="clear"></div>
+		</div>
+	</div>
+	<!--游戏详情结束-->
+
+	<!--领取礼包弹出层-->
+	<div class="code" id="code">
+		<img src="images/code.png" alt="" class="code-img" />
+		<div class="code-text">关注微信公众号可领取礼包</div>
+		<div class="code-explain">微信扫一扫 关注公众号</div>
+	</div>
+	<!--领取礼包弹出层end-->
+
+	<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+	<script type="text/javascript" src="__STATIC__/layer/extend/layer.ext.js"></script>
+	<script>
+		$('.jshotgame li').hover(function() {
+			$(this).addClass('hover').siblings().removeClass('hover');
+		}, function() {});
+	</script>
+	<script>
+		$(function() {
+			var $user = "{:is_login()}";
+			$("#sc").on('click', function() {
+				game_id = "{:I('game_id')}";
+				$.ajax({
+					type: "POST",
+					url: "{:U('Game/collection')}",
+					data: {
+						game_id: game_id,
+						collect_status: $('#sc').attr('data-collection')
+					},
+					dataType: "json",
+					success: function(data) {
+						switch(parseInt(data.code)) {
+							case 1:
+								{
+									if(data.data == 1) {
+										$("#collect_num").html(parseInt($("#collect_num").html()) + 1);
+										$('#sc').text('已收藏');
+										$('#sc').attr('data-collection', 1)
+									} else {
+										$("#collect_num").html(parseInt($("#collect_num").html()) - 1);
+										$('#sc').text('收藏游戏');
+										$('#sc').attr('data-collection', 0)
+									}
+								};
+								break;
+							case 0:
+								{
+									//墨绿深蓝风
+									layer.msg(data.msg);
+								};
+								break;
+							case -1:
+								{
+									layer.msg('还未登录');
+								}
+						}
+					},
+					error: function(res) {
+						alert("服务器故障");
+					}
+				})
+			});
+
+		});
+	</script>
+	<script>
+		$(".getgift").click(function() {
+			var that = $(this);
+			var wei = $(this).attr('data-wei');
+			var all = $(this).attr('data-all');
+			$.ajax({
+				type: 'post',
+				url: '{:U("Gift/getgift")}',
+				async: false,
+				data: {
+					gameid: that.attr('data-game_id'),
+					giftid: that.attr('data-gift_id')
+				},
+				dataType: 'json',
+				beforeSend: function() {
+
+				},
+				success: function(data) {
+					if(data.code == 1) {
+						// 成功
+						that.addClass('disabled');
+						that.next().children().children().html(Math.round(wei / all * 10000) / 100);
+						layer.msg(data.msg);
+					} else if(data.code == -2) {
+						layer.msg(data.msg);
+					} else if(data.code == -4) {
+						//未关注公众号
+						$(".code-img").attr('src', data.qrcodeurl);
+						layer.open({
+							type: 1,
+							shadeClose: false,
+							title: '&nbsp',
+							area: ['317px', '321px'], //宽高
+							content: $('#code')
+						});
+						$(".layui-layer").css("border-radius", "10px");
+					} else {
+						// 失败
+						layer.msg(data.msg);
+					}
+				},
+				error: function(xhr, type) {
+					alert('服务器错误');
+				}
+			});
+		})
+	</script>
+</block>

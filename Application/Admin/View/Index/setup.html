@@ -1,0 +1,110 @@
+
+<block name="style">
+    <style>
+        body{padding: 0}
+    </style>
+</block>
+<block name="body">
+<link  href="__CSS__/index3.0.css" type="text/css" rel="stylesheet"/>  
+<style>
+	body {font-family:"微软雅黑";background-color:#fff;}
+	
+	.setup_deleteimg1{position:fixed;top:104px;right:0;}
+	.setup_deleteimg{float:right;display:table;width:44px;height:36px;border-radius:4px 0 0 4px;background-color:#659be1;line-height:36px;cursor:pointer;}
+	.setup_deleteimg div{display:table-cell;width:100%;height:100%;vertical-align:middle;text-align:center;}
+
+	.setup_layer {padding:10px 31px;}
+	.setup_layer ul {overflow:hidden;clear:both;padding:0;margin:0;}
+	.setup_layer li {float:left;width:11%;}
+	.setup_layer .item {position:relative;padding:20px 10px 15px;}
+	.setup_layer .item .picbox {position:relative;width:64px;margin:0 auto;}
+	.setup_layer .item .picbox .pic {display:block;position:relative;width:64px;height:64px;border-radius:3px;overflow:hidden;color:#FFF;font-size:14px;}
+	.setup_layer .table {display:table;width:100%;height:100%;position:absolute;z-index:1;}
+	.setup_layer .table-cell {display:table-cell;width:100%;vertical-align:middle;text-align:center;}
+	.setup_layer .item .picbox .pic img {width:64px;height:64px;position:relative;z-index:2;}
+	.setup_layer .item .name {text-align:center;display:block;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;font-size:14px;color:#999;}
+	.setup_layer .item .picbox .delete-butn {display:none;position: absolute;top:-11px;right:-11px;width: 22px;height: 22px;background: url(__IMG__/index.png) no-repeat;z-index:3;background-position: -190px 0;}
+</style>
+<link rel="stylesheet" type="text/css" href="__CSS__/{$Think.config.COLOR_STYLE}.css" media="all">   
+<script src="__JS__/jquery-1.11.0.min.js"></script>
+<script src="__STATIC__/layer/layer.js"></script>
+    <!-- 主体 -->
+    <div class="setup_layer">
+		<div class="setup_deleteimg1">
+			<div class="setup_deleteimg jsdeleteimg">
+				<div>
+					<img src="__IMG__/zwmimages/icon_normal_shanchu.png">
+				</div>
+			</div>
+		</div>
+		
+		<ul>
+			<volist name="kuaijielist" id="vo">
+			<li>
+				<div class="item">
+					<div class="picbox">
+						<a href="javascript:;" class="delete-butn jsdelete" data-id="{$vo.id}"></a>
+						<a href="javascript:;" url="{:U($vo['url'])}" class="pic jsjump"><img src="{:get_cover($vo['value'],'path')}" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null" /></a>
+					</div>
+					<a href="javascript:;" url="{:U($vo['url'])}" class="name jsjump">{$vo.title}</a>
+				</div>
+			</li>
+			</volist>
+		</ul>
+		
+		
+		
+		
+		
+    </div>
+</block>
+
+<block name="script">
+<script type="text/javascript">
+			
+			$('.jsjump').on('click',function() {
+
+				parent.location.href = $(this).attr('url');
+				
+				return false;
+			});
+			
+			$('.jsdeleteimg').click(function() {
+				//移除常用设置
+				$(".jsdelete").toggle().on('click',function(){
+					
+					var that = $(this);
+					if ($(".jsdelete").hasClass('disabled')) {return false;}
+					
+					$(".jsdelete").addClass('disabled');
+					
+					$.ajax({
+						type:'post',
+						dataType:'json',
+						url:'{:U("Index/delShortcutIcon")}',
+						data:{id:that.attr('data-id')},
+						success:function(data) {
+							$(".jsdelete").removeClass('disabled');
+							if (parseInt(data.status)==1) {
+								
+								that.closest('li').remove();
+								
+								layer.msg(data.info, {icon: 1,shade: 0.2,time:1000,});
+								
+							} else {
+								layer.msg(data.info, {icon: 2,shade: 0.2,time:1000,});
+							}
+						},error:function() {
+							$(".jsdelete").removeClass('disabled');
+							layer.msg('服务器故障，请稍候再试....', {icon: 5,shade: 0.2,time:1000,});
+						}
+					});
+					
+					return false;
+				});
+				
+				return false;
+			});
+			
+</script>
+</block>

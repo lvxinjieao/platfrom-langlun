@@ -1,0 +1,49 @@
+<extend name="Public/bases" />
+<block name="body">
+<link href="__CSS__/user.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="__JS__/pc_7724.js"></script>
+<script type="text/javascript" src="__JS__/jquery.SuperSlide.2.1.1.js"></script>
+<!--用户中心-->
+<div class="bg_user">
+<div class="cont userbg wid_1206">
+<div class="user-bd laybox clearfix">
+	<include file='base' />
+        <div class="user-section-wrap fl wbg" id="user-section-wrap">
+        <div class="user-section xg_usectionr">
+        <div class="section-tit"><i></i>账号安全</div>
+        <div class="safe-setting-box">	
+		<div class="safe-item">
+			<i class="u-phone"></i>
+			<div class="u-tips">
+				<strong class="stit">手机号码<if condition="$user.phone eq ''">(未设置)<else/>(已设置)</if></strong>
+				<p>用于密码修改时短信提示和密码遗失时重置密码</p>
+			</div>
+			<a href="{:U('user_bind_phone')}" class="g-btn ut_qd xg_usafe"><if condition="$user.phone eq ''">去绑定<else/>解绑手机</if></a>	
+		</div>
+		<div class="safe-item">
+			<i class="u-idcard"></i>
+			<div class="u-tips">
+				<strong class="stit">证件信息<if condition="$user.idcard eq ''">(未设置)<else/>(已设置)</if></strong>
+				<p>用于帐号防沉迷认证和密码遗失时重置密码</p>
+			</div>
+			<a href="{:U('index')}" class="g-btn ut_tc xg_usafe"><if condition="$user.idcard eq ''">设置证件<else/>查看证件</if></a>	
+		</div>
+	</div>
+                   <div class="lh24 xg_bothelp"><span class="xg_dot"></span><span>如需帮助请联系</span>
+  <if condition="$union_set eq ''">
+      <a href="http://wpa.qq.com/msgrd?v=3&amp;uin={:C(PC_SET_SERVER_QQ)}&amp;site=qq&amp;menu=yes" target="_blank" title="客服" class="blue">在线客服</a> 
+    <else/>
+      <a href="http://wpa.qq.com/msgrd?v=3&amp;uin={$union_set['QQ']}&amp;site=qq&amp;menu=yes" target="_blank" title="客服" class="blue">在线客服</a>
+  </if>
+                   </div>
+        </div>
+
+        </div>
+        
+        <div class="clear"></div>
+        
+      </div>
+</div>
+</div>
+<!--用户中心结束--> 
+</block>

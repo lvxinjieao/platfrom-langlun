@@ -1,0 +1,31 @@
+@charset "UTF-8";
+/*标题*/
+.dark-green .layui-layer-title{
+    background-color: #fff;
+    color: #fff;
+}
+/*内容区域*/
+.layui-layer.layui-anim.layui-layer-page.dark-green{
+	border-radius:4px;
+}
+.qrcode{
+	text-align:center;
+}
+.dark-green .p_titlt{
+    margin: 7px auto;
+    line-height: 1;
+    font-size: 13px;
+    font-weight: 700;
+    color: #222;
+}
+.dark-green .p_gray{
+	font-size:16px;
+	color:#999;
+	margin:4px;
+}
+.dark-green .p_gray span{
+	margin-right:8px;
+}
+.dark-green .layui-layer-ico.layui-layer-close.layui-layer-close1{
+	color:#bbbaba;
+}

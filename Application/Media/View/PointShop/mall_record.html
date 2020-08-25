@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link href="__CSS__/record.css" rel="stylesheet" />
+		<link href="__CSS__/base.css" rel="stylesheet" />
+<link href="__CSS__/game.css" type="text/css" rel="stylesheet">
+<link href="__CSS__/shop.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="__JS__/jquery.SuperSlide.2.1.1.js"></script>
+        <style>
+            .img-fonttt {
+                display: block;
+                background-color: #e2e2e2;
+                border-radius: 6px;
+                float: left;
+                margin-right: 15px;
+            }
+			.record-ul-content{
+				width:100%;
+			}
+
+        </style>
+	</head>
+
+	<body>
+		<!--兑换记录弹窗-->
+		<div class="record" style="display: block">
+			<div class="record—window" >
+				<!--<div class="record-title "><span>兑换记录</span><img src="__IMG__/record_close.png" class="record-close fr" id="report-close"></div>-->
+				<div class="record-con">
+					<ol class="record-menu">
+						<li class="active">全部</li>
+						<li>获取</li>
+						<li>兑换</li>
+					</ol>
+					<div class="clear"></div>
+					<ul class="record-ul">
+
+						<li class="cash show">
+							<div class="record-ul-content">
+
+								<volist name="data['all']" id="all">
+									<div class="clear"></div>
+									<div class="record-ul-con">
+
+										<empty name="all['cover']">
+											
+
+											<if condition="$all['type_id'] eq 1">
+											<img src="__IMG__/mall_record_sign@2x.png" class="record-con-img" />
+											<elseif condition="$all['good_type'] eq 6"/>
+											<img src="__IMG__/icon_duihuan.png" class="record-con-img" />
+											<elseif condition="$all['type_id'] eq 2"/>
+											<img src="__IMG__/mall_record_bind@2x.png" class="record-con-img" />
+											<elseif condition="$all['type_id'] eq 3 or $all['type_id'] eq 4"/>
+											<img src="__IMG__/mall_record_first@2x.png" class="record-con-img" />
+											<elseif condition="$all['type_id'] eq 5 "/>
+											<img src="__IMG__/addfriend.png" class="record-con-img" />
+											<else/>
+												<a href="#" target="_self" class="img">
+												<span class="img-fonttt" style="height: 40px;width: 40px;" >
+													<span class="img-font-cell">
+														<div class="img-font-text" style="height: 40px;"></div>
+													</span>
+												</span>
+												</a>
+											</if>
+
+
+
+											<else/>
+
+													<img src="{$all['cover']}" class="record-con-img" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null">
+										</empty>
+
+										<div class="record-con-con">
+											<div class="record-con-title">{$all['good_name']}</div>
+											<div class="record-con-time">{$all['ct']}</div>
+										</div>
+										<div class="record-con-integral">
+											<empty name="all['type_id']">
+												-
+												<else/>
+												+
+											</empty>
+												{$all['pay_amount']}
+											</div>
+									</div>
+								</volist>
+
+							</div>
+						</li>
+						<li class="cash">
+							<div class="record-ul-content">
+								<volist name="data['pointrecord']" id="shop">
+
+										<div class="record-ul-con">
+											<if condition="$shop['type_id'] eq 1">
+											<img src="__IMG__/mall_record_sign@2x.png" class="record-con-img" />
+											<elseif condition="$shop['good_type'] eq 6"/>
+											<img src="__IMG__/icon_duihuan.png" class="record-con-img" />
+											<elseif condition="$shop['type_id'] eq 2"/>
+											<img src="__IMG__/mall_record_bind@2x.png" class="record-con-img" />
+											<elseif condition="$shop['type_id'] eq 3 or $shop['type_id'] eq 4"/>
+											<img src="__IMG__/mall_record_first@2x.png" class="record-con-img" />
+											<elseif condition="$shop['type_id'] eq 5 "/>
+											<img src="__IMG__/addfriend.png" class="record-con-img" />
+											</if>
+											<div class="record-con-con">
+												<div class="record-con-title">{$shop['good_name']}</div>
+												<div class="record-con-time">{$shop['ct']}</div>
+											</div>
+											<div class="record-con-integral">+{$shop['pay_amount']}</div>
+										</div>
+									<div class="clear"></div>
+								</volist>
+							</div>
+						</li>
+						<li>
+							<div class="record-ul-content">
+								<volist name="data['pointshoprecord']" id="point">
+									<div class="record-ul-con">
+									<if condition="$point['good_type'] eq 6">
+										<img src="__IMG__/icon_duihuan.png" class="record-con-img" />
+									<elseif condition="$point['cover'] eq ''" />
+										<a href="#" target="_self" class="img">
+												<span class="img-fonttt" style="height: 40px;width: 40px;">
+													<span class="img-font-cell">
+														<div class="img-font-text" style="height: 40px;"></div>
+													</span>
+												</span>
+												</a>
+									<else/>
+										<img src="{$point['cover']}" class="record-con-img">
+									</if>
+										<div class="record-con-con">
+											<div class="record-con-title">{$point['good_name']}</div>
+											<div class="record-con-time">{$point['ct']}</div>
+										</div>
+										<div class="record-con-integral">-{$point['pay_amount']}</div>
+									</div>
+									<div class="clear"></div>
+
+									<php>$good_key = json_decode($point['good_key'],true);</php>
+			                            <div class="record-code"><if condition="$point['good_type'] eq 2">{$point['good_key']}<elseif condition="$point['good_type'] eq 6" /><else/><notempty name="point.real_name">{$point['real_name']},</notempty><notempty name="point.phone">{$point['phone']},</notempty>{$point['address']}</if></div>
+
+								</volist>
+
+							</div>
+						</li>
+
+					</ul>
+				</div>
+			</div>
+		</div>
+		<script src="__JS__/jquery-1.10.2.min.js"></script>
+		<script src="__JS__/record.js"></script>
+	</body>
+
+</html>

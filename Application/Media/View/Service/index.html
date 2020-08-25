@@ -1,0 +1,62 @@
+<extend name="Public/bases" />
+<block name="body" >
+<meta name="keywords" content="{:C('media_help.seo_keyword')}">
+<meta name="description" content="{:C('media_help.seo_description')}">
+<link href="__CSS__/help.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="__JS__/jquery-1.7.2.min.js"></script>
+<!--下拉菜单--><script type="text/javascript" src="__JS__/ddsmoothmenu.js"></script>
+<script type="text/javascript">
+ddsmoothmenu.init({
+
+	mainmenuid: "smoothmenu1", //menu DIV id
+	
+	orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
+	
+	classname: 'moregame'
+
+});
+</script>
+<!--下拉菜单结束-->
+<script type="text/javascript" src="__JS__/pc_7724.js"></script>
+<script type="text/javascript" src="__JS__/jquery.SuperSlide.2.1.1.js"></script>   
+
+<!-- 帮助页面内容部分 begin-->
+<div class="help_container clearfix">
+	<div class="help_l fl">
+		<ul>
+		<volist name="typelist" id="vo">
+			<li class="help_li <if condition="$key eq $type">active</if>"><a href="{:U('',['type'=>$key])}">{$vo}</a></li>
+		</volist>
+		</ul>
+		<div  class="help_kf"><a  href="http://wpa.qq.com/msgrd?v=3&amp;uin={:C(PC_SET_SERVER_QQ)}&amp;site=qq&amp;menu=yes" target="_blank" title="客服" >在线客服</a></div>
+	
+	</div>
+	<div class="help_r">
+		<div class="prublem_d">
+			<ul class="prublem_ul">
+			<volist name="data_list" id="data">
+				<li class="pru_titli">
+					<i></i><a class="prub_tita">{$data.zititle}</a>
+					<ul class="pru_detailul">
+						<li style="padding-bottom: 10px;">
+							{:nl2br($data['contend'])}
+						</li>
+					</ul>
+				</li>
+			</volist>	
+			</ul>
+		</div>
+		<div class="pagenation clearfix">
+              {$_page|default=''}
+		</div>
+	</div>
+</div>
+<!-- end 帮助页面内容部分 -->
+<script>
+	$('.prub_tita').click(function(){
+		var that=$(this);
+		that.siblings().toggle();
+		that.closest('li').siblings().find('ul').hide();
+	});
+</script>
+</block>

@@ -1,0 +1,172 @@
+<extend name="Public/bases" />
+<block name="body">
+	<meta name="keywords" content="{:C('media_index.seo_keyword')}">
+	<meta name="description" content="{:C('media_index.seo_description')}">
+	<link href="__CSS__/game.css" type="text/css" rel="stylesheet">
+	<link href="__CSS__/news.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="__JS__/jquery-1.7.2.min.js"></script>
+	<!--下拉菜单-->
+	<script type="text/javascript" src="__JS__/ddsmoothmenu.js"></script>
+	<script type="text/javascript">
+		ddsmoothmenu.init({
+
+			mainmenuid: "smoothmenu1", //menu DIV id
+
+			orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
+
+			classname: 'moregame'
+
+		});
+	</script>
+	<style>
+		.bgc_change{background: none;}
+	</style>
+	<!--下拉菜单结束-->
+	<script type="text/javascript" src="__JS__/pc_7724.js"></script>
+	<script type="text/javascript" src="__JS__/jquery.SuperSlide.2.1.1.js"></script>
+
+	<!--新闻中心-->
+	<div class="bgc_change">
+		<div class="cont">
+			<div class="g-main">
+
+				<div class="h5_left">
+					<div class="boxtop mt20">
+						<h3><i></i>新闻资讯</h3>
+					</div>
+					<div class="subject_list news_pic border_de">
+						<div class="news_tab">
+							<ul class="xg-nav-tabs xg-tabcs clearfix">
+								<li class="<if condition=" I('category') eq 'media_zx' ">active</if> pstn_retv" data-index="0">
+									<a href="{:U('Article/index',array('category'=>'media_zx'))}">所有</a>
+									<i class="rules"></i>
+								</li>
+								<li class="<if condition=" I('category') eq 'wap_huodong' ">active</if> pstn_retv" data-index="1">
+									<a href="{:U('Article/index',array('category'=>'wap_huodong'))}">活动</a>
+									<i class="rules"></i>
+								</li>
+								<li class="<if condition=" I('category') eq 'wap_gg' ">active</if> pstn_retv" data-index="2">
+									<a href="{:U('Article/index',array('category'=>'wap_gg'))}">公告</a>
+									<i class="rules"></i>
+								</li>
+								<li class="<if condition=" I('category') eq 'wap_zixun' ">active</if> pstn_retv" data-index="3">
+									<a href="{:U('Article/index',array('category'=>'wap_zixun'))}">资讯</a>
+									<i class="rules"></i>
+								</li>
+								<li class="<if condition=" I('category') eq 'wap_glue' ">active</if> pstn_retv" data-index="4">
+									<a href="{:U('Article/index',array('category'=>'wap_glue'))}">攻略</a>
+								</li>
+							</ul>
+						</div>
+						<dl>
+							<volist name="data" id="data">
+								<dd>
+									<div class="p1">
+										<a class="icon" href="{:U('Article/detail',array('id'=>$data['id']))}">
+											<empty name="data['cover_id']">
+												<img src="" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null">
+												<else/>
+												<img src="{$data['cover_id']|get_cover='path'}" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null">
+											</empty>
+										</a>
+									</div>
+									<div class="p2">
+										<p>
+											<a href="{:U('Article/detail',array('id'=>$data['id']))}">{$data.title}</a>
+										</p>
+										<span>{$data.description}</span>
+										<a href="{:U('Article/detail',array('id'=>$data['id']))}">[查看全文]</a>
+										<em class="p2_em">{:set_show_time($data['update_time'],'','forever')}</em>
+
+									</div>
+								</dd>
+							</volist>
+						</dl>
+						<!--页码-->
+						<div class="pagenation pagepp">
+							{$_page|default=''}
+						</div>
+					</div>
+				</div>
+
+				<!--右边-->
+				<div class="h5_right">
+					
+					<!--热门游戏 -->
+
+					<script>
+						$(function() {
+							<!-- 描述显示一行 -->
+							$(".subject_list dd .p2 span").each(function() {
+								if($(this).text().length > 44) {
+									$(this).text($(this).text().substring(0, 44));
+								}
+
+							});
+						})
+					</script>
+					<notempty name="syhot">
+						<div class="subject_h_g h5_r_bg">
+							<div class="boxtop mt20">
+								<h3><i></i>热门手游<a class="more" target="_blank" href="{:U('game/index')}" title="更多+">更多+</a></h3>
+							</div>
+							<div class="xg_hotsy">
+								<ul>
+									<volist name="syhot" id="syhot">
+										<li class="xg_litop <if condition=" $i eq 1 ">hover </if> ">
+											<div class="p1">
+												<a title="{$syhot.game_name}" href="{$syhot.play_detail_url}"><img src="{$syhot['icon']}" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null"></a>
+											</div>
+											<div class="p2">
+												<p class="xg_zwm">
+													<a title="{$syhot.game_name}" href="{$syhot.play_detail_url}">{$syhot.game_name}</a>
+												</p>
+												<span><a >{$syhot.game_type_name}</a></span>
+												<em>人气：<i>{$syhot['play_num']}</i></em>
+											</div>
+											<div class="p3">
+												<a href="{$syhot.play_detail_url}" target="_blank">下载游戏</a>
+											</div>
+										</li>
+									</volist>
+								</ul>
+							</div>
+						</div>
+					</notempty>
+					<notempty name="h5hot">
+						<div class="subject_h_g h5_r_bg">
+							<div class="boxtop mt20">
+								<h3><i></i>热门H5游戏<a class="more" target="_blank" href="{:U('game/index',['ish5'=>1])}" title="更多+">更多+</a></h3>
+							</div>
+								<div class="xg_hotgame">
+									<ul>
+										<volist name="h5hot" id="hot">
+											<li class="xg_litop <if condition=" $i eq 1 ">hover </if> ">
+												<div class="p1">
+													<a title="{$hot.game_name}" href="{$hot.play_detail_url}"><img src="{$hot['icon']}" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null"></a>
+												</div>
+												<div class="p2">
+													<p class="xg_zwm">
+														<a title="{$hot.game_name}" href="{$hot.play_url}">{$hot.game_name}</a>
+													</p>
+													<span><a >{$hot.game_type_name}</a></span>
+													<em>人气：<i>{$hot['play_num']}</i></em>
+												</div>
+												<div class="p3">
+													<a href="{$hot.play_url}" target="_blank">开始玩</a>
+												</div>
+											</li>
+										</volist>
+									</ul>
+								</div>
+						</div>
+					</notempty>
+					
+				</div>
+				<!--右边结束-->
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+	<!--新闻中心结束-->
+</block>

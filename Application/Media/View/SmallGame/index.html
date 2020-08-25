@@ -1,0 +1,79 @@
+<extend name="Public/bases" />
+<block name="body">
+<link href="__CSS__/base.css" type="text/css" rel="stylesheet">
+<link href="__CSS__/game.css" type="text/css" rel="stylesheet">
+<link href="__CSS__/smallorder.css" type="text/css" rel="stylesheet">
+<!--内容部分-->
+<div class="bgc_change">
+<div class="cont smallorder">
+    <div class="smallorder_div">
+	
+	 <div class="game-select-box fix">
+        <div class="game-theme"> 
+          <span>字母:</span>
+          <a href="{:U('SmallGame/index')}" class="<if condition='I("theme") eq ""'> active </if>">不限</a>
+          <volist name=":zimu26()" id="zimu">
+          <a href="{:U('SmallGame/index',array('theme'=>$zimu['value']))}" class="game-theme-item <if condition='I("theme") eq $zimu["value"]'> active </if>">{$zimu['value']}</a>
+          </volist> 
+        </div>
+      </div>
+        <div class="smallorder_list">
+            
+			 <ul class="smallorder_ul z_clearfix"> 
+                    <foreach name="data" item="vo" key="key">
+                        <li class="cf1 <if condition='($key+1)%4 eq 0'>small_fourli</if>">
+						<div class="show_div">
+                            <a class="icon" href="javascript:;">
+                                <img class="zhanwei" src="{:get_cover($vo['icon'],'path')}" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null">
+                            </a>
+                            <div class="detail">
+                                <div class="decs">
+                                    <a class="smallorder_name" href="javascript:;">{$vo.game_name}</a>
+                                    <div class="msg">
+                                        <p class="nub"><span class="col_org">{$vo.scan_num}</span>人在玩</p>
+                                    </div>
+                                </div>
+                            </div>
+							</div>
+                            <div class="hover_div">
+                                <a class="icon_erwei" href="javascript:;">
+                                    <img class="zhanwei" src="<empty name='vo.type'>{$vo.qrcodeurl}<else/>{:get_cover($vo['qrcode'],'path')}</empty>" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null">
+                                </a>
+                              
+                            </div>
+                        </li>
+                    </foreach>
+            </ul>
+        </div>
+		<!-- 未搜索到任何信息提示 -->
+		<div>
+		</div>
+        <div class="pagenation clearfix">{$_page}</div>
+    </div>
+</div>
+</div>
+</block>
+<block name="script">
+<script>
+
+$(".arrow_left").click(function(){
+$("#slide .left-btn").click();
+})
+$(".arrow_right").click(function(){
+$("#slide .right-btn").click();
+})
+	//@author zwm 20180607
+	//判断当主要内容区域的高度小于(窗口高度-header-footer)时修改footer的margin-top:-40px;
+	if($('.bgc_change').height()<(parseInt($(window).height())-320)){
+		$('.footer').css('marginTop','0px');
+		//主要内容区域设置最小高度为(窗口高度-header-footer)
+		$('.bgc_change').css('min-height',parseInt($(window).height())-320);
+	}
+</script>
+<script>
+    $('.jslist li').hover(function () {
+        $(this).find('.gpx2').show().siblings().hide();
+        $(this).siblings().find('.gpx1').show().siblings().hide();
+    });
+</script>
+</block>

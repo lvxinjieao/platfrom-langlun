@@ -1,0 +1,59 @@
+<extend name="Public/sbases" />
+<block name="body">
+<link href="__CSS__/my.css" rel="stylesheet" />
+<div class="personal">
+	<div class="shead">
+		玩过游戏
+	</div>
+	<div class="tmain">
+		<empty name="playgame">
+		<div class="ts nts">
+			<span class="tsm">您还没有去玩过游戏</span>
+		</div>
+		<else />
+		<foreach name="playgame" item="vo">
+		<div class="ts ts{$key%2}">
+			<a href="{:U('/detail',array('id'=>$vo['id']),true,'',true)}">
+				<i></i>
+				<img src="{$vo.icon|get_cover='path'}" />
+				<span class="tsm">
+					<span class="tra tsm1">{$vo.game_name}</span><br/>
+					<span class="tra tsm2"><span>类型：{:$vo['game_type_name']}</span><span></span></span>
+				</span>
+			</a>
+		</div>
+		</foreach>
+		</empty>
+		<!-- <div class="ts ts0">
+			<a href="">
+				<i></i>
+				<img src="" />
+				<span class="tsm">
+					<span class="tra tsm1">鉴于江湖</span><br/>
+					<span class="tra tsm2"><span>类型：角色扮演</span><span></span></span>
+				</span>
+			</a>
+		</div>
+		<div class="ts ts1">
+			<a href="">
+				<i></i>
+				<img src="" />
+				<span class="tsm">
+					<span class="tra tsm1">鉴于江湖</span><br/>
+					<span class="tra tsm2"><span>类型：角色扮演</span><span></span></span>
+				</span>
+			</a>
+		</div>
+		<div class="ts ts0">
+			<a href="">
+				<i></i>
+				<img src="" />
+				<span class="tsm">
+					<span class="tra tsm1">鉴于江湖</span><br/>
+					<span class="tra tsm2"><span>类型：角色扮演</span><span></span></span>
+				</span>
+			</a>
+		</div> -->
+	</div>
+</div>
+</block>

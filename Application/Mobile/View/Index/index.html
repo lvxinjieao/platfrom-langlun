@@ -1,0 +1,1041 @@
+<extend name="Public/bases" />
+<block name="body" >
+<link href="__CSS__/index.css" rel="stylesheet" >
+<link href="__CSS__/code.css" rel="stylesheet" >
+<style>
+.dropload-noData{
+  display:none;
+}
+.code .p_gray {margin:0;padding:0.1rem 0 0;font-size:0.44rem;color:#18b1ea;text-align: center;}
+.code .p_gray img {width:0.45rem;height:0.45rem;margin-right:0.2rem;}
+</style>
+
+ <!--关注公众号弹出层-->
+    <div class="code" id="code">
+
+        <img src="{:get_cover(C('PC_SET_QRCODE'),'path')}" alt="" class="code-img" />
+        <div class="code-text">微信内打开图片，识别二维码关注公众号</div>
+        <p class="p_gray"><img src="__IMG__/icon_normal_xiazai.png"><span>截图保存图片到相册</span></p>
+    </div>
+  <header class="header " style="position:relative;">
+    <section class="wrap">
+        <if condition="is_login() gt 0">
+            <a class="hbtn table left logo ">
+                <span class="table-cell">
+                    <empty name="userinfo.head_icon">
+                        <img src="__IMG__/my_head.png">
+                    <else/>
+                        <img src="{$userinfo['head_icon']}">
+                    </empty>
+                </span>
+            </a>
+				<span class="hbtn table">	<span class="table-cell">	
+			<span class="user_info">{$userinfo['account']}</span>
+			
+			</span>
+			</span>
+            <else/>
+						<a href="javascript:;" class="hbtn login lb1 jslogin"><span class="table"><span class="table-cell"><img src="__IMG__/my_head.png"></span></span></a>
+            <a href="javascript:;" class="hbtn login lb2 jslogin"><span class="table"><span class="table-cell"><i class="">登录</i></span></span></a>
+						<span class="hbtn  login serperate "><span class="table"><span class="table-cell"><i class="">|</i></span></span></span>
+						<a href="javascript:;" class="hbtn  login lb3  jsregister"><span class="table"><span class="table-cell"><i class="">注册</i></span></span></a>
+      
+        </if>
+      <!-- <div class="caption"><span class="table"><span class="table-cell">首页</span></span></div> -->
+	    <a  class="hbtn header_code"><span class="table"><span class="table-cell"><img src="__IMG__/nav_btn_code.png"></span></span></a>
+		<a  class="hbtn down" href="{:U('Index/iosdownload')}"><span class="table"><span class="table-cell"><span class="down_sub">下载APP</span></span></span></a>
+      <if condition="session('user_auth.user_id') elt 0">
+        <a href="{:U('Search/index')}" class="hbtn login search" style="margin-top:0;"><span class="table"><span class="table-cell"><img src="__IMG__/nav_btn_search.png"></span></span></a>
+      <else/>
+        <a href="{:U('Search/index')}" class="hbtn search" style="margin-top:0;"><span class="table"><span class="table-cell"><img src="__IMG__/nav_btn_search.png"></span></span></a>
+      </if>
+    </section>
+  </header>
+
+  <!-- <div class="occupy"></div> -->
+    <section class="trunker">
+      <section class="inner">
+        <section class="banner">
+          <div id="banner-carousel" class="swiper-container">
+              <div class="swiper-wrapper">
+                  <volist name="sliderWap" id="slidApp">
+                    <div class="swiper-slide">
+                      <a class="pic" style="display:block;height:100%;" target="{$slidApp['target']}" href="<notempty name='slidApp.url'>{$slidApp['url']}<else />javascript:;</notempty>">
+                          <span class="font table"><span class="table-cell">{$slidApp['title']}</span></span>
+                          <php>
+                              if(strpos($slidApp['data'],'http') && !empty($slidApp['data'])){
+                                $slidApp['data'] = 'http://'.$_SERVER['SERVER_NAME'].$slidApp['data'];
+                              }
+                          </php>
+                         
+                              <img src="{$slidApp['data']}"  onerror="this.src='/Public/Mobile/images/empty.jpg';this.onerror=null"/>
+                         
+                      </a>
+                    </div>
+                  </volist>
+              </div>
+              <div class="swiper-pagination"></div>
+          </div>
+          
+        </section>
+        <section class="contain">
+        <if condition="session('user_auth.user_id') gt 0 && !empty($userPlay)">
+          <div class="recently-play">
+            <div class="wrap">
+              <div class="recently-play-title">
+                <span class="table"><i class="table-cell">最近在玩</i></span>
+              </div>
+              <div class="play-scroll">
+                <div id="play-slide" class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <volist name="userPlay" id="up">
+                          <div class="swiper-slide">
+                            <div class="item">
+                              <a href="{:U('Game/detail',array('game_id'=>$up['id']))}" class="icon"><img src="{$up.icon}"  onerror="this.src='__IMG__/empty.jpg';this.onerror=null"/></a>
+                                <if condition="$up['sdk_version'] eq 3">
+                                    <span class="palytip_icon"><img src="__IMG__/icon_h5@2x.png" ></span>
+                                </if>
+                              <a href="{:U('Game/detail',array('game_id'=>$up['id']))}" class="name">{$up.relation_game_name}</a>
+                            </div>
+                          </div>
+                        </volist>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </if>
+		
+          <div class="recommend-list">
+            
+            <div class="tab-scroll">
+              <div id="tab-menu">
+                <div class="s-container">
+                    <div class="s-wrapper tabmenu">
+                        <div class="s-slide s-visible active" ><a href="#hot">热门</a></div>
+                        <if condition="C('SMALL_PROGRAM_IS_SHOW') eq 1">
+                        <div class="s-slide s-visible small_bg" ><a href="#small"></a></div>
+                        </if>
+                        <div class="s-slide s-visible  s-hdredpoint"><a class="hdredpoint" href="#activity">活动<if condition="$hdmark neq 1"><i class="circle"></i></if></a></div>
+                        <div class="s-slide s-visible"><a href="#open">新开服</a></div>
+                    </div>
+                </div>
+              </div>
+				
+			
+			<div id="tab-slide">
+			
+                <div class="s-container">
+                    <div class="s-wrapper tabpanel">
+						<div class="tab-scroll">
+                        <div class="s-slide" style="display:block;">
+                            <div class="activity list double-list">
+                                <div class="jstab double-list-item">
+                                    <ul class="tab clearfix">
+                                        <li ><a href="#hot0" class="btn active"><span class="table"><span class="table-cell">手游</span></span></a></li>
+                                        <li ><a href="#hot1" class="btn"><span class="table"><span class="table-cell">H5游戏</span></span></a></li>
+                                    </ul>
+                                </div>
+                                <div class="jspanel double-list-item s-slide loaddiv">
+                                    <ul class="hot hotload list text-pic-list" id="hotload">
+
+                                    </ul>
+                                    <ul class=" hot hotload list text-pic-list tab-panel h5load hot" id="h5load">
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+					</div>
+                        <if condition="C('SMALL_PROGRAM_IS_SHOW') eq 1">
+                            <div class="s-slide loaddiv" id="newload">
+                              <ul class="shelves newload list text-pic-list" >
+
+                              </ul>
+                            </div>
+                        </if>
+                        <div class="s-slide" >
+                          <div class="activity list double-list">
+                            <div class="jstab double-list-item">
+                              <ul class="tab clearfix">
+                                <li class="jshdong"><a href="#activity0" class="btn active"><span class="table"><span class="table-cell">活动</span></span></a></li>
+                                <li class="jshdong"><a href="#activity1" class="btn"><span class="table"><span class="table-cell">公告</span></span></a></li>
+                                  <li class="jshdong"><a href="#activity2" class="btn"><span class="table"><span class="table-cell">资讯</span></span></a></li>
+                                  <li class="jshdong"><a href="#activity3" class="btn"><span class="table"><span class="table-cell">攻略</span></span></a></li>
+                              </ul>
+                            </div>
+                            <div class="jspanel double-list-item s-slide loaddiv">
+                              <ul class="tab-panel hdload panel1 active" id="hdload">
+                                
+                              </ul>
+                              <ul class="tab-panel ggload panel2" id="ggload">
+                                
+                              </ul>
+                                <ul class="tab-panel ggload panel2" id="zixunload">
+
+                                </ul>
+                                <ul class="tab-panel ggload panel2" id="gonglueload">
+
+                                </ul>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="s-slide">
+                          <div class="open list double-list">
+                            <div class="jstab double-list-item">
+                              <ul class="tab clearfix">
+                                <li class="jsserver"><a href="#open0" class="btn active"><span class="table"><span class="table-cell"><i class="icon icon-open-yes"></i>今日开服</span></span></a></li>
+                                <li class="jsserver"><a href="#open1" class="btn"><span class="table"><span class="table-cell"><i class="icon icon-open-no"></i>即将开服</span></span></a></li>
+                                <li class="jsserver"><a href="#open2" class="btn"><span class="table"><span class="table-cell"><i class="icon icon-open-no"></i>已开服</span></span></a></li>
+                              </ul>
+                            </div>
+                            <div class="jspanel double-list-item s-slide loaddiv">
+                              <ul class="tab-panel openedload text-pic-list panel3 active" id="openedload">
+                              </ul>
+                              <ul class="tab-panel noopenload text-pic-list panel3 panel4 " id="noopenload">
+                              </ul>
+                                <ul class="tab-panel openedload text-pic-list panel3 panel4 " id="yugaoload">
+                                </ul>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+            
+            
+            
+          </div>
+        </section>
+        
+      </section>
+    </section>
+    <div class="popbook"></div>
+    <div class="pop"></div>
+<script src="__JS__/pop.lwx.min.js"></script>
+<link href="__STATIC__/dist/dropload.css" rel="stylesheet" >
+<script src="__STATIC__/dist/dropload.js"></script>
+<link href="__CSS__/news_layer.css" rel="stylesheet">
+<script>
+$(".down-close").click(function(){
+	$(".down").css("display","none");
+})
+$(".header_code").click(function(){
+	layer.open({
+      type: 1,
+      shadeClose: false,
+      title: '&nbsp',
+      area: ['10rem', '10.2rem'], //宽高
+      content: $('#code')
+  });
+})
+
+</script>
+
+<script>
+$('.hdredpoint').click(function(){
+  $(this).children('.circle').remove();
+});
+$(".s-hdredpoint").click(function(){
+  $(this).find('.circle').remove();
+});
+var itemIndex = 0;
+var hdIndex = 0;
+var openIndex = 0;
+var tab1LoadEnd = false;
+var tab2LoadEnd = false;
+var tab3LoadEnd = false;
+var tab4LoadEnd = false;
+var tab5LoadEnd = false;
+var tab6LoadEnd = false;
+function reservefun(ele,server_id,type){
+  res = jslogin();
+  if(!res){
+    return false;
+  }
+  that = ele.parent('.butnbox');
+  var $ok = false;
+  $.ajax({
+      type:'post',
+      url:"{:U('Index/setServerNotice')}",
+      data:{server:server_id,type:type},
+      async:false,
+      success:function(data){
+        if(data.code==1){
+          $ok=true;
+        }else if(data.code==-1){
+          $ok=false;
+          res = jslogin();
+          if(!res){
+            return false;
+          }
+        }else{
+          $ok=false;
+          layer.msg('请刷新后重试',{time:1000});
+        }
+      },error:function(){
+        $ok=false;
+      }
+  });
+  if(type == 1&&$ok){
+    that.html('<a href="javascript:;" onclick="reservefun($(this),'+server_id+',0);"  class="butn kfbutn"><i class="icon icon-notice-no"></i><span>已设置通知</span></a>');
+    layer.msg('已设置通知',{time:500});
+  }else if($ok){
+    that.html('<a href="javascript:;" onclick="reservefun($(this),'+server_id+',1);" class="butn kfbutn"><i class="icon  icon-notice-yes"></i><span>通知</span></a>');
+    layer.msg('已取消通知',{time:500});
+  }
+}
+<!-- 注册 -->
+ $('.jsregister').click(function(){
+  $('.jslogin').click();
+   qiehuan($('.jspoptab a').eq(1),10);
+   return false;
+ })
+var lwx = window.lwx || {};
+lwx.ready = true;
+lwx.width = $(window).width();
+lwx.height = $(window).height();
+lwx.number = {hot:1,h5:1,small:1,activity:1,notice:1,zixun:1,gonglue:1,open:1,preview:1,yugao:1};
+lwx.control = {hot:false,h5:false,small:false,activity:false,notice:false,zixun:false,gonglue:false,open:false,preview:false,yugao:false};
+lwx.row = {hot:8,h5:8,small:8,activity:8,zixun:8,gonglue:8,notice:8,open:8,preview:8,yugao:8};
+lwx.http = {
+	getJSON:function(url,callback){
+		$.getJSON(url + '&v=' + Date.now(),function(data){
+			callback(data);
+		});
+	},
+	postJSON:function(url,args,callback) {
+		$.post(url + '&v=' + Date.now(), args, function(data) {
+			callback(data);
+		},"json")
+	},
+};
+lwx.url ={
+	game:'{:U("Index/more_game")}',
+	small:'{:U("Index/samll_game")}',
+	article:'{:U("Index/get_article_lists")}',
+	server:'{:U("Index/server")}',
+};
+lwx.page = {
+	hot:function(){
+		if(lwx.number.hot && !lwx.control.hot) {
+            lwx.control.hot=true;
+			lwx.http.getJSON(lwx.url.game+'?rec_status=2&limit='+lwx.row.hot+'&p='+lwx.number.hot,function(data) {
+				var hotload = $('#hotload');
+				var data = data.data;
+
+				if(data && data.length) {
+					var result = '';
+					for (var i in data) {
+						result += '<li class="clearfix"><div class="item clearfix"><a href="'+data[i].play_detail_url+'" class="iconbox"><img src="'+data[i].icon+'" class="icon" onerror="this.src=\'/Public/Mobile/images/empty.jpg\';this.onerror=null"></a><div class="butnbox">';
+						if(data[i].ratio>0){
+                            result += '<span class="rebate">返利'+data[i].ratio+'%</span>';
+                        }
+						if(data[i].xia_status == 0){
+                            result += '<a href="javascript:;" class="butn butnlogin disabledbtn">下载</a>';
+                        }else{
+                            result += '<a href="'+data[i].play_url+'" class="butn butnlogin">下载</a>';
+                        }
+                        result += '</div><div class="text"><div class="title"><a href="'+data[i].play_detail_url+'" class="name">'+data[i].game_name+'</a>';
+						if(data[i].gift_id>0){
+							result += '<span class="mark gift-mark">礼包</span>';
+						}
+						result += '</div><p class="info"><span class="type">'+data[i].game_size+'</span><span class="description">'+data[i].features+'</span></p></div></div></li>';
+					}
+
+					hotload.append(result);
+					hotload.find('.jsdropload').remove();
+					if(data.length >= lwx.row.hot) {
+						lwx.number.hot++;
+						lwx.ready = true;
+						hotload.append('<div class="dropload-down jsdropload"><div class="dropload-noData">继续加载</div></div>');
+					} else {
+						lwx.number.hot = false;
+						hotload.append('<div class="dropload-down jsdropload"><div class="dropload-noData">没有更多了</div></div>');
+					}
+				} else {
+					if(lwx.number.hot==1){
+						hotload.html('').append('<div class="empty s-categroy emptypb10"><img src="__IMG__/no_date.png" class="empty-icon"><p class="empty-text">~ 空空如也 ~</p></div>');
+					} else{
+						hotload.append('<div class="dropload-down jsdropload"><div class="dropload-noData">没有更多了</div></div>');
+					}
+					lwx.number.hot = false;
+				}
+                lwx.control.hot=false;
+			});
+		}
+	},
+    h5:function(){
+        if(lwx.number.h5 && !lwx.control.h5) {
+            lwx.control.h5 =true;
+            lwx.http.getJSON(lwx.url.game+'?rec_status=2&type=h5&limit='+lwx.row.h5+'&p='+lwx.number.h5,function(data) {
+                var hotload = $('#h5load');
+                var data = data.data;
+
+                if(data && data.length) {
+                    var result = '';
+                    for (var i in data) {
+                        result += '<li class="clearfix"><div class="item clearfix"><a href="'+data[i].play_detail_url+'" class="iconbox"><img src="'+data[i].icon+'" class="icon" onerror="this.src=\'/Public/Mobile/images/empty.jpg\';this.onerror=null"></a><div class="butnbox">' ;
+                        if(data[i].ratio>0){
+                            result += '<span class="rebate">返利'+data[i].ratio+'%</span>';
+                        }
+                        result += '<a href="'+data[i].play_url+'" class="butn butnlogin">开始</a></div><div class="text"><div class="title"><a href="'+data[i].play_detail_url+'" class="name">'+data[i].game_name+'</a>';
+                        if(data[i].gift_id>0){
+                            result += '<span class="mark gift-mark">礼包</span>';
+                        }
+                        result += '</div><p class="info"><span class="type">'+data[i].game_type_name+'</span><span class="description">'+data[i].features+'</span></p></div></div></li>';
+                    }
+
+                    hotload.append(result);
+                    hotload.find('.jsdropload').remove();
+                    if(data.length >= lwx.row.h5) {
+                        lwx.number.h5++;
+                        lwx.ready = true;
+                        hotload.append('<div class="dropload-down jsdropload"><div class="dropload-noData">继续加载</div></div>');
+                    } else {
+                        lwx.number.h5 = false;
+                        hotload.append('<div class="dropload-down jsdropload"><div class="dropload-noData">没有更多了</div></div>');
+                    }
+                } else {
+                    if(lwx.number.h5==1){
+                        hotload.html('').append('<div class="empty s-categroy emptypb10"><img src="__IMG__/no_date.png" class="empty-icon"><p class="empty-text">~ 空空如也 ~</p></div>');
+                    } else{
+                        hotload.append('<div class="dropload-down jsdropload"><div class="dropload-noData">没有更多了</div></div>');
+                    }
+                    lwx.number.h5 = false;
+                }
+                lwx.control.h5=false;
+            });
+        }
+    },
+	small:function(){
+		if(lwx.number.small && ! lwx.control.small) {
+            lwx.control.small = true;
+			lwx.http.getJSON(lwx.url.small+'?limit='+lwx.row.small+'&p='+lwx.number.small,function(data) {
+				var newload = $('#newload');
+				var data = data.data;
+				var onerror = "this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null"; 
+				if(data && data.length) {
+					var result = '';
+					for (var i in data) {
+						result += '<li class="clearfix">';
+						result += '<div class="item clearfix">';
+						result += '<a href="javascript:;" class="iconbox iconbox_small">' +
+						'<img src="'+data[i].icon+'" class="icon" onerror="'+onerror+'">' +
+						'</a>' +
+						'<div class="butnbox">' +
+						'<span class="table">' +
+						'<span class="table-cell">';
+                        if(data[i].type == 0){
+                            result += '<a href="javascript:;" data-url="'+data[i].qrcodeurl+'" class="butn butn_samll">去玩</a>' ;
+                        }else{
+                            result += '<a href="javascript:;" data-url="'+data[i].qrcode+'" class="butn butn_samll">去玩</a>' ;
+                        }
+                        result += '</span>' +
+						'</span>' +
+						'</div>' +
+						'<div class="text">' +
+						'<div class="title title_small">' +
+						'<a href="JavaScript:;" class="name">'+data[i].game_name+'</a>'+
+						'</div></div></div></li>';
+					}
+					
+					newload.find('ul.list').append(result);
+					newload.find('.jsdropload').remove();
+					if(data.length >= lwx.row.small) {
+						lwx.number.small++;
+						lwx.ready = true;
+						newload.append('<div class="dropload-down jsdropload"><div class="dropload-noData">继续加载</div></div>');
+					} else {
+						lwx.number.small = false;
+						newload.append('<div class="dropload-down jsdropload"><div class="dropload-noData">没有更多了</div></div>');
+					}
+				} else {
+					if(lwx.number.small==1){
+						newload.append('<div class="empty s-categroy emptypb10"><img src="__IMG__/no_date.png" class="empty-icon"><p class="empty-text">~ 空空如也 ~</p></div>');
+					} else{
+						newload.append('<div class="dropload-down jsdropload"><div class="dropload-noData">没有更多了</div></div>');
+					}
+					lwx.number.small = false;
+				}
+                lwx.control.small = false;
+			});
+		}
+	},
+	activity:function(){
+		if(lwx.number.activity && !lwx.control.activity) {
+            lwx.control.activity = true;
+			lwx.http.getJSON(lwx.url.article+'?category=6&limit='+lwx.row.activity+'&p='+lwx.number.activity,function(data) {
+				var hdload = $('#hdload');
+				var data = data.data;
+				if(data && data.length) {
+					var result = '';
+					for (var i in data) {
+						result += '<li><div class="item"><a href="'+data[i].url+'" class="iconbox"><span class="font table"><span class="table-cell">{:C('BITMAP')}</span></span><img src="'+data[i].cover+'" class="icon"><span class="status disabled"><span class="table">';
+						if(data[i].article_status==1){
+							result += '<span class="status"><span class="table"><span class="table-cell"><img src="__IMG__/activity_notice_time_ongoing.png">进行中...</span></span></span>';
+						}else if(data[i].article_status==-1){
+							result += '<span class="status soon"><span class="table"><span class="table-cell">即将开始</span></span></span>';
+						}else{
+							result += '<span class="status disabled"><span class="table"><span class="table-cell">已结束</span></span></span>';
+						}
+						result += '</span></span></a><h2 class="title"><a href="'+data[i].url+'">';
+						if(data[i].relation_game_name){
+							result +='['+data[i].relation_game_name+']';
+						}
+						result +=data[i].title+'</a></h2><p class="time">活动时间：'+data[i].start_time+'~'+data[i].end_time+'</p></div></li>';
+					}
+					
+					hdload.append(result);
+					hdload.find('li.end').remove();
+					if(data.length >= lwx.row.activity) {
+						lwx.number.activity++;
+						lwx.ready = true;
+						hdload.append('<li class="end"><div class="dropload-down jsdropload"><div class="dropload-noData">继续加载</div></div></li>');
+					} else {
+						lwx.number.activity = false;
+						hdload.append('<li class="end"><div class="dropload-down jsdropload"><div class="dropload-noData">没有更多了</div></div></li>');
+					}
+				} else {
+					if(lwx.number.activity==1){
+						hdload.append('<li class="end"><div class="empty s-categroy emptypb10"><img src="__IMG__/no_date.png" class="empty-icon"><p class="empty-text">~ 空空如也 ~</p></div></li>');
+					} else{
+						hdload.append('<li class="end"><div class="dropload-down jsdropload"><div class="dropload-noData">没有更多了</div></div></li>');
+					}
+					lwx.number.activity = false;
+				}
+                lwx.control.activity = false;
+			});
+		}
+	},
+	notice:function(){
+		if(lwx.number.notice && !lwx.control.notice) {
+            lwx.control.notice = true;
+			lwx.http.getJSON(lwx.url.article+'?category=5&limit='+lwx.row.notice+'&p='+lwx.number.notice,function(data) {
+				var ggload = $('#ggload');
+				var data = data.data;
+				if(data && data.length) {
+					var result = '';
+					for (var i in data) {
+						result += '<li><a href="'+data[i].url+'"><div class="item"><h2 class="title">';
+						if(data[i].relation_game_name){
+							result +='['+data[i].relation_game_name+']';
+						}
+						result +=data[i].title+'</h2><p class="time"><img src="__IMG__/activity_notice_time.png" class="icon"><span class="date">'+data[i].start_time+'</span></p></div></a></li> ';
+					}
+
+					ggload.append(result);
+					ggload.find('li.end').remove();
+					if(data.length >= lwx.row.notice) {
+						lwx.number.notice++;
+						lwx.ready = true;
+						ggload.append('<li class="end"><div class="dropload-down jsdropload"><div class="dropload-noData">继续加载</div></div></li>');
+					} else {
+						lwx.number.notice = false;
+						ggload.append('<li class="end"><div class="dropload-down jsdropload"><div class="dropload-noData">没有更多了</div></div></li>');
+					}
+				} else {
+					if(lwx.number.notice==1){
+						ggload.append('<li class="end"><div class="empty s-categroy emptypb10"><img src="__IMG__/no_date.png" class="empty-icon"><p class="empty-text">~ 空空如也 ~</p></div></li>');
+					} else{
+						ggload.append('<li class="end"><div class="dropload-down jsdropload"><div class="dropload-noData">没有更多了</div></div></li>');
+					}
+					lwx.number.notice = false;
+				}
+                lwx.control.notice = false;
+			});
+		}
+	},
+    zixun:function(){
+        if(lwx.number.zixun && !lwx.control.zixun) {
+            lwx.control.zixun = true;
+            lwx.http.getJSON(lwx.url.article+'?category=4&limit='+lwx.row.zixun+'&p='+lwx.number.zixun,function(data) {
+                var ggload = $('#zixunload');
+                var data = data.data;
+                if(data && data.length) {
+                    var result = '';
+                    for (var i in data) {
+                        result += '<li><a href="'+data[i].url+'"><div class="item"><h2 class="title">';
+                        if(data[i].relation_game_name){
+                            result +='['+data[i].relation_game_name+']';
+                        }
+                        result +=data[i].title+'</h2><p class="time"><img src="__IMG__/activity_notice_time.png" class="icon"><span class="date">'+data[i].start_time+'</span></p></div></a></li> ';
+                    }
+
+                    ggload.append(result);
+                    ggload.find('li.end').remove();
+                    if(data.length >= lwx.row.zixun) {
+                        lwx.number.zixun++;
+                        lwx.ready = true;
+                        ggload.append('<li class="end"><div class="dropload-down jsdropload"><div class="dropload-noData">继续加载</div></div></li>');
+                    } else {
+                        lwx.number.zixun = false;
+                        ggload.append('<li class="end"><div class="dropload-down jsdropload"><div class="dropload-noData">没有更多了</div></div></li>');
+                    }
+                } else {
+                    if(lwx.number.zixun==1){
+                        ggload.append('<li class="end"><div class="empty s-categroy emptypb10"><img src="__IMG__/no_date.png" class="empty-icon"><p class="empty-text">~ 空空如也 ~</p></div></li>');
+                    } else{
+                        ggload.append('<li class="end"><div class="dropload-down jsdropload"><div class="dropload-noData">没有更多了</div></div></li>');
+                    }
+                    lwx.number.zixun = false;
+                }
+                lwx.control.zixun = false;
+            });
+        }
+    },
+    gonglue:function(){
+        if(lwx.number.gonglue && !lwx.control.gonglue) {
+            lwx.control.gonglue = true;
+            lwx.http.getJSON(lwx.url.article+'?category=7&limit='+lwx.row.gonglue+'&p='+lwx.number.gonglue,function(data) {
+                var ggload = $('#gonglueload');
+                var data = data.data;
+                if(data && data.length) {
+                    var result = '';
+                    for (var i in data) {
+                        result += '<li><a href="'+data[i].url+'"><div class="item"><h2 class="title">';
+                        if(data[i].relation_game_name){
+                            result +='['+data[i].relation_game_name+']';
+                        }
+                        result +=data[i].title+'</h2><p class="time"><img src="__IMG__/activity_notice_time.png" class="icon"><span class="date">'+data[i].start_time+'</span></p></div></a></li> ';
+                    }
+
+                    ggload.append(result);
+                    ggload.find('li.end').remove();
+                    if(data.length >= lwx.row.gonglue) {
+                        lwx.number.gonglue++;
+                        lwx.ready = true;
+                        ggload.append('<li class="end"><div class="dropload-down jsdropload"><div class="dropload-noData">继续加载</div></div></li>');
+                    } else {
+                        lwx.number.gonglue = false;
+                        ggload.append('<li class="end"><div class="dropload-down jsdropload"><div class="dropload-noData">没有更多了</div></div></li>');
+                    }
+                } else {
+                    if(lwx.number.gonglue==1){
+                        ggload.append('<li class="end"><div class="empty s-categroy emptypb10"><img src="__IMG__/no_date.png" class="empty-icon"><p class="empty-text">~ 空空如也 ~</p></div></li>');
+                    } else{
+                        ggload.append('<li class="end"><div class="dropload-down jsdropload"><div class="dropload-noData">没有更多了</div></div></li>');
+                    }
+                    lwx.number.gonglue = false;
+                }
+                lwx.control.gonglue = false;
+            });
+        }
+    },
+
+	open:function(){
+		if(lwx.number.open && !lwx.control.open) {
+            lwx.control.open = true;
+			lwx.http.getJSON(lwx.url.server+'?type=2&row='+lwx.row.open+'&p='+lwx.number.open,function(data) {
+				var openedload = $('#openedload');
+				var data = data.data;
+				if(data && data.length) {
+					var result = '';
+					for (var i in data) {
+						result += '<li><div class="item clearfix"><a href="'+data[i].play_detail_url+'" class="iconbox kficonbox"><img src="'+data[i].icon+'" class="icon" onerror="this.src=\'/Public/Mobile/images/empty.jpg\';this.onerror=null">' ;
+                        if(data[i].sdk_version == 3){
+                            result += '<img src="__IMG__/icon_h52x.png" class="kftip_icon"></a><div class="butnbox">' ;
+                            result += '<a href="'+data[i].play_url+'" class="butn butnlogin">开始</a>' ;
+                        }else{
+                            result += '</a><div class="butnbox">' ;
+                            if(data[i].xia_status == 0){
+                                result += '<a href="javascript:;" class="butn butnlogin disabledbtn">下载</a>' ;
+                            }else{
+                                result += '<a href="'+data[i].play_url+'" class="butn butnlogin">下载</a>' ;
+                            }
+                        }
+                        result += '</div><div class="text"><div class="title"><a href="'+data[i].play_detail_url+'" class="name">'+data[i].relation_game_name+'</a></div>' +
+                        '<p class="info"><span class="kf-name">'+data[i].game_type_name+'</span><span>'+data[i].game_size+'</span></p>'+
+                        '<p class="info"><span class="server-time">'+data[i].start_date+'</span><span class="server-name">'+data[i].server_name+'</span></p>' +
+                        '</div></div></li>';
+                     }
+					
+					openedload.append(result);
+					openedload.find('li.end').remove();
+					if(data.length >= lwx.row.open) {
+						lwx.number.open++;
+						lwx.ready = true;
+						openedload.append('<li class="end"><div class="dropload-down jsdropload"><div class="dropload-noData">继续加载</div></div></li>');
+					} else {
+						lwx.number.open = false;
+						openedload.append('<li class="end"><div class="dropload-down jsdropload"><div class="dropload-noData">没有更多了</div></div></li>');
+					}
+				} else {
+					if(lwx.number.open==1){
+						openedload.append('<li class="end"><div class="empty s-categroy emptypb10"><img src="__IMG__/no_date.png" class="empty-icon"><p class="empty-text">~ 空空如也 ~</p></div></li>');
+					} else{
+						openedload.append('<li class="end"><div class="dropload-down jsdropload"><div class="dropload-noData">没有更多了</div></div></li>');
+					}
+					lwx.number.open = false;
+				}
+                lwx.control.open = false;
+			});
+		}
+	},
+	preview:function(){
+		if(lwx.number.preview && !lwx.control.preview) {
+            lwx.control.preview = true;
+			lwx.http.getJSON(lwx.url.server+'?type=1&row='+lwx.row.preview+'&p='+lwx.number.preview,function(data) {
+				var noopenload = $('#noopenload');
+				var data = data.data;
+                var nowtime = {:time()};
+				if(data && data.length) {
+					var result = '';
+					for (var i in data) {
+						result +='<li><div class="item clearfix"><a href="'+data[i].play_detail_url+'" class="iconbox kficonbox"><img src="'+data[i].icon+'" class="icon" onerror="this.src=\'/Public/Mobile/images/empty.jpg\';this.onerror=null">' ;
+                        
+						if(data[i].sdk_version == 3){
+                            result += '<img src="__IMG__/icon_h52x.png" class="kftip_icon"></a><div class="butnbox">' ;
+                        }else{
+                            result += '</a><div class="butnbox">';
+                        }
+						if((data[i].start_time-nowtime)<1800){
+							result +='<a href="javascript:;" data-start_time="'+data[i].start_time+'" class="butn opening-btn">即将开服</a>';
+						}else if(data[i].isnotice==0){
+							result +='<a href="javascript:;" onclick="reservefun($(this),'+data[i].server_id+',1);" class="butn kfbutn"><i class="icon icon-notice-yes"></i><span>通知</span></a>';
+						}else{
+							result +='<a href="javascript:;" onclick="reservefun($(this),'+data[i].server_id+',0);"  class="butn kfbutn"><i class="icon icon-notice-no "></i><span>已设置通知</span></a>';
+						}
+						result +='</div><div class="text"><div class="title"><a href="'+data[i].play_detail_url+'" class="name">'+data[i].relation_game_name+'</a></div>' +
+                            '<p class="info"><span class="kf-name">'+data[i].game_type_name+'</span><span>'+data[i].game_size+'</span></p>'+
+                            '<p class="info"><span class="server-time">'+data[i].start_date+'</span><span class="server-name">'+data[i].server_name+'</span></p>' +
+                            '</div></div></li>';
+					}
+					
+					noopenload.append(result);
+					noopenload.find('li.end').remove();
+					if(data.length >= lwx.row.preview) {
+						lwx.number.preview++;
+						lwx.ready = true;
+						noopenload.append('<li class="end"><div class="dropload-down jsdropload"><div class="dropload-noData">继续加载</div></div></li>');
+					} else {
+						lwx.number.preview = false;
+						noopenload.append('<li class="end"><div class="dropload-down jsdropload"><div class="dropload-noData">没有更多了</div></div></li>');
+					}
+				} else {
+					if(lwx.number.preview==1){
+						noopenload.append('<li class="end"><div class="empty s-categroy emptypb10"><img src="__IMG__/no_date.png" class="empty-icon"><p class="empty-text">~ 空空如也 ~</p></div></li>');
+					} else{
+						noopenload.append('<li class="end"><div class="dropload-down jsdropload"><div class="dropload-noData">没有更多了</div></div></li>');
+					}
+					lwx.number.preview = false;
+				}
+                lwx.control.preview = false;
+			});
+		}
+	},
+    yugao:function(){
+        if(lwx.number.yugao && !lwx.control.yugao) {
+            lwx.control.yugao = true;
+            lwx.http.getJSON(lwx.url.server+'?type=0&row='+lwx.row.yugao+'&p='+lwx.number.yugao,function(data) {
+                var noopenload = $('#yugaoload');
+                var data = data.data;
+                var nowtime = {:time()};
+                if(data && data.length) {
+                    var result = '';
+                    for (var i in data) {
+                        result += '<li>' +
+                            '<div class="item clearfix">' +
+                            '<a href="'+data[i].play_detail_url+'" class="iconbox kficonbox">' +
+                            '<img src="'+data[i].icon+'" class="icon" onerror="this.src=\'/Public/Mobile/images/empty.jpg\';this.onerror=null">';
+							  
+                            if(data[i].sdk_version == 3){
+                                result += '<img src="__IMG__/icon_h52x.png" class="kftip_icon"></a><div class="butnbox">' ;
+                               result += '<a href="'+data[i].play_url+'" class="butn butnlogin">开始</a>' ;
+                            }else{
+                                result += '</a><div class="butnbox">';
+                                if(data[i].xia_status == 0){
+                                    result += '<a href="javascript:;" class="butn butnlogin disabledbtn">下载</a>' ;
+                                }else{
+                                    result += '<a href="'+data[i].play_url+'" class="butn butnlogin">下载</a>' ;
+                                }
+                            }
+                            result +=   '</div>' +
+                            '<div class="text">' +
+                            '<div class="title"><a href="'+data[i].play_detail_url+'" class="name">'+data[i].relation_game_name+'</a></div>' +
+                                '<p class="info"><span class="kf-name">'+data[i].game_type_name+'</span><span>'+data[i].game_size+'</span></p>'+
+                                '<p class="info"><span class="server-time">'+data[i].start_date+'</span>'+
+                                '<span class="server-name">'+data[i].server_name+'</span></p>' +
+                            '</div></div></li>';
+                    }
+
+                    noopenload.append(result);
+                    noopenload.find('li.end').remove();
+                    if(data.length >= lwx.row.yugao) {
+                        lwx.number.yugao++;
+                        lwx.ready = true;
+                        noopenload.append('<li class="end"><div class="dropload-down jsdropload"><div class="dropload-noData">继续加载</div></div></li>');
+                    } else {
+                        lwx.number.yugao = false;
+                        noopenload.append('<li class="end"><div class="dropload-down jsdropload"><div class="dropload-noData">没有更多了</div></div></li>');
+                    }
+                } else {
+                    if(lwx.number.yugao==1){
+                        noopenload.append('<li class="end"><div class="empty s-categroy emptypb10"><img src="__IMG__/no_date.png" class="empty-icon"><p class="empty-text">~ 空空如也 ~</p></div></li>');
+                    } else{
+                        noopenload.append('<li class="end"><div class="dropload-down jsdropload"><div class="dropload-noData">没有更多了</div></div></li>');
+                    }
+                    lwx.number.yugao = false;
+                }
+                lwx.control.yugao = false;
+            });
+        }
+    },
+};
+</script>
+<script>
+$('#tab-menu .s-slide').css({width:100/$('#tab-menu .s-slide').length+'%'});
+$('#banner-carousel img').css({height:$('#banner-carousel').width()*0.38814});
+$(function(){
+    var pop = $('.pop').pop();
+    var popbook = $('.popbook').pop();
+		$('#banner-carousel img').css({height:$('#banner-carousel').height()});
+      new Swiper('#banner-carousel', {autoplay:3000,pagination : '.swiper-pagination',loop:true});
+      
+      new Swiper('#play-slide', {slidesPerView: 4});
+      $mobile_collect = "{$mobile_collect}";
+
+      if (((browser.versions.webApp||(!browser.versions.iPhone&&!browser.versions.iPad)) || browser.versions.qq)&& $mobile_collect==1 && !is_weixin() && !is_alipay() && !is_qq()) {
+   
+        popbook.addClass('pop-bookmark').open('','<a href="javascript:;" class="pop-close3"></a><div class="pop-content"><img class="bookmark-icon" src="__IMG__/tip_android.png"></div>').find('.pop-box').css({'margin-bottom':'.2rem'});
+
+
+        $('.pop-close3').click(function(){popbook.close();return false;});
+      }
+      else if(!browser.versions.webApp&&(browser.versions.iPhone||browser.versions.iPad) && !browser.versions.qq && $mobile_collect==1 && !is_weixin() && !is_alipay() && !is_qq()) {
+
+         popbook.addClass('pop-bookmark').open('','<a href="javascript:;" class="pop-close3"></a><div class="pop-content"><img class="bookmark-icon" src="__IMG__/tip_ios.png"></div>');
+         $('.pop-close3').click(function(){popbook.close();return false;});
+      }
+      
+      /* 标签切换 */
+			$('#tab-menu .s-slide').click(function() {
+				var that=$(this);
+				var index = that.index();
+				itemIndex = index;
+			
+				
+				that.addClass('active').siblings().removeClass('active');
+				$('#tab-slide .tabpanel>.s-slide').siblings().hide().eq(index).show();
+				
+				location.hash = that.find('a').attr('href');
+			});
+      
+      $('.jstab .btn').click(function() {
+        var that = $(this),parent = that.closest('.jstab'),sib=parent.siblings('.jspanel');
+        parent.find('.btn').removeClass('active');
+        var index = that.addClass('active').closest('li').index();
+        sib.find('.tab-panel').eq(index).addClass('active').siblings().removeClass('active'); 
+				location.hash = that.attr('href');
+      });
+			
+			
+		function pageChange(n) {
+			var navIndex = "";
+			var subNavIndex = -1;
+			switch (n) {
+				case "":
+                case "#hot":
+                case "#hot0":{
+                    lwx.page.hot();
+                    if(lwx.number.hot) {lwx.ready=true;}
+                    navIndex = $('a[href="#hot"]').closest('.s-slide').index();
+                    subNavIndex = 0;
+                };break;
+                case "#hot1":{
+                    lwx.page.h5();
+                    if(lwx.number.hot) {lwx.ready=true;}
+                    navIndex = $('a[href="#hot"]').closest('.s-slide').index();
+                    subNavIndex = 1;
+                };break;
+				case '#small':{
+					lwx.page.small();
+					if(lwx.number.hot) {lwx.ready=true;}
+					navIndex = $('a[href="#small"]').closest('.s-slide').index();
+				};break;
+				case "#activity":
+				case "#activity0":{
+					lwx.page.activity();
+					if(lwx.number.hot) {lwx.ready=true;}
+					navIndex = $('a[href="#activity"]').closest('.s-slide').index();
+					subNavIndex = 0;
+				};break;
+				case "#activity1":{
+					lwx.page.notice();
+					if(lwx.number.hot) {lwx.ready=true;}
+					navIndex = $('a[href="#activity"]').closest('.s-slide').index();
+					subNavIndex = 1;
+				};break;
+                case "#activity2":{
+                    lwx.page.zixun();
+                    if(lwx.number.hot) {lwx.ready=true;}
+                    navIndex = $('a[href="#activity"]').closest('.s-slide').index();
+                    subNavIndex = 2;
+                };break;
+                case "#activity3":{
+                    lwx.page.gonglue();
+                    if(lwx.number.hot) {lwx.ready=true;}
+                    navIndex = $('a[href="#activity"]').closest('.s-slide').index();
+                    subNavIndex = 3;
+                };break;
+				case "#open":
+				case "#open0":{
+					lwx.page.open();
+					if(lwx.number.hot) {lwx.ready=true;}
+					navIndex = $('a[href="#open"]').closest('.s-slide').index();
+					subNavIndex = 0;
+				};break;
+				case "#open1":{
+					lwx.page.preview();
+					if(lwx.number.hot) {lwx.ready=true;}
+					navIndex = $('a[href="#open"]').closest('.s-slide').index();
+					subNavIndex = 1;
+				};break;
+                case "#open2":{
+                    lwx.page.yugao();
+                    if(lwx.number.hot) {lwx.ready=true;}
+                    navIndex = $('a[href="#open"]').closest('.s-slide').index();
+                    subNavIndex = 2;
+                };break;
+			}
+			
+			$('.tabmenu>div').removeClass('active').eq(navIndex).addClass('active');
+			var current = $('.tabpanel>div').hide().eq(navIndex).show();
+			if(subNavIndex>=0) {
+				current.find('.jstab li a').removeClass('active');
+				current.find('.jstab li').eq(subNavIndex).find('a').addClass('active');
+				current.find('.jspanel ul').hide().eq(subNavIndex).show();
+			}
+		}
+		
+		pageChange(location.hash);
+		
+    $(window).on("hashchange", function() {
+        pageChange(location.hash);
+    });
+		
+		function pageScroll(scrollTop, boxHeight, maxScrollHeight) {
+        if (scrollTop + boxHeight >= maxScrollHeight - 50) {
+            if (lwx.ready) {
+                lwx.ready = false;
+                switch (location.hash) {
+                case "":
+                case "#hot":
+                    lwx.page.hot();
+                    break;
+                case "#hot0":
+                    lwx.page.hot();
+                    break;
+                case "#hot1":
+                    lwx.page.h5();
+                    break;
+                case "#small":
+                    lwx.page.small();
+                    break;
+
+                case "#activity":
+                    lwx.page.activity();
+                    break;
+                case "#activity0":
+                    lwx.page.activity();
+                    break;
+                case "#activity1":
+                    lwx.page.notice();
+                    break;
+                case "#activity2":
+                    lwx.page.zixun();
+                    break;
+                case "#activity3":
+                    lwx.page.gonglue();
+                    break;
+                case "#open":
+                    lwx.page.open();
+                    break;
+                case "#open0":
+                    lwx.page.open();
+                    break;
+                case "#open1":
+                    lwx.page.preview();
+                    break;
+                case "#open2":
+                    lwx.page.yugao();
+                    break;
+                }
+            }
+        }
+    }
+		
+		window.onscroll = function() {
+				var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+				pageScroll(scrollTop, lwx.height, $(document).height())
+		}
+		
+		
+			
+});
+
+
+$(function(){
+    $('body').on('click','.text',function () {
+        var that = $(this);
+        window.location.href = that.find('a').attr('href');
+    })
+    $("#newload").on("click",".butn_samll",function(){
+        var $this=$(this);
+        var url = $this.attr('data-url');
+		if(is_weixin()){
+		//页面层
+            layer.open({
+              type: 1,
+              title: '111',
+              skin: 'dark-green', //只对该层采用皮肤
+              area: ['278px', '252px'], //宽高
+              content: '<div class="qrcode">\n' +
+                        '<img style="width: 150px;height:150px;" src="'+url+'"><p class="p_titlt">关注公众号进入小程序</p>\n' +
+                        '<p class="p_gray"><span>长按图片识别二维码</span></p>\n'+
+                        '</div>'
+            });
+		}else{
+		//页面层
+            layer.open({
+              type: 1,
+              title: '111',
+              skin: 'dark-green', //只对该层采用皮肤
+              area: ['278px', '252px'], //宽高
+              content: '<div class="qrcode">\n' +
+                        '<img style="width: 150px;height:150px;" src="'+url+'"><p class="p_titlt">微信内打开识别二维码关注公众号进入小程序</p>\n' +
+                        '<p class="p_gray"><span>截图保存至相册</span></p>\n'+
+                        '</div>'
+            });
+		}
+    })
+})
+
+function is_weixin(){
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.match(/MicroMessenger/i)=="micromessenger") {
+        return true;
+    } else {
+        return false;
+    }
+}
+function is_alipay(){
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.match(/Alipay/i)=="alipay"){
+        return true;
+    }else{
+        return false;
+    }
+}
+function is_qq(){
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.match(/QQ/i)=="qq"){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+</script>
+</block>

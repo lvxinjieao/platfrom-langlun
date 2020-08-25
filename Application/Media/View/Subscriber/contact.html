@@ -1,0 +1,54 @@
+<extend name="Public/sbases" />
+<block name="body" >
+<link href="__CSS__/user.css" type="text/css" rel="stylesheet">
+<link href="__CSS__/game.css" type="text/css" rel="stylesheet">
+<!--头部-->
+<div class="head">
+<div class="detail_head">
+  <a class="page_back"><i class="back"></i>返 回</a>
+  <font>联系我们</font>
+  </div>
+  <div class="clear"></div>
+</div>
+
+<!--头部结束-->
+
+
+<div class="con">
+
+<div class="contact wh_bg  pt60 pb55">
+<if condition="$union_set eq ''">
+<dl>
+<dt><img src="{:get_cover(C('PC_SET_LOGO'),'path')}"></dt>
+<dd>客服QQ： {:C('PC_SET_SERVER_QQ')}</dd>
+<dd>客服电话：{:C('PC_SET_SERVER_TEL')}</dd>
+<!-- <dd>官方玩家群：{:C('PC_QQ_GROUP')}</dd> -->
+<dd>商务合作： {:C('BUSINESS_COOPERATION')}</dd>
+<dd>官方网站：{:C('PC_SET_DOMAIM')}</dd>
+</dl>
+<else/>
+<dl>
+<dt><img src="{:get_cover($union_set['icon'],'path')}"></dt>
+<dd>客服QQ： {$union_set['QQ']}</dd>
+<dd>客服电话：{$union_set['PHONE']}</dd>
+<!-- <dd>官方玩家群：{:C('PC_QQ_GROUP')}</dd> -->
+<dd>QQ群：{$union_set['QQGROUP']}</dd>
+<dd>商务合作： {$union_set['COOR']}</dd>
+<dd>官方网站：{$union_set['SITE']}</dd>
+</dl>
+</if>
+</div>
+
+
+<!--底部-->
+<div class="bottom">
+  <ul>
+    <li ><a href="{:U('/index','',true,'',true)}"><i class="bot_home"></i><font>首页</font></a></li>
+    <li><a href="{:U('/game','',true,'',true)}"><i class="bot_game"></i><font>游戏</font></a></li>
+    <li><a href="{:U('/gift','',true,'',true)}"><i class="bot_gift"></i><font>福利</font></a></li>
+    <li class="active"><a href="{:U('/subscriber','',true,'',true)}"><i class="bot_user"></i><font>我的</font></a></li>
+  </ul>
+</div>
+<!--底部结束-->
+</div>
+</block>

@@ -1,0 +1,23 @@
+<php>
+    $controller = CONTROLLER_NAME;
+</php>
+<div>
+    <ul class="top_main_menu">
+        <li class=" fl top_main_menu_con <?php if('Site'==$controller) echo'top_main_menu_current'; ?>">
+            <a href="{:U('Site/media')}" class="top_main_menu_con_link">网站配置</a>
+        </li>
+        <li class="fl top_main_menu_con <?php if('Adv'==$controller) echo'top_main_menu_current'; ?>">
+            <a href="{:U('Adv/media_adv_pos_lists')}" class="top_main_menu_con_link">广告管理</a>
+        </li>
+        <li class="fl top_main_menu_con <?php if('Seo'==$controller) echo'top_main_menu_current'; ?>">
+            <a href="{:U('Seo/media')}" class="top_main_menu_con_link">SEO设置</a>
+        </li>
+        <li class="fl top_main_menu_con <?php if('Links'==$controller) echo'top_main_menu_current'; ?>">
+            <a href="{:U('Links/pclists')}" class="top_main_menu_con_link">友情链接</a>
+        </li>
+        <li class="fl top_main_menu_con <?php if('Kefu'==$controller) echo'top_main_menu_current'; ?>">
+            <a href="{:U('Kefu/index')}" class="top_main_menu_con_link">帮助中心</a>
+        </li>
+    </ul>
+</div>
+<div class="clear"></div>

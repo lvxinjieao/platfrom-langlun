@@ -1,0 +1,201 @@
+<extend name="Public/notopfootbase" />
+<block name="body">
+<link href="__CSS__/user.css" type="text/css" rel="stylesheet">
+<link href="__CSS__/login.css" type="text/css" rel="stylesheet">
+<script src="//captcha.luosimao.com/static/js/api.js"></script>
+<div class="loginbg">
+    <div class="cont-box centert">
+
+        <div class="box login-box clearfix active">
+            <form class="f-login" id="form1" action="{:U('forget2')}" method="post">
+               <div class="ad-box">
+                	<div class="ad-title">海量游戏 &nbsp;&nbsp;扫码即玩</div>
+                	<span target="_blank">
+                       <img src="{:get_cover(C('PC_SET_QRCODE'),'path')}" alt="" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null">
+					 </span>
+
+                 <div class="ad-code ad-title">扫描关注公众号</div>
+                </div>
+                <div class="loginbk">
+                    <div class="login_tit">
+                        <span>找回密码</span>
+                        <a onclick="javascript:window.opener=null;window.close();" class="last">返回</a>
+                    </div>
+                    <div class="ipt-box">
+                        <i class="login_user"></i>
+                        <input id="login-account" class="puser" type="text" name="account" value="" placeholder="已绑定的手机号">
+                    </div>
+                    <div class="ipt-box yzm">
+                        <i class="login_my"></i>
+                        <input id="code" type="text" name="code" class="registerPhonePop"  placeholder="短信验证码" style="width:200px;">
+                        <a class="hqbtn sendvcode" id="send_code">获取验证码</a>
+                        <p></p>
+                    </div>
+                    <div class="ipt-box yzm">
+                        <div class="l-captcha" data-site-key="{:C('AUTO_VERIFY_INDEX')}"></div>
+                    </div>
+                    
+                    <input id="login-btn" type="button" value="下一步" >
+                    
+                    <div class="forwarn">注：使用找回密码功能必须是已绑定手机的用户才能使用</div>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+   
+</div>
+<include file='foot' />
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+<script>
+//图片验证码
+$('.checkcode').on('click',function() {
+    var e = (new Date).getTime();
+    codeurl="__MODULE__/Subscriber/verify/t/";
+    $(this).attr('src', codeurl + e);
+});
+var f=function(msg,obj) {
+    layer.tips(msg, obj, {
+        tips: [1, 'red'],
+      tipsMore: true
+    });
+};
+$('.puser').blur(function() {
+    var account = $.trim($(this).val());
+    if (account == '') {f('手机号码不能为空！','.puser');return;}
+    if (!(/^1[3456789]\d{9}$/.test(account))) {
+        f('手机号码格式不正确','.puser');return;
+    }else{
+        $(".sendvcode").addClass('phoneok');
+        //验证手机是否使用
+        $.ajax({
+            type:'post',
+            async:false,
+            url:"{:U('checkphoneexsite')}",
+            data:{phone:account},
+            success:function(data){
+                console.log(data);
+                if(data.status==1){
+                    $('.phbut').removeClass('error')
+                    $('#login-btn').removeClass('error')
+                }else{
+                    f('手机号未绑定账户','.puser');$('#login-btn').addClass('error');
+                }
+            },error:function(){
+                alert('服务器故障，请稍后再试');
+            }
+        });
+    }
+});
+//验证码不能为空！
+$('.registerPhonePop').blur(function() {
+    var apwd = $.trim($(this).val());
+    if (apwd == '') {f('验证码不能为空！','.registerPhonePop');return;}
+});
+
+//发送验证码
+$(".sendvcode").on('click',function() {
+    account=$.trim($('.puser').val());
+    if (!(/^1[3456789]\d{9}$/.test(account))) {
+        f('手机号码格式不正确','.puser');return;
+    }else{
+        $(".sendvcode").addClass('phoneok');
+    }
+// 发送安全码
+if (!$(this).hasClass('disabled')&&$(this).hasClass('phoneok')) {
+    var e = this,p = account;
+    $.ajax({
+        type:'post',
+        url: '{:U("Subscriber/account_telsvcode")}',
+        data: 'phone='+p,
+        dataType: 'json',
+        success: function(d) {
+            if (parseInt(d.status) >0) {
+                $(e).addClass('disabled');
+                r && r(parseInt(d.status))
+            } else {
+                $(e).siblings('.regyzm').addClass('msg-fail');
+                layer.msg(d.msg);
+            } 
+        }
+    });
+    var r = function(i, t) {
+        if (i>0) {
+            var r = 60;
+            $(e).addClass('disabled');
+            var a = setInterval(function() {
+                r--;
+                $(e).text('成功'+r + '秒'),
+                0 == r && ($(e).removeClass('disabled'), $(e).text('获取验证码'), clearInterval(a))
+            },1e3)
+        } 
+    };                      
+}
+return false;
+});
+// //验证码不能为空！
+// $('.valid').blur(function() {
+//     var apwd = $.trim($(this).val());
+//     if (apwd == '') {f('验证码不能为空！','.valid');return;}
+// });
+
+$('#login-btn').click(function(){
+    var account = $.trim($('.puser').val());
+    if (account == '') {f('手机号码不能为空！','.puser');return;}
+    if (!(/^1[3456789]\d{9}$/.test(account))) {
+        f('手机号码格式不正确','.puser');return;
+    }else{
+        $(".sendvcode").addClass('phoneok');
+    }
+    //验证码不能为空！
+    var apwd = $.trim($('.registerPhonePop').val());
+    if (apwd == '') {f('验证码不能为空！','.registerPhonePop');return;}
+
+    //验证码不能为空！
+    // var apwd = $.trim($('.valid').val());
+    // if (apwd == '') {f('验证码不能为空！','.valid');return;}
+    //验证手机是否使用
+
+    $(this).attr('disabled',true);
+
+    $.ajax({
+        type:'post',
+        async:false,
+        url:"{:U('checkphoneexsite')}",
+        data:{phone:account},
+        success:function(data){
+            console.log(data);
+            if(data.status==1){
+                $('.phbut').removeClass('error')
+                $('#login-btn').removeClass('error');
+                $(this).attr('disabled',false);
+            }else{
+                f('手机号未绑定账户','.puser');$('#login-btn').addClass('error');
+            }
+        },error:function(){
+            alert('服务器故障，请稍后再试');
+        }
+    });
+    if($('#login-btn').hasClass('error')){
+      return false;
+    }
+    pdata = $('#form1').serialize();
+    $.ajax({
+        type:'post',
+        url:"{:U('forget2')}",
+        data:pdata,
+        success:function(data){
+            if(data.status){
+                $('#form1').submit();
+            }else{
+                layer.msg(data.msg);
+                $("#img_captcha").trigger('click');
+            }
+        },error:function(){
+            alert('服务器故障，请稍后再试');
+        }
+    });
+});
+</script>
+</block>

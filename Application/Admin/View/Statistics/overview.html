@@ -1,0 +1,1282 @@
+<extend name="Public/base"/>
+<block name="body">
+<style>
+	.top_nav_list {
+	    height: 40px;
+	    line-height: 50px;
+	}
+	.table_radio a{color: #404040;}
+	.table_radio a:hover{border-bottom: 0;}
+	 .blockinfo .question{
+       top: 0px!important;
+       right: -25px!important;
+        }
+</style>
+<link rel="stylesheet" href="__CSS__/open-egret.css">
+<link rel="stylesheet" href="__CSS__/zwmcss/index.css">
+<link rel="stylesheet" href="__CSS__/index_new.css"/>
+<link rel="stylesheet" href="__CSS__/overview.css">
+<div class="main-place main-place-overview">
+    <span class="main-placetitle"></span>
+    <ul class="main-placeul">
+        <li><a href="{:U('Statistics/overview')}">统计</a></li>
+        <li><a href="{:U('Statistics/overview')}">总览</a></li>
+        <li><a href="#">总览</a></li>
+    </ul>
+    <p class="description_text" style="height: 40px;line-height: 40px;">说明：针对全站数据信息一个总览功能</p>
+   
+</div>
+
+<div class=" main_content">
+
+    <div class="row main_content_item blockinfo">
+        <div class="question">
+            <i class="question_mark">?</i>
+            <ul class="question_content">
+                <li class="question_title">数据相关说明</li>
+                <li class="question_list">
+                    <span class="">总览</span><span class="">针对全站数据信息一个总览功能</span></li>
+                <li class="question_list">
+                    <span class="">平台累计用户</span><span class="">平台累计注册用户总数</span></li>
+                <li class="question_list">
+                    <span class="">累计付费用户</span><span class="">平台累计付费用户数</span></li>
+                <li class="question_list">
+                    <span class="">累计充值</span><span class="">平台累计所有充值，游戏内充值（去除平台币+绑币付费）+平台币充值+绑币充值，后台发放不计算在内，计算绑币实付金额</span></li>
+                <li class="question_list">
+                    <span class="">开通推广员数</span><span class="">渠道审核通过总人数</span></li>
+                <li class="question_list">
+                    <span class="">游戏接入数量</span><span class="">审核通过的上线游戏数量</span></li>
+                <li class="question_list">
+                    <span class="">安卓游戏原包</span><span class="">上传的全部安卓游戏原包，含官方与开发者游戏</span></li>
+                <li class="question_list">
+                    <span class="">IOS游戏原包</span><span class="">上传的全部IOS游戏原包，含官方与开发者游戏</span></li>
+                <li class="question_list">
+                    <span class="">推广员注册用户</span><span class="">所有推广员下的注册用户总数</span>
+                </li>
+                <li class="question_list">
+                    <span class="">推广员总充值</span><span class="">所有推广员下的用户充值总额，游戏内充值（去除平台币+绑币付费）+平台币充值+绑币充值，后台发放不计算在内，计算绑币实付金额</span>
+                </li>
+                <li class="question_list">
+                    <span class="">新增用户数</span><span class="">新注册平台的用户数</span>
+                </li>
+                <li class="question_list">
+                    <span class="">活跃用户数</span><span class="">再次登录平台的老用户数，每个用户只记录1次，在选中日期前注册的用户再次登录即被记录</span>
+                </li>
+                <li class="question_list">
+                    <span class="">付费用户数</span><span class="">进行过游戏/平台币/绑币充值的用户数</span>
+                </li>
+            </ul>
+        </div>
+        <div class="main_content_main m-channel-data main_content_platform">
+            <div class="main_content_main_item">
+                <div class="col-md-2">
+                    <strong class="s-c-orange">{$shuju.player_regist_all|default=0}</strong> 平台累计用户
+                </div>
+            </div>
+            <div class="main_content_main_item">
+                <div class="col-md-2">
+                    <strong class="s-c-orange">{$shuju.payer_all|default=0}</strong> 累计付费用户
+                </div>
+            </div>
+            <div class="main_content_main_item">
+                <div class="col-md-2">
+                    <strong class="s-c-orange">{$shuju.pay_all|default=0}</strong> 累计充值
+                </div>
+            </div>
+            <div class="main_content_main_item">
+                <div class="col-md-2">
+                    <strong class="s-c-orange">{$shuju.pro_complete|default=0}</strong> 平台推广员
+                </div>
+            </div>
+            <div class="main_content_main_item">
+                <div class="col-md-2">
+                    <strong class="s-c-orange">{$shuju.game_add_all|default=0}</strong> 游戏接入数量
+                </div>
+            </div>
+            <div class="main_content_main_item">
+                <div class="col-md-2">
+                    <strong class="s-c-orange">{$shuju.game_and_all|default=0}</strong> 安卓游戏原包
+                </div>
+            </div>
+            <div class="main_content_main_item">
+                <div class="col-md-2">
+                    <strong class="s-c-orange">{$shuju.game_ios_all|default=0}</strong> IOS游戏原包
+                </div>
+            </div>
+            <div class="main_content_main_item">
+                <div class="col-md-2">
+                    <strong class="s-c-orange">{$shuju.user_reg_num|default=0}</strong> 自然注册用户
+                </div>
+            </div>
+            <div class="main_content_main_item">
+                <div class="col-md-2">
+                    <strong class="s-c-orange">{$shuju.user_pay_num|default=0}</strong> 自然总流水
+                </div>
+            </div>
+            <div class="main_content_main_item">
+                <div class="col-md-2">
+                    <strong class="s-c-orange">{$shuju.pro_player_all|default=0}</strong> 推广员注册用户
+                </div>
+            </div>
+            <div class="main_content_main_item">
+                <div class="col-md-2">
+                    <strong class="s-c-orange">{$shuju.pro_pay_all|default=0}</strong> 推广员总充值
+                </div>
+            </div>
+        </div>
+
+        <div class="xg_zhchart">
+            <div class="timeandtab">
+                <div class="time_fl jsctitle">
+                    <div class="pt-datepicker__date js-pt-calendar">
+                        <i class="icon_date"></i>
+                        <time class="pt-datepicker__date-from pt-fl js-pt-calendar-from jsctitle1">{:str_replace('-','/',substr(I('start',date('Y/m/d',strtotime('-1 day'))),5))}</time>
+                        <time class="pt-datepicker__date-to js-pt-calendar-to jsctitle2">{:str_replace('-','/',substr(I('end',date('Y/m/d',strtotime('-1 day'))),5))}</time>
+                        <i class="xg_dropi js-pt-datepicker__date-i"></i>
+                    </div>
+                    <div class="xg_daterangepicker js-show-calendar">
+                        <div class="ranges">
+                            <ul>
+                                <li class="<eq name='num' value='1'>datapick_active</eq>"><a href="{:U('overview',array('tb'=>I('tb'),'gtc'=>I('gtc'),'ptc'=>I('ptc'),'type'=>I('type'),'category'=>I('category'),'start'=>date('Y-m-d'),'end'=>date('Y-m-d'),'num'=>1))}">今天</a></li>
+                                <li class="<eq name='num' value='2'>datapick_active</eq>"><a href="{:U('overview',array('tb'=>I('tb'),'gtc'=>I('gtc'),'ptc'=>I('ptc'),'type'=>I('type'),'category'=>I('category'),'start'=>date('Y-m-d',strtotime('-1 day')),'end'=>date('Y-m-d',strtotime('-1 day')),'num'=>2))}">昨天</a></li>
+                                <li class="<eq name='num' value='3'>datapick_active</eq>"><a href="{:U('overview',array('tb'=>I('tb'),'gtc'=>I('gtc'),'ptc'=>I('ptc'),'type'=>I('type'),'category'=>I('category'),'start'=>date('Y-m-d',mktime(0,0,0,date('m'),date('d')-6-date('w'),date('Y'))),'end'=>date('Y-m-d',mktime(0,0,0,date('m'),date('d')-date('w'),date('Y'))),'num'=>3))}">过去整周</a></li>
+                                <li class="<eq name='num' value='4'>datapick_active</eq>"><a href="{:U('overview',array('tb'=>I('tb'),'gtc'=>I('gtc'),'ptc'=>I('ptc'),'type'=>I('type'),'category'=>I('category'),'start'=>date('Y-m-d',mktime(0,0,0,date('m')-1,1,date('Y'))),'end'=>date('Y-m-d',mktime(0,0,0,date('m'),1,date('Y'))-1),'num'=>4))}">过去整月</a></li>
+                                <li class="<eq name='num' value='5'>datapick_active</eq>"><a href="{:U('overview',array('tb'=>I('tb'),'gtc'=>I('gtc'),'ptc'=>I('ptc'),'type'=>I('type'),'category'=>I('category'),'start'=>date('Y-m-d',strtotime('-7 day')),'end'=>date('Y-m-d',strtotime('-1 day')),'num'=>5))}">过去7天</a></li>
+                                <li class="<eq name='num' value='6'>datapick_active</eq>"><a href="{:U('overview',array('tb'=>I('tb'),'gtc'=>I('gtc'),'ptc'=>I('ptc'),'type'=>I('type'),'category'=>I('category'),'start'=>date('Y-m-d',strtotime('-30 day')),'end'=>date('Y-m-d',strtotime('-1 day')),'num'=>6))}">过去30天</a></li>
+                                <li class="<eq name='num' value='7'>datapick_active</eq>"><a href="{:U('overview',array('tb'=>I('tb'),'gtc'=>I('gtc'),'ptc'=>I('ptc'),'type'=>I('type'),'category'=>I('category'),'start'=>date('Y-m-d',strtotime('-365 day')),'end'=>date('Y-m-d',strtotime('-1 day')),'num'=>7))}">过去一年</a></li>
+                            </ul>
+                            <div class="range_inputs">
+                                <button class="applyBtn pt-btn btn-success js_determine" type="button">确定</button>
+                            </div>
+                        </div>
+                        <div class="xg_zcalendar xg_left">
+                            <div class="calendar-table">
+                                <table class="table-condensed jscalendar1">
+                                    <thead>
+                                    <tr>
+                                        <th class="prev available jspn" data-range-key="{$calendar.prev}"><i class=" page-Previous "></i></th>
+                                        <th colspan="5" class="month">{$calendar.ftitle}</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr>
+                                        <th>一</th>
+                                        <th>二</th>
+                                        <th>三</th>
+                                        <th>四</th>
+                                        <th>五</th>
+                                        <th>六</th>
+                                        <th>日</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="jscalendarcontent">
+                                    <volist name="calendar[first]" id="vo">
+                                        <tr>
+                                            <volist name="vo" id="v" key="j">
+                                                <td class="<eq name='v.full' value='$calendar.today'>today</eq> <eq name='j' value='6'>weekend<else /><eq name='j' value='7'>weekend</eq></eq> available <notempty name='v.value'>jsselect</notempty>" data-key="{$v.full}"><span>{$v.value|default=' '}</span></td>
+                                            </volist>
+                                        </tr>
+                                    </volist>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="xg_zcalendar xg_right">
+                            <div class="calendar-table">
+                                <table class="table-condensed jscalendar2">
+                                    <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th colspan="5" class="month">{$calendar.ltitle}</th>
+                                        <th class="next <eq name='calendar.iscurrent' value='1'>available jspn</eq>" data-range-key="{$calendar.next}"><i class="page-next"></i></th>
+                                    </tr>
+                                    <tr>
+                                        <th>一</th>
+                                        <th>二</th>
+                                        <th>三</th>
+                                        <th>四</th>
+                                        <th>五</th>
+                                        <th>六</th>
+                                        <th>日</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="jscalendarcontent">
+                                    <volist name="calendar[last]" id="vo">
+                                        <tr>
+                                            <volist name="vo" id="v" key="j">
+                                                <td class="<eq name='v.full' value='$calendar.today'>today</eq> <notempty name='v.value'><eq name='v.no' value='1'>noselect<else />jsselect</eq></notempty> <eq name='j' value='6'>weekend<else /><eq name='j' value='7'>weekend</eq></eq> available" data-key="{$v.full}" ><span>{$v.value|default=' '}</span></td>
+                                            </volist>
+                                        </tr>
+                                    </volist>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 图表数据图切换按钮 begin-->
+            <div class="tab_fr tab_head">
+                <a href="#0" data-key="news" class="<empty name='Think.get.tb'>current<else /><eq name='Think.get.tb' value='0'>current</eq></empty>">新增用户</a>
+                <a href="#1" data-key="active" class="<eq name='Think.get.tb' value='1'>current</eq>">活跃用户</a>
+                <a href="#2" data-key="player" class="<eq name='Think.get.tb' value='2'>current</eq>">付费用户</a>
+                <a href="#4" data-key="pays" class="<eq name='Think.get.tb' value='4'>current</eq>">付费金额</a>
+                <a href="#3" data-key="access" class="<eq name='Think.get.tb' value='3'>current</eq>">访问次数</a>
+				
+            </div>
+            <!--end 图表数据图切换按钮-->
+            <!-- heightChart! begin -->
+            <div class="htchart_area tab_content">
+                <div class="htchart_area_tab <empty name='Think.get.tb'>show<else /><eq name='Think.get.tb' value='0'>show</eq></empty>">
+                    <div class="highchart_area">
+                        <div class="highchart_area_tab" id="container1" style="width:100%;height:220px;"></div>
+                    </div>
+                    <div class="new_users">
+                        <table class="new_users_tb">
+                            <tr>
+                                <th>显示</th>
+                                <th>指标</th>
+                                <eq name="foldline.hours" value="0">
+                                    <volist name="table.date" id="vo">
+                                        <th>{$vo}</th>
+                                    </volist>
+                                    <else />
+                                    <th>0:00</th>
+                                    <th>2:00</th>
+                                    <th>4:00</th>
+                                    <th>6:00</th>
+                                    <th>8:00</th>
+                                    <th>10:00</th>
+                                    <th>12:00</th>
+                                    <th>14:00</th>
+                                    <th>16:00</th>
+                                    <th>18:00</th>
+                                    <th>20:00</th>
+                                    <th>22:00</th>
+                                </eq>
+                            </tr>
+                            <tr>
+                                <td><i class="circle"></i></td>
+                                <td>新增用户</td>
+                                <volist name="table.news" id="vo">
+                                    <td>{$vo}</td>
+                                </volist>
+                            </tr>
+                            <tr>
+                                <td>汇总</td>
+                                <td colspan="<eq name='foldline.hours' value='0'>{:count($table['date'])+1}<else />13</eq>"><strong class="txt_blue">{$table.sum.news|default=0}</strong></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="htchart_area_tab <eq name='Think.get.tb' value='1'>show</eq>">
+                    <div class="highchart_area">
+                        <div class="highchart_area_tab" id="container2" style="width:100%;height:220px;"></div>
+                    </div>
+                    <div class="new_users">
+                        <table class="new_users_tb">
+                            <tr>
+                                <th>显示</th>
+                                <th>指标</th>
+                                <eq name="foldline.hours" value="0">
+                                    <volist name="table.date" id="vo">
+                                        <th>{$vo}</th>
+                                    </volist>
+                                    <else />
+                                    <th>0:00</th>
+                                    <th>2:00</th>
+                                    <th>4:00</th>
+                                    <th>6:00</th>
+                                    <th>8:00</th>
+                                    <th>10:00</th>
+                                    <th>12:00</th>
+                                    <th>14:00</th>
+                                    <th>16:00</th>
+                                    <th>18:00</th>
+                                    <th>20:00</th>
+                                    <th>22:00</th>
+                                </eq>
+                            </tr>
+                            <tr>
+                                <td><i class="circle"></i></td>
+                                <td>活跃用户</td>
+                                <volist name="table.active" id="vo">
+                                    <td>{$vo}</td>
+                                </volist>
+                            </tr>
+                            <tr>
+                                <td>汇总</td>
+                                <td colspan="<eq name='foldline.hours' value='0'>{:count($table['date'])+1}<else />13</eq>"><strong class="txt_blue">{$table.sum.active|default=0}</strong></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="htchart_area_tab <eq name='Think.get.tb' value='2'>show</eq>">
+                    <div class="highchart_area">
+                        <div class="highchart_area_tab" id="container3" style="width:100%;height:220px;"></div>
+                    </div>
+                    <div class="new_users">
+                        <table class="new_users_tb">
+                            <tr>
+                                <th>显示</th>
+                                <th>指标</th>
+                                <eq name="foldline.hours" value="0">
+                                    <volist name="table.date" id="vo">
+                                        <th>{$vo}</th>
+                                    </volist>
+                                    <else />
+                                    <th>0:00</th>
+                                    <th>2:00</th>
+                                    <th>4:00</th>
+                                    <th>6:00</th>
+                                    <th>8:00</th>
+                                    <th>10:00</th>
+                                    <th>12:00</th>
+                                    <th>14:00</th>
+                                    <th>16:00</th>
+                                    <th>18:00</th>
+                                    <th>20:00</th>
+                                    <th>22:00</th>
+                                </eq>
+                            </tr>
+                            <tr>
+                                <td><i class="circle"></i></td>
+                                <td>付费用户</td>
+                                <volist name="table.player" id="vo">
+                                    <td>{$vo}</td>
+                                </volist>
+                            </tr>
+                            <tr>
+                                <td>汇总</td>
+                                <td colspan="<eq name='foldline.hours' value='0'>{:count($table['date'])+1}<else />13</eq>"><strong class="txt_blue">{$table.sum.player|default=0}</strong></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="htchart_area_tab <eq name='Think.get.tb' value='4'>show</eq>">
+                    <div class="highchart_area">
+                        <div class="highchart_area_tab" id="container5" style="width:100%;height:220px;"></div>
+                    </div>
+                    <div class="new_users">
+                        <table class="new_users_tb">
+                            <tr>
+                                <th>显示</th>
+                                <th>指标</th>
+                                <eq name="foldline.hours" value="0">
+                                    <volist name="table.date" id="vo">
+                                        <th>{$vo}</th>
+                                    </volist>
+                                    <else />
+                                    <th>0:00</th>
+                                    <th>2:00</th>
+                                    <th>4:00</th>
+                                    <th>6:00</th>
+                                    <th>8:00</th>
+                                    <th>10:00</th>
+                                    <th>12:00</th>
+                                    <th>14:00</th>
+                                    <th>16:00</th>
+                                    <th>18:00</th>
+                                    <th>20:00</th>
+                                    <th>22:00</th>
+                                </eq>
+                            </tr>
+                            <tr>
+                                <td><i class="circle"></i></td>
+                                <td>付费金额</td>
+                                <volist name="table.money" id="vo">
+                                    <td>{$vo}</td>
+                                </volist>
+                            </tr>
+                            <tr>
+                                <td>汇总</td>
+                                <td colspan="<eq name='foldline.hours' value='0'>{:count($table['date'])+1}<else />13</eq>"><strong class="txt_blue">{$table.sum.money|default=0}</strong></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="htchart_area_tab <eq name='Think.get.tb' value='3'>show</eq>">
+                    <div class="highchart_area">
+                        <div class="highchart_area_tab" id="container4" style="width:100%;height:220px;"></div>
+                    </div>
+                    <div class="new_users">
+                        <table class="new_users_tb">
+                            <tr>
+                                <th>显示</th>
+                                <th>指标</th>
+                                <eq name="foldline.hours" value="0">
+                                    <volist name="table.date" id="vo">
+                                        <th>{$vo}</th>
+                                    </volist>
+                                <else />
+                                    <th>0:00</th>
+                                    <th>2:00</th>
+                                    <th>4:00</th>
+                                    <th>6:00</th>
+                                    <th>8:00</th>
+                                    <th>10:00</th>
+                                    <th>12:00</th>
+                                    <th>14:00</th>
+                                    <th>16:00</th>
+                                    <th>18:00</th>
+                                    <th>20:00</th>
+                                    <th>22:00</th>
+                                </eq>
+                            </tr>
+                            <tr>
+                                <td><i class="circle"></i></td>
+                                <td>访问次数</td>
+                                <volist name="table.access" id="vo">
+                                    <td>{$vo}</td>
+                                </volist>
+                            </tr>
+                            <tr>
+                                <td>汇总</td>
+                                <td colspan="<eq name='foldline.hours' value='0'>{:count($table['date'])+1}<else />13</eq>"><strong class="txt_blue">{$table.sum.access|default=0}</strong></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--end heightChart!-->
+        </div>
+
+        <div class="export_box"><a class="jsexport" url="{:U('Export/overview',array(
+                    'start'=>I('start',date('Y-m-d',strtotime('-1 day'))),
+                    'end'=>I('end',date('Y-m-d',strtotime('-1 day'))),
+										'num'=>I('num'),'hours'=>$foldline['hours']
+                ),false)}"><i></i><span>导出</span></a></div>
+    </div>
+
+    <div class="m-box m-chart pad_no each_box gamerank" style="height: auto;overflow:hidden;">
+        <div class="tab_btn">
+            <span class="table_box fl <neq name='Think.get.gtc' value='1'>current</neq>" data-flag="gtc_0"><i></i></span>
+            <span class="chart_box fr <eq name='Think.get.gtc' value='1'>current</eq>" data-flag="gtc_1"><i></i></span>
+        </div>
+        <div class="clearfix">
+            <div class="game_rank fl"><i></i><span>游戏排行</span></div>
+            <!-- Nav tabs -->
+            <ul class="nav nav-pills fl" role="tablist">
+                <li role="presentation" <if condition="$Think.get.type eq 1 or $Think.get.type eq ''"> class="active" </if>>
+                <a href="{:U('Statistics/overview',array('tb'=>I('tb'),'gtc'=>I('gtc'),'ptc'=>I('ptc'),'type'=>1,'category'=>I('category'),'start'=>I('start'),'end'=>I('end'),'num'=>I('num')))}" id="gd" aria-controls="dayRank" role="tab" data-toggle="tab">日排行</a>
+                </li>
+                <li role="presentation" <if condition="$Think.get.type eq 2"> class="active" </if>>
+                <a href="{:U('Statistics/overview',array('tb'=>I('tb'),'gtc'=>I('gtc'),'ptc'=>I('ptc'),'type'=>2,'category'=>I('category'),'start'=>I('start'),'end'=>I('end'),'num'=>I('num')))}" id="gw" aria-controls="weekRank" role="tab" data-toggle="tab">周排行</a>
+                </li>
+                <li role="presentation" <if condition="$Think.get.type eq 3"> class="active" </if>>
+                <a href="{:U('Statistics/overview',array('tb'=>I('tb'),'gtc'=>I('gtc'),'ptc'=>I('ptc'),'type'=>3,'category'=>I('category'),'start'=>I('start'),'end'=>I('end'),'num'=>I('num')))}" id="gm" aria-controls="monthRank" role="tab" data-toggle="tab">月排行</a>
+                </li>
+                <li role="presentation" <if condition="$Think.get.type eq 4"> class="active" </if>>
+                <a href="{:U('Statistics/overview',array('tb'=>I('tb'),'gtc'=>I('gtc'),'ptc'=>I('ptc'),'type'=>4,'category'=>I('category'),'start'=>I('start'),'end'=>I('end'),'num'=>I('num')))}" id="gy" aria-controls="yearRank" role="tab" data-toggle="tab">年排行</a>
+                </li>
+            </ul>
+        </div>
+        <!-- Tab panes -->
+        <div class="tab_con">
+            <div class="col-sm-4 main_content_time content_part clearfix" style="<neq name='Think.get.gtc' value='1'>display: block;</neq>">
+                <table class="table table-bordered table-striped table-hover egretRank" style="width: 32%; float: left">
+                    <caption class="">注册排行</caption>
+                    <thead>
+                    <tr>
+                        <th>排行</th>
+                        <th>游戏名称</th>
+                        <th>注册</th>
+                        <th>变化</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <empty name="zhuce">
+                        <tr ><td colspan="4">暂无数据</td></tr>
+                    <else/>
+                        <volist name="zhuce" id="zhuce">
+                            <tr>
+                                <td>{$i}</td>
+                                <td><span class="statistics_text_color">{$zhuce.game_name}</span></td>
+                                <td>{$zhuce.cg}</td>
+                                <td>
+                                    <if condition="$zhuce.change lt 0"><span style="color: #46B245; font-size: 15px;">↑</span>{:substr($zhuce['change'],1)}
+                                        <elseif condition="$zhuce.change eq 0" />--
+                                        <else/><span style="color: #FE6033; font-size: 15px;">↓</span>{$zhuce.change}</if>
+                                </td>
+                            </tr>
+                        </volist>
+                    </empty>
+                    </tbody>
+                </table>
+                <table class="table table-bordered table-striped table-hover egretRank" style="width: 32%; margin: 0px 2%; float: left">
+                    <caption class="">活跃排行</caption>
+                    <thead>
+                    <tr>
+                        <th>排行</th>
+                        <th>游戏名称</th>
+                        <th>活跃</th>
+                        <th>变化</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <empty name="active">
+                        <tr ><td colspan="4">暂无数据</td></tr>
+                    <else/>
+                        <volist name="active" id="active">
+                            <tr>
+                                <td>{$i}</td>
+                                <td><span class="statistics_text_color">{$active.game_name}</span></td>
+                                <td>{$active.cg}</td>
+                                <td>
+                                    <if condition="$active.change lt 0"><span style="color: #46B245; font-weight: normal; font-size: 15px;">↑</span>{:substr($active['change'],1)}
+                                        <elseif condition="$active.change eq 0" />--
+                                        <else/><span style="color: #FE6033;font-weight: normal; font-size: 15px;">↓</span>{$active.change}</if>
+                                </td>
+                            </tr>
+                        </volist>
+                    </empty>
+                    </tbody>
+                </table>
+                <table class="table table-bordered table-striped table-hover egretRank" style="width: 32%; float: left">
+                    <caption class="">充值排行</caption>
+                    <thead>
+                    <tr>
+                        <th>排行</th>
+                        <th>游戏名称</th>
+                        <th>充值</th>
+                        <th>变化</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <empty name="pay">
+                        <tr ><td colspan="4">暂无数据</td></tr>
+                    <else/>
+                        <volist name="pay" id="pay">
+                            <tr>
+                                <td>{$i}</td>
+                                <td><span class="">{$pay.game_name}</span></td>
+                                <td>{$pay.cg}</td>
+                                <td>
+                                    <if condition="$pay.change lt 0"><span style="color: #46B245; font-size: 15px;">↑</span>{:substr($pay['change'],1)}
+                                        <elseif condition="$pay.change eq 0" />--
+                                        <else/><span style="color: #FE6033; font-size: 15px;">↓</span>{$pay.change}</if>
+                                </td>
+                            </tr>
+                        </volist>
+                    </empty>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="content_part" style="<eq name='Think.get.gtc' value='1'>display: block;</eq>">
+                <!-- heightChart! 柱状图begin -->
+                <div class="highchart_area">
+                    <div class="highchart_area_tab" id="overviewChart1" style="width:100%;height:450px;"></div>
+                </div>
+                <!--heightChart! 柱状图end-->
+            </div>
+        </div>
+    </div>
+
+
+    <div class="m-box m-chart pad_no each_box promoterank" style="height: 500px;">
+        <div class="tab_btn">
+            <span class="table_box fl <neq name='Think.get.ptc' value='1'>current</neq>" data-flag="ptc_0"><i></i></span>
+            <span class="chart_box fr <eq name='Think.get.ptc' value='1'>current</eq>" data-flag="ptc_1"><i></i></span>
+        </div>
+        <div class="clearfix">
+            <div class="game_rank fl"><i></i><span>推广员排行</span></div>
+            <!-- Nav tabs -->
+            <ul class="nav nav-pills fl" role="tablist">
+                <li role="presentation" <if condition="$Think.get.category eq 1 or $Think.get.category eq ''"> class="active" </if>>
+                <a href="{:U('Statistics/overview',array('tb'=>I('tb'),'gtc'=>I('gtc'),'ptc'=>I('ptc'),'category'=>1,'type'=>I('type'),'start'=>I('start'),'end'=>I('end'),'num'=>I('num')))}#pd" id="pd" aria-controls="dayRank" role="tab" data-toggle="tab">日排行</a>
+                </li>
+                <li role="presentation" <if condition="$Think.get.category eq 2"> class="active" </if>>
+                <a href="{:U('Statistics/overview',array('tb'=>I('tb'),'gtc'=>I('gtc'),'ptc'=>I('ptc'),'category'=>2,'type'=>I('type'),'start'=>I('start'),'end'=>I('end'),'num'=>I('num')))}#pw" id="pw" aria-controls="weekRank" role="tab" data-toggle="tab">周排行</a>
+                </li>
+                <li role="presentation" <if condition="$Think.get.category eq 3"> class="active" </if>>
+                <a href="{:U('Statistics/overview',array('tb'=>I('tb'),'gtc'=>I('gtc'),'ptc'=>I('ptc'),'category'=>3,'type'=>I('type'),'start'=>I('start'),'end'=>I('end'),'num'=>I('num')))}#pm" id="pm" aria-controls="monthRank" role="tab" data-toggle="tab">月排行</a>
+                </li>
+                <li role="presentation" <if condition="$Think.get.category eq 4"> class="active" </if>>
+                <a href="{:U('Statistics/overview',array('tb'=>I('tb'),'gtc'=>I('gtc'),'ptc'=>I('ptc'),'category'=>4,'type'=>I('type'),'start'=>I('start'),'end'=>I('end'),'num'=>I('num')))}#py" id="py" aria-controls="yearRank" role="tab" data-toggle="tab">年排行</a>
+                </li>
+            </ul>
+        </div>
+        <!-- Tab panes -->
+        <div class="tab_con">
+            <div class="col-sm-4 main_content_time content_part clearfix" style="<neq name='Think.get.ptc' value='1'>display: block;</neq>">
+                <table class="table table-bordered table-striped table-hover egretRank" style="width: 32%; float: left">
+                    <caption class="">推广员排行</caption>
+                    <thead>
+                    <tr>
+                        <th>排行</th>
+                        <th>推广员帐号</th>
+                        <th>注册</th>
+                        <th>变化</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <empty name="promotereg">
+                        <tr ><td colspan="4">暂无数据</td></tr>
+                    <else/>
+                        <volist name="promotereg" id="zhuce">
+                            <tr>
+                                <td>{$i}</td>
+                                <td><span class="statistics_text_color">{$zhuce.promote_account}</span></td>
+                                <td>{$zhuce.cg}</td>
+                                <td>
+                                    <if condition="$zhuce.change lt 0"><span style="color: #46B245; font-size: 15px;">↑</span>{:substr($zhuce['change'],1)}
+                                        <elseif condition="$zhuce.change eq 0" />--
+                                        <else/><span style="color: #FE6033; font-size: 15px;">↓</span>{$zhuce.change}</if>
+                                </td>
+                            </tr>
+                        </volist>
+                    </empty>
+                    </tbody>
+                </table>
+                <table class="table table-bordered table-striped table-hover egretRank" style="width: 32%; margin: 0px 2%; float: left">
+                    <caption class="">活跃排行</caption>
+                    <thead>
+                    <tr>
+                        <th>排行</th>
+                        <th>推广员帐号</th>
+                        <th>活跃</th>
+                        <th>变化</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <empty name="promoteactive">
+                        <tr ><td colspan="4">暂无数据</td></tr>
+                    <else/>
+                        <volist name="promoteactive" id="active">
+                            <tr>
+                                <td>{$i}</td>
+                                <td><span class="statistics_text_color">{$active.promote_account}</span></td>
+                                <td>{$active.cg}</td>
+                                <td>
+                                    <if condition="$active.change lt 0"><span style="color: #46B245; font-weight: normal; font-size: 15px;">↑</span>{:substr($active['change'],1)}
+                                        <elseif condition="$active.change eq 0" />--
+                                        <else/><span style="color: #FE6033;font-weight: normal; font-size: 15px;">↓</span>{$active.change}</if>
+                                </td>
+                            </tr>
+                        </volist>
+                    </empty>
+                    </tbody>
+                </table>
+                <table class="table table-bordered table-striped table-hover egretRank" style="width: 32%; float: left">
+                    <caption class="">充值排行</caption>
+                    <thead>
+                    <tr>
+                        <th>排行</th>
+                        <th>推广员帐号</th>
+                        <th>充值</th>
+                        <th>变化</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <empty name="promotepay">
+                        <tr ><td colspan="4">暂无数据</td></tr>
+                    <else/>
+                        <volist name="promotepay" id="pay">
+                            <tr>
+                                <td>{$i}</td>
+                                <td><span class="">{$pay.promote_account}</span></td>
+                                <td>{$pay.cg}</td>
+                                <td>
+                                    <if condition="$pay.change lt 0"><span style="color: #46B245; font-size: 15px;">↑</span>{:substr($pay['change'],1)}
+                                        <elseif condition="$pay.change eq 0" />--
+                                        <else/><span style="color: #FE6033; font-size: 15px;">↓</span>{$pay.change}</if>
+                                </td>
+                            </tr>
+                        </volist>
+                    </empty>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="content_part"  style="<eq name='Think.get.ptc' value='1'>display: block;</eq>">
+                <!-- heightChart! 柱状图begin -->
+                <div class="highchart_area">
+                    <div class="highchart_area_tab" id="overviewChart2" style="width:100%;height:450px;"></div>
+                </div>
+                <!--heightChart! 柱状图end-->
+            </div>
+        </div>	
+    </div>
+	
+
+	
+
+    {:W('index/comset',['title'=>'统计总览','url'=>'Statistics/overview'])}
+</div>
+
+</block>
+
+<block name="script">
+<link href="__STATIC__/datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css">
+<php>if(C('COLOR_STYLE')=='blue_color') echo '<link href="__STATIC__/datetimepicker/css/datetimepicker_blue.css" rel="stylesheet" type="text/css">';</php>
+<link href="__STATIC__/datetimepicker/css/dropdown.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<!-- <script type="text/javascript" src="__JS__/zwmjs/highcharts.js" charset="UTF-8"></script> -->
+<script type="text/javascript" src="__JS__/highstock.js" charset="UTF-8"></script>
+    <script>
+        var datelist;
+        $(function() {
+
+            //点击时间显示日历 begin
+            $(".js-pt-calendar").click(function(){
+                $(".js-show-calendar").toggle();
+            })
+            //end 点击时间显示日历
+
+            //点击确定关闭日历 begin
+            $(".js_determine").click(function(){
+                $(".js-show-calendar").hide();
+            });
+            //end 点击确定关闭日历
+
+            $('.jsexport').on('click',function() {
+                var that=$(this),url = $.trim(that.attr('url')).replace(/((\.htm(l?))?)$/g,'');
+
+                var but = $('.tab_head a.current');
+                url += '/name/'+$.trim(but.text())+'/key/'+but.attr('data-key');
+                window.location.href = url;
+            });
+
+            if({$foldline.hours|default=1}==1) {
+                Highcharts.setOptions({
+                    chart:{type:'areaspline',spacingLeft:0,},
+                    title:{text: null},legend:{enabled:false},yAxis:{title:{text:null}},
+                    tooltip:{backgroundColor: '#fff',borderColor:'white',borderRadius:10,borderWidth:1,shadow:true,animation:true,style:{color: "#999",fontSize: "12px",fontWeight: "blod",fontFamily: "Microsoft Yahei"},shared: true,useHTML: true,valueDecimals:2,
+                        headerFormat: '<table>',pointFormat:'',footerFormat:'</table>',pointFormatter:function(){var s = '<table style="text-align:center;"><small style="color:#1bb2eb;text-align:center;display:block;margin:0;padding:0;">'+this.y+'</small><small>';s += $('.jsctitle1').text()+'/';s += this.category+'~'+(this.index+1)+':00';s += '</small></table>';return s;}
+                    },
+                    credits:{enabled: false},
+                    plotOptions:{areaspline:{fillOpacity:0.5}},
+                    xAxis:{tickInterval:2,categories:['0:00','1:00','2:00','3:00','4:00','5:00','6:00','7:00','8:00','9:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00'],tickmarkPlacement:'on'},
+                });
+                datelist = [{$foldline['date']}];
+            } else {
+                var s_date = [{$foldline['date']}];
+                Highcharts.setOptions({
+                    chart:{type:'areaspline',spacingLeft:0,},
+                    title:{text: null},legend:{enabled:false},yAxis:{title:{text:null}},
+                    tooltip:{backgroundColor: '#fff',borderColor:'white',borderRadius:10,borderWidth:1,shadow:true,animation:true,style:{color: "#999",fontSize: "12px",fontWeight: "blod",fontFamily: "Microsoft Yahei"},shared: true,useHTML: true,valueDecimals:2,headerFormat:'<small style="color:#1bb2eb;text-align:center;display:block;margin:0;padding:0;">{point.y}</small><small>{point.key}</small><table>',pointFormat:'',footerFormat:'</table>',},
+                    credits:{enabled: false},
+                    plotOptions:{areaspline:{fillOpacity:0.5}},
+                    xAxis:{categories:s_date,tickmarkPlacement:'on'},
+            });
+                datelist = [{$foldline['date']}];
+            }
+
+            selectrange(datelist);
+            //新用户
+            var s_news = [{$foldline.news}];
+            $('#container1').highcharts({
+                series:[{data:s_news}]
+            });
+
+            //活跃用户
+            var s_active = [{$foldline.active}];
+            $('#container2').highcharts({
+                series:[{data:s_active}]
+            });
+
+            //付费用户
+            var s_player = [{$foldline.player}];
+            $('#container3').highcharts({
+                series:[{data:s_player}]
+            });
+
+            //付费金额
+            var s_pays = [{$foldline.money}];
+            $('#container5').highcharts({
+                series:[{data:s_pays}]
+            });
+
+            //访问次数
+            var access = [{$foldline.access}];
+            $('#container4').highcharts({
+                series:[{data:access}]
+            });
+
+            //新增用户和付费用户数据图表切换
+            $('.tab_head a').click(function() {
+                var that=$(this),sib = that.closest('.tab_head').siblings('.tab_content');
+                that.siblings().removeClass('current');
+                var index= that.addClass('current').index();
+                sib.find('.htchart_area_tab').removeClass('show').eq(index).addClass('show');
+                $('.ranges li a').each(function() {
+                    var url = $.trim($(this).attr('href')).replace(/((\.htm(l?))?)$/g,'').replace(/\/tb\/[012]/g,'');
+
+                    $(this).attr('href',url+'/tb/'+index+'.html');
+                });
+                $('.each_box .nav li a').each(function() {
+                    var url = $.trim($(this).attr('href')).replace(/((\.htm(l?))?)$/g,'').replace(/\/tb\/[012]/g,'');
+
+                    $(this).attr('href',url+'/tb/'+index+'.html');
+                });
+
+
+            });
+
+
+            $('.jsranges li').on('click',function() {
+                var that = $(this),range = $.trim(that.attr('data-range-key')).split(',');
+                if (that.hasClass('datapick_active')) {return false;}
+                that.addClass('datapick_active').siblings('li').removeClass('datapick_active');
+                parent = that.closest('.jsctitle');
+
+                chartdata(range[0],range[1],parent);
+
+                $(".js-show-calendar").toggle();
+
+                return false;
+            });
+
+            $('.jspn').on('click',function() {
+
+                jspn($(this));
+
+                return false;
+            });
+
+            $('.js_determine').on('click',function() {
+                var that = $(this),parent = that.closest('.jsctitle');
+                if (parent.find('.in-range').length>0) {
+                    var first = parent.find('.jscalendarcontent .in-range.first').attr('data-key');
+                    var last = parent.find('.jscalendarcontent .in-range.last').attr('data-key');
+
+                    chartdata(first,last,parent);
+
+                } else {
+                    layer.msg('请选择时间范围');
+                }
+                return false;
+            });
+
+            jsselect();
+
+        });
+
+        function selectrange(range) {
+            if (range) {
+                $.each(range,function(i,n) {
+                    if (i == 0) {$('.available[data-key="'+n+'"]').addClass('in-range first');}
+                    else if (i == range.length-1) {$('.available[data-key="'+n+'"]').addClass('in-range last');}
+                    else {$('.available[data-key="'+n+'"]').addClass('in-range');}
+                });
+            }
+        }
+
+        function chartdata(start,end,parent) {
+
+            var href = '{:U("overview",array("type"=>I("type"),"category"=>I("category")))}';
+            end = end?end:start;
+            var tb = $.trim($('.tab_head a.current').attr('href')).replace('#','');
+            var gtc = $.trim($('.gamerank .tab_btn span.current').attr('data-flag')).split('_');
+            var ptc = $.trim($('.promoterank .tab_btn span.current').attr('data-flag')).split('_');
+
+            window.location.href = href.replace('.html','')+'/start/'+start+'/end/'+end+'/tb/'+tb+'/gtc/'+gtc[1]+'/ptc/'+ptc[1]+'.html';
+
+        }
+
+        function getdatelist(start,end) {
+            var i = start,j=0;
+            var range=[];
+            while(i<=end) {
+                var date = new Date(i);
+                range[j++] = date.getFullYear()+'-'+supplement_zero(date.getMonth()+1)+'-'+supplement_zero(date.getDate());
+                i+=86400000;
+            }
+            return range;
+        }
+
+        function supplement_zero(num) {
+            return num.toString().length==1?'0'+num:num;
+        }
+
+        function jsselect() {
+            $('.jsselect').on('click',function(){
+                var that = $(this),sib = $('.jsselect.active');
+                if (sib.length<1) {
+                    $('.jsselect').removeClass('in-range first last');
+                    that.addClass('active first');
+                } else if (sib.length==1) {
+                    that.addClass('active last');
+                    var val = (new Date($.trim(that.attr('data-key')).replace(/-/g,'/'))).getTime();
+                    var sibval = (new Date($.trim(sib.attr('data-key')).replace(/-/g,'/'))).getTime();
+
+                    if (val<sibval) {
+                        that.removeClass('last').addClass('first');
+                        sib.removeClass('first').addClass('last');
+                        var temp = val;val = sibval;sibval=temp;
+                    }
+                    var dl = getdatelist(sibval,val);
+
+                    $.each(dl,function(i,n) {
+                        $('.jsselect[data-key="'+n+'"]').addClass('in-range');
+                    });
+
+                } else {
+                    $('.jsselect').removeClass('in-range active first last');
+                    that.addClass('active first');
+                }
+
+                return false;
+            });
+        }
+
+
+        function jspn(that) {
+
+            var range = $.trim(that.attr('data-range-key')).split(',');
+            if (that.hasClass('disabled')) {return false;}
+            that.addClass('disabled');
+            $.ajax({
+                type:'post',
+                dataType:'json',
+                url:'{:U("Index/calendar")}',
+                data:{start:range[0],end:range[1],flag:true},
+                success:function(data) {
+                    var first = $('.jscalendar1');
+                    var last = $('.jscalendar2');
+
+                    var dfirst = data.first;
+                    var dlast = data.last;
+
+                    first.find('.month').text(data.ftitle).siblings('.prev').attr('data-range-key',data.prev);
+                    var next = last.find('.month').text(data.ltitle).siblings('.next').attr('data-range-key',data.next);
+                    if (parseInt(data.iscurrent)==1){next.addClass('available jspn');} else {next.removeClass('available jspn');}
+                    var ftemp = '';var ltemp = '';
+                    $.each(dfirst,function(i,n) {
+                        ftemp += '<tr>';
+                        $.each(n,function(j,m) {
+                            var classname = '';
+                            if (m.full == data.today) {classname += ' today ';}
+                            if (m.no == 1) {classname += ' noselect ';}
+                            if (j == 6 || j == 7) {classname += ' weekend ';}
+                            ftemp += '<td class="available jsselect '+classname+' " data-key="'+m.full+'" ><span>';
+                            if (m.value) {ftemp += m.value;}
+                            else {ftemp += ' ';}
+                            ftemp += '</span></td> ';
+                        });
+                        ftemp += '</tr>';
+
+                    });
+
+                    first.find('.jscalendarcontent').html('').html(ftemp);
+
+                    $.each(dlast,function(i,n) {
+                        ltemp += '<tr>';
+                        $.each(n,function(j,m) {
+                            var classname = '';
+                            if (m.full == data.today) {classname += ' today ';}
+                            if (m.no == 1) {classname += ' noselect ';} else {classname += ' jsselect ';}
+                            if (j == 6 || j == 7) {classname += ' weekend ';}
+                            ltemp += '<td class="available '+classname+' " data-key="'+m.full+'" ><span>';
+                            if (m.value) {ltemp += m.value;}
+                            else {ltemp += ' ';}
+                            ltemp += '</span></td> ';
+                        });
+                        ltemp += '</tr>';
+
+                    });
+
+                    last.find('.jscalendarcontent').html('').html(ltemp);
+
+                    that.removeClass('disabled');
+
+                    $('.jspn').on('click',function() {jspn($(this)); return false;});
+                    selectrange(datelist);
+                    jsselect();
+                },error:function() {
+                    layer.msg('服务器错误，请稍候再试');that.removeClass('disabled');
+                }
+            });
+
+        }
+
+
+    </script>
+    <script type="text/javascript">
+        //导航高亮
+        highlight_subnav("{:U('Statistics/overview')}");
+        $("#main").removeClass('main');
+        $("#main").addClass('openegretmain');
+
+        /*列表和统计图切换*/
+        $('.tab_btn span').click(function() {
+            var that = $(this),flag = $.trim(that.attr('data-flag')).split('_');
+            var sib = that.closest('.tab_btn').siblings('.tab_con');
+            that.siblings().removeClass('current');
+            var index = that.addClass('current').index();
+            sib.find('.content_part').hide().eq(index).show();
+            var reg = '/'+flag[0]+'/'+(1-flag[1]);
+            $('.ranges li a').each(function() {
+                var url = $.trim($(this).attr('href')).replace(/((\.htm(l?))?)$/g,'').replace(reg,'');
+
+                $(this).attr('href',url+'/'+flag[0]+'/'+flag[1]+'.html');
+            });
+            $('.each_box .nav li a').each(function() {
+                var href = $.trim($(this).attr('href')).split('#');
+                var url = href[0].replace(/((\.htm(l?))?)$/g,'').replace(reg,'');
+                var hash = '';
+                if (href[1]) {hash = '#'+href[1];}
+                $(this).attr('href',url+'/'+flag[0]+'/'+flag[1]+'.html'+hash);
+            });
+
+        });
+
+
+        var myChartLine = "";
+
+        //heightChart! begin
+        $(function () {
+            chartLine();
+
+            //柱子颜色渐变
+            var colors = ['#3FDBF2', '#F79FC9','#F8D488'];
+            Highcharts.getOptions().colors = Highcharts.map(colors, function (color) {
+                return {
+                    radialGradient: {cx: 0, cy: 1.3, r: 2.3},
+                    stops: [[0, color], [2, Highcharts.Color(color).brighten(14).get('rgb')] // darken
+                    ]
+                };
+            });
+
+            /*柱状图1*/
+            $('#overviewChart1').highcharts({
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: [{$game_chart.game}],
+					 min:0, //别忘了这里
+					max:20,
+					crosshair: true,
+                    tickInterval:1
+        },
+		//设置滚动条    
+    scrollbar: {
+        enabled: true
+    },
+            yAxis: {
+                min: 0,
+                        title: {
+                    text: null
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat:'',
+                        footerFormat:'</table>',
+                        pointFormatter:function(){
+                    var s = '';
+                    s += '<tr><td style="color:'+this.series.color+';padding:0">'+this.series.name+': </td>' +
+                            '<td style="padding:0"><b>'+this.y+'</b></td></tr>';
+                    return s;
+                },
+                shared: true,
+                        useHTML: true
+            },
+            credits: {
+                enabled: false
+            },
+            legend: {
+                align: 'center',
+                        verticalAlign: 'top',
+                        enabled:true,
+                        y: -30,
+                        symbolRadius: 0,
+                        itemStyle: {
+                    color: '#A2B8C5',
+                            fontWeight: 'bold'
+                }
+            },
+            plotOptions: {
+                column: {
+                    borderWidth: 0,
+                            pointWidth: 20, //柱子宽度
+                }
+            },
+            series: [{
+                name: '注册用户（人）',
+                //color: '#3FDBF2',
+                data: [{$game_chart.reg}]
+        }, {
+                name: '活跃用户（人）',
+                    // color: '#F79FC9',
+                        data: [{$game_chart.active}]
+            }, {
+                name: '充值金额（元）',
+                    // color: '#F8D488',
+                        data: [{$game_chart.pay}]
+            }]
+        });
+        });
+
+
+        //heightChart! begin
+        $(function () {
+            chartLine();
+
+            //柱子颜色渐变
+            var colors = ['#3FDBF2', '#F79FC9','#F8D488'];
+            Highcharts.getOptions().colors = Highcharts.map(colors, function (color) {
+                return {
+                    radialGradient: {cx: 0, cy: 1.3, r: 2.3},
+                    stops: [[0, color], [2, Highcharts.Color(color).brighten(14).get('rgb')] // darken
+                    ]
+                };
+            });
+
+            /*柱状图2*/
+            $('#overviewChart2').highcharts({
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+				max: 30,
+                    categories: [{$promote_chart.promote}],
+            crosshair: true,
+                    tickInterval:1
+        },
+            yAxis: {
+                min: 0,
+                        title: {
+                    text: null
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat:'',
+                        footerFormat:'</table>',
+                        pointFormatter:function(){
+                    var s = '';
+                    s += '<tr><td style="color:'+this.series.color+';padding:0">'+this.series.name+': </td>' +
+                            '<td style="padding:0"><b>'+this.y+'</b></td></tr>';
+                    return s;
+                },
+                shared: true,
+                        useHTML: true
+            },
+            credits: {
+                enabled:false
+            },
+            legend: {
+                align: 'center',
+                        verticalAlign: 'top',
+                        enabled:true,
+                        y: -30,
+                        symbolRadius: 0,
+                        itemStyle: {
+                    color: '#A2B8C5',
+                            fontWeight: 'bold'
+                }
+            },
+            plotOptions: {
+                column: {
+                    borderWidth:0,
+                            pointWidth:20, //柱子宽度
+                }
+            },
+            series: [{
+                name: '注册用户（人）',
+                //color: '#3FDBF2',
+                data: [{$promote_chart.reg}]
+        },{
+                name: '活跃用户（人）',
+                    //color: '#F79FC9',
+                        data: [{$promote_chart.active}]
+            },{
+                name: '充值金额（元）',
+                    //color: '#F8D488',
+                        data: [{$promote_chart.pay}]
+            }]
+        });
+
+
+        });
+
+        function chartLine(){
+            myChartLine = {
+                chart: {
+                    renderTo: 'container',
+                    type: 'areaspline'
+                },
+                title: {
+                    text: null
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'left',
+                    verticalAlign: 'top',
+                    x: 150,
+                    y: 100,
+                    floating: true,
+                    borderWidth: 1,
+                    symbolRadius: 0,
+                    backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+                },
+                xAxis: {
+                    categories: ['1月','2月','3月','5月','6月']
+                },
+                yAxis: {
+                    title: {
+                        text: null
+                    }
+                },
+                tooltip: {
+                    backgroundColor: '#fff',   // 背景颜色
+                    borderColor: 'white',         // 边框颜色
+                    borderRadius: 10,             // 边框圆角
+                    borderWidth: 1,               // 边框宽度
+                    shadow: true,                 // 是否显示阴影
+                    animation: true,               // 是否启用动画效果
+                    style: {                      // 文字内容相关样式
+                        color: "#999",
+                        fontSize: "12px",
+                        fontWeight: "blod",
+                        fontFamily: "Microsoft Yahei"
+                    },
+                    shared: true,
+                    useHTML: true,
+                    headerFormat: '<small style="color:#1bb2eb;margin-left:18px;">{point.y}</small><br/><small>{point.key}-{point.key}</small><table>',
+                    pointFormat: '',
+                    footerFormat: '</table>',
+                    valueDecimals: 2
+                },
+                credits: {
+                    enabled: false
+                },
+                plotOptions: {
+                    areaspline: {
+                        fillOpacity: 0.5
+                    }
+                },
+                series: [{
+                    data: []
+                }]
+            };
+            //new Highcharts.Chart(myChartLine)
+        }
+    </script>
+
+
+    <!-- ECharts单文件引入 -->
+    <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+    <script type="text/javascript">
+        $('.jsnav li a').on('click', function() {
+            var that = $(this),
+                    url = $.trim(that.attr('href')),
+                    li = that.closest('li'),
+                    sib = that.closest('.jsnav').siblings('.mchart');
+            li.addClass('active').siblings('li').removeClass('active');
+            sib.html('');
+            var html = '<iframe src="' + url + '" id="iframepage" name="iframepage" frameBorder=0 scrolling=no width="100%"  height="100%" ></iframe>';
+            sib.html(html);
+            return false;
+        });
+    </script>
+</block>

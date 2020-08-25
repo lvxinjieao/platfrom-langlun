@@ -1,0 +1,73 @@
+<extend name="Public/bases" />
+<block name="body" >
+<div class="con">
+<div class="game_sort">
+<ul>
+  <li><a href="{:U('/gift','',true,'',true)}">礼包</a></li>
+  <li class="sort_now"><a href="{:U('/server','',true,'',true)}">开服</a></li>
+  <li><a href="{:U('/huodong','',true,'',true)}">活动</a></li>
+</ul>
+</div>
+<!--游戏列表-->
+<div class="game_list wh_bg clear pb55" style="padding-top:110px;">
+
+
+<table cellpadding="0" cellspacing="0">
+<tbody>
+<tr><td colspan="3" class="cen tabtit"> 今日最新服</td></tr>
+
+<volist name="today" id="today">
+<tr>
+<td width="20%" class="cen"><a href="{:U('/detail',array('id'=>$today['id']),true,'',true)}"><img src="{$today.icon|get_cover='path'}"></a></td>
+<td width="60%"><a>
+<ul>
+<li><h3>{$today.game_name}</h3></li>
+<li><font class="gre">{$today.game_type_name}</font></li>
+<li><p class="org">今日{$today.start_time|date='H:i:s',###}&nbsp;&nbsp;{$today.server_name}</p></li>
+</ul>
+</a></td>
+<td width="20%" class="cen " ><a class="begbtn" href="{:U('/opgm',array('uid'=>get_uid(),game_id=>$today['id'],pid=>I('pid')),true,'',true)}">开始玩</a></td>
+</tr>
+</volist>
+
+</tbody>
+</table>
+
+
+<table cellpadding="0" cellspacing="0">
+<tbody>
+<tr><td colspan="3" class="cen tabtit"> 开服信息（未来一周）</td></tr>
+
+<volist name="week" id="week">
+<tr>
+<td width="20%" class="cen"><a href="{:U('/detail',array('id'=>$week['id']),true,'',true)}"><img src="{$week.icon|get_cover='path'}"></a></td>
+<td width="60%"><a>
+<ul>
+<li><h3>{$week.game_name}</h3></li>
+<li><font class="gre">{$week.game_type_name}</font></li>
+<li><p class="org">{$week.start_time|date='m-d H:i:s',###}&nbsp;&nbsp;{$week.server_name}</p></li>
+</ul>
+</a></td>
+<td width="20%" class="cen " ><a class="begbtn" href="{:U('/opgm',array('uid'=>get_uid(),game_id=>$week['id'],pid=>I('pid')),true,'',true)}">开始玩</a></td>
+</tr>
+</volist>
+
+</tbody>
+</table>
+
+
+</div>
+
+<!--游戏列表结束-->
+<!--底部-->
+<div class="bottom">
+  <ul>
+    <li ><a href="{:U('/index','',true,'',true)}"><i class="bot_home"></i><font>首页</font></a></li>
+    <li><a href="{:U('/game','',true,'',true)}"><i class="bot_game"></i><font>游戏</font></a></li>
+    <li class="active"><a href="{:U('/gift','',true,'',true)}"><i class="bot_gift"></i><font>福利</font></a></li>
+    <li><a href="{:U('/subscriber','',true,'',true)}"><i class="bot_user"></i><font>我的</font></a></li>
+  </ul>
+</div>
+<!--底部结束-->
+</div>
+</block>

@@ -1,0 +1,252 @@
+<extend name="Public/base"/>
+
+<block name="body">
+<style>
+.form_info input[type=text], .tab_content input[type=text]{width: 380px;}
+	.form_info textarea {width: 360px;height: 75px;}
+	.tab-list select {width: 380px;}
+	.select2-container {width: 382px !important;}
+	.tab_content {padding: 30px 0;}
+	.form_info li .form_main {float: left;}
+	.navtab_list {width:100%;margin:0 0 15px;height:36px;padding-top:25px;}
+	.navtab_list a,.tabnav1711 li {font-size:15px;border:1px solid transparent;display:block;width:140px;height:35px;line-height:35px;text-align:center;float:left;color:#333;}
+	.navtab_list a.tabchose,.tabnav1711 li.current {border-color:#ddd;border-bottom-color:#FFF;background:#FFF;color:#3C95C8;border-top-left-radius:3px;border-top-right-radius:3px;}
+
+	.tabnav1711 li a {color:inherit;}
+	.tabcon1711 .submit_btn:visited,.tabcon1711 .submit_btn:active,.tabcon1711 .submit_btn:link {color:#FFF;}
+
+	.top_main_menu_con{
+	background: #fff;
+    border: solid 1px transparent;
+    width: 140px;
+    height: 35px;
+    line-height: 35px;
+    border-bottom: 1px solid #ddd;}
+	.top_main_menu{height:37px;}
+	.top_main_menu_current {
+    background: #fff;
+    color: #fff;
+	border:1px solid #ddd;
+    border-bottom: 1px solid transparent;
+}
+.z_bor{
+    border-bottom: 1px solid #ddd;
+    height: 61px;
+}
+.top_nav_list{background:#fff;}
+
+</style>
+    <!-- 标题栏 -->
+    
+    <!-- <div class="main-place"> -->
+    <!-- <div class="cf main-place top_nav_list navtab_list"> -->
+    <!-- {:W('Index/navigation',array('value'=>'Site/wap','compare'=>'Adv/wap_adv_pos_lists'))} -->
+        <!-- <h3 class="page_title">广告管理</h3> -->
+        <!-- <p class="description_text"></p> -->
+    <!-- </div> -->
+     <!-- </div> -->
+     <div class="main-place">
+        <span class="main-placetitle"></span>
+        <ul class="main-placeul">
+            <li><a href="{:U('Config/group')}">站点</a></li>
+            <li><a href="{:U('Site/wap')}">WAP官网</a></li>
+            <li><a href="#">广告管理</a></li>
+        </ul>
+        <p class="description_text" style="height: 40px;line-height: 40px;">说明：设置WAP官网的相关广告图片</p>
+    </div>
+	  <!-- 头部切换菜单 -->
+    <!-- <include file="Public/site_menu" /> -->
+ <div class="z_bor">
+       <div class="cf main-place top_nav_list navtab_list">
+			 {:W('Index/navigation',array('value'=>'Site/wap','compare'=>'Adv/wap_adv_pos_lists'))}
+			 <h3 class="page_title">广告管理</h3>
+		</div>
+    </div>
+	
+<div class="tab_nav jstabnav box_mt">
+    <div class="tab_nav stabnav17112 jstabnav box_mt">
+    <ul>
+        <li class="">
+            <a href="{:U('Adv/wap_adv_pos_lists')}">广告位列表</a>
+        </li>
+        <li class="current">
+            <a href="{:U('Adv/wap_adv_lists')}">广告列表</a>
+        </li>
+    </ul>
+    </div>
+    
+	<div class="cf top_nav_list">
+		<empty name="model.extend">
+		<div class="fl button_list">
+			<div class="tools">
+                <a class=" ajax-post confirm " target-form="ids" url="{:U('del_adv?model='.$model['id'])}"><span class="button_icon button_icon2"></span>删除</a>
+			</div>
+		</div>
+		</empty>
+		<!-- 高级搜索 -->
+		<div class="jssearch fr cf search_list">
+		</div>
+	</div>
+
+
+    <!-- 数据列表 -->
+    <div class="data_list">
+        <div class="">
+            <table>
+                <!-- 表头 -->
+                <thead>
+                    <tr>
+                        <th>
+                            <input class="check-all" type="checkbox">
+                        </th>
+                        <th>编号</th>
+                        <th>广告标题</th>
+                        <th>广告链接</th>
+                        <th>所属广告位</th>
+                        <th>开始时间</th>
+                        <th>结束时间</th>
+                        <th>打开方式</th>
+                        <!--<th>排序</th>-->
+                        <th style="width:5%;min-width:80px;">操作</th>
+                    </tr>
+                </thead>
+
+                <!-- 列表 -->
+                <tbody>
+                <empty name="list_data" >
+                <tr>
+                <td colspan="9" class="text-center">aOh! 暂时还没有内容!</td>
+                </tr>
+                <else />
+                <volist name="list_data" id="data">
+                   <tr>
+                        <td><input class="ids" type="checkbox" value="{$data['id']}" name="ids[]"></td>
+                        <td>{$data['id']}</td>
+                        <td>{$data['title']}</td>
+                        <td>{$data['url']}</td>
+                        <td>{:get_adv_pos_title($data['pos_id'])}</td>
+                        <td>{:set_show_time($data['start_time'],'time','forever')}</td>
+                        <td>{:set_show_time($data['end_time'],'time','forever')}</td>
+                        <td>
+                            <switch name="data['target']" >
+                                <case value="_blank" >新页面</case>
+                                <case value="_self">本页面</case>
+                                <default />未知
+                            </switch>
+                        </td>
+                        <!--<td>-->
+                            <!--<a href="javascript:;" data-field="sort" data-title="{$data.title} 排序修改" data-id="{$data.id}" class="jschangevalue">-->
+                                    <!--{$data.sort}-->
+                            <!--</a>-->
+                            <!---->
+                        <!--</td>-->
+                        <td>
+                            <a href="{:U('wap_edit_adv',array('id'=>$data['id'],'model'=>$model['id']))}">编辑</a>
+                            <a href="{:U('del_adv?ids='.$data['id'])}" class="ajax-get confirm" target-form="ids">删除</a>
+                        </td>
+                    </tr>
+                </volist>
+                </empty>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="page">
+        {$_page|default=''}
+    </div>
+		
+		<div class="common_settings">
+			<span class="plus_icon"><span><img src="__IMG__/zwmimages/icon_jia.png"></span></span>
+			<form class="addShortcutIcon">
+				<input type="hidden" name="title" value="{$m_title}">
+				<input type="hidden" name="url" value="Site/wap">
+			</form>
+			<a class="ajax-post add-butn <notempty name='commonset'>addSIsetted</notempty>" href="javascript:;" target-form="addShortcutIcon" url="{:U('Think/addShortcutIcon')}"><img src="__IMG__/zwmimages/icon_jia.png"><span><notempty name='commonset'>已添加<else />添加至常用设置</notempty></span></a>
+		</div>
+		
+</block>
+
+<block name="script">
+<script src="__STATIC__/layer/layer.js"></script>
+<script src="__STATIC__/layer/extend/layer.ext.js"></script>
+<script type="text/javascript">
+$(function(){
+    //导航高亮
+    highlight_subnav('{:U('Site/wap')}');
+    Think.setValue('row','{:I("row",10)}');
+	//搜索功能
+	$("#search").click(function(){
+		var url = $(this).attr('url');
+        var query  = $('.jssearch').find('input').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+		window.location.href = url;
+	});
+
+    //回车自动提交
+    $('.jssearch').find('input').keyup(function(event){
+        if(event.keyCode===13){
+            $("#search").click();
+        }
+    });
+		
+		$('.jschangevalue').on('click',function() {
+			var that = $(this);
+			var id = that.attr('data-id');
+			var title = that.attr('data-title');
+			
+			
+			layer.prompt({title:title,formType:0},function(value,index) {
+				
+				if (!/^(?:0|[1-9][0-9]*)$/.test(value)) {
+						updateAlert('请输入正整数','tip_error');
+						setTimeout(function(){
+								$('#tip').find('.tipclose').click();
+						},2000);
+						return false;
+				}
+				
+				layer.close(index);
+				
+				$.ajax({
+						async: false,
+						url:"{:U('change_value')}",
+						type:"POST",
+						dataType:"json",
+						data:{id:id,value:value},
+						success:function(result){
+								if(result.status){
+										updateAlert(result.info);
+										setTimeout(function(){
+												$('#tip').find('.tipclose').click();
+												window.location.reload();
+										},2000);
+
+								}else{
+										updateAlert(result.info,'tip_error');
+										setTimeout(function(){
+												$('#tip').find('.tipclose').click();
+										},2000);
+								}
+						},
+						error:function(){
+								updateAlert('服务器异常','tip_error');
+								setTimeout(function(){
+										$('#tip').find('.tipclose').click();
+								},2000);
+						}
+				});
+				
+			});
+			
+			return false;
+		});
+
+})
+</script>
+</block>

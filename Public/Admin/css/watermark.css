@@ -1,0 +1,140 @@
+/*水印设置开始*/
+@font-face { 
+	font-family: '1ttf'; 
+	src: url('../fonts/1.eot?#iefix') format('eot');/*IE*/ 
+	src: url('../fonts/1.ttf') format('truetype'), url('../fonts/1.woff') format('woff');/*non-IE*/ 
+}
+@font-face { 
+	font-family: '2ttf'; 
+	src: url('../fonts/2.eot?#iefix') format('eot');/*IE*/ 
+	src: url('../fonts/2.ttf') format('truetype'), url('../fonts/2.woff') format('woff');/*non-IE*/ 
+}
+@font-face { 
+	font-family: '3ttf'; 
+	src: url('../fonts/3.eot?#iefix') format('eot');/*IE*/ 
+	src: url('../fonts/3.ttf') format('truetype'), url('../fonts/3.woff') format('woff');/*non-IE*/ 
+}
+.position_water {
+	width: 130px;
+	float: left;
+}
+
+.position_water .position_rows {
+	text-align: center;
+	width: 100%;
+	height: 43px;
+	line-height: 43px;
+	border-top: 1px solid #DDDDDD;
+}
+
+.position_water .position_rows:last-of-type {
+	border-bottom: 1px solid #DDDDDD;
+}
+
+.position_water .position_rows span {
+	display: inline-block;
+	width: 42px;
+	border-left: 1px solid #DDDDDD;
+	cursor: pointer
+}
+
+.position_water .position_rows span:last-of-type {
+	border-right: 1px solid #DDDDDD;
+	width: 41px;
+}
+
+.tabcon1711 .position_text {
+	line-height: 130px;
+	margin-left: 115px;
+}
+
+.position_water .position_rows span.current {
+	background: #F4F4F4;
+	background: #d4d4d4;
+}
+
+.position_water .position_rows span:active:hover {
+	background: #d4d4d4;
+}
+
+.bar-span {
+	font-size: 14px;
+	margin-top: 10px;
+	display: block;
+}
+
+.slider_st {
+	width: 443px;
+	margin-top: 15px;
+}
+
+.tab-wrap {
+	position: relative;
+}
+
+.position_tip {
+	width: 270px;
+	height: 210px;
+	position: absolute;
+	background: #E3E3E3;
+	color: #8C8C8C;
+	top: 150px;
+	right: 50px;
+	z-index: 0;
+}
+
+.position_tip .tip_rows {
+	text-align: center;
+	width: 100%;
+	height: 70px;
+	line-height: 70px;
+}
+
+.position_tip .tip_rows span {
+	width: 90px;
+	display: inline-block;
+}
+.position_tip .tip_rows span.current {}
+.position_tip .tip_rows span.current i{font-style:normal;white-space:nowrap;position:relative;}
+
+.img_box {
+	text-align: center;
+}
+
+.img_box img {
+	width: 73px;
+	height: 50px;
+}
+
+.img_box p {
+	line-height: 24px;
+}
+
+.updateImg {
+	display: block;
+	width: 82px;
+	height: 32px;
+	line-height: 32px;
+	-webkit-appearance: none;
+	border: none;
+	border-radius: 4px;
+	background: #3E96C9;
+	color: #fff;
+	margin: 15px 30px;
+	cursor: pointer;
+}
+
+.table_radio em.px_txt {
+	position: absolute;
+	font-style: normal;
+	left: 415px;
+	font-size: 14px;
+	top: 13px;
+	color: #666;
+}
+.table_radio em.px_txt_right{
+	left: 185px;
+}
+.upload-pre-watermark{
+	margin-bottom:16px;
+}

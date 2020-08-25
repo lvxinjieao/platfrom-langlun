@@ -1,0 +1,129 @@
+<extend name="Public/base"/>
+
+<block name="body">
+	<link rel="stylesheet" href="__CSS__/select2.min.css" type="text/css" />
+	<script type="text/javascript" src="__JS__/select2.min.js"></script>
+<style>
+    .navtab_list {
+		height: 36px;
+		border-bottom: solid 1px #d0dee5;
+		position: relative;
+		border-left: solid 1px #d3dbde;
+		margin: 15px 0px;
+	}
+	.navtab_list a {
+		float: left;
+		height: 37px;
+		line-height: 37px;
+		background: url(__IMG__/itabbg.png) repeat-x;
+		border-right: solid 1px #d3dbde;
+		font-size: 14px;
+		color: #000;
+		padding-left: 25px;
+		padding-right: 25px;
+		text-decoration: none;
+	}
+	.navtab_list a:hover {
+		border-bottom: 0;
+	}
+	.navtab_list a.tabchose {
+		text-decoration: none;
+		border-bottom: none;
+		color: #000;
+		height: 37px;
+		display: block;
+		background: url(__IMG__/itabbg1.png) repeat-x;
+		font-weight: bold;
+	}
+    .navtab_list_cs{ margin-top:20px;margin-left: 20px;}
+    .navtab_list_cs img{ margin:0px 8px;}
+    .data_list table td {
+        min-width: 50px;
+    }
+  </style>
+    <!-- 标题栏 -->
+    <div class="main-place">
+        <span class="main-placetitle"></span>
+        <ul class="main-placeul">
+            <li><a href="{:U('Game/lists')}">游戏</a></li>
+            <li><a href="{:U('Game/lists')}">游戏管理</a></li>
+            <li><a href="#">{$meta_title}</a></li>
+        </ul>
+    </div>
+	<div class="cf top_nav_list">
+		<div class="fl button_list">
+			<div class="tools">
+				<a class="" href="{:U('wechat_add?model='.$model['id'])}"><span class="button_icon button_icon1"></span>新 增</a>
+				<a class="ajax-post confirm change_btn" target-form="ids" url="{:U('wechat_del?model='.$model['id'])}"><span class="button_icon button_icon2"></span>删 除</a>
+			</div>
+		</div>
+	</div>
+    <!-- 数据列表 -->
+    <div class="data_list">
+        <div class="">
+            <table>
+                <!-- 表头 -->
+                <thead>
+                    <tr>
+                        <th>
+                            <label class="checked">
+								<input class="check-all" type="checkbox">
+								<i class="check_icon"></i>
+							</label>
+                        </th>
+                        <th >公众号名称</th>
+                        <th >Appid</th>
+                        <th >Secret</th>
+                        <th >添加时间</th>
+                        <th>微信公众平台接口URL</th>
+                        <th >操作</th>
+                    </tr>
+                </thead>
+
+                <!-- 列表 -->
+                <tbody>
+                    <empty name="list_data">
+                    <td colspan="7">暂无数据</td>
+                    <else/>
+                    <volist name="list_data" id="data">
+                        <tr>
+                            <td>
+                            	<label class="checked">
+							        <input class="ids" type="checkbox" value="{$data['id']}" name="ids[]">
+							        <i class="check_icon"></i>
+						        </label>
+                            </td>
+                            <td>{$data.name}</td>
+                            <td>{$data.appid}</td>
+                            <td>{$data.secret}</td>
+                            <td>{:set_show_time($data['create_time'])}</td>
+                            <td>http://{$_SERVER['HTTP_HOST']}/sdk.php/Wechat/wechat/id/{$data.id}</td>
+                            <td>
+                                <a href="{:U('wechat_edit',array('id'=>$data['id']))}">编辑</a>
+                                <a href="{:U('Game/wechat_del?ids='.$data['id'])}" class="confirm ajax-get">删除</a>
+                            </td>
+                        </tr>
+                    </volist>
+                    </empty>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="page">
+        {$_page|default=''}
+    </div>
+    {:W('index/comset',['title'=>$meta_title,'url'=>'GameType/lists'])}
+</block>
+
+<block name="script">
+<script src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript">
+//导航高亮
+highlight_subnav('{:U('Game/wechat')}');
+change_class();
+$(".select_gallery").select2();
+$(".select2-search--hide").select2({
+	minimumResultsForSearch: -1,
+});
+</script>
+</block>

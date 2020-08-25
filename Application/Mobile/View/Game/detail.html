@@ -1,0 +1,401 @@
+<extend name="Public/bases" />
+<block name="body" >
+<link href="__CSS__/game.css" rel="stylesheet" >
+<link href="__CSS__/code.css" rel="stylesheet" >
+<style>
+body{
+    background: #EDEDED;
+	}
+.footer{
+  display: none;
+}
+</style>
+    <!--关注公众号弹出层-->
+    <div class="code" id="code">
+
+        <img src="__IMG__/code.png" alt="" class="code-img" />
+        <div class="code-text">微信内打开图片，识别二维码关注公众号</div>
+        <div class="save">
+            <!--<img src="__IMG__/icon_normal_xiazai.png" class="save-img">-->
+            <span class="save-text">截图保存图片至相册</span>
+        </div>
+		
+    </div>
+    <!--关注公众号弹出层-->
+
+<header class="header gamedetailheader">
+  <section class="wrap">
+    <a href="javascript:;" onclick="history.go(-1)" class="hbtn left arrow-left"><span class="table"><span class="table-cell"><img src="__IMG__/back_return.png"></span></span></a>
+    <div class="caption">
+      <span class="table">
+        <span class="table-cell">
+          <div class="detailgamename">{$data.game_name}</div>
+        </span>
+      </span>
+	
+    </div>
+    <a data-href="{:U('Subscriber/user_collection')}#down" class="hbtn search beginlogin1" onclick="jslogin2()"><span class="table"><span class="table-cell"><img src="__IMG__/icon_xiazai@2x.png"></span></span></a>
+  </section>
+</header>
+<a href="javascript:;" style="display: none;" class="hbtn right table login jslogin"><span class="table-cell"><i class="">登录</i></span></a>
+<section class="trunker">
+  <section class="inner">
+  
+    <section class="contain">
+      <div class="detail">
+        <div class="occupy"></div>
+        <div class="base">
+          <div class="wrap">
+            <div class="iconbox"><img src="{$data.icon}" class="icon" onerror="this.src='__IMG__/empty.jpg';this.onerror=null"></div>
+            <div class="butnbox"><span class="table"><a href="javascript:;" class="butn table-cell setcollection"><i data-collection="{$data.collect_status}" data-game_id="{$data.id}" class="icon-star <if condition='$data.collect_status eq 1'> on collect_status1<else/>collect_status0</if>"></i><span><if condition='$data.collect_status eq 1'>已</if>收藏</span></a></span></div>
+            <div class="textbox">
+              <div class="title"><span class="name"><if condition="mb_strlen($data['game_name']) gt 8 ">{:mb_substr($data['game_name'],0,8,'utf-8')}...<else />{$data.game_name}</if></span><span class="type">{$data.game_type_name}</span></div>
+              <eq name="data.sdk_version" value="3">
+                  <p class="info"><span class="play-num"><i>{$data.play_num}</i>人在玩</span><span class="coll-num"><i>{$data.collect_num}</i>人收藏</span></p>
+                  <else/>
+                  <p class="info"><span class="coll-num"><i>{$data.game_size}</i></span><span class="play-num"><i>{$data.play_num}</i>人在玩</span></p>
+              </eq>
+
+              <p class="slogan" title="{$data.features}">{$data.features}</p>
+            </div>
+          </div>
+        </div>
+        <notempty name="data['screenshots']">
+          <div class="screenshot">
+            <div class="wrap">
+              <div id="screenshot" class="swiper-container">
+                <div class="swiper-wrapper">
+                  <volist name="data['screenshots']" id="sc" key='k'>
+                    <div class="swiper-slide iconbox"><img src="{$sc}" class="icon" onerror="this.src='__IMG__/empty.jpg';this.onerror=null"></div>
+                  </volist>
+                </div>
+            </div>
+            </div>
+          </div>
+        </notempty>
+        <div class="description samething">
+          <div class="wrap">
+            <div class="cntitle"><span class="name"><i class="icon icon-desc"></i>游戏介绍</span></div>
+            <div class="content">
+              <div class="article">
+                {:str_replace("~~","<br>",$data['introduction'])}
+               <if condition="strlen($data['introduction']) gt 400"> <a href="javascript:;" class="showarticle">...全文</a><i class="mark"></i></if>
+              </div>
+            </div>
+          </div>
+        </div>
+        <notempty name="gamegift">
+          <div class="gift samething">
+            <div class="wrap">
+              <div class="cntitle"><span class="name"><i class="icon icon-gift"></i>活动礼包</span></div>
+              <div class="content" style="z-index:0;">
+                <ul class="text-list" >
+                  <volist name="gamegift" id="gift">
+                  <li>
+                    <div class="item">
+                      <div class="butnbox"><a href="javascript:;" class="butn table"><span class="table-cell"><span data-gift_id="{$gift['gift_id']}" data-game_id="{$gift['game_id']}" data-received="{$gift['received']}" data-novice="{$gift['novice_num']}" data-clipboard-text="{$gift['novice_num']}" class="getgift copy" id="getgift_{$gift['gift_id']}"><if condition="$gift.received eq 1">复制<else/>领取</if></span></span></a></div>
+                      <div class="text">
+                        <a  class="title">[{$gift['relation_game_name']}]{$gift['giftbag_name']}</a>
+                        <div class="surplusbox"><span data-all="{$gift['novice_all']}" data-wei="{$gift['novice_surplus']}" class="surplus"><i style="width:{:round($gift['novice_surplus']/$gift['novice_all']*100,2)}%;"></i></span><span class="number">剩余<i>{:round($gift['novice_surplus']/$gift['novice_all']*100,2)}%</i></span></div>
+                        <p class="validitytime">有效期：{:set_show_time($gift['start_time'],'date','forever')}~{:set_show_time($gift['end_time'],'date','forever')}</p>
+                      </div>
+                    </div>
+                  </li>
+                  </volist>
+                  <input type="text" style="opacity: 0;position: absolute;" id="novice_num" />
+                </ul>
+              </div>
+            </div>
+          </div>
+        </notempty>
+        <notempty name="gameactive">
+          <div class="active samething">
+            <div class="wrap">
+              <div class="cntitle"><span class="name"><i class="icon icon-active"></i>新闻资讯</span></div>
+              <div class="content">
+                <ul class="list text-pic-list">
+                  <volist name="gameactive" id="active">
+                  <li class="clearfix">
+                    <div class="item clearfix">
+                      <div class="butnbox"><span class="table"><span class="table-cell"><a href="{:U('Article/detail',array('id'=>$active['id']))}" class="butn">查看</a></span></span></div>
+                      <div class="text">
+                        <div class="title"><a href="{:U('Article/detail',array('id'=>$active['id']))}" class="name">《{$active.relation_game_name}》{$active.title}</a></div>
+                        <p class="info">
+                          <if condition="$active.type eq 'mobile_huodong'">
+                            <span class="cate cate-notice">活动</span>
+                          <elseif condition="$active.type eq 'mobile_gg'" />
+                            <span class="cate cate-notice">公告</span>
+                          <elseif condition="$active.type eq 'mobile_rule'" />
+                            <span class="cate cate-active">攻略</span>
+                          <else/>
+                            <span class="cate cate-active">资讯</span>
+                          </if>
+                          <span class="catchword">{$active.title}</span></p>
+                      </div>
+                    </div>
+                  </li>
+                  </volist>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </notempty>
+        <div class="play samething">
+          <div class="wrap">
+            <div class="cntitle"><a href="{:U('index')}" class="more">更多<i class="icon-arrow-right"></i></a><span class="name"><i class="icon icon-play"></i>大家都在玩</span></div>
+            <div class="content">
+              <ul class="clearfix">
+              <volist name="gamelike" id="like">
+                <li>
+                  <div class="item">
+                    <a href="{$like['play_detail_url']}" class="iconbox"><img src="{$like['icon']}" class="icon" onerror="this.src='__IMG__/empty.jpg';this.onerror=null"/></a>
+                    <a  class="namebox">{$like['relation_game_name']}</a>
+                    <eq name="like.sdk_version" value="3">
+                      <a href="{$like['play_url']}" class="butnbox"><span class="table"><span class="table-cell">开始</span></span></a>
+                      <else/>
+                      <if condition="$like['xia_status'] eq 0">
+                        <a href="javascript:;" class="butnbox"><span class="table"><span class="table-cell">下载</span></span></a>
+                        <else/>
+                        <a href="{$like['play_url']}" class="butnbox"><span class="table"><span class="table-cell">下载</span></span></a>
+                      </if>
+                    </eq>
+
+                  </div>
+                </li>
+               </volist> 
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="start-game-position"></div>
+        <div class="start-game">
+          <eq name="data.sdk_version" value="3">
+            <a data-href="{$data['play_url']}" class="btn beginlogin" onclick="jslogin1()"><if condition = "$data['ratio'] gt 0"><span class="rebate">返利：{$data.ratio}%</span></if> <span class="down">  开始游戏</span></a>
+             <else/>
+            <a data-href="{$data['play_url']}"  <notempty name="data.xia_status"> onclick="jslogin1()" class="btn beginlogin"<else/>class="btn beginlogin disabled"</notempty>><if condition = "$data['ratio'] gt 0"><span class="rebate">返利：{$data.ratio}%</span></if>   <span class="down">下载游戏</span></a>
+         
+		 </eq>
+
+
+        </div>
+      </div>  
+        
+    </section>
+    
+  </section>
+</section>
+<div class="popmsg"></div>
+<script src="__JS__/pop.lwx.min.js"></script>
+<script src="__JS__/common.js"></script>
+<script src="__JS__/clipboard.min.js"></script>
+<script>
+<!-- 最下按钮宽度修改 -->
+$(function(){
+if($( ".rebate" ).length>0){
+
+$(".detail .start-game .btn").css("width","70%")
+}   
+} )
+
+  function jslogin1(){
+    res=jslogin();
+    if(res){
+      location.href = $('.beginlogin').data('href');
+    }
+  }
+  function jslogin2(){
+      res=jslogin();
+      if(res){
+          location.href = $('.beginlogin1').data('href');
+      }
+  }
+  function nologintc(popmsg,msg){
+    if(msg==''||msg==undefined){
+      msg='暂时无法收藏心爱的游戏~T_T~';
+    }
+    popmsg.addClass('pop-notice').open('','<a href="javascript:;" class="pop-close"></a><div class="pop-content"><img class="pop-image" src="__IMG__/pop_unlisted.png"><div class="pop-title">您还未登录</div><p class="pop-text">'+msg+'</p><a href="javascript:;" class="pop-btn tologin">去登录</a></div>'); 
+    popmsg.find('.pop-close').click(function() {popmsg.close();});
+    popmsg.find('.tologin').click(function() {popmsg.close();$('.jslogin').click()});
+  }
+  function Copy(str,that){
+    
+      text = str;
+      var clipboard = new Clipboard('.copy',{
+        text: function() {
+              return text;
+          }
+      });
+      clipboard.on('success', function(e) {
+        that.text('复制成功');
+        e.clearSelection();
+      });
+
+      clipboard.on('error', function(e) {
+ 
+        that.text('复制完成');
+        alert('此浏览器不支持此操作，请长按礼包码复制');
+      });
+  }
+    var clip = new Clipboard('.copy');
+
+    function Copy2(text,that){
+
+        that.attr('data-clipboard-text', text);
+        var clipboard = new Clipboard('#'+that.attr('id'));
+        clipboard.on('success', function (e) {
+            //that.text('复制成功');
+            e.clearSelection();
+        });
+        clipboard.on('error', function (e) {
+            //that.text('复制完成');
+            alert('此浏览器不支持此操作，请长按礼包码复制');
+        });
+
+    }
+    $(function() {
+      var popmsg = $('.popmsg').pop();
+      new Swiper('#screenshot', {slidesPerView: 'auto',freeMode: true});
+      var $user = "{:is_login()}";
+      $('.setcollection').click(function() {
+        var that = $(this),star = that.find('.icon-star'),textbox = that.closest('.butnbox').siblings('.textbox');
+        var coll_num = parseInt(textbox.find('p.info span.coll-num i').text());
+        // 是否登录
+        if ($user) {
+          $.ajax({
+              type: 'post',
+              url: '{:U("Game/collection")}',
+              async:false,
+              data:{collect_status:star.attr('data-collection'),game_id:star.data('game_id')},
+              dataType: 'json',
+              success: function(data){
+                  if(data.code==1){
+                    if(data.data==1){
+                        popmsg.addClass('pop-message').msg('<img class="pop-image" src="__IMG__/pop_completed.png"><p class="pop-text">已收藏</p>',1000,250);
+                        star.attr('data-collection',1)
+                        star.addClass('on').siblings('span').text('已收藏');
+                        textbox.find('p.info span.coll-num i').text(coll_num+1);
+                    }else{
+                        popmsg.addClass('pop-message').msg('<img class="pop-image" src="__IMG__/pop_completed.png"><p class="pop-text">收藏已取消</p>',1000,250);
+                        star.attr('data-collection',0)
+                        star.removeClass('on').siblings('span').text('收藏');
+                        if(coll_num-1<0){
+                          coll_nums = 0
+                        }else{
+                          coll_nums = coll_num-1;
+                        }
+                        textbox.find('p.info span.coll-num i').text(coll_nums);
+                    }
+                  }else if(data.code==-1){
+                      nologintc(popmsg);
+                  }
+              },
+              error: function(xhr, type){
+                  
+              }
+          });
+        } else {
+          nologintc(popmsg);
+        }
+        
+      });
+
+
+        $("body").on("click",'.getgift',function(){
+        that = $(this);
+        // 是否登录
+        if ($user>0) {
+            var received = that.attr('data-received');
+            if(received == 1){
+                var novice_num = that.attr('data-novice');
+                Copy2(novice_num,that);
+                setTimeout(function(){
+                    popmsg.open().addClass('pop-message').msg('<img class="pop-image" src="__IMG__/pop_completed.png"><p class="pop-text">已复制</p>',1000,250);
+                },440);
+                return false;
+            }
+          $.ajax({
+              type: 'post',
+              url: '{:U("Gift/getgift")}',
+              async:false,
+              data:{gameid:that.attr('data-game_id'),giftid:that.attr('data-gift_id')},
+              dataType: 'json',
+              success: function(data){
+                  if(data.code==1){
+                    // 成功
+                    that.text('已领取');
+                    popmsg.addClass('pop-hint').open('','<a href="javascript:;" class="pop-close"></a><div class="pop-content"><img class="pop-image" src="__IMG__/pop_receive_successful.png"><div class="pop-title">领取成功！</div><div class="pop-code pop-table"><span class="pop-cell pop-input"><span class="code pop-txt" >'+data.nvalue+'</span></span></div><p class="pop-text">可在[我的礼包]中查看</p><a href="javascript:;" class="copy pop-btn">复制</a></div>');
+                    bfp =that.closest('div.butnbox').siblings('div.text');
+                    surplusbox = bfp.find('.surplusbox');
+                    all = surplusbox.find('.surplus').attr('data-all');
+                    wei1 = surplusbox.find('.surplus').attr('data-wei');
+                    wei2 = surplusbox.find('.surplus').attr('data-wei',wei1-1);
+                    wei = surplusbox.find('.surplus').attr('data-wei');
+                    baifen = (wei/all*100).toFixed(2);
+                    surplusbox.find('i').css('width',baifen+'%');
+                    surplusbox.find('.number i').html(baifen+'%');
+                    popmsg.find('.pop-close').click(function() {
+                        popmsg.close();
+                        setTimeout(function(){window.location.reload()},440);
+                    });
+                    popmsg.find('.copy').click(function() {
+                        //移动端复制
+                        that = $(this);
+                        $(".copy").css("color", "#14b4c3");
+                        $(".copy").text('复制');
+                        Copy(data.nvalue,that);
+                        popmsg.close(400);
+                        setTimeout(function(){
+                            popmsg.open().addClass('pop-message').msg('<img class="pop-image" src="__IMG__/pop_completed.png"><p class="pop-text">已复制</p>',1000,250);
+                            setTimeout(function(){window.location.reload()},440);
+                            },440);
+                      });
+                  }else if(data.code==-4){
+                      $(".code-img").attr("src",data.qrcodeurl);
+                      //领取失败,未关注公众号
+                      layer.open({
+                          type: 1,
+                          shadeClose: false,
+                          title: '&nbsp',
+                          area: ['10rem', '10.2rem'], //宽高
+                          content: $('#code')
+                      });
+                  }else{
+                    // 失败
+										var butn = '';
+										if (data.code!='-2') {butn += '<a  class="pop-btn jsfresh">重试</a>';}
+                    popmsg.addClass('pop-hint').open('','<a href="javascript:;" class="pop-close"></a><div class="pop-content"><img class="pop-image" src="__IMG__/pop_receive_fail.png"><div class="pop-title">领取失败！</div><p class="pop-text">'+data.msg+'</p>'+butn+'</div>');
+                    popmsg.find('.jsfresh').click(function(){popmsg.close();});
+                    popmsg.find('.pop-close').click(function() {popmsg.close();});
+                  }
+              },
+              error: function(xhr, type){
+                  alert('服务器错误');
+              }
+          });
+        } else {
+          nologintc(popmsg,'暂时无法领取礼包~T_T~');
+        }
+        
+      });
+			
+			if (!$.trim($('.article').html())) {
+				$('.article').css({'height':'.8rem'});
+			}
+      
+      $('.showarticle').click(function() {
+        var that=$(this),parent = that.closest('.article');
+        var position = parent.find('.mark').position();
+        var height = parseInt($('html').css('font-size'))*2.55;
+        var num = position.top;
+        (position.left>(parent.width()*0.6))?(num+=29):(num += 24);
+        if (that.hasClass('on')) {
+          that.text('...全文').removeClass('on');
+          parent.css({'height':height+'10'+'px'});
+        } else {
+          parent.css({'height':(num)+'px'});
+          that.text('收起').addClass('on');
+        }
+      });
+    });
+</script>
+</block>

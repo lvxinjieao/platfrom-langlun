@@ -1,0 +1,287 @@
+<extend name="Public/promote_base"/>
+<block name="css">
+<link href="__CSS__/20180207/data.css" rel="stylesheet">
+<link href="__CSS__/20180207/game.css" rel="stylesheet" >
+</block>
+
+<block name="body">
+    <div class="page-list normal_list apply-app_apply-list">
+      <div class="trunk-title">
+      	<div class="location">
+			<div class="location-container">当前位置：<span>游戏管理></span><span>APP列表</span></div>
+		</div>
+      	<img src="__IMG__/20180207/icon_normal_app.png"><span class="title_main">APP列表</span>
+      </div>
+      <div class="trunk-content " style="min-height: 65vh;">
+          <div class="tab  trunk-search">
+              <a href="{:U('Apply/app_index')}" class=" <eq name='Think.get.version' value=''>current</eq>">全部</a>
+              <!-- <a href="{:U('Apply/app_index',['version'=>1])}" class=" <eq name='Think.get.version' value='1'>current</eq>">安卓</a>
+              <a href="{:U('Apply/app_index',['version'=>2])}" class="wxnavbtn <eq name='Think.get.version' value='2'>current</eq>">苹果</a> -->
+          </div>
+          <div class="tabcon">
+            <table class="table normal_table zwm_tab">
+                <tr class="odd">
+                    <th class="first"></th>
+                    <th>APP图标</th>
+                    <th>APP名称</th>
+                    <th>平台</th>
+                    <th>包的大小</th>
+                    <th>更新时间</th>
+                    <th>下载链接</th>
+                    <th>二维码</th>
+                    <th>APP推广</th>
+                  <th class="last">操作</th>
+                </tr>
+                <volist name="data" id="vo" mod="2">
+                  <tr class="<eq name='mod' value='1'>odd</eq>">
+                      <td class="first">
+                        <span></span>
+                      </td>
+                      <td>
+
+                          <empty name="vo['icon']">
+                              <if condition="(C('APP_LOGO') eq '') or (C('APP_LOGO') eq 0)">
+                                    •
+                                  <else/>
+                                  <img src="{:get_cover(C('APP_LOGO'),'path')}">
+                              </if>
+                          <else/>
+                            <img src="{$vo.icon|get_cover='path'}">
+                           </empty>
+                      </td>
+                      <td>
+                          <empty name="vo.app_name">
+                              <span class="name_a">{$vo.name}</span>
+                              <else/>
+                              <span class="name_a">{$vo.app_name}</span>
+                          </empty>
+
+                        </a>
+                      </td>
+                      <td>
+                          <if condition="$vo['app_version'] eq 1">安卓</if>
+                          <if condition="$vo['app_version'] eq 0">苹果</if>
+                      </td>
+                      <td>{$vo.file_size}</td>
+                      <td><empty name="vo.dispose_time">--<else/>{$vo.dispose_time|date='Y-m-d H:i:s',###}</empty></td>
+                      <td>
+                          <switch name="vo.apply_status">
+                              <case value="0">--</case>
+                              <case value="1">
+                                  <if condition="$vo.enable_status eq 0">
+                                      <a href="javascript:;" class="applycbtn download disabled" title="复制下载地址">
+                                          复制
+                                      </a>
+                                      <else/>
+                                      <a href="javascript:;" class="applycbtn download copy" version="{$vo.app_version}" data-url="http://{$_SERVER['HTTP_HOST']}{:U('Home/appofregestion',array('gid'=>$vo['id'],'pid'=>$vo['promote_id']))}" title="复制下载地址">
+                                          复制
+                                      </a>
+                                  </if>
+
+                              </case>
+                              <case value="2">--</case>
+                              <default/>--
+                          </switch>
+                      </td>
+                      <td>
+                          <switch name="vo.apply_status">
+                              <case value="0">--</case>
+                              <case value="1">
+                                  <p class="erwei_p">
+                            <span class="erwei_span">
+                                 <if condition="$vo['file_url'] eq ''">
+                                     <a class="zwm_aerwei"  href="javascript:;">
+                                        <img src="__IMG__/20180207/icon_samllerwei_not.png" width="" height="" alt="二维码">
+                                    </a>
+                                <else/>
+                                     <eq name="vo.enable_status" value="0">
+                                         <a class="zwm_aerwei"  href="javascript:;">
+                                        <img src="__IMG__/20180207/icon_samllerwei_not.png" width="" height="" alt="二维码">
+                                        </a>
+                                         <else/>
+                                          <a class="zwm_aerwei js_erwei"  href="javascript:;">
+                                        <img src="__IMG__/20180207/icon_samllerwei.png" width="" height="" alt="二维码">
+                                    </a>
+                                     </eq>
+
+                                 </if>
+                                <span class="imgbig_erwei">
+                                    <if condition="$vo['plist_url'] eq ''">
+                                        <img class="" src="{:U('Apply/qrcode',['url'=>base64_encode(base64_encode('http://'.$_SERVER['HTTP_HOST'].U('Home/appofregestion',['pid'=>$vo['promote_id'],'gid'=>1])))])}" width="" height="" alt="二维码">
+                                        <a class="btn_erwei">下载二维码图片</a>
+                                    <else/>
+                                        <img class="" src="{:U('Apply/qrcode',['url'=>base64_encode(base64_encode('http://'.$_SERVER['HTTP_HOST'].U('Home/appofregestion',['pid'=>$vo['promote_id'],'gid'=>2])))])}" width="" height="" alt="二维码">
+                                        <a class="btn_erwei">下载二维码图片</a>
+                                    </if>
+                                </span>
+                            </span>
+                                  </p>
+                              </case>
+                              <case value="2">--</case>
+                              <default/>--
+                          </switch>
+                      </td>
+                      <td>
+                          <switch name="vo.apply_status">
+                              <case value="0">--</case>
+                              <case value="1">
+                                  <eq name="vo.enable_status" value="0">
+                                      <a href="javascript:;" class="a_promition disabled" target="view_window">推广注册</a>
+                                      <else/>
+                                  <a href="{:U('Home/appofregestion',['pid'=>$vo['promote_id'],'gid'=>$vo['id']])}" class="a_promition" target="view_window">推广注册</a>
+                                  </eq>
+                              </case>
+                              <case value="2">--</case>
+                              <default/>--
+                          </switch>
+                      </td>
+                      <td class="pos wxlistbtnwrap">
+                          <switch name="vo['apply_status']">
+                              <case value="0"><a href="javascript:;" class="applybtn disabled wait">审核中</a></case>
+                              <case value="1">
+                                  <a href="{:U('Apply/app_edit',array('id'=>$vo['id']))}" class="applybtn disabled edit">编辑</a>
+                              </case>
+                              <case value="2"><a href="javascript:;" class="applybtn disabled fall">审核失败</a><a href="javascript:;" class="applybtn" onclick="app_apply({$vo.id},this)">重新申请</a></case>
+                              <default/>
+                              <a href="javascript:;" class="applybtn" onclick="app_apply({$vo.id},this)">马上申请</a>
+                          </switch>
+                      </td>
+                  </tr>
+                </volist>
+            </table>
+          </div>
+      </div>
+      <div class="page-explain apply-app_apply-explain">
+      <div class="trunk-content article border_normal">
+        <table class="desccontent">
+            <tr><td class="title" style="width: 126px;display: inline-block;">APP申请功能说明：</td><td class="det">渠道只需申请一个APP，即可通过APP推广本平台的所有游戏；如需推广单个游戏，可到游戏分包里操作，申请单个游戏推广链接。</td></tr>           
+        </table>
+      </div>
+    </div>
+    </div>
+    
+    
+</block>
+<block name="script">
+    <script src="__STATIC__/zeroclipboard/jquery.zclip.min.js"></script>
+  <script type="text/javascript">
+  highlight_subnav('{:U('Apply/app_index')}');
+  $(function() {
+      $('a.copy').click(function(){
+          var url = $(this).attr('data-url');
+          if( url == "" || url == null || url == "#"){
+              layer.msg("暂无下载内容",{icon:2});
+              return false;
+          }
+          var save = function(e){
+              e.clipboardData.setData('text/plain', url);
+              e.preventDefault();
+          }
+          //$(this).css("color", "#FFF");
+          document.addEventListener('copy', save);
+          document.execCommand('copy');
+          document.removeEventListener('copy',save);
+          if( $(this).attr('version')==1){
+              layer.msg("安卓下载复制成功",{icon:1,time:1000});
+          }else{
+              layer.msg("苹果下载复制成功",{icon:1,time:1000});
+          }
+      })
+
+      var row = '{$row|default=10}';
+      //点击小图标二维码显示大图片二维码
+      $(".js_erwei").click(function(){
+          var that=$(this);
+          that.closest('table').find('.js_erwei').removeClass('active');
+          that.closest('table').find('.imgbig_erwei').hide();
+
+          var imgb = that.siblings('.imgbig_erwei');
+          if (that.hasClass('active')) {
+              that.removeClass('active');
+              imgb.hide();
+          } else {
+              that.addClass('active');
+              imgb.show();
+          }
+
+
+          //判断但是最后两条信息时，点击小的二维码，大的二维码在上面显示
+          var index = $('.js_erwei').index(this);
+
+          if (parseInt(row) - parseInt(index + 1) < 2){
+              that.next().css({
+                  top:'auto',
+                  bottom: '22px'
+              });
+          }
+
+
+
+          $(document).on('click',function(event) {
+              var event = event || window.event;
+              var target = $(event.target);
+
+              if (target.hasClass('erwei_span') || target.closest('.erwei_span').length>0) {
+
+              } else {
+                  imgb.hide();
+              }
+          });
+
+
+      });
+//下载二维码
+      $(".btn_erwei").click(function(){
+          var img_url= $(this).siblings("img").attr("src");
+          var $a = $("<a></a>").attr("href", img_url).attr("download", "img.png");
+          $a[0].click();
+      });
+  });
+  $('.notice').click(function(){
+    var href = $(this).attr('href');
+    if(href == '#' || href =="javascript:"){
+      layer.msg('暂无下载内容', {icon: 2});
+    }
+  });
+
+  function app_apply(app_id,obj) {
+      $.ajax({
+          type: "post",
+          url: "{:U('Apply/apply_app')}",
+          dataType: "json",
+          data: {app_id: app_id},
+          success: function (res) {
+              if (res.status == 1) {
+                  $(obj).attr("onclick", "").html("审核中").addClass("proc wait");
+                  layer.msg(res.msg, {icon: 1});
+                  setTimeout(function () {
+                      location.reload();
+                  },1000)
+              }
+              else {
+                  layer.msg(res.msg, {icon: 2});
+              }
+          },
+          error: function () {
+              layer.msg('服务器故障', {icon: 5});
+          }
+      })
+  }
+
+  function appPack($appid){
+    $.ajax({
+      type:"post",
+      url:"{:U('Apply/app_package')}",
+      dataType:"json",
+      data:{appid:$appid},
+      success:function($result){
+        var iconType = $result.status == 0?2:1;
+        layer.msg($result.info,{icon:iconType},function(){location.reload();});
+      },
+      error:function(){
+        layer.msg('解析错误');
+      }
+    })
+  }
+  </script>
+</block>

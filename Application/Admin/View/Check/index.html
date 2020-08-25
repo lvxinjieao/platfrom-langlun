@@ -1,0 +1,271 @@
+<extend name="Public/base"/>
+<block name="body">
+    <style>
+        .butnbox {
+            padding: 10px 0;
+        }
+        .butnbox .butnlist {
+            overflow: hidden;
+            clear: both;
+        }
+        .butnbox .butnlist .butn {
+            display: inline-block;
+            width: 120px;
+            height: 38px;
+            line-height: 38px;
+            text-align: center;
+            color: #FFF;
+            background: #3C95C8;
+            border-radius: 3px;
+        }
+        .butnbox .butnlist .butn.last {
+            background: #009900;
+        }
+    </style>
+    <link href="__STATIC__/datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/datetimepicker/css/dropdown.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="__CSS__/select2.min.css" type="text/css" />
+	<script type="text/javascript" src="__JS__/select2.min.js"></script>
+    <!-- 标题栏 -->
+    <div class="main-place">
+        <span class="main-placetitle"></span>
+        <ul class="main-placeul">
+            <li>
+                <a href="{:U('User/index')}">用户</a>
+            </li>
+            <li>
+                <a href="{:U('User/index')}">管理组</a>
+            </li>
+            <li>
+                <a href="#">{$meta_title}</a>
+            </li>
+        </ul>
+        <p class="description_text" style="height: 40px;line-height: 40px;">说明：汇总展示管理后台的操作异常记录并对其进行处理</p>
+
+    </div>
+ 
+<div class="butnbox">
+	<div class="butnlist jscheckbutn">	
+		<a href="javascript:;" class="butn" ctype="1" url="{:U('checkUser')}">检测用户</a>
+		<a href="javascript:;" class="butn" ctype="2" url="{:U('checkWithdraw')}">检测结算</a>
+		<a href="javascript:;" class="butn" ctype="3" url="{:U('checkPromote')}">检测推广员</a>
+		<a href="javascript:;" class="butn last" ctype="0" url="{:U('checkOne')}">一键检测</a>
+	</div>
+</div>
+
+<div class="cf top_nav_list">
+	<div class="fl button_list">
+		<div class="tools">
+			<a class="ajax-post " target-form="ids" url="{:U('Check/status',array('status'=>1,'msg_type'=>13))}"><span class="button_icon button_icon9"></span>处理</a>
+			<a class="ajax-post " target-form="ids" url="{:U('Check/status',array('status'=>2,'msg_type'=>14))}"><span class="button_icon button_icon9"></span>忽略</a>
+		</div>
+	</div>
+	<!-- 高级搜索 -->
+
+    <div class="jssearch fr cf search_list">
+        <div class="input-list">
+            <label>选择时间：</label>
+            <input type="text" id="time-start" name="start" class="" value="{:I('start')}" placeholder="起始时间" />
+            <span style="color: #B3B3B5;font-weight: bold;">—</span>
+            <div class="input-append date" id="datetimepicker" style="display:inline">
+                <input type="text" id="time-end" name="end" class="" value="{:I('end')}" placeholder="结束时间" />
+                <span class="add-on"><i class="icon-th"></i></span>
+            </div>
+        </div>
+        <div class="input-list input-list-game search_label_rehab">
+            <select id="type" name="type" class="select_gallery" style="width:200px;">
+                <option value="">异常类型</option>
+                <volist name=":get_bug_list()" id="vo">
+                    <option value="{$key}">{$vo}</option>
+                </volist>
+            </select>
+        </div>
+        <div class="input-list">
+            <a class="sch-btn" href="javascript:;" id="search" url="{:U('Check/index','model='.$model['name'],false)}">搜索</a>
+        </div>
+    </div>
+</div>
+
+<!-- 数据列表 -->
+<div class="data_list">
+	<div class="">
+		<table>
+			<!-- 表头 -->
+			<thead>
+				<tr>
+					<th>
+                        <label class="checked">
+                            <input class="check-all" type="checkbox">
+                            <i class="check_icon"></i>
+                        </label>
+                    </th>
+					<th>序号</th>
+					<th>异常简介</th> 
+					<th>异常类型</th>
+					<th>异常时间</th>
+					<th>异常状态</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<!-- 列表 -->
+			<tbody>
+			<empty name ="list_data">
+			<tr><td colspan="7" class="text-center">aOh! 暂时还没有内容!</td></tr>
+			<else />
+				<volist name="list_data" id="vo">
+						<tr>
+                            <td>
+                                <label class="checked">
+                                    <eq name="vo.status" value="1">
+                                        <input class="ids" type="checkbox" value="{$vo['id']}"  name="ids[]" disabled="true">
+                                    <else/>
+                                        <input class="ids" type="checkbox" value="{$vo['id']}"  name="ids[]">
+                                    </eq>
+                                    <i class="check_icon"></i>
+                                </label>
+                            </td>
+                            <td>{$vo.id}</td>
+                            <td><a target="__blank" href="{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}{$vo.url}">{$vo.info}</a></td>
+                            <td>{:get_bug_name_by_id($vo['type'])}</td>
+                            <td>{$vo.create_time|date='Y-m-d H:i:s',###}</td>
+                            <td>{:get_info_status($vo['status'],36)}</td>
+                            <td>
+                                <div class="">
+                                    <neq name="vo.status" value="1">
+                                        <a class="ajax-post" target-form="ids" href="" url="{:U('status',array('ids'=>$vo['id'],'status'=>1,'msg_type'=>13))}">处理</a>
+                                         <span>|</span>
+                                        <a class="ajax-post" target-form="ids" href="" url="{:U('status',array('ids'=>$vo['id'],'status'=>2,'msg_type'=>14))}">忽略</a>
+                                    <else />
+                                            <a class="disabled" style="color: silver;" href="javascript:;">处理</a>
+                                            <span>|</span>
+                                            <a class="disabled" style="color: silver;" href="javascript:;">忽略</a>
+                                    </neq>
+
+                                </div>
+                            </td>
+						</tr>
+				</volist>
+			</empty>
+			</tbody>
+		</table>
+	</div>
+</div>
+<div class="page">
+	{$_page|default=''}
+</div>
+{:W('index/comset',['title'=>$meta_title,'url'=>'Check/index'])}
+</block>
+
+<block name="script">
+<script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script type="text/javascript" src="__JS__/bootstrap.min.js"></script>
+<script type="text/javascript" src="__JS__/select2.min.js"></script>
+<script src="__STATIC__/layer/layer.js"></script>
+<script src="__STATIC__/layer/extend/layer.ext.js"></script>
+<style>
+  .layui-layer-demo .layui-layer-title {background:#F0F5F7;font-weight:bold;}
+  .layui-layer-demo .layui-layer-content {}
+  .layui-layer-demo .layui-layer-content table{width:100%;border:0;border-spacing:0;padding:0;}
+  .layui-layer-demo .layui-layer-content td {height:42px;padding-left:20px;}
+  .layui-layer-demo .layui-layer-content tr:hover {background:#F0F5F7;}
+  .layui-layer-demo .layui-layer-content tr~tr {border-top:1px solid #ccc;}
+  .layui-layer-demo .layui-layer-content td~td {border-left:1px solid #ccc;}
+  .layui-layer-demo .layui-layer-content tr:last-child td {}
+</style>
+<script type="text/javascript">
+Think.setValue('type',{:I('type','""')});
+//导航高亮
+highlight_subnav("{:U('Check/index')}");
+$(function(){
+	$(".select_gallery").select2();
+	//搜索功能
+	$("#search").click(function(){
+
+        var time_start = $("#time-start").val();
+        var time_end = $("#time-end").val();
+        if(time_start != '' && time_end != '' && time_start > time_end){
+            layer.msg('开始时间必须小于等于结束时间');
+            return false;
+        }
+
+        var url = $(this).attr('url');
+        var query  = $('.jssearch').find('input').serialize();
+        query  += "&"+$('.jssearch').find('select').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+        window.location.href = url;
+	});
+
+    //回车自动提交
+    $('.jssearch').find('input').keyup(function(event){
+        if(event.keyCode===13){
+            $("#search").click();
+        }
+    });
+
+
+    $('#time-start').datetimepicker({
+        format: 'yyyy-mm-dd',
+        language:"zh-CN",
+        minView:2,
+        autoclose:true
+    });
+
+    $('#datetimepicker').datetimepicker({
+       format: 'yyyy-mm-dd',
+        language:"zh-CN",
+        minView:2,
+        autoclose:true,
+        pickerPosition:'bottom-left'
+    });
+
+    $('.jscheckbutn a').on('click',function() {
+        var that = $(this);
+        var url = that.attr('url');
+        if(that.hasClass('disabled')) {return false;}
+        that.addClass('disabled');
+        var index = layer.load(2, {shade: [0.2,'#000']});
+
+        var ctype = that.attr('ctype');
+
+        $.ajax({
+            type:'post',
+            dataType:'json',
+            url:url,
+            data:{},
+            success:function(data) {
+                setTimeout(function(){
+                    layer.close(index);
+                    that.removeClass('disabled');
+                    if (parseInt(data.status)==1) {
+                        layer.msg(data.info,{shade:[0.01,'#FFF'],time:1000,});
+                        setTimeout(function(){
+                            window.location.replace('/admin.php?s=/Check/index/ctype/'+ctype+'.html');
+                        },1000);
+                    } else {
+                        layer.msg(data.info,{shade:[0.01,'#FFF'],time:1000,});
+                        setTimeout(function(){
+                            window.location.replace('/admin.php?s=/Check/index/ctype/'+ctype+'.html');
+                        },1000);
+                    }
+                },1000);
+            },
+            error:function() {
+                setTimeout(function(){
+                    layer.close(index);that.removeClass('disabled');layer.msg('服务器故障，请稍候再试...',{shade: [0.01,'#FFF'],time:1000,});
+                },600);
+            },
+        });
+        return false;
+    });
+
+});
+
+</script>
+</block>

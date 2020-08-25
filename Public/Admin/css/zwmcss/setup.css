@@ -1,0 +1,90 @@
+/*常用设置页面样式 begin*/
+*{
+	padding:0;
+	margin:0;
+	font-family:"微软雅黑";
+	box-sizing:border-box;
+}
+body{
+	background-color:#fff;
+}
+.setup_layer .tab_head{
+	width:100%;
+	height:60PX;
+	background-color:#e4e8eb;
+	padding:22px 25px 0px;
+}
+.setup_layer .tab_head a{
+	display:inline-block;
+	min-width:100px;
+	height:38px;
+	line-height:38px;
+	text-align:center;
+	vertical-align:middle;
+	padding:0 24px;
+	margin-right:10px;
+	color:#646567;
+	background-color:#d3d8dc;
+	border-radius:4px 4px 0 0;
+}
+.setup_layer .tab_head a.current{
+	color:#656565;
+	background-color:#fff;
+}
+/*删除常用设置 begin*/
+.setup_deleteimg1{
+	position:fixed;
+	top:104px;
+	right:0;
+	width:144px;
+	height:85px;
+}
+.setup_deleteimg{
+	float: right;
+	width:44px;
+	height:36px;
+	line-height:36px;
+	background-color:#659be1;
+	border-radius:4px 0 0 4px;
+	cursor:pointer;
+	display:table;
+}
+.setup_deleteimg div{
+	display:table-cell;
+	vertical-align:middle;
+	text-align:center;
+	width:100%;
+	height:100%;
+}
+.setup_deleteimg1:hover .delete_layer{
+	display:block;
+}
+.delete_layer{
+	display:none;
+	min-width:123px;
+	height:36px;
+	line-height:36px;
+	padding:0 10px;
+	color:#fff;
+	background-color:#659be1;
+	position:fixed;
+	top:152px;
+	right:0;
+	border-radius:4px 0 0 4px;
+	cursor:pointer;
+}
+.delete_layer i.icon_yichu{
+	display:inline-block;
+	width:20px;
+	height:20px;
+	margin-right:8px;
+	background:url("../../images/zwmimages/icon_jia.png");
+	vertical-align: sub;
+}
+/*end 删除常用设置*/
+.setup_layer .tab_content{
+	padding:45px;
+}
+
+
+/*end 常用设置页面样式*/

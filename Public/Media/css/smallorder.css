@@ -1,0 +1,144 @@
+/*@author zwm
+	H5宽屏  小程序页面 样式文件
+	date 20180607
+*/
+.z_clearfix:after{
+	content:"";
+	height:0;
+	line-height:0;
+	display:block;
+	visibility:hidden;
+	clear:both;
+}
+.z_clearfix{
+	zoom:1;
+}
+.smallorder{
+	padding: 30px 0 40px;
+}
+.smallorder_div{
+	min-height: 580px;
+    padding: 8px 36px 38px;
+    box-sizing: border-box;
+    border: 1px solid #e7e7e7;
+    background: #fff;
+}
+.smallorder .smallorder_div .game-theme{
+	padding-left:0;
+}
+.smallorder_list{
+	/* min-height:470px; */
+}
+.smallorder_ul{
+	width: 100%;
+}
+.smallorder_ul li.cf1{
+	float: left;
+    position: relative;
+	margin:12px 26px 12px 0;
+    width: 260px;
+    height: 110px;
+    border: 1px solid #e7e7e7;
+    padding: 12px 16px;
+    box-sizing: border-box;
+}
+.smallorder_ul li.cf1 .icon {
+    float: left;
+    position: relative;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 86px;
+    height: 86px;
+    border-radius: 50%;
+    background-color: #e2e2e2;
+    overflow: hidden;
+}
+.smallorder_ul li .detail {
+    float: left;
+    position: relative;
+    margin-left: auto;
+    
+}
+.smallorder_ul li .icon img {
+    width: 86px;
+    height: 86px;
+    border-radius: 50%;
+    position: relative;
+    z-index: 2;
+}
+.decs{
+	height:86px;
+	padding:12px;
+}
+.smallorder_name{
+	font-size: 16px;
+    color: #222;
+    margin-top: 6px;
+    display: inline-block;
+}
+.msg{
+	margin-top:8px;
+}
+.nub{
+	font-size:13px;
+	color:#666;
+}
+.col_org{
+	color:#ff7700;
+}
+.smallorder_ul li.small_fourli{
+	margin-right:0;
+}
+.show_div{
+	display:block;
+}
+.hover_div{
+	display:none;
+	position: absolute;
+	height:150px;
+	width:150px;
+	left:110px;
+	top:-20px;
+	background-color:#f5fbfe;
+	z-index:3;
+	
+	box-sizing:border-box;
+}
+.smallorder_ul li.cf1:hover .hover_div{
+	display:block;
+}
+
+
+.icon_erwei{
+	 float: left;
+   
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width:150px;
+    height: 150px;
+    overflow: hidden;
+}
+.icon_erwei img{
+	width: 150px;
+    height: 150px;
+    position: absolute;
+    z-index:100;
+	cursor: pointer;
+	
+}
+.icon_erwei img:hover{
+	
+}
+.smallorder_ul li.cf1:hover .hover_div .wid_134{
+	width:134px;
+}
+.hover_div .col_blu{
+	color:#37aae2;
+}
+.to_play{
+	color:#ff7700;
+	font-size:13px;
+	font-weight:bold;
+}

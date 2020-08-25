@@ -1,0 +1,45 @@
+/*
+* @description: 弹窗样式
+ *@author:王奉
+* @update: name(xxxx-xx-xx xx:xx)
+ */
+/* 安全提醒 */
+.lrbox{
+	text-align: left;
+padding: 0 15px;
+font-size: 14px;
+line-height: 25px;
+}
+.color_blue{
+	color:#01b0ff;
+}
+.color_gray{
+	color:#999;
+}
+.abnormal_title{
+	margin: 15px 0 10px 0;
+}
+.abnormal_list li{
+	color:#999;
+	line-height:25px;
+	font-size:14px;
+}
+.abnormal_list_con span{
+
+    padding-right: 15px;
+
+}
+
+#layui-layer1{
+	border-radius: 15px;
+	padding: 10px 0;
+}
+#layui-layer1 .layui-layer-title{
+	font-size:16px;
+	border-radius: 15px 15px 0 0;
+	text-align: center;
+	background: #fff;
+}
+#layui-layer1 .layui-layer-btn{
+	text-align:center;
+}

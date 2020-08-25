@@ -1,0 +1,155 @@
+<extend name="Public/bases" />
+<block name="body">
+<link href="__CSS__/user.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="__JS__/pc_7724.js"></script>
+<script type="text/javascript" src="__JS__/jquery.SuperSlide.2.1.1.js"></script>
+<!--用户中心-->
+<div class="bg_user">
+<div class="cont userbg wid_1206">
+<div class="user-bd laybox clearfix">
+	<include file='base' />
+        <div class="user-section-wrap fl wbg" id="user-section-wrap">
+	      <div class="user-section xg_usectionr">
+	        <div class="section-tit"><i></i>账号安全 > <font class="blue"><if condition="$phone eq ''">绑定手机<else/>解绑手机</if></font></div>
+	        <div class="us2-bindphone">
+	          <form>
+	            <div class="w-item">
+	              <label for="" class="w-label ">手机号：</label>
+	              <input type="text" name="phone" class="w-input cheackinput" id="phone" <if condition="$phone eq ''"> value=""<else/>disabled="disabled" value="{$phone}"</if>>
+              	  <input type="hidden" class="jiebang" name="jiebang" <if condition="$phone eq ''">value="3"<else/>value="4"</if> >
+	              <span class="error-msg" style="color: red"></span> </div>
+	            <div class="w-item">
+	              <label for="" class="w-label ">短信验证码：</label>
+	              <input type="text" class="w-input-s cheackinput" name="captcha" id="scode">
+	              <input style="font-size:12px;" type="button" class="g-btn" id="sendSafeCode" value="发送验证码">
+	              <div class="w-div-new" style="font-size:12px">若没有收到验证码，请等待1分钟后重新点击"获取验证码"</div>
+	              <span class="error-msg" style="color: red"></span> </div>
+	            <div class="w-item">
+	              <label for="" class="w-label ">验证码：</label>
+	              <input type="text" class="w-input-s cheackinput" id="vcode" name="vcode">
+	              <img src="{:U('verify?vid=3')}" width="92px" height="40px" alt="验证码" class="checkcode"> <span class="error-msg" style="color: red"></span> </div>
+	           
+	            <div class="w-item">
+	              <label for="" class="w-label"></label>
+	              <input type="button" id="bwbtn" value="完成" class="g-btn jsubmit ut_qd">
+	            </div>
+	            
+	          </form>
+	        </div>
+	        <div class="lh24 xg_bothelp">
+            <span class="xg_dot"></span>如需帮助请联系
+            <if condition="$union_set eq ''">
+              <a href="http://wpa.qq.com/msgrd?v=3&amp;uin={:C(PC_SET_SERVER_QQ)}&amp;site=qq&amp;menu=yes" target="_blank" title="客服"  class="blue"> 在线客服</a>
+            <else/>
+              <a href="http://wpa.qq.com/msgrd?v=3&amp;uin={$union_set['cust_qq']}&amp;site=qq&amp;menu=yes" target="_blank" title="客服"  class="blue"> 在线客服</a>
+            </if>
+            
+          </div>
+	      </div>
+	    </div>
+        
+        <div class="clear"></div>
+        
+      </div>
+</div>
+</div>
+<!--用户中心结束--> 
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+<script>
+	zhucepurl="{:U('Subscriber/check_tel_code')}";
+	$('.checkcode').on('click',function() {
+      	$(this).attr('src','__MODULE__/Subscriber/verify/vid/3/t/'+(new Date).getTime());
+  	});
+	$('.cheackinput').on('blur',function() {
+        var val = $(this).val();
+        if (val == ''){$(this).siblings('.error-msg').text('*必填项');return;} else {$(this).siblings('.error-msg').text('');}                
+        if ($(this).attr('id') == 'phone') {
+            if (val.length !== 11 || !(/^[1][3456789][0-9]{9}/.test(val))) {
+                $(this).siblings('.error-msg').text('*手机格式不正确');return;
+            } else {
+                $(this).siblings('.error-msg').text('');
+            }
+        }
+    });
+    $('#sendSafeCode').on('click',function() {
+          var jphone = $('#phone'),phone = $.trim(jphone.val()),
+              jvcode =$('#vcode'), vcode = $.trim(jvcode.val()),that = $(this);
+              jiebang = $(".jiebang").val();
+          if (phone == '') {jphone.siblings('.error-msg').text('*必填项');return false;}
+          if (phone.length !== 11 || !(/^[1][3456789][0-9]{9}$/.test(phone))) {jphone.siblings('.error-msg').text('*手机格式不正确');return false;}
+          if (vcode == ''){jvcode.siblings('.error-msg').text('*必填项');return false;}
+          if(!$('#sendSafeCode').hasClass('g-btntn')){
+          $.ajax({
+              type:'post',
+              dataType:'json',
+              data:'phone='+phone+'&verify='+vcode+'&vid=3'+'&jiebang='+jiebang,
+              url:'{:U("sendvcode")}',
+              success:function(data) {
+                  switch (parseInt(data.status)) {
+                      case 1: {
+                          r(1);
+                      };break;   
+                      case 2: {
+                          that.siblings('span').text('');
+                          $('#vcode').siblings('.error-msg').text(data.msg); $('.checkcode').click();
+                      };break;
+                      case 0:{
+                          that.siblings('span').text('');
+                          $('#vcode').siblings('.error-msg').text(data.msg); $('.checkcode').click();
+                      };break;
+                      default:
+                          $('#vcode').siblings('.error-msg').text(''); $('.checkcode').click();
+                          that.siblings('span').removeClass('right-msg').addClass('error-msg').text(data.msg);                            
+                  }
+              },
+              error:function() {
+                  alert('服务器故障，请稍候再试。。。。');
+              }
+          });
+          var r = function(i, t) {
+              if (i>0) {
+                  var r = 59;
+                  e='#sendSafeCode';
+                  $(e).removeClass('g-btn').addClass('g-btntn');
+                  var a = setInterval(function() {
+                      r--;
+                      $(e).val('成功'+r + '秒后重发'),
+                      0 == r && ($(e).removeClass('g-btntn').addClass('g-btn'), $(e).val('发送验证码'), clearInterval(a))
+                  },1e3)
+              } 
+          };
+        }
+      });
+    $('#bwbtn').on('click',function() {
+        var jphone = $('#phone'),phone = $.trim(jphone.val()),
+            jscode =$('#scode'), scode = $.trim(jscode.val()), jiebang = $(".jiebang").val(),                   
+            that = $(this);
+        if (phone == '') {jphone.siblings('.error-msg').text('*必填项');return false;}
+        if (phone.length !== 11 || !(/^[1][3456789][0-9]{9}$/.test(phone))) {jphone.siblings('.error-msg').text('*手机格式不正确');return false;}
+        if (scode == ''){jscode.siblings('.error-msg').text('*必填项');return false;}
+        
+        $.ajax({
+            type: "POST",
+            url: zhucepurl,
+            data: {account:phone,type:'',verify:scode,way:jiebang},
+            dataType: "json",
+            success: function(data){
+              if(data.status==0){
+            	  layer.msg(data.msg,function(){});
+				  return false;
+              }else if(data.status){
+                //成功
+                  layer.msg(data.msg,{icon:1});
+                  setTimeout(function() {
+                      window.location.href="{:U('Subscriber/account')}";
+                  },2000);
+              }
+            },
+            error:function(){
+                // // 失败
+                layer.msg('服务器故障，请稍候再试。。。。');
+            }
+        });  
+    });
+</script>
+</block>

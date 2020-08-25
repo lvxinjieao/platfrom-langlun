@@ -1,0 +1,126 @@
+<extend name="Public/notopfootbase" />
+<block name="body">
+<link href="__CSS__/user.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="__JS__/pc_7724.js"></script>
+<script type="text/javascript" src="__JS__/jquery.SuperSlide.2.1.1.js"></script>
+<link rel="stylesheet" type="text/css" href="__CSS__/login.css">
+<!-- 主体内容 -->
+
+<div class="loginbg">
+    <div class="cont-box centert">
+
+        <div class="box login-box clearfix active">
+            <form class="f-login" id="loginForm" action="" method="post">
+
+                <div class="ad-box">
+                	<div class="ad-title">海量游戏 &nbsp;&nbsp;扫码即玩</div>
+                	<span  target="_blank">
+                    <img src="{:get_cover(C('PC_SET_QRCODE'),'path')}" alt="" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null">
+                </span>
+
+                 <div class="ad-code ad-title">扫描关注公众号</div>
+                </div>
+                <div class="loginbk">
+                    <div class="login_tit">
+                        <span>登录平台账号</span>
+                        <p><a href="{:U('registerf')}"> 注册</a></p>
+                    </div>
+                    <div class="ipt-box">
+                        <i class="login_user"></i>
+                        <input id="username" type="text" name="username" value="{$_COOKIE['media_account']}" placeholder="用户名/手机号码">
+                          <label id="username-error" class="error" for="username"></label>
+                    </div>
+                    
+                    <div class="ipt-box">
+                        <i class="login_pwd"></i>
+                        <input id="password" type="password" name="password" value="" placeholder="密码">
+                        <label id="password-error" class="error" for="password"></label>
+                    </div>
+                    <label class="custom-label marb_16">
+                    <input class="form_control" name="jzmm" type="checkbox" checked>
+                    <i class="label_icon"></i>
+                    <span class="label_text">记住账号</span>
+                    </label>
+                    <a class="find-password" href="{:U('forget')}" target="_blank">忘记密码？</a>
+                    <input id="login-btn" type="submit" value="登录">
+                    
+                    <div id="user_more" class="tb">
+                        <p class="l p_third" id="third-party"><span>使用第三方登录</span></p>
+                        <div class="sfdl">
+                            <eq name="qq_login" value="1"><a onclick="login('qq')" class="login_more qq"></a></eq>
+                            <eq name="wx_login" value="1"><a onclick="login('weixin')" class="login_more wx"></a></eq>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+   
+</div>
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+<script src="__JS__/jquery.form.js"></script>
+<script src="__JS__/jquery.validate.min.js"></script>
+<script>
+function login(obj) {
+    var url = '{:U("Subscriber/thirdlogin",array("gid"=>$_REQUEST["gid"],"pid"=>$_REQUEST["pid"]))}';
+    url = url.replace(".html","")+"/type/"+obj;
+    window.location=url;
+}
+</script>
+<script>
+$(document).ready(function(){
+    /**
+     * 新增验证方法
+    */
+    $.validator.addMethod("numOrLetter", function(value, element) {
+        return this.optional(element) || /^[a-zA-Z0-9_\.]+$/.test(value);
+    }, '只能是字母或数字');
+    // 登录验证
+    $("#loginForm").validate({
+        //定义规则
+        rules:{
+            username:{
+                required:true,
+                rangelength:[6,30]
+            },
+            password:{
+                required:true,
+                minlength:6
+            }
+        },
+        //定义错误消息
+        messages:{
+            username:{
+                required:"请输入登录账号",
+                rangelength:"用户名必须是6~15位字符串"
+            },
+            password:{
+                required:"请输入登录密码",
+                minlength:'登录密码必须大于6位',
+            }
+        },
+        submitHandler:function(form){
+            data = $('#loginForm').serialize();
+            $.ajax({
+                type:'post',
+                url:"{:U('login')}",
+                data:data,
+                success:function(data){
+                    if(data.status==1){
+                        layer.msg(data.msg, {icon: 1});
+                        setTimeout("window.location.href='"+data.url+"';",1000);
+                    }else{
+                        layer.msg(data.msg, {icon: 2});
+                    }
+                },error:function(){
+
+                }
+            });
+        }
+    });
+});
+</script>
+<include file='foot' />
+</block>

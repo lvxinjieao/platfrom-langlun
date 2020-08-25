@@ -1,0 +1,31 @@
+/*生成交流群弹窗*/
+
+.group-layer-con {
+	padding: 20px 0 20px 120px;
+	color: #666666;
+	font-size: 14px;
+}
+.group-layer-a{
+	color: #19b1ea;
+	/* cursor: pointer; */
+	text-decoration: none;
+}
+.group-layer-text{
+	margin: 10px 0;
+}
+.group-layer-img{
+	margin-left: 20px;
+}
+.group-layer-codeimg{
+	margin-left: 25px;
+}
+.group-layer-btn{
+	margin: 20px 0 0 230px;
+	width: 100px;
+	line-height: 31px;
+	color: #ffffff;
+	background: #199ED8;
+	border-radius: 5px;
+	text-align: center;
+	cursor:pointer;
+}

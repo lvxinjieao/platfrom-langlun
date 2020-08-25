@@ -1,0 +1,94 @@
+<extend name="Public/bases" />
+<block name="body">
+	<link href="__CSS__/user.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="__JS__/pc_7724.js"></script>
+	<script type="text/javascript" src="__JS__/jquery.SuperSlide.2.1.1.js"></script>
+	<!--用户中心-->
+	<div class="bg_user">
+		<div class="cont userbg wid_1206">
+			<div class="user-bd laybox clearfix">
+				<ul class="user-menu fl" id="user-menu" style="min-height:402px;">
+					<include file='base' />
+				</ul>
+				<div class="user-section-wrap fl wbg" id="user-section-wrap">
+					<div class="user-section xg_usectionr">
+						<div class="section-tit"><i></i>我的订单</div>
+
+						<div>
+							<ul class="ugift-list clearfix uorder-list">
+								<foreach name="list" item="vo">
+								<li>
+									<div class="top clearfix">
+										<div class="gift_img fl">
+											<if condition="$vo['good_id'] eq 0">
+												<a href="javascript:;">
+													<img class="media-object bd-rus" src="__IMG__/icon_duihuan.png" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null" >
+												</a>
+											<else/>
+												<a href="javascript:;">
+													<img class="media-object bd-rus" src="{:get_cover($vo['cover'],'path')}" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null" >
+												</a>
+											</if>
+										</div>
+										<div class="info">
+											<p class="name">{$vo.good_name}</p>
+											<if condition="$vo['good_type'] eq 2">
+											<p class="card" style="width: 450px;">激活码：{$vo.goodmark}</p>
+											<elseif condition="$vo['good_id'] eq 0" />
+												<p class="card" style="width: 450px;">兑换数量：{$vo.pay_amount}</p>
+												<else/>
+												<p class="card" style="width: 450px;">收货地址：{$vo.goodmark}</p>
+											</if>
+											
+										</div>
+										<p class="time">{$vo.create_time|date='Y-m-d H:i:s',###}</p>
+										<eq name="vo.good_type" value="2"><a class="ut_qd copy_btn"  data-key="{$vo.goodmark}">复制激活码</a></eq>
+									</div>
+								</li>
+								</foreach>
+							</ul>
+						</div>
+						<div class="pagenation pagepp">{$_page}</div>
+						<!--没有订单游戏-->
+						<empty name="list">
+						<div class="lists no_collect  no_order  show ">
+							<img src="__IMG__/blank_order.png" />
+							<p>您还未兑换任何商品~</p>
+							<a class="empty-btn" href="{:U('PointShop/mall')}">去兑换</a>
+						</div>
+						</empty>
+					</div>
+
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	</div>
+	<!--用户中心结束-->
+	<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+	<script type="text/javascript">
+  $(function(){
+    $('.copy_btn').click(function(){
+    	 var data=$(this).data('key');
+         var oInput = document.createElement('input');
+         oInput.value = data;
+         document.body.appendChild(oInput);
+         oInput.select(); // 选择对象
+         document.execCommand("Copy"); // 执行浏览器复制命令
+         oInput.className = 'oInput';
+         oInput.style.display='none';
+		 
+		 
+		 //点击复制激活码 弹出提示  将提示置之右边内容框的中间@author zwm 531
+		 var w = (parseInt($(window).width())-1206)/2+230+975/2-47;
+		 var h = 700/2+117+30-24;
+         w += 'px';
+		 h += 'px';
+         layer.msg('复制成功',{offset:[h,w]});
+		 $(this).text("已复制");
+		 
+    })
+  })
+</script> 
+</block>

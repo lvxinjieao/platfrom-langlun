@@ -1,0 +1,397 @@
+<extend name="Public/bases" />
+<block name="body">
+	<link href="__CSS__/user.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="__JS__/pc_7724.js"></script>
+	<script type="text/javascript" src="__JS__/jquery.SuperSlide.2.1.1.js"></script>
+	<!--用户中心-->
+
+	<div class="bg_user">
+		<div class="cont userbg wid_1206">
+			<div class="user-bd laybox clearfix">
+				<ul class="user-menu fl" id="user-menu" style="min-height:402px;">
+					<include file='base' />
+				</ul>
+				<div class="user-section-wrap fl wbg" id="user-section-wrap">
+					<div class="user-section xg_usectionr">
+						<div class="section-tit"><i></i>我的游戏</div>
+						<div class="us2-mibao clearfix">
+							<div class="tab_collect fl">
+								<a href="{:U('user_collection',['type'=>0])}" class="tab_btn jcoll_ta fl <if condition='I("get.type") eq 0'> current </if>" data-type="collect">收藏的游戏<span>({:$coll['count']?:0})</span></a>
+								<a href="{:U('user_collection',['type'=>1])}" class="tab_btn jfoot_ta fl <if condition='I("get.type") eq 1'> current </if>" data-type="play">玩过的游戏<span>({:$foot['count']?:0})</span></a>
+								<a href="{:U('user_collection',['type'=>2])}" class="tab_btn jdown_ta fl <if condition='I("get.type") eq 2'> current </if>" data-type="down">下载的游戏<span>({:$downcount?:0})</span></a>
+							</div>
+							<div class="select_delete fr">
+								<label class="select_all"><input type="checkbox" id="selectAll" name="select_all">
+				<i class="check_icon"></i>
+				<span>全选</span>
+			</label>
+								<a href="javascript:;" class="delete_btn">删除</a>
+							</div>
+						</div>
+						<div class="tab_content">
+							<notempty name="coll['list']">
+								<div class="lists lists-game jssese clearfix <if condition='I("get.type") eq 0'> show </if>">
+									<volist name="coll['list']" id="da">
+										<div class="list_box fl">
+											<div class="img_box">
+												<a  href="{$da.play_detail_url}">
+													<empty name="da['icon']">
+														<img class="media-object bd-rus"  style="display: none;" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null">
+														<else/>
+														<img class="media-object bd-rus" src="{$da.icon}" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null">
+													</empty>
+
+													<span class="dis_tabcell span_bd">
+														<span class="span_mid">
+															<div></div>
+														</span>
+													</span>
+												</a>
+
+												<div class="jssibox">
+													<label class="select_label jssi">
+														<input type="checkbox" class="ggg" name="game" value="{$da.bid}">
+														<i class="check_icon_img"></i>
+													</label>
+												</div>
+											</div>
+                                            <php>
+                                                $str_len = mb_strlen($da['game_name']);
+                                            </php>
+											<p>
+                                                <if condition="$str_len gt 4">
+                                                    <span title="{$da.game_name}">{:msubstr($da['game_name'],0,4)}</span>
+                                                <else/>
+                                                    <span title="{$da.game_name}">{$da['game_name']}</span>
+                                                </if>
+
+												<if condition="$da.sdk_version eq 1">
+													<i class="pf-android"></i>
+                                                <elseif condition="$da.sdk_version eq 2" />
+													<i class="pf-ios"></i>
+                                                <else/>
+													<i class="pf-h5"></i>
+												</if>
+											</p>
+										</div>
+									</volist>
+
+									<div class="pagenation clearfix xg_bothelp">{$_page}</div>
+								</div>
+								<else/>
+								<!--没有收藏游戏-->
+								<div class="lists no_collect <if condition='I("get.type") eq 0'> show </if>">
+									<img src="__IMG__/empty.png" />
+									<p>您还没有收藏过游戏哦~</p>
+								</div>
+							</notempty>
+							<notempty name="foot['list']">
+								<div class="lists foot-game jssese clearfix <if condition='I("get.type") eq 1'> show </if>">
+									<volist name="foot['list']" id="dat">
+										<volist name="dat" id='da'>
+											<div class="list_box fl">
+												<div class="img_box">
+													<a href="{$da.play_detail_url}">
+														<empty name="da['icon']">
+															<img class="media-object bd-rus"  style="display: none;" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null">
+															<else/>
+															<img class="media-object bd-rus" src="{$da.icon}" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null">
+														</empty>
+
+														<span class="dis_tabcell span_bd">
+															<span class="span_mid">
+																<div>{:C('SET_POSITION_IMG')}</div>
+															</span>
+														</span>
+													</a>
+
+													<div class="jssibox">
+														<label class="select_label jssi">
+															<input type="checkbox" class="ggg" name="foot_game" value="{$da.bid}">
+															<i class="check_icon_img"></i>
+														</label>
+													</div>
+												</div>
+												<p><span title="{$da.game_name}">{$da.game_name}</span>
+													<if condition="$da.sdk_version eq 1">
+														<i class="pf-android"></i>
+														<elseif condition="$da.sdk_version eq 2" />
+														<i class="pf-ios"></i>
+														<else/>
+														<i class="pf-h5"></i>
+													</if>
+												</p>
+											</div>
+										</volist>
+									</volist>
+
+									<div class="pagenation clearfix xg_bothelp">{$_page2}</div>
+								</div>
+								<else/>
+								<!--没有玩过游戏-->
+								<div class="lists no_collect <if condition='I("get.type") eq 1'> show </if>">
+									<img src="__IMG__/icon_normal_game.png" />
+									<p>您还没有玩过游戏哦~</p>
+								</div>
+							</notempty>
+							<notempty name="down">
+								<div class="lists down-game jssese clearfix <if condition='I("get.type") eq 2'> show </if>">
+									<volist name="down" id='da'>
+										<div class="list_box fl">
+											<div class="img_box">
+												<a  href="{$da.play_detail_url}">
+													<empty name="da['icon']">
+														<img class="media-object bd-rus" style="display: none;" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null">
+								
+														<else/>
+														<img class="media-object bd-rus" src="{$da.icon}" onerror="this.src='{:C(DEFAULT_ERROR_IMG)}';this.onerror=null">
+													</empty>
+
+													<span class="dis_tabcell span_bd">
+															<span class="span_mid">
+																<div>{:C('SET_POSITION_IMG')}</div>
+															</span>
+													</span>
+												</a>
+
+												<div class="jssibox">
+													<label class="select_label jssi">
+															<input type="checkbox" class="ggg" name="down_game" value="{$da.bid}">
+															<i class="check_icon_img"></i>
+														</label>
+												</div>
+											</div>
+											<p>
+												<span title="{$da.game_name}">{$da.game_name}</span>
+												<if condition="$da.sdk_version eq 1">
+													<i class="pf-android"></i>
+													<elseif condition="$da.sdk_version eq 2" />
+													<i class="pf-ios"></i>
+													<else/>
+													<i class="pf-h5"></i>
+												</if>
+											</p>
+										</div>
+									</volist>
+
+									<div class="pagenation clearfix xg_bothelp">{$_page2}</div>
+								</div>
+								<else/>
+								<!--没有玩过游戏-->
+								<div class="lists no_down <if condition='I("get.type") eq 2'> show </if>">
+									<img src="__IMG__/icon_normal_game.png" />
+									<p>您还没有下载游戏哦~</p>
+								</div>
+							</notempty>
+						</div>
+
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+	<!--用户中心结束-->
+	<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+	<script type="text/javascript">
+		$type = "{:I('get.type')}";
+		if($type==0){
+			$('.coll_ta').click();
+		}else if($type==1){
+			$('.foot_ta').click();
+		}else if($type==2){
+			$('.down_ta').click();
+		}
+		$(document).ready(function() {
+			var nowcur = 1;
+			if($(".tab_content .lists:nth-child(1)").find(".list_box").length > 0) {
+				$(".select_delete").show()
+			}
+			$('.jssi').on('click', function() {
+				var that = $(this);
+				var input = that.find('input');
+				var parent = that.closest('.jssibox');
+				if(input.prop('checked')) {
+					input.prop('checked', false);
+					parent.removeClass('selected');
+				} else {
+					input.prop('checked', true);
+					parent.addClass('selected');
+					$(".select_all").show()
+
+				}
+				console.log($(".lists").find("selected").length)
+				return false;
+			});
+			$('input[name="select_all"]').click(function() {
+
+			    var o_type = "{:I('type',0,'intval')}";
+			    if(o_type == 0){
+                    nowcur = 1;
+                }else if(o_type == 1){
+                    nowcur = 2;
+                }else{
+                    nowcur = 3;
+                }
+
+
+				if(nowcur == 1) {
+					//如果当前是收藏的游戏
+					if($(this).is(':checked')) {
+						$('input[name="game"]').each(function() {
+							$(this).prop("checked", true);
+							$('.lists-game .jssibox').addClass('selected');
+						});
+					} else {
+						$('input[name="game"]').each(function() {
+							$(this).removeAttr("checked", false);
+							$('.lists-game .jssibox').removeClass('selected');
+						});
+					}
+				} else if(nowcur == 2) {
+					//如果当前是玩过的游戏
+					if($(this).is(':checked')) {
+						$('input[name="foot_game"]').each(function() {
+							$(this).prop("checked", true);
+							$('.foot-game .jssibox').addClass('selected');
+						});
+					} else {
+						$('input[name="game"]').each(function() {
+							$(this).removeAttr("checked", false);
+							$('.foot-game .jssibox').removeClass('selected');
+						});
+					}
+				} else {
+					//如果当前是下载的游戏
+					if($(this).is(':checked')) {
+						$('input[name="down_game"]').each(function() {
+							$(this).prop("checked", true);
+							$('.down-game .jssibox').addClass('selected');
+						});
+					} else {
+						$('input[name="game"]').each(function() {
+							$(this).removeAttr("checked", false);
+							$('.down-game .jssibox').removeClass('selected');
+						});
+					}
+				}
+
+			});
+
+			// $(".tab_collect a").click(function() {
+			// 	$('input[name="select_all"]').attr("checked", false);
+			// 	$(".select_all").hide();
+			// 	$(".select_delete").hide();
+			// 	$(".tab_collect a").removeClass('current');
+			// 	$(".tab_content .lists").hide();
+			// 	$(".jssi").find('input').closest('.jssibox').removeClass("selected")
+			// 	$(".jssibox").hide();
+			// })
+
+			$(".coll_ta").click(function() {
+				nowcur = 1
+				$(this).addClass('current');
+				$(".tab_content .lists:nth-child(1)").show();
+				if($(".tab_content .lists:nth-child(1)").find(".list_box").length > 0) {
+					$(".select_delete").show()
+				}
+			})
+			$(".foot_ta").click(function() {
+				nowcur = 2
+
+				$(this).addClass('current');
+				$(".tab_content .lists:nth-child(2)").show();
+				if($(".tab_content .lists:nth-child(2)").find(".list_box").length > 0) {
+					$(".select_delete").show()
+				}
+			})
+			$(".down_ta").click(function() {
+				nowcur = 3
+				$(this).addClass('current');
+				$(".tab_content .lists:nth-child(3)").show();
+				if($(".tab_content .lists:nth-child(3)").find(".list_box").length > 0) {
+					$(".select_delete").show()
+				}
+
+			})
+
+			$('.delete_btn').click(function() {
+				var getchose = $(".jssi").find('input').closest('.jssibox').hasClass("selected")
+				console.log(getchose, '是否有被选中删除')
+			
+				//如果有被选中的项
+				if(getchose) {
+					layer.open({
+						title: false,
+						content: '确定删除吗？',
+						btn: ['确定', '取消'],
+						yes: function(index, layero) {
+							var index = $('.current').index();
+							type = index + 1;
+							var ids = new Array;
+							$('.jssese').find('.selected').find('.ggg').each(function() {
+								ids.push($(this).val());
+							});
+							if(ids == '') {
+								layer.msg('请选择需要操作的数据');
+								return false;
+							}
+							if(type==3){
+								url = "{:U('downDel')}";
+							}else{
+								url = "{:U('optionBehavior')}";
+							}
+							$.ajax({
+								type: 'post',
+								url: url,
+								data: {
+									ids: ids.join(),
+									type: type
+								},
+								success: function(data) {
+									console.log(data);
+									if(data.status == 1) {
+										// 成功
+										layer.msg(data.msg);
+										setTimeout(function() {
+											window.location.reload();
+										}, 2000);
+									} else {
+										// 失败{
+										layer.msg(data.msg);
+									}
+								},
+								error: function() {
+									// 失败
+									layer.msg('可能网络错误，请重新操作·');
+									setTimeout(function() {
+										window.location.reload();
+									}, 2000);
+								}
+							});
+						},
+						btnAlign: 'c',
+						closeBtn: 0
+					});
+				} else {
+					console.log($(".select_all").css("display"), "werwer")
+					if($(".select_all").css("display") == 'inline') {
+						layer.open({
+							title: false,
+							content: '请选择需要删除的游戏？',
+							btn: ['确定'],
+							btnAlign: 'c',
+							closeBtn: 0
+						});
+					}else{
+							$(".select_all").show()
+							$(".jssibox").show()
+					}
+
+				}
+
+			});
+
+		});
+	</script>
+</block>

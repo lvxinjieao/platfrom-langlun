@@ -1,0 +1,173 @@
+﻿<extend name="Public/promote_base"/>
+<block name="css">
+  <link href="__CSS__/20180207/account.css" rel="stylesheet" >
+	<style>.notice_tip {padding-left:20px;color:#999;font-size:12px;} .formtxt{display:inline-block;width:232px;}</style>
+</block>
+
+<block name="body">
+    <script type="text/javascript" src="__STATIC__/provincecityarea/area1.js" ></script>
+    <div class="page-list normal_list promote-base_info-form">
+      <div class="trunk-title">
+      	<div class="location">
+					<div class="location-container">当前位置：<span>管理中心></span><span>账户余额</span></div>
+				</div>
+      	<img src="__IMG__/20180207/icon_normal_zhanghu.png">
+      	<span class="title_main">账户余额</span>
+      </div>
+      <div class="trunk-content article">
+          <div class="trunk-list ">
+            
+              <form action="{:U('Promote/balance')}" novalidate="novalidate" method="post" class="base_info" onsubmit="return check();" target="_blank">
+                <table class="table2">
+                    <tr style="height: 32px;">
+                    <td class="l">平台币余额：</td>
+                    <td class="r"><span class="formtxt">{$data.balance_coin}</span></td>
+                  </tr>
+                  <tr>
+                    <td class="l"><span class="req">*</span>充值账户：</td>
+                    <td class="r">
+                      <input type="text" class="input txt" name="account" id="account" placeholder="请输入充值账户">
+                      <span id="nickname_tip"></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="l"><span class="req">*</span>充值金额：</td>
+                    <td class="r">
+                      <input type="text" class="input txt" name="amount" data-radio="1" id="amount" value="" placeholder="金额不能为空"><span id="name_tip"></span>
+										</td>
+                  </tr>
+                  <tr>
+                    <td class="l">支付方式：</td>
+                    <td class="r form-radio jspayradio">
+											<label><input type="radio" value="alipay" name="pay_type" checked="checked"><i class="current"></i><span>支付宝</span></label>
+											<label><input type="radio" value="swiftpass" name="pay_type" ><i class=""></i><span>微信</span></label>
+                      <span id="email_tip"></span>
+                    </td>
+                  </tr>
+									<tr>
+                    <td class="l">获得平台币：</td>
+                    <td class="r">
+                      <span class="formtxt" id="show">--</span><span class="notice_tip">兑换比例：1元=1平台币</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="l"></td>
+                    <td class="r">
+                      
+                      <input type="submit" class="tj btn " value="确认" title="" target-form="base_info">
+                    </td>
+                  </tr>
+                </table>
+              </form>
+            
+						
+          </div>
+      </div>
+    </div>
+
+
+
+
+
+</block>
+<block name="script">
+    <script type="text/javascript" src="__JS__/20170831/select2.min.js"></script>
+	  <script type="text/javascript">
+          function check(){
+              var account = $.trim($('#account').val());
+              if(account == ''){
+                  layer.msg('充值账户不能为空');
+                  return false;
+              }
+              var is_true = false;
+              $.ajax({
+                  type: 'POST',
+                  url: "{:U('Promote/checkAccount')}" ,
+                  data:{"account":account},
+                  async:false,
+                  success:function(data){
+                      if (data.status > 0){
+                          is_true = true;
+                      }
+                  }
+              })
+              if(!is_true){
+                  layer.msg('充值账户不存在');
+                  return false;
+              }
+              var amount = $.trim($('#amount').val());
+              if(amount == ''){
+                  layer.msg('金额不能为空');
+                  return false;
+              }
+
+              return true;
+          }
+  
+  $(function() {
+			var amount = $.trim($('#amount').val());
+			if(amount) {$('#show').text($('#amount').attr('data-radio')*amount);}
+		
+      $('#amount').keyup(function() {
+				var that = $(this),radio = $.trim(that.attr('data-radio'));
+				var val = $.trim(that.val());
+				if (val && parseInt(val)>=0 && /^(0|[1-9]\d*)$/.test(val))
+					$('#show').text(radio*val);
+				else {
+					that.val('');
+					$('#show').val('--');
+				}
+				return false;
+			});
+			
+			$('.jspayradio input').click(function() {
+              var that=$(this);
+              $('.jspayradio i').removeClass('current');
+              if (that.prop('checked')) {
+                  that.siblings('i').addClass('current');
+              }
+          });
+      
+       $(".select_gallery").select2();
+
+
+	});
+</script>
+  <script type="text/javascript">
+      function img_qrcode(data) {
+          var url = "{:U('Promote/balance')}";
+          layer.open({
+              type: 1,
+              title: "微信扫码支付",
+              closeBtn: 1,
+              shadeClose: true,
+              skin: 'yourclass',
+              btn:['确认充值','返回'],
+              content: '<div class="d_body" style="height:px;text-align:center;"><div class="d_content"><div class="text_center"> <table class="list" align="right" width="100%"><tbody><tr><td class="text_right">订单号</td><td class="text_left">' + data.out_trade_no + '</td></tr><tr><td class="text_right">充值金额</td><td class="text_left">本次充值' + data.amount + '元，实际付款' + data.pay_money + '元</td></tr></tbody></table><img src="' + data.code_img_url + '" height="301" width="301"><img src="/Public/Media/images/wx_pay_tips.png"></div></div></div>',
+              end:function(){
+                  window.location.href = url;
+              }
+          });
+          var order_number = "'"+data.out_trade_no+"'";
+          setInterval("callback("+order_number+")",1000);
+      }
+</script>
+<script type="text/javascript">
+        function callback(out_trado_no) {
+            $.ajax({
+                type: 'POST',
+                url: "{:U('Promote/checkOrder')}" ,
+                data:{"order_number":out_trado_no},
+                success:function(data){
+                    if (data.status > 0){
+                        layer.msg('支付成功');
+                        setTimeout(function () {
+                            window.location.href = "{:U('Promote/balance')}"
+                        },1000);
+                    }
+                }
+            });
+        }
+    </script>
+</block>
+  

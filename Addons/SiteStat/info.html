@@ -1,0 +1,444 @@
+<link  href="__CSS__/index3.0.css" type="text/css" rel="stylesheet"/>
+<script type="text/javascript" src="__JS__/jquery.e-calendar.js"></script>  
+<link rel="stylesheet" href="__CSS__/zwmcss/index.css"/>
+<link rel="stylesheet" href="__CSS__/jquery.e-calendar.css"/>
+<link rel="stylesheet" type="text/css" href="__CSS__/{$Think.config.COLOR_STYLE}.css" media="all">
+<script type="text/javascript">
+$(document).ready(function () {
+    $('#calendar').eCalendar({
+        weekDays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        textArrows: {previous: '<', next: '>'},
+        
+    });
+});
+</script>
+<style>
+    .systemsinfo td {
+        text-align: left;
+        width: 60%;
+        padding-left: 6%;
+    }
+</style>
+
+<div class="zwm_xg">
+<!--第一部分-->
+<!-- 常用设置 begin -->
+<div class="xg_indexSetup js_indexSetup">
+	<div class="setup_inner">
+		<img class="img_setup" src="__IMG__/zwmimages/icon_normal_shezhi.png">
+		<p class="text_setup">常用设置</p>
+	</div>
+</div>
+<!--end 常用设置-->
+
+<!--第二部分-->
+<div class="clearfix">
+    <!-- 待办事项 begin-->
+    <div class="fleft flbox zwm_Backlog">
+        <div class="columns-mod zwm_colmod">
+            <div class="hd cf blockinfo zwm_blockinfo">
+                <h5>
+					<i class="icon_backlog"></i>
+					<span>待办事项</span>
+					<div class="question">
+						<i class="question_mark">?</i>
+						<ul class="question_content">
+							<li class="question_title">功能以及数据相关说明</li>
+							<li class="question_list">
+								<span class="">待办事项</span>
+								<span class="">显示当前系统待办事项（此时待办内容为必须操作事项）</span>
+							</li>
+						</ul>
+					</div>
+				</h5>
+            </div>
+            <div class="bd wait zwm_wait">
+                <table cellpadding="1" cellspacing="1">
+					<thead>
+						<tr>
+							<th class="th_first">待办路径</th>
+							<th class="th_two">待办内容</th>
+							<th>待办数量</th>
+						</tr>
+					</thead>
+					<tbody class="athover">					
+						<tr>
+							<td>【推广员管理】</td>
+							<td>推广员申请待审核数</td>
+							<td style="text-align:center;"><a href="{:U('Promote/lists',array('model'=>'promote','status'=>0))}" target="_blank"><span>{$daiban['pcount']}</span></a></td>
+						</tr>
+						<tr>
+							<td>【推广员提现】</td>
+							<td>推广员提现待审核数</td>
+							<td style="text-align:center;"><a href="{:U('Query/withdraw',array('status'=>0))}" target="_blank"><span>{$daiban['withc']}</span></a></td>
+						</tr>
+						
+						<tr>
+							<td>【游戏充值】</td>
+							<td>游戏充值待补单数</td>
+							<td style="text-align:center;"><a href="{:U('Spend/lists',array('model'=>'spend','pay_status'=>1,'pay_game_status'=>0))}" target="_blank"><span>{$daiban['spenc']}</span></a></td>
+						</tr>
+						<tr>
+							<td>【APP安卓分包】</td>
+							<td>APP安卓分包待打包数</td>
+							<td style="text-align:center;"><a href="{:U('Apply/app_lists',array('app_version'=>1,'status'=>1,'enable_status'=>0))}" target="_blank"><span>{$daiban['applyandapp']}</span></a></td>
+						</tr>
+						<tr>
+							<td>【APP苹果分包】</td>
+							<td>APP苹果分包待打包数</td>
+							<td style="text-align:center;"><a href="{:U('Apply/app_lists',array('app_version'=>0,'status'=>1,'enable_status'=>0))}" target="_blank"><span>{$daiban['applyiosapp']}</span></a></td>
+						</tr>
+						<tr>
+							<td>【游戏安卓分包】</td>
+							<td>推广员安卓分包待打包数</td>
+							<td style="text-align:center;"><a href="{:U('Apply/sy_lists',array('type'=>1,'enable_status'=>0))}" target="_blank"><span>{$daiban['applyandgame']}</span></a></td>
+						</tr>
+						<tr>
+							<td>【游戏苹果分包】</td>
+							<td>推广员苹果分包待打包数</td>
+							<td style="text-align:center;"><a href="{:U('Apply/sy_lists',array('type'=>2,'enable_status'=>0))}" target="_blank"><span>{$daiban['applyiosgame']}</span></a></td>
+						</tr>
+						<tr>
+							<td>【站内通知】</td>
+							<td>推广员包待更新数</td>
+							<td style="text-align:center;"><a href="{:U('Msg/lists',array('status'=>'未读'))}" target="_blank"><span>{$daiban['msgc']}</span></a></td>
+						</tr>
+						
+					</tbody>
+				</table>
+            </div>
+        </div>
+    </div>
+	<!--end 待办事项 -->
+
+	<!-- 提示事项 begin-->
+	<div class="fleft flbox zwm_Hints">
+        <div class="columns-mod zwm_colmod1">
+            <div class="hd cf blockinfo zwm_blockinfo">
+                <h5>
+					<i class="icon_hints" style="height:19px;vertical-align:sub;"></i>
+						<span>提示事项</span>
+					<div class="question">
+						<i class="question_mark">?</i>
+						<ul class="question_content">
+							<li class="question_title">功能以及数据相关说明</li>
+							<li class="question_list">
+								<span class="">提示事项</span>
+								<span class="">提示当前系统需要操作的事项（此处显示内容为非必须操作事项）</span>
+							</li>
+						</ul>
+					</div>
+				</h5>
+            </div>
+            <div class="bd zw_bd">
+            <table cellpadding="1" cellspacing="1" class="warntable zwm_warntable">
+				<thead>
+					<tr>
+						<th class="th_zone">提示板块</th>
+						<th style="padding-left:8px;">提示内容</th>
+					</tr>
+				</thead>
+				<tbody class="athover">
+
+                    <volist name="fl_set" id="vo">
+                        <tr>
+                            <td>【返利设置】</td>
+                            <td><a href="/admin.php?s=/Rebate/lists.html" target="_blank"><span>【{$vo.game_name}】充值返利已到期</span></a></td>
+                        </tr>
+                    </volist>
+
+                    <volist name="gift_list" id="vo">
+                        <tr>
+                            <td>【礼包列表】</td>
+                            <td>
+                                <a href="/admin.php?s=/Giftbag/lists.html" target="_blank">
+                                    <if condition="$vo['server_id'] eq 0">
+                                        <span>【{$vo.game_name}】{$vo.giftbag_name}数量不足</span>
+                                    <else/>
+                                        <span>【{$vo.game_name}】{$vo.server_name} {$vo.giftbag_name}数量不足</span>
+                                    </if>
+                                </a>
+                            </td>
+                        </tr>
+                    </volist>
+
+				</tbody>
+			</table>  
+            </div> 
+        </div>
+    </div>
+	<!--end 提示事项-->
+
+
+	<!-- 新增用户 begin-->
+	<div class="fleft flbox zwm_Backlog" style="margin-right:0;">
+        <div class="columns-mod zwm_colmod">
+            <div class="hd cf blockinfo zwm_blockinfo">
+              <div class="zwm_datenub">{:date('Y-m-d',strtotime('-1 day'))}</div>
+            </div>
+			<div class="hd cf blockinfo zwm_blockinfo zwm_newusertit">
+				<span class="newuser_span1">新增用户</span>
+				<span class="newuser_span2">{$news.count|default=0}</span>
+					<notempty name="news">
+                        <gt name="news.rate" value="0">
+                            <span class="analy_plus">+{$news.rate}%<i class="xg_plusTriangle"></i></span>
+                        <else />
+                            <lt name="news.rate" value="0">
+                                <span class="analy_decline">{$news['rate']}%<i class="xg_declineTriangle"></i></span>
+                            <else />
+                                <span class="">--</span>
+                            </lt>
+                        </gt>
+					<else />
+                        <span class="">--</span>
+					</notempty>
+
+			</div>
+            <div class="bd wait zwm_wait zwm_hgt297">
+				<div>其中</div>
+                <table cellpadding="1" cellspacing="1">
+					<tbody class="athover">
+
+						<tr>
+							<td class="xg_athover1">礼包领取</td>
+							<td class="xg_athover2">
+								<span>{$gift.per|default=0}%</span>
+								<span class="xg_percent"><em class="my_percent" style="width:{$gift.per|default=0}%;"></em></span>
+							</td>
+							<td class="xg_athover3">
+								<notempty name="gift">
+								<gt name="gift.rate" value="0">
+								<span class="analy_plus">+{$gift.rate}%<i class="xg_plusTriangle"></i></span>
+								<else />
+								<lt name="gift.rate" value="0">
+								<span class="analy_decline">{$gift['rate']}%<i class="xg_declineTriangle"></i></span>
+								<else />
+								<span class="">--</span>
+								</lt>
+								</gt>
+								<else /><span class="">--</span>
+							</notempty>
+							</td>
+							<td>{$gift.count|default=0}人</td>
+						</tr>
+						<tr>
+							<td class="xg_athover1">签到成功</td>
+							<td class="xg_athover2">
+								<span>{$point.per|default=0}%</span>
+								<span class="xg_percent"><em class="my_percent" style="width:{$point.per|default=0}%;"></em></span>
+							</td>
+							<td class="xg_athover3">
+								<notempty name="point">
+								<gt name="point.rate" value="0">
+								<span class="analy_plus">+{$point.rate}%<i class="xg_plusTriangle"></i></span>
+								<else />
+								<lt name="point.rate" value="0">
+								<span class="analy_decline">{$point['rate']}%<i class="xg_declineTriangle"></i></span>
+								<else />
+								<span class="">--</span>
+								</lt>
+								</gt>
+								<else /><span class="">--</span>
+							</notempty>
+							</td>
+							<td>{$point.count|default=0}人</td>
+						</tr>
+						<tr>
+							<td class="xg_athover1">兑换商品成功</td>
+							<td class="xg_athover2">
+								<span>{$pointshop.per|default=0}%</span>
+								<span class="xg_percent"><em class="my_percent" style="width:{$pointshop.per|default=0}%;"></em></span>
+							</td>
+							<td class="xg_athover3">
+								<notempty name="pointshop">
+								<gt name="pointshop.rate" value="0">
+								<span class="analy_plus">+{$pointshop.rate}%<i class="xg_plusTriangle"></i></span>
+								<else />
+								<lt name="pointshop.rate" value="0">
+								<span class="analy_decline">{$pointshop['rate']}%<i class="xg_declineTriangle"></i></span>
+								<else />
+								<span class="">--</span>
+								</lt>
+								</gt>
+								<else /><span class="">--</span>
+							</notempty>
+							</td>
+							<td>{$pointshop.count|default=0}人</td>
+						</tr>
+						
+						<tr>
+							<td class="xg_athover1">游戏充值</td>
+							<td class="xg_athover2">
+								<span>{$money.per|default=0}%</span>
+								<span class="xg_percent"><em class="my_percent" style="width:{$money.per|default=0}%;"></em></span>
+							</td>
+							<td class="xg_athover3">
+								<notempty name="money">
+								<gt name="money.rate" value="0">
+								<span class="analy_plus">+{$money.rate}%<i class="xg_plusTriangle"></i></span>
+								<else />
+								<lt name="money.rate" value="0">
+								<span class="analy_decline">{$money['rate']}%<i class="xg_declineTriangle"></i></span>
+								<else />
+								<span class="">--</span>
+								</lt>
+								</gt>
+								<else /><span class="">--</span>
+							</notempty>
+							</td>
+							<td>{$money.count|default=0}人</td>
+						</tr>
+						<tr>
+							<td class="xg_athover1">留存</td>
+							<td class="xg_athover2">
+								<span>{$rate.per|default=0}%</span>
+								<span class="xg_percent"><em class="my_percent" style="width:{$rate.per|default=0}%;"></em></span>
+							</td>
+							<td class="xg_athover3">
+								<notempty name="rate">
+								<gt name="rate.rate" value="0">
+								<span class="analy_plus">+{$rate.rate}%<i class="xg_plusTriangle"></i></span>
+								<else />
+								<lt name="rate.rate" value="0">
+								<span class="analy_decline">{$rate['rate']}%<i class="xg_declineTriangle"></i></span>
+								<else />
+								<span class="">--</span>
+								</lt>
+								</gt>
+								<else /><span class="">--</span>
+							</notempty>
+							</td>
+							<td>{$rate.count|default=0}人</td>
+						</tr>
+						<tr>
+							<td class="xg_athover1">邀请好友</td>
+							<td class="xg_athover2">
+								<span>{$share.per|default=0}%</span>
+								<span class="xg_percent"><em class="my_percent" style="width:{$share.per|default=0}%;"></em></span>
+							</td>
+							<td class="xg_athover3">
+								<notempty name="share">
+								<gt name="share.rate" value="0">
+								<span class="analy_plus">+{$share.rate}%<i class="xg_plusTriangle"></i></span>
+								<else />
+								<lt name="share.rate" value="0">
+								<span class="analy_decline">{$share['rate']}%<i class="xg_declineTriangle"></i></span>
+								<else />
+								<span class="">&#45;&#45;</span>
+								</lt>
+								</gt>
+								<else /><span class="">&#45;&#45;</span>
+							</notempty>
+							</td>
+							<td>{$share.count|default=0}人</td>
+						</tr>
+					</tbody>
+				</table>
+            </div>
+        </div>
+    </div>
+	<!--end 新增用户-->	
+</div>
+<!--第二部分结束-->
+
+<!--第三部分-->
+<div class="clearfix mt">
+    <div class="zwm_sys">
+        <div class="columns-mod">
+            <div class="hd cf blockinfo">
+				<h5>
+					<i class="icon_computer"></i>
+					<span>系统信息</span>
+					<div class="question">
+						<i class="question_mark">?</i>
+						<ul class="question_content">
+							<li class="question_title">功能以及数据相关说明</li>
+							<li class="question_list">
+								<span class="">系统信息</span>
+								<span class="">显示当前版本以及相关信息</span>
+							</li>
+						</ul>
+					</div>
+				</h5>
+            </div>
+            <div class="bd xg_systmdetail">
+				<div class="system_div system_divfirst">
+					<table>
+						<tbody>
+							<tr>
+								<th>系统名称</th>
+								<td>手游H5双平台管理系统v1.0.0</td>
+							</tr>
+							<tr>
+								<th>操作系统</th>
+								<td>{$Think.const.PHP_OS}</td>
+							</tr>
+							<tr>
+								<th>运行环境</th>
+								<td>{$_SERVER['SERVER_SOFTWARE']}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="system_div">
+					<table>
+						<tbody>
+                            <php>
+                                $system_info_mysql = M()->query("select version() as v;");
+                            </php>
+							<tr>
+								<th>MYSQL</th>
+								<td>{$system_info_mysql.0.v}</td>
+							</tr>
+							<tr>
+								<th>上传限制</th>
+								<td>{:ini_get('upload_max_filesize')}</td>
+							</tr>
+							<tr>
+								<th>更新时间</th>
+								<td>2018年5月30日</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="system_div">
+					<table>
+						<tbody>
+							<tr>
+								<th>官网地址</th>
+								<td>www.vlcms.com</td>
+							</tr>
+							<tr>
+								<th>官网云平台</th>
+								<td>yun.vlcms.com</td>
+							</tr>
+							<tr>
+								<th>开发公司</th>
+								<td>徐州梦创科技有限公司</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--第三部分结束-->
+<div class="clear"></div>
+</div>
+<script>
+
+//常用设置弹窗
+$(".js_indexSetup").click(function(){
+	layer.open({
+	  type: 2,
+	  title: '常用设置',
+	  shadeClose: true,
+	  shade: 0.8,
+	  area: ['1438px', '756px'],
+	   content: ['{:U("Index/setup")}'], //iframe的url，no代表不显示滚动条
+    });
+});
+</script>
+</block>

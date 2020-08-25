@@ -1,0 +1,326 @@
+<extend name="Public/bases" />
+<block name="body">
+	<link href="__CSS__/game.css" type="text/css" rel="stylesheet">
+	<link href="__CSS__/gift.css" type="text/css" rel="stylesheet">
+	<link href="__CSS__/pc_code.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="__JS__/pc_7724.js"></script>
+	<script type="text/javascript" src="__JS__/jquery.SuperSlide.2.1.1.js"></script>
+	<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+	<!--礼包领取提示-->
+	<div class="gift_warn_bg" style="display: none;">
+		<div class="gift_warn">
+			<a class="close_normal"></a>
+			<h3 class="s title"></h3>
+			<h4 class="s code" style="display: none;"></h4>
+			<span class="tishi">请到<span style="cursor: pointer;color: #00c8fe;" href-data="{:U('Subscriber/user_gift','',true,'',true)}" class="gcen"> 礼包中心 </span>中查看</span>
+			<a class="g mcopybtn">复制</a>
+		</div>
+	</div>
+	<!--礼包中心-->
+	<div class="cont">
+		<div class="g-main">
+			<div class="newh5_left fl">
+				<div class="h5_local">
+					<a class="local_home" href="{:U('Index/index')}">首页</a><span>&gt;</span>
+					<a href="{:U('Gift/index')}">礼包</a><span>&gt;</span>
+					<em class="blue">{$data.relation_game_name}：{$data.giftbag_name}</em>
+				</div>
+				<div class="h5_left">
+					<div class="h5_left_con">
+						<div class="gift_detail_top">
+							<ul class="gift_list_det clearfix">
+								<li>
+									<div class="p1">
+										<a title="{$data.relation_game_name}：{$data.giftbag_name}" href="{$data.play_url}" class="img-box">
+											<span class="img-box-font">
+										<span class="img-box-cell">
+											<div class="img-box-text"></div>
+										</span>
+											</span>
+											<empty name="data['icon']">
+												<img class="img-box-img">
+												<else/>
+												<img class="img-box-img" src="{$data.icon}">
+											</empty>
+
+										</a>
+									</div>
+									<div class="p2 textbox">
+										<p class="p2_1">
+											<a title="{$data.relation_game_name}：{$data.giftbag_name}" href="{$data.play_detail_url}">{$data.relation_game_name}：{$data.giftbag_name}</a>
+										</p>
+										<p class="p2_2"><span>有效期：{:set_show_time($data['start_time'],'date','forever')}到{:set_show_time($data['end_time'],'date','forever')}</span>
+											<span>区服:{:$data['server_id']?$data['server_name']:'全区服'}</span>
+											<span>平台:
+												<if condition="stripos($data['giftbag_version'],'1') nheq false">
+													<i class="pf-android"></i>
+												</if>
+												<if condition="stripos($data['giftbag_version'],'2') nheq false">
+													<i class="pf-ios"></i>
+												</if>
+												<if condition="stripos($data['giftbag_version'],'3') nheq false">
+													<i class="pf-h5"></i>
+												</if>
+											</span>
+										</p>
+										<p class="p2_3 surplusbox"><i id="surplus">剩余：<font id="bfb">{$data.novice_surplus}</font>个</i></p>
+									</div>
+									<div class="p3 butnbox">
+										<a href="javascript:;" data-novice_surplus="{$data.novice_surplus}" data-gift_id="{$data['gift_id']}" data-game_id="{$data['game_id']}" <if condition="$data.received eq 1"> class="getgift disabled libao2">已领取
+											<else/>class="getgift libao">领取礼包</if>
+										</a>
+										<if condition="$data.sdk_version eq 3">
+											<a href="{$data.play_url}" class="a1" target="_blank">开始游戏</a>
+										<else/>
+											<a href="{$data.play_detail_url}" class="a1">下载游戏</a>
+										</if>
+									</div>
+								</li>
+							</ul>
+							<div class="boxtop mt20">
+								<h3><i></i>礼包内容：</h3>
+							</div>
+							<div class="gift_font_det">{$data.desribe}</div>
+							<div class="boxtop mt20">
+								<h3><i></i>使用期限：</h3>
+							</div>
+							<div class="gift_font_det">{:set_show_time($data['start_time'],'date','forever')}到{:set_show_time($data['end_time'],'date','forever')}</div>
+							<div class="boxtop mt20">
+								<h3><i></i>使用方法：</h3>
+							</div>
+							<div class="gift_font_det">{$data.digest}</div>
+
+						</div>
+
+						<!--相关礼包-->
+						<div class="gift_about_det clearfix">
+							<div class="boxtop mt20">
+								<h3><i></i>相关礼包</h3>
+							</div>
+							<ul class="clearfix">
+								<volist name="giftlist" id="dat">
+									<li <if condition="$i eq 1 || $i eq 7 || $i eq 13 || $i eq 21">class="nomargin"</if>>
+										<a title="{$dat.relation_game_name}：{$dat.giftbag_name}" href="{$dat.gift_detail_url}" class="img-box">
+											<span class="img-box-font">
+										<span class="img-box-cell">
+											<div class="img-box-text"></div>
+										</span>
+											</span>
+											<empty name="dat['icon']">
+												<img>
+												<else/>
+												<img src="{$dat.icon}">
+											</empty>
+
+										</a>
+										<p class="box_p" title="{$dat.relation_game_name}：{$dat.giftbag_name}"><a href="{$dat.gift_detail_url}">{$dat.relation_game_name}：{$dat.giftbag_name}</a></p>
+									</li>
+								</volist>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--右边-->
+			<div class="h5_right">
+				<div class="hot-list">
+					<div class="boxtop mt20 boxtop_new">
+						<h3><i></i>热门礼包</h3>
+					</div>
+					<div class="giftleft_tab">
+						<a class="active" id="sy">手游</a>
+						<a id="h5">H5游戏</a>
+					</div>
+					<ul class="sy">
+						<volist name="syhotdata" id="sy">
+							<li>
+								<a href="{$sy.gift_detail_url}" class="img-box">
+									<span class="img-box-font"><span class="img-box-cell"><div class="img-box-text">{:C('SET_POSITION_IMG')}</div></span></span>
+									<img class="img-box-img" src="{$sy.icon}">
+								</a>
+								<div class="btn-box">
+									<span class="table"><span class="table-cell"><a href="{$sy.gift_detail_url}" class="btn">领取</a></span></span>
+								</div>
+								<div class="txt-box">
+									<h4><a href="{$sy.gift_detail_url}">{$sy.relation_game_name}-{$sy.giftbag_name}</a></h4>
+									<p>剩余：<span>{$sy.novice_surplus}个</span>
+										<if condition="stripos($sy['giftbag_version'],'1') nheq false">
+											<i class="pf-android"></i>
+										</if>
+										<if condition="stripos($sy['giftbag_version'],'2') nheq false">
+											<i class="pf-ios"></i>
+										</if>
+										<if condition="stripos($sy['giftbag_version'],'3') nheq false">
+											<i class="pf-h5"></i>
+										</if>
+									</p>
+								</div>
+							</li>
+						</volist>
+					</ul>
+					<ul class="h5 hidden">
+						<volist name="h5hotdata" id="h5">
+							<li>
+								<a href="{$h5.gift_detail_url}" class="img-box">
+									<span class="img-box-font"><span class="img-box-cell"><div class="img-box-text">{:C('SET_POSITION_IMG')}</div></span></span>
+									<img class="img-box-img" src="{$h5.icon}">
+								</a>
+								<div class="btn-box">
+									<span class="table"><span class="table-cell"><a href="{$h5.gift_detail_url}" class="btn">领取</a></span></span>
+								</div>
+								<div class="txt-box">
+									<h4><a href="{$h5.gift_detail_url}">{$h5.relation_game_name}-{$h5.giftbag_name}</a></h4>
+									<p>剩余：<span>{$h5.novice_surplus}个</span>
+										<if condition="stripos($h5['giftbag_version'],'1') nheq false">
+											<i class="pf-android"></i>
+										</if>
+										<if condition="stripos($h5['giftbag_version'],'2') nheq false">
+											<i class="pf-ios"></i>
+										</if>
+										<if condition="stripos($h5['giftbag_version'],'3') nheq false">
+											<i class="pf-h5"></i>
+										</if>
+									</p>
+								</div>
+							</li>
+						</volist>
+					</ul>
+				</div>
+				<div class="gift_q">
+					<div class="boxtop pdt_0">
+						<h3><i></i>礼包常见问题</h3>
+					</div>
+					<div class="shop_userd">
+						<ul>
+							<volist name="question" id="qes">
+								<li>
+									<i class="xg_dot"></i>
+									<a href="{:U('Service/index/type/gift')}">{$qes['zititle']}</a>
+								</li>
+							</volist>
+							<li>
+								<a class="a_enter" href="{:U('Service/index/type/gift')}">进入疑问专区》</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!--右边结束-->
+			<div class="clear"></div>
+		</div>
+	</div>
+	<!--礼包中心结束-->
+
+	<!-- <div class="" id="code">
+		<img src="images/code.png" alt="" class="code-img" />
+		<div class="code-text">关注微信公众号可领取礼包</div>
+		<div class="code-explain">微信扫一扫 关注公众号</div>
+	</div> -->
+
+	<script>
+		$(".giftleft_tab a").click(function() {
+				$(".giftleft_tab a").removeClass("active");
+				$(this).addClass("active");
+				$class = $(this).attr('id');
+				$('.'+$class).removeClass('hidden').siblings('ul').addClass('hidden');
+			})
+		
+		$(".close_normal").click(function() {
+			$(".getgiftbut").html('礼包领取');
+			$('.gift_warn_bg').hide();
+		});
+		//移动端复制
+		$(".mcopybtn").click(function() {
+			that = $(this);
+			Copy($('.code').text(), that);
+		});
+
+		function Copy(str, that) {
+			var save = function(e) {
+				e.clipboardData.setData('text/plain', str);
+				e.preventDefault();
+			}
+			that.css("color", "white");
+			document.addEventListener('copy', save);
+			document.execCommand('copy');
+			document.removeEventListener('copy', save);
+			that.text('复制成功');
+		}
+		$('.gcen').click(function() {
+			window.location.href = $(this).attr('href-data');
+		});
+
+		$('.getgift').click(function() {
+			thatt = $("#mcopybtn");
+			thatt.css("color", "#fff");
+			thatt.text('复制');
+			that = $(this);
+			$novice_surplus = that.data('novice_surplus');
+			if($(that).hasClass('disabled')) {
+				return false;
+			}
+			// 是否登录
+			$.ajax({
+				type: 'post',
+				url: '{:U("Gift/getgift")}',
+				async: false,
+				data: {
+					gameid: that.attr('data-game_id'),
+					giftid: that.attr('data-gift_id')
+				},
+				dataType: 'json',
+				beforeSend: function() {
+					$(that).addClass('disabled');
+					$(that).html('领取礼包');
+				},
+				success: function(data) {
+					if(data.code == 1) {
+						// 成功
+						bfp = that.closest('div.butnbox').siblings('div.textbox');
+						that.addClass('disabled libao2');
+						that.text('已领取');
+						that.parent('.p3').prev('.p2').children('.p2_3').children('#surplus').children('#bfb').text($novice_surplus-1);
+						$('.gift_warn_bg').css('display', 'block');
+						$('.title').html('领取成功');
+						$('.code').show().html(data.nvalue);
+
+					} else if(data.code == -2) {
+						that.text('已领取');
+						$('.gift_warn_bg').css('display', 'block');
+						$('.title').html('领取成功');
+						$('.code').show().html(data.nvalue);
+						$('.tishi').show().html('您已经领取过了~');
+					} else if(data.code == -4) {
+						//未关注公众号
+						//that.text('领取失败');
+						//                  $('.gift_warn_bg').css('display','block');
+						$('.title').html('领取失败');
+						$('.tishi').show().html(data.msg);
+						$('.mcopybtn').hide();
+						$(".code-img").attr('src', data.qrcodeurl);
+						//页面层
+						layer.open({
+							type: 1,
+							shadeClose: false,
+							title: '&nbsp',
+							area: ['317px', '321px'], //宽高
+							content: $('#code')
+						});
+						$(".layui-layer").css("border-radius", "10px");
+					} else {
+						// 失败
+						//that.text('领取失败');
+						$('.gift_warn_bg').css('display', 'block');
+						$('.title').html('领取失败！');
+						$('.tishi').show().html('您还未登录，请登录后领取');
+						$('.mcopybtn').hide();
+					}
+				},
+				error: function(xhr, type) {
+					alert('服务器错误');
+				}
+			});
+		});
+	</script>
+</block>

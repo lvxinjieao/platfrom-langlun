@@ -1,0 +1,130 @@
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+form,
+fieldset,
+input,
+textarea,
+p,
+blockquote,
+th,
+td,
+dl,
+dt,
+dd {
+	padding: 0px;
+	margin: 0px;
+	word-break: break-all;
+}
+
+#container {
+	height: 100% !important;
+}
+
+#cz_wxbox {
+	width: 916px;
+	overflow: hidden;
+	zoom: 1;
+	margin: 20px auto 20px auto;
+	color: #666;
+}
+
+#cz_wxbox .wxboxCon {
+	padding: 0 30px;
+	overflow: hidden;
+	zoom: 1;
+	border: 5px #e2e1e1 solid;
+	background: #fff;
+}
+
+.wxtitle {
+	position: relative;
+	margin-bottom: 10px;
+}
+
+.wxtitle h2 {
+	font: normal 14px/24px 'microsoft yahei';
+}
+
+.wxtitle p {
+	position: absolute;
+	line-height: 24px;
+	right: 0;
+	top: 0;
+}
+
+.wxtitle p em {
+	font-style: normal;
+	color: #fe5d5b;
+	font-weight: bold;
+	font-size: 18px;
+	padding: 0 3px
+}
+
+.wxboxCon h3 {
+	margin: 20px 0 30px 40px;
+	height: 43px;
+	font: normal 18px/43px 'microsoft yahei';
+	text-indent: -9999px;
+	background: url(../images/wechat_pay/lead.png) no-repeat 0 0;
+}
+
+.wxboxCon .leftbox {
+	float: left;
+	padding: 0 80px 0 40px;
+}
+
+.wxboxCon .rightbox {
+	float: left;
+}
+
+.wxboxCon .wximg {
+	width: 296px;
+	height: 296px;
+	border: 2px solid #ddd
+}
+
+.wxboxCon .tsimg {
+	width: 300px;
+	height: 60px;
+	background: url("../images/wechat_pay/tsimg.png") no-repeat 0 0px;
+	#ff7674;
+	margin-top: 20px;
+}
+
+.wxboxCon .mbimg {
+	width: 329px;
+	height: 421px;
+	background: url("../images/wechat_pay/phone-bg.png") no-repeat 0 0px;
+	
+}
+
+.wxboxCon .clear {
+	clear: both;
+}
+
+.wxboxCon .return {
+	margin: 20px 0;
+}
+
+.wxboxCon .return a {
+	font: normal 12px/24px 'microsoft yahei';
+	color: #666;
+	padding: 0 5px;
+}
+
+.wxboxCon .return a:Hover {
+	color: #333;
+}

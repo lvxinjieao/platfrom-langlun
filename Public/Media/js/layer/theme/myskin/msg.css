@@ -1,0 +1,5 @@
+@charset "utf-8";
+.layui-layer-dialog .layui-layer-content{text-align: center;}
+.layui-layer-dialog{height: 152px;width: 220px;min-width: 220px;}
+.layui-layer-dialog .layui-layer-content{padding: 90px 0 30px 0;font-size: 16px;}
+.layui-layer-dialog .layui-layer-content .layui-layer-ico{top: 40px; left: 50%;margin-left: -15px;width: 30px;height: 30px;}

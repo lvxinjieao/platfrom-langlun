@@ -1,0 +1,149 @@
+<extend name="Public/base"/>
+
+<block name="body">
+	<style>
+.form_info input[type=text], .tab_content input[type=text]{width: 380px;}
+	.form_info textarea {width: 360px;height: 75px;}
+	.tab-list select {width: 380px;}
+	.select2-container {width: 382px !important;}
+	.tab_content {padding: 30px 0;}
+	.form_info li .form_main {float: left;}
+	.navtab_list {width:100%;margin:0 0 15px;height:36px;padding-top:25px;}
+	.navtab_list a,.tabnav1711 li {font-size:15px;border:1px solid transparent;display:block;width:140px;height:35px;line-height:35px;text-align:center;float:left;color:#333;}
+	.navtab_list a.tabchose,.tabnav1711 li.current {border-color:#ddd;border-bottom-color:#FFF;background:#FFF;color:#3C95C8;border-top-left-radius:3px;border-top-right-radius:3px;}
+
+	.tabnav1711 li a {color:inherit;}
+	.tabcon1711 .submit_btn:visited,.tabcon1711 .submit_btn:active,.tabcon1711 .submit_btn:link {color:#FFF;}
+
+	.top_main_menu_con{
+	background: #fff;
+    border: solid 1px transparent;
+    width: 140px;
+    height: 35px;
+    line-height: 35px;
+    border-bottom: 1px solid #ddd;}
+	.top_main_menu{height:37px;}
+	.top_main_menu_current {
+    background: #fff;
+    color: #fff;
+	border:1px solid #ddd;
+    border-bottom: 1px solid transparent;
+}
+.z_bor{
+    border-bottom: 1px solid #ddd;
+    height: 61px;
+}
+.top_nav_list{background:#fff;}
+
+</style>
+    
+   
+     <div class="main-place">
+        <span class="main-placetitle"></span>
+        <ul class="main-placeul">
+            <li><a href="{:U('Config/group')}">站点</a></li>
+            <li><a href="{:U('Site/wap')}">WAP官网</a></li>
+            <li><a href="#">SEO设置</a></li>
+        </ul>
+        <p class="description_text" style="height: 40px;line-height: 40px;">说明：设置WAP站的站点SEO</p>
+    </div>
+	  <!-- 头部切换菜单 -->
+    <!-- <include file="Public/site_menu" /> -->
+ <div class="z_bor">
+       <div class="cf main-place top_nav_list navtab_list">
+			  {:W('Index/navigation',array('value'=>'Site/wap'))}
+			 <h3 class="page_title">SEO设置</h3>
+		</div>
+    </div>
+	<div class="tab-wrap">
+		<div class="tab_nav stabnav17112 jstabnav">
+        <ul>
+            <volist name="lists" id="vo">
+            <li data-tab="tab{$i}" class="<eq name='i' value='1' >current</eq>"><a href="javascript:void(0);" >{$vo.title}</a></li>
+            </volist>
+		</ul>
+        </div>
+
+        <div class="infomation information1711">
+            <h3>提示</h3>
+            <p>插入的变量两边必须包括百分号" %变量% "，当游戏范围不支持该变量时，该变量
+            将不会在前台显示（变量后边的分隔符也不会显示）。以下是可用SEO变量：</p>
+            <p><strong>站点名称：</strong><span> %webname% </span></p>
+            <p><strong>游戏名称：</strong><span> %gamename% </span></p>
+            <p><strong>礼包名称：</strong><span> %giftname% </span></p>
+            <p><strong>资讯名称：</strong><span> %newsname% </span></p>
+            <p><strong>游戏类型：</strong><span> %gametype% </span></p>
+            <p><strong>设备类型：</strong><span> %gamedevice% </span></p>
+            <p><strong>资讯栏目：</strong><span> %catetitle% </span></p>
+        </div>
+        <volist name="lists" id="vo">
+        <div class="tab-content tabcon1711 tabcon17112">
+            <div id="tab{$i}" class="tab-pane <eq name='i' value='1' >in</eq> tab{$i}">
+                <form action="{:U('save')}" method="post" class="form-horizontal {$vo.name}">
+                  <table border="0" cellspacing="0" cellpadding="0">
+                    <tbody>
+                      <tr>
+                          <td class="l noticeinfo">Title</td>
+                          <td class="r table_radio">
+                              <input name="seo_title" value="{$vo.seo_title}" type="text" class="txt2">
+                              <span class="notice-text">{$vo.title}标题</span>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td class="l noticeinfo">Keyword</td>
+                          <td class="r table_radio">
+                              <textarea name="seo_keyword" class="txt2" >{$vo.seo_keyword}</textarea>
+                              <span class="notice-text">{$vo.title}关键字</span>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td class="l noticeinfo">Description</td>
+                          <td class="r table_radio">
+                              <textarea name="seo_description" class="txt2" >{$vo.seo_description}</textarea>
+                              <span class="notice-text">{$vo.title}描述</span>
+                          </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  
+                
+                
+                    
+                  <input type="hidden" name="name" value="{$vo.name}">
+                  <input type="hidden" name="module" value="media"> 
+                  <div class="form-item cf">
+                    <button class="submit_btn ajax-post " id="submit" type="submit" target-form="{$vo.name}">
+                        保存
+                    </button>
+                    <a class="submit_btn wapreturn_btn" alt="返回上一页" title="返回上一页" href="javascript:window.history.back();" >
+                        返回
+                    </a>
+                  </div>
+                    
+                </form>
+            </div>
+        </div>
+        </volist>
+	</div>
+	
+	<div class="common_settings">
+			<span class="plus_icon"><span><img src="__IMG__/zwmimages/icon_jia.png"></span></span>
+			<form class="addShortcutIcon">
+				<input type="hidden" name="title" value="{$m_title}">
+				<input type="hidden" name="url" value="Site/wap">
+			</form>
+			<a class="ajax-post add-butn <notempty name='commonset'>addSIsetted</notempty>" href="javascript:;" target-form="addShortcutIcon" url="{:U('Think/addShortcutIcon')}"><img src="__IMG__/zwmimages/icon_jia.png"><span><notempty name='commonset'>已添加<else />添加至常用设置</notempty></span></a>
+		</div>
+	
+</block>
+
+<block name="script">
+<script type="text/javascript">
+	//导航高亮
+	highlight_subnav('{:U("Site/wap")}');
+	$(function(){
+		//支持tab
+		showTab();
+	})
+</script>
+</block>

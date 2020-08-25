@@ -1,0 +1,235 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <if condition="ACTION_NAME eq index and CONTROLLER_NAME eq Index">
+        <title>{:seo_replace(C('wap_index.seo_title'),'','wap')}</title>
+        <meta name="keywords" content="{:seo_replace(C('wap_index.seo_keyword'),'','wap')}">
+        <meta name="description" content="{:seo_replace(C('wap_index.seo_description'),'','wap')}">
+      <elseif condition="ACTION_NAME eq index and CONTROLLER_NAME eq Game" />
+        <title>{:seo_replace(C('wap_game_list.seo_title'),'','wap')}</title>
+        <meta name="keywords" content="{:C('wap_game_list.seo_keyword')}">
+        <meta name="description" content="{:C('wap_game_list.seo_description')}">
+      <elseif condition="ACTION_NAME eq detail and CONTROLLER_NAME eq Game"/>
+        <title>{:seo_replace(C('wap_game_detail.seo_title'),array('game_name'=>$data['game_name']),'wap')}</title>
+        <meta name="keywords" content="{:seo_replace(C('wap_game_detail.seo_keyword'),array('game_name'=>$data['game_name']),'wap')}>
+        <meta name="description" content="{:seo_replace(C('wap_game_detail.seo_description'),array('game_name'=>$data['game_name']),'wap')}">
+      <elseif condition="ACTION_NAME eq index and CONTROLLER_NAME eq Gift"/>
+        <title>{:seo_replace(C('wap_gift_index.seo_title'),'','wap')}</title>
+        <meta name="keywords" content="{:seo_replace(C('wap_gift_index.seo_keyword'),'','wap')}">
+        <meta name="description" content="{:seo_replace(C('wap_gift_index.seo_description'),'','wap')}">
+      <elseif condition="ACTION_NAME eq giftdetail and CONTROLLER_NAME eq Gift"/>
+        <title>{:seo_replace(C('wap_gift_detail.seo_title'),array('game_name'=>$data['game_name'],'giftbag_name'=>$data['giftbag_name']),'wap')}</title>
+        <meta name="keywords" content="{:seo_replace(C('wap_gift_detail.seo_keyword'),array('game_name'=>$data['game_name'],'giftbag_name'=>$data['giftbag_name']),'wap')}">
+        <meta name="description" content="{:seo_replace(C('wap_gift_detail.seo_description'),array('game_name'=>$data['game_name'],'giftbag_name'=>$data['giftbag_name']),'wap')}">
+      <elseif condition="ACTION_NAME eq mall and CONTROLLER_NAME eq PointShop"/>
+        <title>{:seo_replace(C('wap_shop.seo_title'),'','wap')}</title>
+        <meta name="keywords" content="{:seo_replace(C('wap_shop.seo_keyword'),'','wap')}">
+        <meta name="description" content="{:seo_replace(C('wap_shop.seo_description'),'','wap')}">
+      <elseif condition="ACTION_NAME eq mall_detail and CONTROLLER_NAME eq PointShop"/>
+        <title>{:seo_replace(C('wap_shop_detail.seo_title'),array('good_name'=>$data['good_name']),'wap')}</title>
+        <meta name="keywords" content="{:seo_replace(C('wap_shop_detail.seo_keyword'),array('good_name'=>$data['good_name']),'wap')}">
+        <meta name="description" content="{:seo_replace(C('wap_shop_detail.seo_description'),array('good_name'=>$data['good_name']),'wap')}">
+      <elseif condition="ACTION_NAME eq detail and CONTROLLER_NAME eq Article"/>
+        <title>{:seo_replace(C('wap_news_detail.seo_title'),array('title'=>$data['title']),'wap')}</title>
+        <meta name="keywords" content="{:seo_replace(C('wap_news_detail.seo_keyword'),array('title'=>$data['title']),'wap')}">
+        <meta name="description" content="{:seo_replace(C('wap_news_detail.seo_description'),array('title'=>$data['title']),'wap')}">
+      <elseif condition="ACTION_NAME eq user_recharge and CONTROLLER_NAME eq Subscriber"/>
+        <title>{:seo_replace(C('wap_recharge.seo_title'),'','wap')}</title>
+        <meta name="keywords" content="{:seo_replace(C('wap_recharge.seo_keyword'),'','wap')}">
+        <meta name="description" content="{:seo_replace(C('wap_recharge.seo_description'),'','wap')}">
+      <elseif condition="CONTROLLER_NAME eq Service"/>
+        <title>{:seo_replace(C('wap_service.seo_title'),'','wap')}</title>
+        <meta name="keywords" content="{:seo_replace(C('wap_service.seo_keyword'),'','wap')}">
+        <meta name="description" content="{:seo_replace(C('wap_service.seo_description'),'','wap')}">
+    <else />
+      <title>{:seo_replace(C('wap_index.seo_title'),'','wap')}</title>
+      <meta name="keywords" content="{:seo_replace(C('wap_index.seo_keyword'),'','wap')}">
+      <meta name="description" content="{:seo_replace(C('wap_index.seo_description'),'','wap')}">
+    </if>
+    <link href="{:get_cover(C('PC_SET_ICO'),'path')}" type="image/x-icon" rel="shortcut icon">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="applicable-device" content="mobile">
+		<link rel="apple-touch-icon" href="{:get_cover(C('APP_LOGO'),'path')}" />
+
+		
+		<meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+	<!--  QQ分享  -->
+    <!-- 分享显示的缩略图-->
+    <meta itemprop="image" content="{$share_img}" />
+    <!-- 分享显示的简介-->
+    <meta name="description" itemprop="description" content="{$share_decri}" />
+    <link href="__CSS__/swiper.min.css" rel="stylesheet" >
+    <link href="__CSS__/common.css" rel="stylesheet" >
+    <script src="__JS__/jquery-1.11.1.min.js"></script>
+    <script src="__JS__/swiper-3.4.2.jquery.min.js"></script>
+    <script src="__JS__/common.js"></script>
+    <script src="__JS__/pop.lwx.min.js"></script>
+    <script src="__STATIC__/jquery.cookie.js"></script>
+  </head>
+  <body <if condition="CONTROLLER_NAME eq 'Search'"> class="searchpage" <elseif condition="CONTROLLER_NAME eq 'Article'"/>class="newspage" <elseif condition="ACTION_NAME eq 'mall_record'"/> class="integral-record"<elseif condition="ACTION_NAME eq 'user_balance'"/> class="user-balance"<elseif condition="ACTION_NAME eq 'user_nickname'"/> class="user-nickname"<elseif condition="ACTION_NAME eq 'user_auth' or ACTION_NAME eq 'user_bind_phone'"/> class="user-auth"<elseif condition="ACTION_NAME eq 'user_auth' or ACTION_NAME eq 'user_bind_modify'"/> class="user-auth"<elseif condition="ACTION_NAME eq 'user_auth' or ACTION_NAME eq 'user_bind_modifyed'"/> class="user-auth"<elseif condition="ACTION_NAME eq 'user_auth' or ACTION_NAME eq 'user_password'"/> class="user-auth" <elseif condition="ACTION_NAME eq 'user_address'"/> class="user-balance" <elseif condition="ACTION_NAME eq 'user_gift'"/> class="user-gift" <elseif condition="ACTION_NAME eq 'user_collectioned'"/> class="user-collection" <elseif condition="ACTION_NAME eq 'user_collection'"/> class="user-collection" <elseif condition="ACTION_NAME eq 'user_contact'"/> class="user-contact" <elseif condition="ACTION_NAME eq 'user_argeement'"/> class="user-contact"<elseif condition="ACTION_NAME eq 'user_message'"/> class="user-message"<elseif condition="ACTION_NAME eq 'mall' and $data.count eq 0 " /> class="mall-empty-mainer"<elseif condition="ACTION_NAME eq 'user_bind_account' " /> class="user-accunt" </if> >
+    <block name="body"></block>	
+
+    <footer class="footer">
+      <section class="wrap">
+        <div class="nav table">
+          <a class="item table-cell <if condition='CONTROLLER_NAME eq "Index"'>active</if>" href="{:U('Index/index')}"><i class="icon icon-home"></i><span>首页</span></a>
+          <a class="item table-cell <if condition='CONTROLLER_NAME eq "Game"'>active</if>" href="{:U('Game/index')}"><i class="icon icon-game"></i><span>游戏</span></a>
+          <a class="item table-cell <if condition='CONTROLLER_NAME eq "Gift"'>active</if>" href="{:U('Gift/index')}"><i class="icon icon-gift"></i><span>礼包</span></a>
+          <a class="jsshopmall item table-cell <if condition='CONTROLLER_NAME eq "PointShop"'>active</if>" href="{:U('PointShop/mall')}"><i class="icon icon-mall"><if condition="$mallissignin eq 1"><i class="circle"></i></if></i><span>商城</span></a>
+          <a class="item table-cell <if condition='CONTROLLER_NAME eq "Subscriber"'>active</if>" href="{:U('Subscriber/user')}"><i class="icon icon-user"><if condition="$newmsg eq 1"><i class="circle"></i></if></i><span>我的</span></a>
+        </div>
+      </section>
+    </footer>
+    {$logdiv}
+    <div class="loginbutdiv hidden">
+        <if condition="$wx_login eq 1 and is_weixin()">
+          <a href="javascript:;" onclick="register('weixin')" class="butn"><img src="__IMG__/login_third_weixin.png"></a>
+        </if>
+        <if condition="$qq_login eq 1">
+          <a href="javascript:;" onclick="register('qq')" class="butn"><img src="__IMG__/login_third_qq.png"></a>
+        </if>
+        <if condition="$wb_login eq 1">
+          <a href="javascript:;" onclick="register('weibo')" class="butn"><img src="__IMG__/login_third_sina.png"></a> 
+        </if>
+        <if condition="$bd_login eq 1">
+          <a href="javascript:;" onclick="register('baidu')" class="butn"><img src="__IMG__/icon_baidu@3x.png"></a>
+        </if>
+    </div>
+      <div class="float_contact">
+		  <a href="mqqwpa://im/chat?chat_type=wpa&amp;uin={:C('PC_SET_SERVER_QQ')}&amp;version=1&amp;src_type=web&amp;web_src=oicqzone.com">
+			<img src="__IMG__/btn_normal_kefu@2x.png" class="float_contact_img">
+		  </a>
+	  </div>
+
+  
+    <a style="display:none" href="#shell/WXThirdLogin" id="weixinThirdLogin"></a>
+    <a style="display:none" href="#shell/QQThirdLogin" id="qqThirdLogin"></a>
+    <form id="app_third_login" action="{:U('Subscriber/app_third_login')}" method="post" enctype="multipart/form-data" style="display:none">
+      <input type="text" name="openID" id="openID"/></p>
+      <input type="text" name="nickName" id="nickName"  />
+      <input type="text" name="icon" id="icon"/>
+      <input type="text" name="logintype" id="logintype"/>
+      <input type="text" name="gid" value="{:I('game_id')}"/>
+      <input type="text" name="pid" value="{:(session('union_host')['union_id'])?(session('union_host')['union_id']):$promote_id}"/>
+      <input type="submit" value="提交" />
+    </form>
+	<script>
+	$(function(){
+		$(".swiper-container").css("overflow:","scroll");
+		}
+	)
+	</script>
+    <script>
+      var gid = "{$game_id}";
+      var pid = "{$promote_id}";
+      var open_name_auth = 0;
+      var name_auth_tip = '';
+      var $bindphoneadd = "{$bindphoneadd}";
+      <if condition="$open_name_auth eq 1">
+          var open_name_auth = "{$open_name_auth}";
+          var name_auth_tip = "{$name_auth_tip}";
+      </if>
+    </script>
+    <script>
+
+        $("body").on("click",'.butnbox a.butnlogin',function(){
+            res = jslogin();
+            return res;
+        });
+        function jslogin(){
+            $uid = "{:is_login()}";
+            if($uid<=0){
+              $('.jslogin').click();
+              return false;
+            }else{
+              return true;
+            }
+        }
+    </script>
+    <script type="text/javascript">
+      url = "{$_SERVER['HTTP_HOST']}"+"{:U('Subscriber/serverNotice')}";
+      // WebSocketTest(url);
+      function WebSocketTest(url){
+        if ("WebSocket" in window)
+        {
+           // 打开一个 web socket
+           var ws = new WebSocket("ws://"+url);
+           ws.onopen = function()
+           {
+              // Web Socket 已连接上，使用 send() 方法发送数据
+              ws.send("发送数据");
+              alert("数据发送中...");
+           };
+           ws.onmessage = function (evt) 
+           { 
+              var received_msg = evt.data;
+              alert("数据已接收...");
+           };
+           ws.onclose = function()
+           { 
+              // 关闭 websocket
+              alert("连接已关闭..."); 
+           };
+        }
+        else
+        {
+           // 浏览器不支持 WebSocket
+           alert("您的浏览器不支持 WebSocket!");
+        }
+      }
+    </script>
+  <script type="text/javascript">
+      //设置cookie有效期
+      var date = new Date();
+      date.setTime( date.getTime()+30*1000);//有效期30秒
+
+      if(!$.cookie('access_log')){
+          //存入cookie
+          $.cookie('access_log','1',{ expires: date });
+          var url = "{:U('base/access_log')}";
+          $.post(url,'',function(res){})
+      }
+  </script>
+<notempty name="isweixin">
+  <script src="__STATIC__/jweixin-1.2.0.js"></script>
+  <script>
+      wx.config({
+          debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+          appId: '{$appid}', // 必填，公众号的唯一标识
+          timestamp: '{$timestamp}', // 必填，生成签名的时间戳
+          nonceStr: '{$noncestr}', // 必填，生成签名的随机串
+          signature: '{$signature}',// 必填，签名
+          jsApiList: [
+              'onMenuShareTimeline',
+              'onMenuShareAppMessage',
+              'chooseImage',
+              'scanQRCode'
+          ] // 必填，需要使用的JS接口列表
+      });
+      wx.ready(function(){
+          wx.onMenuShareTimeline({
+              //title: '', // 分享标题
+              desc: '{$share_decri}', // 分享描述
+              link: '{$url}', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+              imgUrl: '{$share_img}', // 分享图标
+          });
+          wx.onMenuShareAppMessage({
+              //title: 'test2', // 分享标题
+              desc: '{$share_decri}', // 分享描述
+              link: '{$url}', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+              imgUrl: '{$share_img}', // 分享图标
+              type: 'link', // 分享类型,music、video或link，不填默认为link
+              dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+          });
+      });
+  </script>
+</notempty>
+  </body>
+</html>

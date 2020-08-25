@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta charset="UTF-8">
+    <title>邀请详情|溪谷软件管理平台</title>
+    <link href="http://admin.vlcms.com/Public/icon.ico" type="image/x-icon" rel="shortcut icon">
+    <link rel="stylesheet" type="text/css" href="__CSS__/base.css" media="all">
+    <link rel="stylesheet" type="text/css" href="__CSS__/common.css" media="all">
+    <link rel="stylesheet" type="text/css" href="__CSS__/module.css">
+    <link rel="stylesheet" type="text/css" href="__CSS__/style.css" media="all">
+	<link rel="stylesheet" type="text/css" href="__CSS__/default_color.css" media="all">
+    <script type="text/javascript" src="__STATIC__/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="__JS__/jquery.mousewheel.js"></script>    
+</head>
+	<style>
+body{ padding: 0px; }
+	</style>
+<body>  
+    <div id="main" class="main" style="min-height: 342px;">
+	<div class="cf">
+	
+	</div>
+
+    <!-- 数据列表 -->
+    <div class="data_list box_mt">
+        <div class="">
+            <table>
+                <!-- 表头 -->
+                <thead>
+                    <tr>
+                        <th>玩家账号</th>
+                        <th>获得平台币</th>
+                        <th>创建时间</th>
+                    </tr>
+                </thead>
+
+                <!-- 列表 -->
+                <tbody>
+                	<volist name="data" id="vo">
+                        <tr>
+                            <td>{$vo.user_account}</td>
+                            <td>{$vo.coin}</td>
+                            <td>{$vo.create_time|date='Y-m-d H:i:s',###}</td>
+
+                        </tr>
+                    </volist>
+              </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="page">
+    {$_page}
+            </div>
+    ﻿         
+        </div>
+</body>
+</html>
+    

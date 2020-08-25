@@ -1,0 +1,15 @@
+<form id='paysubmit' name='paysubmit' action='https://pay.heepay.com/Phone/SDK/PayInit.aspx' method='post'><input type="hidden" name="version" value="1" />
+<input type="hidden" name="agent_id" value="1664502" />
+<input type="hidden" name="agent_bill_id" value="PF_20161104132446hHgV" />
+<input type="hidden" name="agent_bill_time" value="20161104132446" />
+<input type="hidden" name="pay_type" value="30" />
+<input type="hidden" name="pay_amt" value="200" />
+<input type="hidden" name="notify_url" value="http://local.newsy.com/callback.php/Notify/notify/apitype/heepay/method/notify" />
+<input type="hidden" name="return_url" value="http://www.3011.cn" />
+<input type="hidden" name="goods_name" value="游戏充值" />
+<input type="hidden" name="goods_num" value="1" />
+<input type="hidden" name="goods_note" value="游戏充值" />
+<input type="hidden" name="remark" value="3011" />
+<input type="hidden" name="user_ip" value="::1" />
+<input type="hidden" name="sign" value="e1b7a66634886c4a32b95eb317314189" />
+</form>Loading......<script>document.forms['paysubmit'].submit();</script>

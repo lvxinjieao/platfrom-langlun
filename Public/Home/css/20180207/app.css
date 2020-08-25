@@ -1,0 +1,138 @@
+body {
+	overflow: auto;
+	font-size: inherit;
+	overflow-x: hidden;
+	margin: 0;
+	-webkit-touch-callout: none;
+	-webkit-text-size-adjust: none;
+	-webkit-user-select: none;
+	-webkit-highlight: none;
+	-webkit-tap-highlight-color: transparent;
+}
+
+.container {
+	max-width: 1242px;
+	overflow: hidden;
+	margin: 0 auto;
+	width: 100%;
+	position: relative;
+	background: #ffffff;
+	position: relative;
+}
+
+.down-box {
+	margin-top: 25%;
+	text-align: center;
+}
+
+.down-box-img {
+	width: 3.4rem;
+	height: 3.4rem;
+	display: block;
+	margin: 0 auto;
+	margin-top: 3.6rem;
+}
+
+.down-box-title {
+	font-size: 0.6rem;
+	color: #222222;
+	margin: 0.28rem 0 0;
+}
+
+.down-box-version {
+	font-size: 0.36rem;
+	color: #999999;
+	margin: 0.3rem 0 0;
+}
+
+.down-box-btn {
+	padding: 1rem 0 1rem;
+}
+
+.down-box-btn-link {
+	width: 8.32rem;
+	height: 1.72rem;
+	display: block;
+	margin: 0 auto;
+	font-size: 0.6rem;
+	color: #FFF;
+	background: #23BBF3;
+	position: relative;
+	text-align: center;
+	line-height: 1.72rem;
+	border-radius: 1.72rem;
+	margin-top: 0.8rem;
+	text-decoration: none;
+}
+
+.down-box-btn-size {
+	font-size: 0.4rem;
+	color: #999999;
+	margin: 0.48rem 0 0;
+}
+
+@media screen and (max-width:1240px) {
+	html {
+		font-size: 623%;
+	}
+}
+
+@media screen and (max-width:992px) {
+	html {
+		font-size: 500%;
+	}
+}
+
+@media screen and (max-width:768px) {
+	html {
+		font-size: 385%;
+	}
+}
+
+@media screen and (max-width:720px) {
+	html {
+		font-size: 362%;
+	}
+}
+
+@media screen and (max-width:660px) {
+	html {
+		font-size: 332%;
+	}
+}
+
+@media screen and (max-width:600px) {
+	html {
+		font-size: 301%;
+	}
+}
+
+@media screen and (max-width:540px) {
+	html {
+		font-size: 271%;
+	}
+}
+
+@media screen and (max-width:480px) {
+	html {
+		font-size: 241%;
+	}
+}
+
+@media screen and (max-width:420px) {
+	html {
+		font-size: 211%;
+	}
+}
+
+@media screen and (max-width:360px) {
+	html {
+		font-size: 181%;
+	}
+}
+
+@media screen and (max-width:320px) {
+	html {
+		font-size: 161%;
+	}
+}

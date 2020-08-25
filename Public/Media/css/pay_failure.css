@@ -1,0 +1,224 @@
+
+/*
+* @description: 充值结果页面样式
+ *@author:王奉
+* @update: name(xxxx-xx-xx xx:xx)
+ */
+#container {
+	height: 100% !important;
+}
+
+#czjgbox {
+	width: 916px;
+	overflow: hidden;
+	zoom: 1;
+	margin: 20px auto 20px auto;
+}
+
+#czjgbox .jgboxTop {
+	height: 10px;
+	overflow: hidden;
+	zoom: 1;
+	background: url(../images/czjgBox.png) no-repeat 0px 0px;
+}
+
+#czjgbox .jgboxBottom {
+	height: 10px;
+	overflow: hidden;
+	zoom: 1;
+	background: url(../images/czjgBox.png) no-repeat -916px 0px;
+}
+
+#czjgbox .jgCon {
+	width: 906px;
+	overflow: hidden;
+	zoom: 1;
+	border: 5px #e2e1e1 solid;
+	background: #fff;
+}
+
+.jgCon .jgimg,
+.succedimg {
+	float: left;
+	width: 190px;
+	height: 145px;
+	overflow: hidden;
+	display: inline;
+	margin: 25px 0px 0px 40px;
+}
+
+.jgCon_cg .jgimg,
+.succedimg {
+	background: url(../images/czjgImg.png) no-repeat 0px 0px;
+	text-indent: -999em;
+}
+
+.jgCon_sb .jgimg {
+	background: url(../images/czjgImg.png) no-repeat -195px -5px;
+	text-indent: -999em;
+}
+
+.czinfo {
+	float: left;
+	width: 610px;
+	overflow: hidden;
+	zoom: 1;
+	display: inline;
+	margin: 30px 0px 0px 30px;
+	padding-bottom: 30px;
+}
+
+.czinfo_title,
+.succed_czinfo_title {
+	overflow: hidden;
+	zoom: 1;
+	padding-bottom: 18px;
+	border-bottom: 1px #E3E3E3 dashed;
+	margin-bottom: 15px;
+	padding-left: 10px;
+}
+
+.succed_czinfo_title {
+	font-size: 20px;
+}
+
+.czinfo h1 span {
+	float: left;
+	color: #000;
+	font: bold 18px/25px arial "微软雅黑";
+	height: 60px;
+	overflow: hidden;
+	line-height: 30px;
+}
+
+.czinfo h1 span font {
+	font: bold 18px/25px arial "微软雅黑";
+	color: #d70000;
+}
+
+.jgCon_sb h1 span {
+	float: none;
+	display: block;
+}
+
+.jgCon_sb h1 em {
+	display: block;
+	font-style: normal;
+	line-height: 40px;
+	height:40px;
+	overflow: hidden;
+	zoom: 1;
+	margin-top: 15px;
+}
+
+.jgCon_sb h1 em b {
+	color: #888;
+	font-weight: 300;
+	float: left;
+	line-height: 21px;
+	height: 21x;
+}
+
+.jgCon_sb_link,
+.jgCon_sb_balance {
+	float: left;
+	width: 77px;
+	height: 21px;
+	background: url(../images/czjgImg.png) no-repeat -78px -154px;
+	text-indent: -999em;
+	margin-top: 0px;
+	display: inline;
+	margin-left: 5px;
+}
+
+.jgCon_sb_balance {
+	background: url(../images/czjgImg.png) no-repeat -1px -154px;
+	margin-top: -22px;
+	margin-left: 180px;
+}
+
+.czinfo dl {
+	overflow: hidden;
+	zoom: 1;
+	padding: 5px 0px 5px 10px;
+}
+
+.czinfo dl dt,
+.czinfo dl dd {
+	float: left;
+	line-height: 20px;
+	height: 20px;
+	overflow: hidden;
+	font: 300 12px/20px "宋体";
+}
+
+.czinfo dl dt {
+	color: #797979;
+	width: 100px;
+	overflow: hidden;
+	zoom: 1;
+	text-align: right;
+}
+
+.czinfo dl dd {
+	color: #454545;
+	padding-left: 5px;
+}
+
+.czinfo dl dd i {
+	font-style: normal;
+	color: #d70000;
+}
+
+.czinfo dl dd b {
+	color: #08c;
+}
+
+.czinfo dl dd em {
+	font-style: normal;
+}
+
+.czinfo dl .czinfo_game {
+	color: #4ca3d9;
+}
+
+.czinfo dl dd em font {
+	color: #fb7b00;
+	font: bold 12px/20px Arial, Helvetica, sans-serif;
+	margin: 0px 5px 0px 0px;
+}
+
+.czinfo ul {
+	overflow: hidden;
+	zoom: 1;
+	padding-top: 18px;
+	padding-left: 10px;
+}
+
+.czinfo ul li {
+	float: left;
+	display: inline;
+	margin-right: 10px;
+}
+
+.czinfo ul li a {
+	display: block;
+	overflow: hidden;
+	height: 30px;
+	text-indent: -999em;
+}
+
+.czinfo ul li .czjgBtn1 {
+	width: 110px;
+	background: url(../images/czjgImg.png) no-repeat -1px -176px;
+}
+
+.czinfo ul li .czjgBtn2 {
+	width: 82px;
+	background: url(../images/czjgImg.png) no-repeat -121px -176px;
+}
+
+.czinfo ul li .czjgBtn3 {
+	width: 110px;
+	background: url(../images/czjgImg.png) no-repeat -213px -176px;
+}

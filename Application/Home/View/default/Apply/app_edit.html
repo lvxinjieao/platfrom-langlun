@@ -1,0 +1,218 @@
+<extend name="Public/promote_base"/>
+<block name="css">
+<link rel="stylesheet" href="__CSS__/UploadImages.css">
+<link href="__CSS__/20180207/mixed.css" rel="stylesheet">
+</block>
+
+<block name="body">
+    <div class="page-list normal_list apply-app_apply-list">
+        <div class="trunk-title">
+            <div class="location">
+                <div class="location-container">当前位置：<span>游戏管理></span><span>编辑APP信息</span></div>
+            </div>
+            <img src="__IMG__/20180207/icon_normal_app.png"><span class="title_main">编辑APP信息</span>
+        </div>
+      <div class="trunk-content article">
+        <div class="trunk-list">
+            <form id="data" action="" novalidate="novalidate" method="post" >
+                <table class="table2">
+                    <tr>
+                        <td class="l">APP名称：</td>
+                        <td class="r"><input type="text" name="app_name" class="name txt" maxlength ="20" value="{$data.app_name}" placeholder="APP名称"></td>
+                    </tr>
+                    <tr>
+                        <td class="l">APP版本号：</td>
+                        <td class="r"><input type="text" name="version" class="name txt" maxlength ="20" value="{$data.version}" placeholder="APP版本号"></td>
+                    </tr>
+
+                    <tr>
+                        <td class="l">APP图标：</td>
+                        <td class="r">
+                            <div class="upload-img-box" >
+                                <notempty name="data['icon']" >
+                                    <div class="upload-pre-item"  >
+                                      <img src="{:get_cover($data['icon'],'path')}" height="120px" >
+                                      <span class="btn-close btn-close-pc" title="删除图片"></span>
+                                    </div>
+                                </notempty>
+                            </div>
+                            <input type="file" id="icon">
+                            <input type="hidden" name="icon" id="background_id" value="{$data.icon}" />
+                            <span class="noticetxt">(建议尺寸：340*340px)</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="l">背景图：</td>
+                        <td class="r">
+                            <div class="upload-img-box">
+                                <notempty name="data['back_img']">
+                                    <div class="upload-pre-item"><img src="{:get_cover($data['back_img'],'path')}" height="120px">
+                                    <span class="btn-close btn-close-wap" title="删除图片"></span></div>
+                                </notempty>
+                            </div>
+                            <input type="file" id="back_img">
+                            <input type="hidden" name="back_img" id="logo_id" value="{$data.back_img}" />
+                            <span class="noticetxt">(建议尺寸：750*1334px)</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="l"></td>
+                        <td class="r">
+                            <input name="id" type="hidden" value="{$data.id}">
+                            <button type="button" class="tjbnt btn" onclick="save()">确定</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+      </div>
+    </div>
+</block>
+<block name="script">
+  <script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+  <script type="text/javascript" src="__JS__/UploadImages.js"></script>
+  
+  <script type="text/javascript">
+  $(document).ready(function() {
+  });
+
+function btnclosepc() {
+$('.btn-close-pc').click(function(event) {
+    event.preventDefault();
+    $(this).parent().remove();console.log(111);
+    picsbox = $("#icon").siblings('.upload-img-box');
+    picArr = [];
+    for (var i = 0; i < picsbox.children().length ; i++) {
+        picArr.push(picsbox.children('.upload-pre-item:eq('+i+')').find('img').attr('data-id'));
+    };
+    picStr = picArr.join(',');
+    $('#background_id').val(picStr);
+});
+}
+//删除图片
+function btnclosewap() {
+$('.btn-close-wap').click(function(event) {
+    event.preventDefault();
+    $(this).parent().remove();
+    picsbox = $("#back_img").siblings('.upload-img-box');
+    picArr = [];
+    for (var i = 0; i < picsbox.children().length ; i++) {
+        picArr.push(picsbox.children('.upload-pre-item:eq('+i+')').find('img').attr('data-id'));
+    };
+    picStr = picArr.join(',');
+    $('#logo_id').val(picStr);
+});
+}
+btnclosepc();
+btnclosewap();
+  /* 初始化上传插件 */
+  $("#icon").uploadify({
+      "height"          : 38,
+      "swf"             : "__STATIC__/uploadify/uploadify.swf",
+      "fileObjName"     : "download",
+      "buttonText"      : "上传图片",
+      "uploader"        : "{:U('File/uploadPicture',array('session_id'=>session_id()))}",
+      "width"           : 120,
+      'removeTimeout'   : 1,
+      'fileTypeExts'    : '*.jpg; *.png; *.gif;',
+      "onUploadSuccess" : upload_icon{$field.name},
+  'onFallback' : function() {
+      alert('未检测到兼容版本的Flash.');
+  }
+  });
+  function upload_icon{$field.name}(file, data){
+      var data = $.parseJSON(data);
+      var src = '';
+      if(data.status){
+          $("#background_id").val(data.id);
+          src = data.url || '__ROOT__' + data.path;
+          if(src ==''){
+            layer.msg('站点背景图不能为空');
+          }
+          $("#background_id").parent().find('.upload-img-box').html(
+              '<div class="upload-pre-item"><img style="height: 120px;" src="' + src + '"/><span class="btn-close btn-close-pc" title="删除图片"></span></div>'
+          );
+          
+          btnclosepc();
+      } else {
+          updateAlert(data.info);
+          setTimeout(function(){
+              $('#top-alert').find('button').click();
+              $(that).removeClass('disabled').prop('disabled',false);
+          },1500);
+      }
+  }
+  /* 初始化上传插件 */
+  $("#back_img").uploadify({
+      "height"          : 38,
+      "swf"             : "__STATIC__/uploadify/uploadify.swf",
+      "fileObjName"     : "download",
+      "buttonText"      : "上传图片",
+      "uploader"        : "{:U('File/uploadPicture',array('session_id'=>session_id()))}",
+      "width"           : 120,
+      'removeTimeout'   : 1,
+      'fileTypeExts'    : '*.jpg; *.png; *.gif;',
+      "onUploadSuccess" : upload_back_img{$field.name},
+  'onFallback' : function() {
+      alert('未检测到兼容版本的Flash.');
+  }
+  });
+  function upload_back_img{$field.name}(file, data){
+      var data = $.parseJSON(data);
+      var src = '';
+      if(data.status){
+          $("#logo_id").val(data.id);
+          src = data.url || '__ROOT__' + data.path;
+          if(src ==''){
+            layer.msg('站点icon不能为空');
+          }
+          $("#logo_id").parent().find('.upload-img-box').html(
+              '<div class="upload-pre-item" ><img style="height: 120px;" src="' + src + '"/><span class="btn-close btn-close-wap" title="删除图片"></span></div>'
+          );
+          
+          btnclosewap();
+      } else {
+          updateAlert(data.info);
+          setTimeout(function(){
+              $('#top-alert').find('button').click();
+              $(that).removeClass('disabled').prop('disabled',false);
+          },1500);
+      }
+  }
+
+
+
+  var sub = true;
+  function save() {
+      var data = $("#data").serialize();
+      if($("input[name='app_name']").val() == ""){
+    	  layer.msg("APP名称不能为空！");return false;
+      }
+      sub = false;
+      $.ajax({
+          type: "post",
+          url: "{:U('Apply/app_edit')}",
+          dataType: "json",
+          data: data,
+          success: function (res) {
+              if (res.status != 0) {
+                  layer.msg(res.msg, {icon: 1});
+                  setTimeout(function () {
+                      location.href = res.url;
+                  },1000)
+              }
+              else {
+                  sub = true;
+                  layer.msg(res.msg, {icon: 2});
+              }
+          },
+          error: function () {
+              layer.msg('服务器故障', {icon: 5});
+          }
+      })
+  }
+
+
+
+  </script>
+</block>
